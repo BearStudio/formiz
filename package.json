@@ -1,0 +1,15 @@
+{
+  "name": "formiz",
+  "private": true,
+  "author": {
+    "name": "Ivan Dalmet",
+    "email": "ivan@dalmet.fr",
+    "url": "https://github.com/ivan-dalmet"
+  },
+  "scripts": {
+    "bs": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^3.13.3"
+  }
+}
