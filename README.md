@@ -1,6 +1,6 @@
 # [WIP] Formiz
 
-An very easy to use form library for React with hooks based on [Formsy](https://github.com/formsy/formsy-react) concepts.
+Easy to use form library for React with hooks based on [Formsy](https://github.com/formsy/formsy-react) concepts.
 
 ## Why Formiz?
 
@@ -8,20 +8,21 @@ An very easy to use form library for React with hooks based on [Formsy](https://
 - Everything can be an form field, create your own custom fields!
 - Use hooks & cut the complexity to create custom fields :)
 - Out of the box multi steps forms!
+- Easy way to theme fields to your colors.
 
 ## Getting Started
 
-### Install `react-formiz` package
+### Install `@formiz/core` package
 
 ```
-npm install react-formiz
+npm install @formiz/core
 ```
 
 ### Create a form with fields
 
 ```jsx
 import React from 'react'
-import { Form, FieldInput } from 'react-formiz'
+import { Form, FieldInput } from '@formiz/core'
 
 export const MyForm = () => {
   const submitForm = (data) => {
@@ -54,3 +55,78 @@ export const MyForm = () => {
 }
 
 ```
+
+
+## Fields
+
+### FieldInput
+
+```
+import { FieldInput } from '@formiz/core'
+```
+
+// TODO
+
+### FieldTextarea
+
+```
+import { FieldTextarea } from '@formiz/core'
+```
+
+// TODO
+
+### FieldSelect
+
+```
+import { FieldSelect } from '@formiz/core'
+```
+
+// TODO
+
+### FieldBoolean
+
+```
+import { FieldBoolean } from '@formiz/core'
+```
+
+// TODO
+
+### FieldCheckboxes
+
+```
+import { FieldCheckboxes } from '@formiz/core'
+```
+
+// TODO
+
+### FieldRadios
+
+```
+import { FieldRadios } from '@formiz/core'
+```
+
+// TODO
+
+// TODO
+
+
+## Multi Steps Form
+
+// TODO
+
+## Theming
+
+// TODO
+
+## Plugins
+
+### FieldCodemirror
+
+```
+import { FieldCodemirror } from '@formiz/plugin-codemirror'
+```
+
+// TODO
+
+
+
