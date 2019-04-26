@@ -8,6 +8,17 @@ This is a **👩‍🔬 work in progress** repo.
 
 This is **Proof of Concept** of 📚 documentation and doesn't reflect any existing code.
 
+## 📋 TODO
+
+- [x] Write Proof of Concept 📚 documentation
+- [ ] Develop a Proof of Concept for `<Form>` component and a custom field with `useFormiz()` hook.
+- [ ] Develop a Proof of Concept for `<FormStep>` for multi steps forms.
+- [ ] Publish `@formiz/core` package with `<Form>`, `<FormStep>` and `useFormiz()`.
+- [ ] Move documentation to Docz.
+- [ ] Publish `@formiz/validations` package.
+- [ ] Publish `@formiz/fields` package.
+- [ ] Add theming possiblities.
+
 ---
 
 Easy to use form library for React with hooks based on [Formsy](https://github.com/formsy/formsy-react) concepts.
