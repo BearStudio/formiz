@@ -11,9 +11,9 @@ This is **Proof of Concept** of 📚 documentation and doesn't reflect any exist
 ## 📋 TODO
 
 - [x] Write Proof of Concept 📚 documentation
-- [ ] Develop a Proof of Concept for `<Form>` component and a custom field with `useFormiz()` hook.
-- [ ] Develop a Proof of Concept for `<FormStep>` for multi steps forms.
-- [ ] Publish `@formiz/core` package with `<Form>`, `<FormStep>` and `useFormiz()`.
+- [ ] Develop a Proof of Concept for `<Formiz>` component and a custom field with `useFormiz()` hook.
+- [ ] Develop a Proof of Concept for `<FormizStep>` for multi steps forms.
+- [ ] Publish `@formiz/core` package with `<Formiz>`, `<FormizStep>` and `useFormiz()`.
 - [ ] Move documentation to Docz.
 - [ ] Publish `@formiz/validations` package.
 - [ ] Publish `@formiz/fields` package.
@@ -43,7 +43,7 @@ npm install @formiz/core @formiz/fields
 
 ```jsx
 import React from 'react'
-import { Form } from '@formiz/core'
+import { Formiz } from '@formiz/core'
 import { FieldInput } from '@formiz/fields'
 
 export const MyForm = () => {
@@ -52,7 +52,7 @@ export const MyForm = () => {
   }
 
   return (
-    <Form onValidSubmit={submitForm} >
+    <Formiz onValidSubmit={submitForm} >
       <FieldInput
         name="firstname"
         label="First Name"
@@ -66,7 +66,7 @@ export const MyForm = () => {
       <button type="submit">
         Submit
       </button>
-    </Form>
+    </Formiz>
   )
 }
 ```
@@ -326,7 +326,7 @@ import { ruleName } from '@formiz/validations'
 ## Handle API errors
 
 ```jsx
-<Form
+<Formiz
   onValidSubmit={(values, { invalidateFields }) => {
     invalidateFields({
       fieldName: 'Error message',
@@ -334,7 +334,7 @@ import { ruleName } from '@formiz/validations'
   }}
 />
   // Put your fields here
-</Form>
+</Formiz>
 ```
 
 ---
@@ -343,7 +343,7 @@ import { ruleName } from '@formiz/validations'
 
 ```jsx
 import React, { Fragment } from 'react'
-import { Form, FormStep } from '@formiz/core'
+import { Formiz, FormizStep } from '@formiz/core'
 import { FieldInput } from '@formiz/fields'
 
 export const MyForm = () => {
@@ -352,23 +352,23 @@ export const MyForm = () => {
   }
 
   return (
-    <Form onValidSubmit={submitForm} >
+    <Formiz onValidSubmit={submitForm} >
       {({ isFirstStep, isLastStep, prevStep, nextStep }) => (
         <Fragment>
-          <FormStep>
+          <FormizStep>
             <FieldInput
               name="firstname"
               label="First Name"
               isRequired="First Name is required"
             />
-          </FormStep>
-          <FormStep>
+          </FormizStep>
+          <FormizStep>
             <FieldInput
               name="lastname"
               label="Last Name"
               isRequired="Last Name is required"
             />
-          </FormStep>
+          </FormizStep>
           <div>
             {isFirstStep ? (
               <button type="text" onClick={() => window.history.back()}>
@@ -392,7 +392,7 @@ export const MyForm = () => {
           </div>
         </Fragment>
       )}
-    </Form>
+    </Formiz>
   )
 }
 ```
@@ -511,7 +511,7 @@ const MyField = (props) => {
 
 ```jsx
 import React from 'react'
-import { Form } from '@formiz/core'
+import { Formiz } from '@formiz/core'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
@@ -520,7 +520,7 @@ export const MyForm = () => {
   }
 
   return (
-    <Form onValidSubmit={submitForm} >
+    <Formiz onValidSubmit={submitForm} >
       <MyField
         name="myCustomField"
         customProperty="Custom Field"
@@ -529,7 +529,7 @@ export const MyForm = () => {
       <button type="submit">
         Submit
       </button>
-    </Form>
+    </Formiz>
   )
 }
 ```
@@ -554,7 +554,7 @@ npm install @formiz/plugin-codemirror
 
 ```jsx
 import React from 'react'
-import { Form } from '@formiz/core'
+import { Formiz } from '@formiz/core'
 import { FieldCodemirror } from '@formiz/plugin-codemirror'
 
 export const MyForm = () => {
@@ -563,7 +563,7 @@ export const MyForm = () => {
   }
 
   return (
-    <Form onValidSubmit={submitForm} >
+    <Formiz onValidSubmit={submitForm} >
       <FieldCodemirror
         name="code"
         label="Code"
@@ -572,7 +572,7 @@ export const MyForm = () => {
       <button type="submit">
         Submit
       </button>
-    </Form>
+    </Formiz>
   )
 }
 ```

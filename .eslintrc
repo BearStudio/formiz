@@ -11,6 +11,8 @@
     "no-trailing-spaces": ["warn"],
     "no-unused-vars": ["warn"],
     "react/forbid-prop-types": ["warn"],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/label-has-for": ["off"],
+    "jsx-a11y/label-has-associated-control": ["off"]
   }
 }

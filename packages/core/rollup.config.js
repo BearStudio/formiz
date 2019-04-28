@@ -10,6 +10,7 @@ const config = ({ output, format }) => ({
     name: 'formiz-core',
     file: output,
     format,
+    sourcemap: true,
     globals: {
       'prop-types': 'PropTypes',
       react: 'React',
