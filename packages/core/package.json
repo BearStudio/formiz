@@ -1,7 +1,32 @@
 {
   "name": "@formiz/core",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/plugin-proposal-class-properties": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "@babel/preset-react": "7.0.0",
+    "rollup": "1.10.1",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-node-resolve": "4.2.3",
+    "rollup-plugin-terser": "4.0.4",
+    "rollup-plugin-visualizer": "1.1.1"
   }
 }
