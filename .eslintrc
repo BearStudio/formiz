@@ -1,5 +1,8 @@
 {
   "extends": "airbnb",
+  "env": {
+    "jest": true
+  },
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "import/no-unresolved": ["off"],

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
+import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
 export const FormContext = React.createContext();
 
-const initialState = {
+export const initialState = {
   fields: [],
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   const { name, value } = action.payload || {};
 
   switch (action.type) {
@@ -19,6 +19,7 @@ const reducer = (state, action) => {
         {
           ...state.fields.find(field => field.name === name) || {},
           name,
+          value: value || null,
           isEnabled: true,
         },
       ],
@@ -56,33 +57,25 @@ const reducer = (state, action) => {
   }
 };
 
-export const FormContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return (
-    <FormContext.Provider value={{ state, dispatch }}>
-      {children}
-    </FormContext.Provider>
-  );
-};
-
-FormContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 export const useFormContext = () => useContext(FormContext);
 
-export const useField = ({ name }) => {
-  const { state, dispatch } = useFormContext();
-
+export const useField = ({ name, defaultValue }) => {
   if (!name) {
-    throw new Error('A Formiz field always needs a `name` attribute.');
+    throw ErrorFieldWithoutName;
   }
+
+  const formContext = useFormContext();
+
+  if (!formContext) {
+    throw ErrorFieldWithoutForm;
+  }
+
+  const { state, dispatch } = formContext;
 
   useEffect(() => {
     dispatch({
       type: 'field.register',
-      payload: { name },
+      payload: { name, value: defaultValue },
     });
 
     return () => {
