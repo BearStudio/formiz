@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { silent, Input } from './utils';
 import { Formiz } from '../src';
-import { FormContextProvider } from '../src/FormContextProvider';
-import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from '../src/errors';
+import { FormContextProvider } from '../src/FormContext';
+import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from '../src/useField/errors';
 
 describe('Fields using `useFormiz()`', () => {
   it('Should crash if field is mount outside of `<FormContextProvider>`', () => {

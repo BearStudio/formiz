@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useFormContext } from './context';
+import { useFormContext } from '../FormContext';
 
 export const propTypes = {
   children: PropTypes.node,
