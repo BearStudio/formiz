@@ -7,13 +7,9 @@
     "url": "https://github.com/ivan-dalmet"
   },
   "scripts": {
-    "bs": "lerna bootstrap",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "bs": "lerna bootstrap"
   },
   "devDependencies": {
-    "docz": "^1.1.0",
-    "docz-theme-default": "^1.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
@@ -23,6 +19,7 @@
   },
   "workspaces": [
     "examples/*",
+    "docs/*",
     "packages/*"
   ]
 }
