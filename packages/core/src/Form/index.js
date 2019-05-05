@@ -14,7 +14,7 @@ export const Form = ({ children }) => {
   const { state } = useFormContext();
 
   const getValues = fields => fields
-    .filter(field => field.isEnabled)
+    .filter(field => field.isActive)
     .reduce((prev, cur) => ({
       ...prev,
       [cur.name]: cur.value,

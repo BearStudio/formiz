@@ -2,39 +2,64 @@ export const initialState = {
   fields: [],
 };
 
-export const formReset = () => () => initialState;
+export const fieldRegister = (name, value = null) => (state) => {
+  const field = state.fields.find(x => x.name === name) || {};
 
-export const fieldRegister = (name, value = null) => state => ({
-  ...state,
-  fields: [
-    ...state.fields.filter(field => field.name !== name),
-    {
-      ...state.fields.find(field => field.name === name) || {},
-      name,
-      value: value || null,
-      isEnabled: true,
-    },
-  ],
-});
+  return {
+    ...state,
+    fields: [
+      ...state.fields.filter(x => x.name !== name),
+      {
+        ...field,
+        name,
+        value: field.value || value || null,
+        isActive: true,
+      },
+    ],
+  };
+};
 
-export const fieldUnregister = name => state => ({
-  ...state,
-  fields: [
-    ...state.fields.filter(field => field.name !== name),
-    {
-      ...state.fields.find(field => field.name === name) || {},
-      isEnabled: false,
-    },
-  ],
-});
+export const fieldUnregister = (name, isCleaned) => (state) => {
+  const field = state.fields.find(x => x.name === name);
 
-export const fieldSetValue = (name, value) => state => ({
-  ...state,
-  fields: [
-    ...state.fields.filter(field => field.name !== name),
-    {
-      ...state.fields.find(field => field.name === name),
-      value,
-    },
-  ],
-});
+  if (!field) {
+    return state;
+  }
+
+  if (isCleaned) {
+    return {
+      ...state,
+      fields: state.fields.filter(x => x.name !== name),
+    };
+  }
+
+  return {
+    ...state,
+    fields: [
+      ...state.fields.filter(x => x.name !== name),
+      {
+        ...field,
+        isActive: false,
+      },
+    ],
+  };
+};
+
+export const fieldSetValue = (name, value) => (state) => {
+  const field = state.fields.find(x => x.name === name);
+
+  if (!field) {
+    return state;
+  }
+
+  return {
+    ...state,
+    fields: [
+      ...state.fields.filter(x => x.name !== name),
+      {
+        ...state.fields.find(x => x.name === name),
+        value,
+      },
+    ],
+  };
+};
