@@ -20,8 +20,7 @@
     "setupFilesAfterEnv": ["<rootDir>enzyme.config.js"],
     "collectCoverageFrom": [
       "./src/**/*.js"
-    ],
-    "verbose": true
+    ]
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
