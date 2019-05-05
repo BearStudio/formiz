@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { actions, initialState } from './actions';
+import { initialState } from './actions';
 
 export const FormContext = React.createContext();
 
@@ -14,7 +14,7 @@ export const FormContextProvider = ({ children, onStateChange }) => {
   });
 
   return (
-    <FormContext.Provider value={{ state, actions, dispatch }}>
+    <FormContext.Provider value={{ state, dispatch }}>
       {children}
     </FormContext.Provider>
   );

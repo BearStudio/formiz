@@ -73,7 +73,7 @@ export const MyForm = () => {
 
 ---
 
-### Form Props
+### Formiz Props
 
 #### onSubmit(values, actions)
 
@@ -101,7 +101,7 @@ export const MyForm = () => {
 
 ---
 
-### Form Actions
+### Formiz Actions
 
 `onSubmit`, `onValidSubmit`, `onInvalidSubmit` and `onChange` props get a second argument of `actions` which is an object of actions that you can apply to the form.
 
@@ -148,14 +148,6 @@ You can also use dot notation. This will result in a nested object in the form v
   }
 }
 ```
-
-#### label
-
-// TODO
-
-#### helper
-
-// TODO
 
 #### defaultValue
 
@@ -411,10 +403,6 @@ import { useFormiz } from '@formiz/core'
 
 const MyField = (props) => {
   const {
-    name,
-    label,
-    helper,
-    defaultValue,
     value,
     setValue,
     isValid,
@@ -434,22 +422,6 @@ const MyField = (props) => {
 Now your component get ~super powers~ all default Formiz field props!
 
 The `useFormiz` return an object with the following properties:
-
-##### name
-
-// TODO
-
-##### label
-
-// TODO
-
-##### helper
-
-// TODO
-
-##### defaultValue
-
-// TODO
 
 ##### value
 

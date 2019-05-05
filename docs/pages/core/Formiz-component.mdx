@@ -1,0 +1,63 @@
+---
+menu: Core
+name: <Formiz> component
+---
+
+# `<Formiz>` component
+
+## Props
+
+### `onSubmit(values, actions)`
+
+// TODO
+
+### `onValidSubmit(values, actions)`
+
+// TODO
+
+### `onInvalidSubmit(values, actions)`
+
+// TODO
+
+### `onChange(values, actions)`
+
+// TODO
+
+### `onValid()`
+
+// TODO
+
+### `onInvalid()`
+
+// TODO
+
+---
+
+## Actions
+
+`onSubmit`, `onValidSubmit`, `onInvalidSubmit` and `onChange` props get a second argument of `actions` which is an object of actions that you can apply to the form.
+
+### `actions.invalidateFields()`
+
+// TODO
+
+### `actions.resetForm()`
+
+// TODO
+
+---
+
+## Handle API errors
+
+
+```jsx
+<Formiz
+  onValidSubmit={(values, { invalidateFields }) => {
+    invalidateFields({
+      fieldName: 'Error message',
+    })
+  }}
+/>
+  // Put your fields here
+</Formiz>
+```

@@ -1,0 +1,64 @@
+---
+menu: Core
+name: <FormizStep> component
+---
+
+# `<FormizStep>` component
+
+## Example
+
+```jsx
+import React, { Fragment } from 'react'
+import { Formiz, FormizStep } from '@formiz/core'
+import { FieldInput } from '@formiz/fields'
+
+export const MyForm = () => {
+  const submitForm = (values) => {
+    console.log(values); // { firstname: 'value', lastname: 'value' }
+  }
+
+  return (
+    <Formiz onValidSubmit={submitForm} >
+      {({ isFirstStep, isLastStep, prevStep, nextStep }) => (
+        <Fragment>
+          <FormizStep>
+            <FieldInput
+              name="firstname"
+              label="First Name"
+              isRequired="First Name is required"
+            />
+          </FormizStep>
+          <FormizStep>
+            <FieldInput
+              name="lastname"
+              label="Last Name"
+              isRequired="Last Name is required"
+            />
+          </FormizStep>
+          <div>
+            {isFirstStep ? (
+              <button type="text" onClick={() => window.history.back()}>
+                Cancel
+              </button>
+            ) : (
+              <button type="button" onClick={prevStep}>
+                Back
+              </button>
+            )}
+
+            {isLastStep ? (
+              <button type="submit">
+                Submit
+              </button>
+            ) : (
+              <button type="button" onClick={nextStep}>
+                Continue
+              </button>
+            )}
+          </div>
+        </Fragment>
+      )}
+    </Formiz>
+  )
+}
+```

@@ -1,0 +1,45 @@
+---
+name: Getting Started
+route: /getting-started
+---
+
+# Getting Started
+
+
+### Install Formiz core & fields
+
+```bash
+npm install @formiz/core @formiz/fields
+```
+
+### Create a form with fields
+
+```jsx
+import React from 'react'
+import { Formiz } from '@formiz/core'
+import { FieldInput } from '@formiz/fields'
+
+export const MyForm = () => {
+  const submitForm = (values) => {
+    console.log(values); // { firstname: 'value', lastname: 'value' }
+  }
+
+  return (
+    <Formiz onValidSubmit={submitForm} >
+      <FieldInput
+        name="firstname"
+        label="First Name"
+        isRequired="First Name is required"
+      />
+      <FieldInput
+        name="lastname"
+        label="Last Name"
+        isRequired="Last Name is required"
+      />
+      <button type="submit">
+        Submit
+      </button>
+    </Formiz>
+  )
+}
+```
