@@ -22,7 +22,7 @@ export const Form = ({ children }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted', getValues(state.fields)); // eslint-disable-line
+    console.log('submitted', getValues(state.fields), state); // eslint-disable-line
   };
 
   return (

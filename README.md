@@ -192,6 +192,10 @@ An array of object with:
 />
 ```
 
+#### keepValue
+
+// TODO
+
 #### onChange(value, values)
 
 // TODO
@@ -469,7 +473,7 @@ const MyField = (props) => {
 
   return (
     <div>
-      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} >
+      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} >
       <strong>{ customProperty }</strong>
       {!isValid && (
         <p>{ invalidMessage }</p>

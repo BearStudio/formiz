@@ -5,7 +5,12 @@ import {
 } from '../FormContext/actions';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
-export const useField = ({ name, defaultValue }) => {
+export const useField = ({
+  name,
+  defaultValue,
+  validations,
+  keepValue,
+}) => {
   if (!name) {
     throw ErrorFieldWithoutName;
   }
@@ -19,16 +24,20 @@ export const useField = ({ name, defaultValue }) => {
   const { state, dispatch } = formContext;
 
   useEffect(() => {
-    dispatch(fieldRegister(name, defaultValue));
+    dispatch(fieldRegister(name, defaultValue, validations));
 
     return () => {
-      dispatch(fieldUnregister(name));
+      dispatch(fieldUnregister(name, keepValue));
     };
   }, [name]);
 
   useEffect(() => {
+    // Todo update validations
+  }, [validations]);
+
+  useEffect(() => {
     dispatch(fieldValidate(name));
-  }, [name, defaultValue]);
+  }, [name, defaultValue, validations]);
 
   const field = state.fields.find(f => f.name === name);
   const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];

@@ -2,41 +2,47 @@ export const initialState = {
   fields: [],
 };
 
-export const fieldRegister = (name, value = null) => (state) => {
+export const fieldRegister = (name, value = null, validations = []) => (state) => {
   const field = state.fields.find(x => x.name === name) || {};
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   return {
     ...state,
     fields: [
-      ...state.fields.filter(x => x.name !== name),
+      ...otherFields,
       {
         ...field,
         name,
-        value: field.value || value || null,
+        value: field.value || value,
         isActive: true,
+        errors: [],
+        validations,
       },
     ],
   };
 };
 
-export const fieldUnregister = (name, isCleaned) => (state) => {
+export const fieldUnregister = (name, isKeepValue) => (state) => {
   const field = state.fields.find(x => x.name === name);
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   if (!field) {
     return state;
   }
 
-  if (isCleaned) {
+  if (!isKeepValue) {
     return {
       ...state,
-      fields: state.fields.filter(x => x.name !== name),
+      fields: [
+        ...otherFields,
+      ],
     };
   }
 
   return {
     ...state,
     fields: [
-      ...state.fields.filter(x => x.name !== name),
+      ...otherFields,
       {
         ...field,
         isActive: false,
@@ -47,6 +53,7 @@ export const fieldUnregister = (name, isCleaned) => (state) => {
 
 export const fieldSetValue = (name, value) => (state) => {
   const field = state.fields.find(x => x.name === name);
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   if (!field) {
     return state;
@@ -55,9 +62,9 @@ export const fieldSetValue = (name, value) => (state) => {
   return {
     ...state,
     fields: [
-      ...state.fields.filter(x => x.name !== name),
+      ...otherFields,
       {
-        ...state.fields.find(x => x.name === name),
+        ...field,
         value,
       },
     ],
@@ -66,6 +73,7 @@ export const fieldSetValue = (name, value) => (state) => {
 
 export const fieldValidate = name => (state) => {
   const field = state.fields.find(x => x.name === name);
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   if (!field) {
     return state;
@@ -80,9 +88,9 @@ export const fieldValidate = name => (state) => {
   return {
     ...state,
     fields: [
-      ...state.fields.filter(x => x.name !== name),
+      ...otherFields,
       {
-        ...state.fields.find(x => x.name === name),
+        ...field,
         errors,
       },
     ],

@@ -33,16 +33,16 @@ const MyField = (props) => {
 }
 ```
 
-You can also be more verbose and only pass the 5 required props to the hook (`name`, `defaultValue`, `isRequired`, `validations` and `onChange`).
+You can also be more verbose and only pass the 6 required props to the hook (`name`, `defaultValue`, `isRequired`, `validations`, `keepValue` and `onChange`).
 
 ```jsx
 import React from 'react'
 import { useFormiz } from '@formiz/core'
 
-const MyField = ({ name, defaultValue, isRequired, validations, onChange }) => {
+const MyField = ({ name, defaultValue, isRequired, validations, keepValue, onChange }) => {
   const {
     ...
-  } = useFormiz({ name, defaultValue, isRequired, validations, onChange })
+  } = useFormiz({ name, defaultValue, isRequired, validations, keepValue, onChange })
 
   return (
     ...
@@ -167,6 +167,11 @@ An array of object with:
   ]}
 />
 ```
+
+### `keepValue`
+
+// TODO
+
 ### `onChange(value, values)`
 
 // TODO
@@ -189,7 +194,7 @@ const MyField = (props) => {
 
   return (
     <div>
-      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} >
+      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)}>
       <strong>{ customProperty }</strong>
       {!isValid && (
         <p>{ invalidMessage }</p>

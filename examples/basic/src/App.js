@@ -2,7 +2,9 @@ import React from 'react';
 import { Formiz, useFormiz } from '@formiz/core';
 
 const Input = (props) => {
-  const { value, setValue } = useFormiz(props);
+  const {
+    value, setValue, errorMessage, isValid,
+  } = useFormiz(props);
   const { label } = props;
 
   return (
@@ -10,7 +12,18 @@ const Input = (props) => {
       <label style={{ display: 'block' }}>
         {label}
       </label>
-      <input value={value || ''} onChange={e => setValue(e.target.value)} />
+      <input
+        style={{ borderColor: isValid ? null : 'red' }}
+        defaultValue={value}
+        onChange={e => setValue(e.target.value.trim())}
+      />
+      {!isValid && (
+        <div style={{ color: 'red' }}>
+          <small>
+            {errorMessage}
+          </small>
+        </div>
+      )}
     </div>
   );
 };
@@ -23,7 +36,16 @@ function App() {
       <div style={{ padding: '2rem' }}>
         <Formiz>
 
-          <Input name="name" label="Name" />
+          <Input
+            name="name"
+            label="Name"
+            validations={[
+              {
+                rule: x => (x || '').toLowerCase() !== 'john',
+                message: 'Not john',
+              },
+            ]}
+          />
 
           {isVisible && (
             <Input name="job" label="Job" />
