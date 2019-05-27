@@ -1,6 +1,6 @@
-import { fieldUnregister } from '../actions';
+import { fieldUnregister } from '../index';
 
-describe('fieldUnregister()', () => {
+describe('[FormContext:Action] fieldUnregister()', () => {
   it('Should remove the field from the state', () => {
     const { fields } = fieldUnregister('myField')({
       fields: [

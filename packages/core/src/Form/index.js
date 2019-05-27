@@ -1,28 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
+import { getFormValues } from '../FormContext/helpers';
 
 export const propTypes = {
   children: PropTypes.node,
+  onSubmit: PropTypes.func,
+  onValid: PropTypes.func,
+  onInvalid: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export const defaultProps = {
   children: '',
+  onSubmit: () => {},
+  onValid: () => {},
+  onInvalid: () => {},
+  onChange: () => {},
 };
 
-export const Form = ({ children }) => {
+export const Form = ({
+  children,
+  onSubmit,
+  onValid,
+  onInvalid,
+  onChange,
+}) => {
   const { state } = useFormContext();
 
-  const getValues = fields => fields
-    .filter(field => field.isActive)
-    .reduce((prev, cur) => ({
-      ...prev,
-      [cur.name]: cur.value,
-    }), {});
+  onChange(getFormValues(state.fields));
+
+  if (state.isFormValid) {
+    onValid();
+  } else {
+    onInvalid();
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted', getValues(state.fields), state); // eslint-disable-line
+    onSubmit(getFormValues(state.fields));
   };
 
   return (

@@ -1,6 +1,6 @@
-import { fieldSetValue } from '../actions';
+import { fieldSetValue } from '../index';
 
-describe('fieldSetValue()', () => {
+describe('[FormContext:Action] fieldSetValue()', () => {
   it('Should update the value', () => {
     const { fields } = fieldSetValue('myField', 'new value')({
       fields: [

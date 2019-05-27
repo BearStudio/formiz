@@ -11,7 +11,7 @@ export const FormContextProvider = ({ children, onStateChange }) => {
 
   useEffect(() => {
     onStateChange(state);
-  });
+  }, [state]);
 
   return (
     <FormContext.Provider value={{ state, dispatch }}>

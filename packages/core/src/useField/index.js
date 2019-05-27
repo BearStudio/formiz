@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormContext } from '../FormContext';
 import {
-  fieldRegister, fieldUnregister, fieldSetValue, fieldValidate,
+  fieldRegister, fieldUnregister, fieldSetValue, formValidate,
 } from '../FormContext/actions';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
@@ -36,7 +36,7 @@ export const useField = ({
   }, [validations]);
 
   useEffect(() => {
-    dispatch(fieldValidate(name));
+    dispatch(formValidate());
   }, [name, defaultValue, validations]);
 
   const field = state.fields.find(f => f.name === name);
@@ -50,7 +50,7 @@ export const useField = ({
     isInvalid: field ? field.errors.length > 0 : false,
     setValue: (value) => {
       dispatch(fieldSetValue(name, value));
-      dispatch(fieldValidate(name));
+      dispatch(formValidate());
     },
   };
 };

@@ -1,6 +1,6 @@
-import { fieldRegister } from '../actions';
+import { fieldRegister } from '../index';
 
-describe('fieldRegister()', () => {
+describe('[FormContext:Action] fieldRegister()', () => {
   it('Should register the field without value if no defaultValue', () => {
     const { fields } = fieldRegister('myField')({
       fields: [],

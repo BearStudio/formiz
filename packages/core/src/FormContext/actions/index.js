@@ -1,6 +1,13 @@
+import { getFieldErrors } from '../helpers';
+
 export const initialState = {
+  isFormValid: true,
   fields: [],
 };
+
+/*
+  Field Actions
+*/
 
 export const fieldRegister = (name, value = null, validations = []) => (state) => {
   const field = state.fields.find(x => x.name === name) || {};
@@ -71,28 +78,22 @@ export const fieldSetValue = (name, value) => (state) => {
   };
 };
 
-export const fieldValidate = name => (state) => {
-  const field = state.fields.find(x => x.name === name);
-  const otherFields = state.fields.filter(x => x.name !== name);
+/*
+  Form Actions
+*/
 
-  if (!field) {
-    return state;
-  }
+export const formValidate = () => (state) => {
+  const fields = (state.fields || [])
+    .map(x => ({
+      ...x,
+      errors: getFieldErrors(x.name, state.fields),
+    }));
 
-  const errors = field.validations
-    ? field.validations
-      .map(x => (x.rule && !x.rule(field.value) ? x.message : '___FIELD_IS_VALID___'))
-      .filter(x => x !== '___FIELD_IS_VALID___')
-    : [];
+  const isFormValid = fields.every(x => !x.errors.length);
 
   return {
     ...state,
-    fields: [
-      ...otherFields,
-      {
-        ...field,
-        errors,
-      },
-    ],
+    fields,
+    isFormValid,
   };
 };

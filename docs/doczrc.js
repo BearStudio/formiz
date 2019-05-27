@@ -1,6 +1,7 @@
 export default {
   title: 'Formiz',
   description: 'Form library for React',
+  port: 4000,
 
   files: '**/*.mdx',
   codeSandbox: false,

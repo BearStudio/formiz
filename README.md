@@ -177,11 +177,11 @@ An array of object with:
   name="myFieldName"
   validations={[
     {
-      rule: isRequired,
+      rule: isRequired(),
       invalidMessage: 'Field is required',
     },
     {
-      rule: isNotEmptyString,
+      rule: isNotEmptyString(),
       invalidMessage: 'Field can\'t be empty',
     },
     {
@@ -266,11 +266,11 @@ import { isNotEmptyString } from '@formiz/validations'
   label="First Name"
   validations={[
     {
-      rule: isRequired,
+      rule: isRequired(),
       invalidMessage: 'Field is required',
     },
     {
-      rule: isNotEmptyString,
+      rule: isNotEmptyString(),
       invalidMessage: 'Field can\' be empty',
     },
     {
@@ -289,19 +289,23 @@ import { isNotEmptyString } from '@formiz/validations'
 import { ruleName } from '@formiz/validations'
 ```
 
-#### isNotEmptyString
+#### isRequired()
 
 // TODO
 
-#### isNotEmptyArray
+#### isNotEmptyString()
 
 // TODO
 
-#### isEmail
+#### isNotEmptyArray()
 
 // TODO
 
-#### isNumber
+#### isEmail()
+
+// TODO
+
+#### isNumber()
 
 // TODO
 
