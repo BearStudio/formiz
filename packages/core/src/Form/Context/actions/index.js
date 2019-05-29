@@ -1,8 +1,19 @@
 import { getFieldErrors } from '../helpers';
 
 export const initialState = {
+  currentStep: 0,
   isFormValid: true,
-  fields: [],
+  fields: [
+    /*
+    {
+      name: 'myField',
+      value: 'Field Value',
+      isActive: true,
+      validations: [],
+      errors: [],
+    }
+    */
+  ],
 };
 
 /*

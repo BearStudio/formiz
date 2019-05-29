@@ -3,6 +3,7 @@ import { useFormContext } from '../Form/Context';
 import {
   fieldRegister, fieldUnregister, fieldSetValue, formValidate,
 } from '../Form/Context/actions';
+import { useFormStepName } from '../FormStep/Context';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
 export const useField = ({
@@ -16,6 +17,7 @@ export const useField = ({
   }
 
   const formContext = useFormContext();
+  const stepName = useFormStepName() ;
 
   if (!formContext) {
     throw ErrorFieldWithoutForm;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formiz, useFormiz } from '@formiz/core';
+import { Formiz, FormizStep, useFormiz } from '@formiz/core';
 
 const Input = (props) => {
   const {
@@ -45,26 +45,11 @@ function App() {
           onInvalid={() => setIsValid(false)}
         >
 
-          <Input
-            name="name"
-            label="Name"
-            defaultValue="john"
-            validations={[
-              {
-                rule: x => (x || '').toLowerCase() !== 'john',
-                message: 'Not john',
-              },
-              {
-                rule: x => !!x,
-                message: 'Required',
-              },
-            ]}
-          />
-
-          {isVisible && (
+          <FormizStep name="step1">
             <Input
-              name="job"
-              label="Job"
+              name="name"
+              label="Name"
+              defaultValue="john"
               validations={[
                 {
                   rule: x => (x || '').toLowerCase() !== 'john',
@@ -76,11 +61,30 @@ function App() {
                 },
               ]}
             />
-          )}
+          </FormizStep>
 
-          <button type="button" onClick={() => setIsVisible(!isVisible)}>
-            Toggle Job
-          </button>
+          <FormizStep name="step2">
+            {isVisible && (
+              <Input
+                name="job"
+                label="Job"
+                validations={[
+                  {
+                    rule: x => (x || '').toLowerCase() !== 'john',
+                    message: 'Not john',
+                  },
+                  {
+                    rule: x => !!x,
+                    message: 'Required',
+                  },
+                ]}
+              />
+            )}
+
+            <button type="button" onClick={() => setIsVisible(!isVisible)}>
+              Toggle Job
+            </button>
+          </FormizStep>
 
           <button type="submit" disabled={!isValid}>
             Submit
