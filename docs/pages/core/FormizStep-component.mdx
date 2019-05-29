@@ -10,7 +10,7 @@ name: <FormizStep> component
 ## Example
 
 ```jsx
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Formiz, FormizStep } from '@formiz/core'
 import { FieldInput } from '@formiz/fields'
 
@@ -21,8 +21,8 @@ export const MyForm = () => {
 
   return (
     <Formiz onValidSubmit={submitForm} >
-      {({ isFirstStep, isLastStep, prevStep, nextStep }) => (
-        <Fragment>
+      {({ submit, isFirstStep, isLastStep, prevStep, nextStep }) => (
+        <form onSubmit={submit}>
           <FormizStep>
             <FieldInput
               name="firstname"
@@ -58,7 +58,7 @@ export const MyForm = () => {
               </button>
             )}
           </div>
-        </Fragment>
+        </form>
       )}
     </Formiz>
   )

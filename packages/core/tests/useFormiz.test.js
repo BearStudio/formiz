@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { silent, Input } from './utils';
 import { Formiz } from '../src';
-import { FormContextProvider } from '../src/FormContext';
+import { FormContextProvider } from '../src/Form/Context';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from '../src/useField/errors';
 
 describe('Fields using `useFormiz()`', () => {

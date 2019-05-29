@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormContextProvider } from './FormContext';
+import { FormContextProvider } from './Form/Context';
 import { Form, propTypes, defaultProps } from './Form';
 import { useField } from './useField';
 

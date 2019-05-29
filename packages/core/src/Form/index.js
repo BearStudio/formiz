@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useFormContext } from '../FormContext';
-import { getFormValues } from '../FormContext/helpers';
+import { useFormContext } from './Context';
+import { getFormValues } from './Context/helpers';
 
 export const propTypes = {
   children: PropTypes.node,

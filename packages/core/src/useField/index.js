@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useFormContext } from '../FormContext';
+import { useFormContext } from '../Form/Context';
 import {
   fieldRegister, fieldUnregister, fieldSetValue, formValidate,
-} from '../FormContext/actions';
+} from '../Form/Context/actions';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
 export const useField = ({
