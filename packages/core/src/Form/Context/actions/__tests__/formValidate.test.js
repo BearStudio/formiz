@@ -4,13 +4,13 @@ const isRequired = () => x => !!x;
 const isEqual = match => x => x === match;
 
 describe('[FormContext:Action] formValidate()', () => {
-  it('isFormValid should be true if no fields are registred', () => {
-    const { isFormValid } = formValidate()({});
-    expect(isFormValid).toBe(true);
+  it('isValid should be true if no fields are registred', () => {
+    const { isValid } = formValidate()({});
+    expect(isValid).toBe(true);
   });
 
-  it('isFormValid should be false if one field is not valid', () => {
-    const { isFormValid } = formValidate()({
+  it('isValid should be false if one field is not valid', () => {
+    const { isValid } = formValidate()({
       fields: [
         {
           name: 'a',
@@ -25,11 +25,11 @@ describe('[FormContext:Action] formValidate()', () => {
         },
       ],
     });
-    expect(isFormValid).toBe(false);
+    expect(isValid).toBe(false);
   });
 
-  it('isFormValid should be true if all fields are valid', () => {
-    const { isFormValid } = formValidate()({
+  it('isValid should be true if all fields are valid', () => {
+    const { isValid } = formValidate()({
       fields: [
         {
           name: 'a',
@@ -52,6 +52,6 @@ describe('[FormContext:Action] formValidate()', () => {
       ],
     });
 
-    expect(isFormValid).toBe(true);
+    expect(isValid).toBe(true);
   });
 });

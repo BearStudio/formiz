@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from './Context';
+import { formSubmit, stepGoNext, stepGoPrev } from './Context/actions';
 import { getFormValues } from './Context/helpers';
 
 export const propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onSubmit: PropTypes.func,
   onValid: PropTypes.func,
   onInvalid: PropTypes.func,
@@ -26,20 +27,44 @@ export const Form = ({
   onInvalid,
   onChange,
 }) => {
-  const { state } = useFormContext();
+  const { state, dispatch } = useFormContext();
+  const {
+    fields,
+    isValid,
+    isSubmitted,
+    currentStep,
+    steps,
+  } = state;
 
-  onChange(getFormValues(state.fields));
+  const stepsCount = useMemo(() => (steps || []).length, [steps]);
 
-  if (state.isFormValid) {
+  onChange(getFormValues(fields));
+
+  if (isValid) {
     onValid();
   } else {
     onInvalid();
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(getFormValues(state.fields));
+    if (e) {
+      e.preventDefault();
+    }
+    onSubmit(getFormValues(fields));
+    dispatch(formSubmit());
   };
+
+  if (typeof children === 'function') {
+    return children({
+      submit: handleSubmit,
+      isValid,
+      isSubmitted,
+      isFirstStep: currentStep === 0,
+      isLastStep: currentStep === stepsCount - 1,
+      nextStep: () => { dispatch(stepGoNext()); },
+      prevStep: () => { dispatch(stepGoPrev()); },
+    });
+  }
 
   return (
     <form onSubmit={handleSubmit}>

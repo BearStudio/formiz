@@ -21,16 +21,24 @@ export const MyForm = () => {
 
   return (
     <Formiz onValidSubmit={submitForm} >
-      {({ submit, isFirstStep, isLastStep, prevStep, nextStep }) => (
+      {({
+        submit,
+        isValid,
+        isSubmitted,
+        isFirstStep,
+        isLastStep,
+        prevStep,
+        nextStep
+      }) => (
         <form onSubmit={submit}>
-          <FormizStep>
+          <FormizStep name="step1" order={1}>
             <FieldInput
               name="firstname"
               label="First Name"
               isRequired="First Name is required"
             />
           </FormizStep>
-          <FormizStep>
+          <FormizStep name="step2" order={2}>
             <FieldInput
               name="lastname"
               label="Last Name"

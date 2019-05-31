@@ -1,8 +1,17 @@
-import { getFieldErrors } from '../helpers';
+import { getFieldErrors, getStepsOrdered } from '../helpers';
 
 export const initialState = {
+  isValid: true,
+  isSubmitted: false,
   currentStep: 0,
-  isFormValid: true,
+  steps: [
+    /*
+    {
+      name: 'myStep',
+      position: 0
+    }
+    */
+  ],
   fields: [
     /*
     {
@@ -20,7 +29,14 @@ export const initialState = {
   Field Actions
 */
 
-export const fieldRegister = (name, value = null, validations = []) => (state) => {
+export const fieldRegister = (
+  name,
+  {
+    value = null,
+    step = null,
+    validations = [],
+  } = {}
+) => (state) => {
   const field = state.fields.find(x => x.name === name) || {};
   const otherFields = state.fields.filter(x => x.name !== name);
 
@@ -33,8 +49,9 @@ export const fieldRegister = (name, value = null, validations = []) => (state) =
         name,
         value: field.value || value,
         isActive: true,
-        errors: [],
+        step,
         validations,
+        errors: [],
       },
     ],
   };
@@ -90,6 +107,59 @@ export const fieldSetValue = (name, value) => (state) => {
 };
 
 /*
+  Step Actions
+*/
+
+export const stepRegister = (name, order = 0) => (state) => {
+  const step = state.steps.find(x => x.name === name) || {};
+  const otherSteps = state.steps.filter(x => x.name !== name);
+
+  return {
+    ...state,
+    steps: getStepsOrdered([
+      ...otherSteps,
+      {
+        ...step,
+        name,
+        order,
+      },
+    ]),
+  };
+};
+
+export const stepUnregister = name => (state) => {
+  const otherSteps = state.steps.filter(x => x.name !== name);
+
+  return {
+    ...state,
+    steps: getStepsOrdered(otherSteps),
+  };
+};
+
+export const stepGoNext = () => (state) => {
+  const { currentStep, steps } = state;
+
+  const stepsCount = (steps || []).length;
+  const nextStep = stepsCount > 0 ? currentStep + 1 : 0;
+
+  return {
+    ...state,
+    currentStep: nextStep > stepsCount - 1 ? currentStep : nextStep,
+  };
+};
+
+export const stepGoPrev = () => (state) => {
+  const { currentStep } = state;
+
+  const prevStep = currentStep - 1;
+
+  return {
+    ...state,
+    currentStep: prevStep < 0 ? 0 : prevStep,
+  };
+};
+
+/*
   Form Actions
 */
 
@@ -100,11 +170,16 @@ export const formValidate = () => (state) => {
       errors: getFieldErrors(x.name, state.fields),
     }));
 
-  const isFormValid = fields.every(x => !x.errors.length);
+  const isValid = fields.every(x => !x.errors.length);
 
   return {
     ...state,
     fields,
-    isFormValid,
+    isValid,
   };
 };
+
+export const formSubmit = () => state => ({
+  ...state,
+  isSubmitted: true,
+});

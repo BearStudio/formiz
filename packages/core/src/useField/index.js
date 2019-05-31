@@ -17,7 +17,7 @@ export const useField = ({
   }
 
   const formContext = useFormContext();
-  const stepName = useFormStepName() ;
+  const step = useFormStepName();
 
   if (!formContext) {
     throw ErrorFieldWithoutForm;
@@ -26,7 +26,7 @@ export const useField = ({
   const { state, dispatch } = formContext;
 
   useEffect(() => {
-    dispatch(fieldRegister(name, defaultValue, validations));
+    dispatch(fieldRegister(name, { value: defaultValue, step, validations }));
 
     return () => {
       dispatch(fieldUnregister(name, keepValue));

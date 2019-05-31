@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Form,
@@ -28,9 +27,9 @@ export const Formiz = props => (
 Formiz.propTypes = propTypesForm;
 Formiz.defaultProps = defaultPropsForm;
 
-export const FormizStep = ({ name, ...props }) => (
+export const FormizStep = ({ name, order, ...props }) => (
   <FormStepContextProvider name={name}>
-    <FormStep {...props} />
+    <FormStep {...props} name={name} order={order} />
   </FormStepContextProvider>
 );
 

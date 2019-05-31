@@ -1,7 +1,13 @@
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useFormContext } from '../Form/Context';
+import { stepRegister, stepUnregister } from '../Form/Context/actions';
+import { ErrorStepWithoutName, ErrorStepWithoutOrder } from './errors';
 
 export const propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  name: PropTypes.string.isRequired,
+  order: PropTypes.number.isRequired,
 };
 
 export const defaultProps = {
@@ -10,7 +16,47 @@ export const defaultProps = {
 
 export const FormStep = ({
   children,
-}) => children;
+  name,
+  order,
+}) => {
+  if (!name) {
+    throw ErrorStepWithoutName;
+  }
+
+  if (!order && order !== 0) {
+    throw ErrorStepWithoutOrder;
+  }
+
+  const { state, dispatch } = useFormContext();
+  const { currentStep, steps } = state;
+
+  const isActive = (steps[currentStep] || {}).name === name;
+
+  useEffect(() => {
+    dispatch(stepRegister(name, order));
+
+    return () => {
+      dispatch(stepUnregister(name));
+    };
+  }, [name]);
+
+  if (typeof children === 'function') {
+    return children({
+      isActive,
+    });
+  }
+
+  return (
+    <div
+      style={{
+        display: !isActive ? 'none' : null,
+        pointerEvents: !isActive ? 'none' : null,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 
 FormStep.propTypes = propTypes;
