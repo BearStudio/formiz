@@ -43,13 +43,19 @@ export const formValidate = () => (state) => {
 
   const isValid = fields.every(x => !x.errors.length);
   const step = getStep(state.currentStep, state.steps);
-  const isStepValid = getFieldsByStep(step.name, fields).every(x => !x.errors.length);
+  const steps = (state.steps || []).map(s => ({
+    ...s,
+    isValid: getFieldsByStep(s.name, fields).every(x => !x.errors.length),
+  }));
+  const isStepValid = (steps.find(x => x.name === step.name) || {}).isValid;
+
 
   return {
     ...state,
     fields,
+    steps,
     isValid,
-    isStepValid,
+    isStepValid: isStepValid === undefined ? true : isStepValid,
   };
 };
 

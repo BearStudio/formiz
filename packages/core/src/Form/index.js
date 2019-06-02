@@ -60,6 +60,12 @@ export const Form = ({
       submit: handleSubmit,
       isValid,
       isSubmitted,
+      // eslint-disable-next-line no-shadow
+      steps: steps.map(({ name, order, isValid }) => ({
+        name,
+        order,
+        isValid,
+      })),
       isStepValid,
       isFirstStep: currentStep === 0,
       isLastStep: currentStep === stepsCount - 1,

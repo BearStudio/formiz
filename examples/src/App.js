@@ -50,7 +50,7 @@ function App() {
           onSubmit={handleSubmit}
         >
           {({
-            submit, isValid, isStepValid, nextStep, prevStep, isFirstStep, isLastStep,
+            submit, isValid, isStepValid, nextStep, prevStep, isFirstStep, isLastStep, steps,
           }) => (
             <form className="card">
               <div className="card-body" style={{ minHeight: 200 }}>
@@ -109,12 +109,18 @@ function App() {
                 </FormizStep>
               </div>
 
-              <div className="card-footer d-flex">
-                {!isFirstStep && (
-                  <button className="btn btn-link" type="button" onClick={prevStep}>
-                    Prev
-                  </button>
-                )}
+              <div className="card-footer d-flex align-items-center">
+                <button className="btn btn-link" type="button" onClick={prevStep} disabled={isFirstStep}>
+                  Prev
+                </button>
+
+                <div className="mx-auto">
+                  {steps.map(step => (
+                    <span key={step.name} className={`badge mx-1 ${step.isValid ? 'badge-success' : 'badge-danger'}`}>
+                      {step.name}
+                    </span>
+                  ))}
+                </div>
 
                 {isLastStep
                   ? (
