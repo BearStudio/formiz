@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from './Context';
 import { formSubmit, stepGoNext, stepGoPrev } from './Context/actions';
@@ -32,11 +32,12 @@ export const Form = ({
     fields,
     isValid,
     isSubmitted,
+    isStepValid,
     currentStep,
     steps,
   } = state;
 
-  const stepsCount = useMemo(() => (steps || []).length, [steps]);
+  const stepsCount = (steps || []).length;
 
   onChange(getFormValues(fields));
 
@@ -59,6 +60,7 @@ export const Form = ({
       submit: handleSubmit,
       isValid,
       isSubmitted,
+      isStepValid,
       isFirstStep: currentStep === 0,
       isLastStep: currentStep === stepsCount - 1,
       nextStep: () => { dispatch(stepGoNext()); },

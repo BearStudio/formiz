@@ -38,7 +38,7 @@ export const FormStep = ({
     return () => {
       dispatch(stepUnregister(name));
     };
-  }, [name]);
+  }, [name, order]);
 
   if (typeof children === 'function') {
     return children({

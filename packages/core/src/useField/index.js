@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormContext } from '../Form/Context';
 import {
-  fieldRegister, fieldUnregister, fieldSetValue, formValidate,
+  fieldRegister, fieldUnregister, fieldSetValue,
 } from '../Form/Context/actions';
 import { useFormStepName } from '../FormStep/Context';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
@@ -33,14 +33,6 @@ export const useField = ({
     };
   }, [name]);
 
-  useEffect(() => {
-    // Todo update validations
-  }, [validations]);
-
-  useEffect(() => {
-    dispatch(formValidate());
-  }, [name, defaultValue, validations]);
-
   const field = state.fields.find(f => f.name === name);
   const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];
 
@@ -52,7 +44,6 @@ export const useField = ({
     isInvalid: field ? field.errors.length > 0 : false,
     setValue: (value) => {
       dispatch(fieldSetValue(name, value));
-      dispatch(formValidate());
     },
   };
 };

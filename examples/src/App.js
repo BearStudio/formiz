@@ -50,7 +50,7 @@ function App() {
           onSubmit={handleSubmit}
         >
           {({
-            submit, isValid, nextStep, prevStep, isFirstStep, isLastStep,
+            submit, isValid, isStepValid, nextStep, prevStep, isFirstStep, isLastStep,
           }) => (
             <form className="card">
               <div className="card-body" style={{ minHeight: 200 }}>
@@ -123,7 +123,7 @@ function App() {
                     </button>
                   )
                   : (
-                    <button className="btn btn-primary ml-auto" type="button" onClick={nextStep}>
+                    <button className="btn btn-primary ml-auto" type="button" onClick={nextStep} disabled={!isStepValid}>
                       Next
                     </button>
                   )

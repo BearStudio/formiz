@@ -1,4 +1,9 @@
-import { getFieldErrors, getStepsOrdered } from '../helpers';
+import {
+  getFieldsByStep,
+  getFieldErrors,
+  getStep,
+  getStepsOrdered,
+} from '../helpers';
 
 export const initialState = {
   isValid: true,
@@ -26,85 +31,33 @@ export const initialState = {
 };
 
 /*
-  Field Actions
+  Form Actions
 */
 
-export const fieldRegister = (
-  name,
-  {
-    value = null,
-    step = null,
-    validations = [],
-  } = {}
-) => (state) => {
-  const field = state.fields.find(x => x.name === name) || {};
-  const otherFields = state.fields.filter(x => x.name !== name);
+export const formValidate = () => (state) => {
+  const fields = (state.fields || [])
+    .map(x => ({
+      ...x,
+      errors: getFieldErrors(x.name, state.fields),
+    }));
+
+  const isValid = fields.every(x => !x.errors.length);
+  const step = getStep(state.currentStep, state.steps);
+  const isStepValid = getFieldsByStep(step.name, fields).every(x => !x.errors.length);
 
   return {
     ...state,
-    fields: [
-      ...otherFields,
-      {
-        ...field,
-        name,
-        value: field.value || value,
-        isActive: true,
-        step,
-        validations,
-        errors: [],
-      },
-    ],
+    fields,
+    isValid,
+    isStepValid,
   };
 };
 
-export const fieldUnregister = (name, isKeepValue) => (state) => {
-  const field = state.fields.find(x => x.name === name);
-  const otherFields = state.fields.filter(x => x.name !== name);
+export const formSubmit = () => state => ({
+  ...state,
+  isSubmitted: true,
+});
 
-  if (!field) {
-    return state;
-  }
-
-  if (!isKeepValue) {
-    return {
-      ...state,
-      fields: [
-        ...otherFields,
-      ],
-    };
-  }
-
-  return {
-    ...state,
-    fields: [
-      ...otherFields,
-      {
-        ...field,
-        isActive: false,
-      },
-    ],
-  };
-};
-
-export const fieldSetValue = (name, value) => (state) => {
-  const field = state.fields.find(x => x.name === name);
-  const otherFields = state.fields.filter(x => x.name !== name);
-
-  if (!field) {
-    return state;
-  }
-
-  return {
-    ...state,
-    fields: [
-      ...otherFields,
-      {
-        ...field,
-        value,
-      },
-    ],
-  };
-};
 
 /*
   Step Actions
@@ -113,27 +66,37 @@ export const fieldSetValue = (name, value) => (state) => {
 export const stepRegister = (name, order = 0) => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
+  const steps = getStepsOrdered([
+    ...otherSteps,
+    {
+      ...step,
+      name,
+      order,
+    },
+  ]);
 
-  return {
+  let newState = {
     ...state,
-    steps: getStepsOrdered([
-      ...otherSteps,
-      {
-        ...step,
-        name,
-        order,
-      },
-    ]),
+    steps,
   };
+
+  newState = formValidate()(newState);
+
+  return newState;
 };
 
 export const stepUnregister = name => (state) => {
   const otherSteps = state.steps.filter(x => x.name !== name);
+  const steps = getStepsOrdered(otherSteps);
 
-  return {
+  let newState = {
     ...state,
-    steps: getStepsOrdered(otherSteps),
+    steps,
   };
+
+  newState = formValidate()(newState);
+
+  return newState;
 };
 
 export const stepGoNext = () => (state) => {
@@ -160,26 +123,90 @@ export const stepGoPrev = () => (state) => {
 };
 
 /*
-  Form Actions
+  Field Actions
 */
 
-export const formValidate = () => (state) => {
-  const fields = (state.fields || [])
-    .map(x => ({
-      ...x,
-      errors: getFieldErrors(x.name, state.fields),
-    }));
+export const fieldRegister = (
+  name,
+  {
+    value = null,
+    step = null,
+    validations = [],
+  } = {}
+) => (state) => {
+  const field = state.fields.find(x => x.name === name) || {};
+  const otherFields = state.fields.filter(x => x.name !== name);
+  const fields = [
+    ...otherFields,
+    {
+      ...field,
+      name,
+      value: field.value || value,
+      isActive: true,
+      step,
+      validations,
+      errors: [],
+    },
+  ];
 
-  const isValid = fields.every(x => !x.errors.length);
-
-  return {
+  let newState = {
     ...state,
     fields,
-    isValid,
   };
+
+  newState = formValidate()(newState);
+
+  return newState;
 };
 
-export const formSubmit = () => state => ({
-  ...state,
-  isSubmitted: true,
-});
+export const fieldUnregister = (name, isKeepValue) => (state) => {
+  const field = state.fields.find(x => x.name === name);
+  const otherFields = state.fields.filter(x => x.name !== name);
+
+  if (!field) {
+    return state;
+  }
+
+  const fields = !isKeepValue ? otherFields : [
+    ...otherFields,
+    {
+      ...field,
+      isActive: false,
+    },
+  ];
+
+  let newState = {
+    ...state,
+    fields,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};
+
+export const fieldSetValue = (name, value) => (state) => {
+  const field = state.fields.find(x => x.name === name);
+  const otherFields = state.fields.filter(x => x.name !== name);
+
+  if (!field) {
+    return state;
+  }
+
+  const fields = [
+    ...otherFields,
+    {
+      ...field,
+      value,
+    },
+  ];
+
+  let newState = {
+    ...state,
+    fields,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};

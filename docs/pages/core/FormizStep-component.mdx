@@ -25,6 +25,7 @@ export const MyForm = () => {
         submit,
         isValid,
         isSubmitted,
+        isStepValid,
         isFirstStep,
         isLastStep,
         prevStep,
@@ -57,11 +58,11 @@ export const MyForm = () => {
             )}
 
             {isLastStep ? (
-              <button type="submit">
+              <button type="submit" disabled={!isValid}>
                 Submit
               </button>
             ) : (
-              <button type="button" onClick={nextStep}>
+              <button type="button" onClick={nextStep} disabled={!isStepValid}>
                 Continue
               </button>
             )}
