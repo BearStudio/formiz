@@ -56,6 +56,7 @@ function App() {
             submit,
             isValid,
             isStepValid,
+            currentStep,
             nextStep,
             prevStep,
             isFirstStep,
@@ -127,6 +128,11 @@ function App() {
                 <div className="mx-auto">
                   {steps.map(step => (
                     <span key={step.name} className={`badge mx-1 ${step.isValid ? 'badge-success' : 'badge-danger'}`}>
+                      {currentStep.name === step.name && (
+                        <span className="mr-1">
+                          &bull;
+                        </span>
+                      )}
                       {step.name}
                     </span>
                   ))}
