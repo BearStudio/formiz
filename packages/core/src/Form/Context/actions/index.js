@@ -9,6 +9,7 @@ import {
 export const initialState = {
   isValid: true,
   isSubmitted: false,
+  initialStepName: null,
   currentStepName: null,
   steps: [
     /*
@@ -43,7 +44,7 @@ export const formValidate = () => (state) => {
     }));
 
   const isValid = fields.every(x => !x.errors.length);
-  const step = getStep(state.currentStepName, state.steps);
+  const step = getStep(state.currentStepName || state.initialStepName, state.steps);
   const steps = (state.steps || []).map(s => ({
     ...s,
     isValid: getFieldsByStep(s.name, fields).every(x => !x.errors.length),
@@ -85,7 +86,7 @@ export const stepRegister = (name, order = 0) => (state) => {
   let newState = {
     ...state,
     steps,
-    currentStepName: !state.currentStepName && steps.length ? steps[0].name : null,
+    initialStepName: steps.length ? steps[0].name : null,
   };
 
   newState = formValidate()(newState);
@@ -108,10 +109,10 @@ export const stepUnregister = name => (state) => {
 };
 
 export const stepGoNext = () => (state) => {
-  const { currentStepName, steps } = state;
+  const { currentStepName, initialStepName, steps } = state;
 
   const stepsCount = (steps || []).length;
-  const currentStepPosition = getStepPosition(currentStepName, steps);
+  const currentStepPosition = getStepPosition(currentStepName || initialStepName, steps);
   let nextStep = stepsCount > 0 ? currentStepPosition + 1 : 0;
   nextStep = nextStep > stepsCount - 1 ? currentStepPosition : nextStep;
 
@@ -122,9 +123,9 @@ export const stepGoNext = () => (state) => {
 };
 
 export const stepGoPrev = () => (state) => {
-  const { currentStepName, steps } = state;
+  const { currentStepName, initialStepName, steps } = state;
 
-  const currentStepPosition = getStepPosition(currentStepName, steps);
+  const currentStepPosition = getStepPosition(currentStepName || initialStepName, steps);
 
   let prevStep = currentStepPosition - 1;
   prevStep = prevStep < 0 ? 0 : prevStep;
