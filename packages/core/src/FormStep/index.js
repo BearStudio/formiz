@@ -28,9 +28,9 @@ export const FormStep = ({
   }
 
   const { state, dispatch } = useFormContext();
-  const { currentStep, steps } = state;
+  const { currentStepName } = state;
 
-  const isActive = (steps[currentStep] || {}).name === name;
+  const isActive = currentStepName === name;
 
   useEffect(() => {
     dispatch(stepRegister(name, order));

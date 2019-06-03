@@ -23,6 +23,11 @@ export const getFieldErrors = (fieldName, fields) => {
     .filter(x => x !== '___FIELD_IS_VALID___');
 };
 
-export const getStep = (currentStep, steps) => (steps || [])[currentStep] || {};
+export const getStep = (stepName, steps) => (steps || [])
+  .find(x => x.name === stepName) || {};
 
-export const getStepsOrdered = steps => (steps || []).sort((a, b) => a.order - b.order);
+export const getStepPosition = (stepName, steps) => (steps || [])
+  .findIndex(x => x.name === stepName) || 0;
+
+export const getStepsOrdered = steps => (steps || [])
+  .sort((a, b) => a.order - b.order);
