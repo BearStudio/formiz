@@ -2,6 +2,9 @@ import React from 'react';
 import { Formiz, FormizStep, useFormiz } from '@formiz/core';
 
 const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+const isRequired = () => x => !!x;
+const isEmail = () => x => !x || emailRegex.test(x);
+const isNotEqual = (val) => x => (x || '').toLowerCase() !== (val || '').toLowerCase();
 
 const Input = (props) => {
   const {
@@ -50,7 +53,14 @@ function App() {
           onSubmit={handleSubmit}
         >
           {({
-            submit, isValid, isStepValid, nextStep, prevStep, isFirstStep, isLastStep, steps,
+            submit,
+            isValid,
+            isStepValid,
+            nextStep,
+            prevStep,
+            isFirstStep,
+            isLastStep,
+            steps,
           }) => (
             <form className="card">
               <div className="card-body" style={{ minHeight: 200 }}>
@@ -60,7 +70,7 @@ function App() {
                     label="Email"
                     validations={[
                       {
-                        rule: x => !x || emailRegex.test(x),
+                        rule: isEmail(),
                         message: 'Invalid email',
                       },
                     ]}
@@ -74,11 +84,11 @@ function App() {
                     defaultValue="john"
                     validations={[
                       {
-                        rule: x => (x || '').toLowerCase() !== 'john',
+                        rule: isNotEqual('john'),
                         message: 'Not john',
                       },
                       {
-                        rule: x => !!x,
+                        rule: isRequired(),
                         message: 'Required',
                       },
                     ]}
@@ -96,11 +106,11 @@ function App() {
                       label="Job"
                       validations={[
                         {
-                          rule: x => (x || '').toLowerCase() !== 'john',
+                          rule: isNotEqual('john'),
                           message: 'Not john',
                         },
                         {
-                          rule: x => !!x,
+                          rule: isRequired(),
                           message: 'Required',
                         },
                       ]}
@@ -152,11 +162,11 @@ function App() {
             defaultValue="john"
             validations={[
               {
-                rule: x => (x || '').toLowerCase() !== 'john',
+                rule: isNotEqual('john'),
                 message: 'Not john',
               },
               {
-                rule: x => !!x,
+                rule: isRequired(),
                 message: 'Required',
               },
             ]}
@@ -172,11 +182,11 @@ function App() {
                 label="Job"
                 validations={[
                   {
-                    rule: x => (x || '').toLowerCase() !== 'john',
+                    rule: isNotEqual('john'),
                     message: 'Not john',
                   },
                   {
-                    rule: x => !!x,
+                    rule: isRequired(),
                     message: 'Required',
                   },
                 ]}
