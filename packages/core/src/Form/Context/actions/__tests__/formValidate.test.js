@@ -84,7 +84,7 @@ describe('[FormContext:Action] formValidate()', () => {
 
   it('isStepValid should be true if all fields are valid in the current step', () => {
     const { isValid, isStepValid } = formValidate()({
-      currentStepName: 'step2',
+      navigatedStepName: 'step2',
       steps: [{ name: 'step1', order: 0 }, { name: 'step2', order: 1 }],
       fields: [
         {
@@ -115,7 +115,7 @@ describe('[FormContext:Action] formValidate()', () => {
 
   it('isStepValid should be false if one field is invalid in the current step', () => {
     const { isValid, isStepValid } = formValidate()({
-      currentStepName: 'step1',
+      navigatedStepName: 'step1',
       steps: [{ name: 'step1', order: 0 }, { name: 'step2', order: 1 }],
       fields: [
         {
@@ -145,7 +145,7 @@ describe('[FormContext:Action] formValidate()', () => {
 
   it('isStepValid should be true if no fields available in current step', () => {
     const { isValid, isStepValid } = formValidate()({
-      currentStepName: 'step1',
+      navigatedStepName: 'step1',
       steps: [{ name: 'step1', order: 0 }, { name: 'step2', order: 1 }],
       fields: [
         {

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../Form/Context';
 import { stepRegister, stepUnregister } from '../Form/Context/actions';
+import { getCurrentStepNameFromState } from '../Form/Context/helpers';
 import { ErrorStepWithoutName, ErrorStepWithoutOrder } from './errors';
 
 export const propTypes = {
@@ -28,9 +29,9 @@ export const FormStep = ({
   }
 
   const { state, dispatch } = useFormContext();
-  const { currentStepName, initialStepName } = state;
 
-  const isActive = (currentStepName || initialStepName) === name;
+  const currentStepName = getCurrentStepNameFromState(state);
+  const isActive = currentStepName === name;
 
   useEffect(() => {
     dispatch(stepRegister(name, order));

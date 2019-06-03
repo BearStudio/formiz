@@ -2,6 +2,7 @@ import {
   getFieldsByStep,
   getFieldErrors,
   getStep,
+  getCurrentStepNameFromState,
   getStepsOrdered,
   getStepPosition,
 } from '../helpers';
@@ -10,7 +11,7 @@ export const initialState = {
   isValid: true,
   isSubmitted: false,
   initialStepName: null,
-  currentStepName: null,
+  navigatedStepName: null,
   steps: [
     /*
     {
@@ -44,7 +45,8 @@ export const formValidate = () => (state) => {
     }));
 
   const isValid = fields.every(x => !x.errors.length);
-  const step = getStep(state.currentStepName || state.initialStepName, state.steps);
+  const currenStepName = getCurrentStepNameFromState(state);
+  const step = getStep(currenStepName, state.steps);
   const steps = (state.steps || []).map(s => ({
     ...s,
     isValid: getFieldsByStep(s.name, fields).every(x => !x.errors.length),
@@ -109,30 +111,32 @@ export const stepUnregister = name => (state) => {
 };
 
 export const stepGoNext = () => (state) => {
-  const { currentStepName, initialStepName, steps } = state;
+  const { steps } = state;
 
   const stepsCount = (steps || []).length;
-  const currentStepPosition = getStepPosition(currentStepName || initialStepName, steps);
+  const currenStepName = getCurrentStepNameFromState(state);
+  const currentStepPosition = getStepPosition(currenStepName, steps);
   let nextStep = stepsCount > 0 ? currentStepPosition + 1 : 0;
   nextStep = nextStep > stepsCount - 1 ? currentStepPosition : nextStep;
 
   return {
     ...state,
-    currentStepName: ((steps || [])[nextStep] || {}).name,
+    navigatedStepName: ((steps || [])[nextStep] || {}).name,
   };
 };
 
 export const stepGoPrev = () => (state) => {
-  const { currentStepName, initialStepName, steps } = state;
+  const { steps } = state;
 
-  const currentStepPosition = getStepPosition(currentStepName || initialStepName, steps);
+  const currenStepName = getCurrentStepNameFromState(state);
+  const currentStepPosition = getStepPosition(currenStepName, steps);
 
   let prevStep = currentStepPosition - 1;
   prevStep = prevStep < 0 ? 0 : prevStep;
 
   return {
     ...state,
-    currentStepName: ((steps || [])[prevStep] || {}).name,
+    navigatedStepName: ((steps || [])[prevStep] || {}).name,
   };
 };
 

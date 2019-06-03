@@ -26,6 +26,11 @@ export const getFieldErrors = (fieldName, fields) => {
 export const getStep = (stepName, steps) => (steps || [])
   .find(x => x.name === stepName) || {};
 
+export const getCurrentStepNameFromState = state => (
+  state.navigatedStepName
+  || state.initialStepName
+);
+
 export const getStepPosition = (stepName, steps) => (steps || [])
   .findIndex(x => x.name === stepName) || 0;
 

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from './Context';
 import { formSubmit, stepGoNext, stepGoPrev } from './Context/actions';
-import { getFormValues, getStep, getStepPosition } from './Context/helpers';
+import {
+  getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
+} from './Context/helpers';
 
 export const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
@@ -33,14 +35,16 @@ export const Form = ({
     isValid,
     isSubmitted,
     isStepValid,
-    currentStepName,
+    navigatedStepName,
     initialStepName,
     steps,
   } = state;
 
   const stepsCount = (steps || []).length;
-  const currentStep = getStep(currentStepName || initialStepName, steps);
-  const currentStepPosition = getStepPosition(currentStepName || initialStepName, steps);
+
+  const currentStepName = getCurrentStepNameFromState(state);
+  const currentStep = getStep(currentStepName, steps);
+  const currentStepPosition = getStepPosition(currentStepName, steps);
 
   onChange(getFormValues(fields));
 

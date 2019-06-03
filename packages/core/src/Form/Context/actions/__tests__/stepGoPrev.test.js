@@ -2,8 +2,8 @@ import { stepGoPrev } from '../index';
 
 describe('[FormContext:Action] stepGoPrev()', () => {
   it('Should go to prev step', () => {
-    const { currentStepName } = stepGoPrev()({
-      currentStepName: 'step3',
+    const { navigatedStepName } = stepGoPrev()({
+      navigatedStepName: 'step3',
       steps: [
         { name: 'step1', order: 0 },
         { name: 'step2', order: 1 },
@@ -11,12 +11,12 @@ describe('[FormContext:Action] stepGoPrev()', () => {
       ],
     });
 
-    expect(currentStepName).toBe('step2');
+    expect(navigatedStepName).toBe('step2');
   });
 
   it('Should not go to prev step if already on first', () => {
-    const { currentStepName } = stepGoPrev()({
-      currentStepName: 'step1',
+    const { navigatedStepName } = stepGoPrev()({
+      navigatedStepName: 'step1',
       steps: [
         { name: 'step1', order: 0 },
         { name: 'step2', order: 1 },
@@ -24,6 +24,6 @@ describe('[FormContext:Action] stepGoPrev()', () => {
       ],
     });
 
-    expect(currentStepName).toBe('step1');
+    expect(navigatedStepName).toBe('step1');
   });
 });
