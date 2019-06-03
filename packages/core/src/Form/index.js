@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from './Context';
-import { formSubmit, stepGoNext, stepGoPrev } from './Context/actions';
+import {
+  formSubmit, stepGoNext, stepGoPrev, stepGoTo,
+} from './Context/actions';
 import {
   getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
 } from './Context/helpers';
@@ -35,8 +37,6 @@ export const Form = ({
     isValid,
     isSubmitted,
     isStepValid,
-    navigatedStepName,
-    initialStepName,
     steps,
   } = state;
 
@@ -69,7 +69,7 @@ export const Form = ({
       isSubmitted,
       currentStep,
       // eslint-disable-next-line no-shadow
-      steps: steps.map(({ name, isValid }) => ({
+      steps: (steps || []).map(({ name, isValid }) => ({
         name,
         isValid,
       })),
@@ -78,6 +78,7 @@ export const Form = ({
       isLastStep: currentStepPosition === stepsCount - 1,
       nextStep: () => { dispatch(stepGoNext()); },
       prevStep: () => { dispatch(stepGoPrev()); },
+      goToStep: (name) => { dispatch(stepGoTo(name)); },
     });
   }
 

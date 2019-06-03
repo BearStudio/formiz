@@ -59,6 +59,7 @@ function App() {
             currentStep,
             nextStep,
             prevStep,
+            goToStep,
             isFirstStep,
             isLastStep,
             steps,
@@ -127,14 +128,18 @@ function App() {
 
                 <div className="mx-auto">
                   {steps.map(step => (
-                    <span key={step.name} className={`badge mx-1 ${step.isValid ? 'badge-success' : 'badge-danger'}`}>
-                      {currentStep.name === step.name && (
-                        <span className="mr-1">
-                          &bull;
-                        </span>
-                      )}
+                    <button
+                      key={step.name}
+                      type="button"
+                      onClick={() => goToStep(step.name)}
+                      className={`
+                        btn btn-sm rounded-pill py-0 mx-1
+                        ${currentStep.name === step.name ? 'btn-primary' : 'btn-outline-dark'}
+                      `}
+                    >
+                      {step.isValid ? '✅' : '⚠️'}
                       {step.name}
-                    </span>
+                    </button>
                   ))}
                 </div>
 

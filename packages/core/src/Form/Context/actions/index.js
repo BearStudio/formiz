@@ -17,6 +17,7 @@ export const initialState = {
     {
       name: 'myStep',
       order: 0,
+      isValid: true,
     }
     */
   ],
@@ -110,19 +111,43 @@ export const stepUnregister = name => (state) => {
   return newState;
 };
 
+export const stepGoTo = stepName => (state) => {
+  const { steps } = state;
+
+  const newStep = (steps || []).find(x => x.name === stepName);
+
+  if (!newStep || !newStep.name) {
+    return state;
+  }
+
+  let newState = {
+    ...state,
+    navigatedStepName: newStep.name,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};
+
+export const stepGoToPosition = position => (state) => {
+  const { steps } = state;
+
+  const newStep = (steps || [])[position] || {};
+
+  return stepGoTo(newStep.name)(state);
+};
+
 export const stepGoNext = () => (state) => {
   const { steps } = state;
 
   const stepsCount = (steps || []).length;
   const currenStepName = getCurrentStepNameFromState(state);
   const currentStepPosition = getStepPosition(currenStepName, steps);
-  let nextStep = stepsCount > 0 ? currentStepPosition + 1 : 0;
-  nextStep = nextStep > stepsCount - 1 ? currentStepPosition : nextStep;
+  let nextStepPosition = stepsCount > 0 ? currentStepPosition + 1 : 0;
+  nextStepPosition = nextStepPosition > stepsCount - 1 ? currentStepPosition : nextStepPosition;
 
-  return {
-    ...state,
-    navigatedStepName: ((steps || [])[nextStep] || {}).name,
-  };
+  return stepGoToPosition(nextStepPosition)(state);
 };
 
 export const stepGoPrev = () => (state) => {
@@ -131,13 +156,10 @@ export const stepGoPrev = () => (state) => {
   const currenStepName = getCurrentStepNameFromState(state);
   const currentStepPosition = getStepPosition(currenStepName, steps);
 
-  let prevStep = currentStepPosition - 1;
-  prevStep = prevStep < 0 ? 0 : prevStep;
+  let prevStepPosition = currentStepPosition - 1;
+  prevStepPosition = prevStepPosition < 0 ? 0 : prevStepPosition;
 
-  return {
-    ...state,
-    navigatedStepName: ((steps || [])[prevStep] || {}).name,
-  };
+  return stepGoToPosition(prevStepPosition)(state);
 };
 
 /*
