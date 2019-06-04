@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../Form/Context';
-import { stepRegister, stepUnregister } from '../Form/Context/actions';
-import { getCurrentStepNameFromState } from '../Form/Context/helpers';
+import { stepRegister, stepUnregister, stepSetVisited } from '../Form/Context/actions';
+import { getStep, getCurrentStepNameFromState } from '../Form/Context/helpers';
 import { ErrorStepWithoutName, ErrorStepWithoutOrder } from './errors';
 
 export const propTypes = {
@@ -31,7 +31,12 @@ export const FormStep = ({
   const { state, dispatch } = useFormContext();
 
   const currentStepName = getCurrentStepNameFromState(state);
+  const currentStep = getStep(currentStepName, state.steps);
   const isActive = currentStepName === name;
+
+  if (currentStep.name && !currentStep.isVisited && isActive) {
+    dispatch(stepSetVisited(currentStepName));
+  }
 
   useEffect(() => {
     dispatch(stepRegister(name, order));

@@ -18,6 +18,7 @@ export const initialState = {
       name: 'myStep',
       order: 0,
       isValid: true,
+      isVisited: false,
     }
     */
   ],
@@ -83,6 +84,8 @@ export const stepRegister = (name, order = 0) => (state) => {
       ...step,
       name,
       order,
+      isValid: true,
+      isVisited: false,
     },
   ]);
 
@@ -111,10 +114,27 @@ export const stepUnregister = name => (state) => {
   return newState;
 };
 
-export const stepGoTo = stepName => (state) => {
+export const stepSetVisited = name => (state) => {
+  const step = state.steps.find(x => x.name === name) || {};
+  const otherSteps = state.steps.filter(x => x.name !== name);
+  const steps = getStepsOrdered([
+    ...otherSteps,
+    {
+      ...step,
+      isVisited: true,
+    },
+  ]);
+
+  return {
+    ...state,
+    steps,
+  };
+};
+
+export const stepGoTo = name => (state) => {
   const { steps } = state;
 
-  const newStep = (steps || []).find(x => x.name === stepName);
+  const newStep = (steps || []).find(x => x.name === name);
 
   if (!newStep || !newStep.name) {
     return state;

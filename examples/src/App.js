@@ -132,6 +132,7 @@ function App() {
                       key={step.name}
                       type="button"
                       onClick={() => goToStep(step.name)}
+                      disabled={!step.isVisited}
                       className={`
                         btn btn-sm rounded-pill py-0 mx-1
                         ${currentStep.name === step.name ? 'btn-primary' : 'btn-outline-dark'}

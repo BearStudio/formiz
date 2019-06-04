@@ -69,9 +69,10 @@ export const Form = ({
       isSubmitted,
       currentStep,
       // eslint-disable-next-line no-shadow
-      steps: (steps || []).map(({ name, isValid }) => ({
+      steps: (steps || []).map(({ name, isValid, isVisited }) => ({
         name,
         isValid,
+        isVisited,
       })),
       isStepValid,
       isFirstStep: currentStepPosition === 0,
