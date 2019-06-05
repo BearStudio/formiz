@@ -41,7 +41,7 @@ export const useField = ({
     errorMessages,
     errorMessage: errorMessages[0],
     isValid: field ? !field.errors.length : true,
-    isInvalid: field ? field.errors.length > 0 : false,
+    isPristine: field ? field.isPristine : true,
     setValue: (value) => {
       dispatch(fieldSetValue(name, value));
     },

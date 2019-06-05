@@ -203,6 +203,7 @@ export const fieldRegister = (
       name,
       value: field.value || value,
       isActive: true,
+      isPristine: true,
       step,
       validations,
       errors: [],
@@ -258,6 +259,7 @@ export const fieldSetValue = (name, value) => (state) => {
     {
       ...field,
       value,
+      isPristine: false,
     },
   ];
 

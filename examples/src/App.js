@@ -8,9 +8,13 @@ const isNotEqual = (val) => x => (x || '').toLowerCase() !== (val || '').toLower
 
 const Input = (props) => {
   const {
-    value, setValue, errorMessage, isValid,
+    value, setValue, errorMessage, isValid, isPristine,
   } = useFormiz(props);
   const { label } = props; // eslint-disable-line
+  const [isTouched, setIsTouched] = React.useState(false);
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  const isError = !isValid && (!isPristine || isTouched);
 
   return (
     <div className="form-group">
@@ -18,12 +22,18 @@ const Input = (props) => {
         {label}
       </label>
       <input
-        className={`form-control ${!isValid ? 'is-invalid' : ''}`}
-        style={{ borderColor: isValid ? null : 'red' }}
+        className={`form-control ${isError ? 'is-invalid' : ''}`}
         defaultValue={value}
         onChange={e => setValue(e.target.value.trim())}
+        onFocus={() => {
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          setIsTouched(true);
+          setIsFocused(false);
+        }}
       />
-      {!isValid && (
+      {isError && (
         <div className="invalid-feedback">
           {errorMessage}
         </div>
@@ -33,7 +43,8 @@ const Input = (props) => {
 };
 
 function App() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isJobFieldVisible, setIsJobFieldVisible] = React.useState(false);
+  const [isStep2Visible, setIsStep2Visible] = React.useState(true);
   const [formIsValid, setFormIsValid] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -48,6 +59,11 @@ function App() {
 
   return (
     <div>
+      <div style={{ padding: '2rem' }}>
+        <button className="btn btn-light btn-sm" type="button" onClick={() => setIsStep2Visible(!isStep2Visible)}>
+          Toggle Step 2
+        </button>
+      </div>
       <div style={{ padding: '2rem' }}>
         <Formiz
           onSubmit={handleSubmit}
@@ -95,30 +111,34 @@ function App() {
                       },
                     ]}
                   />
+
                 </FormizStep>
 
-                <FormizStep name="step2" order={2}>
-                  <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsVisible(!isVisible)}>
-                    Toggle Job
-                  </button>
+                {!isStep2Visible && currentStep.name === 'step2' && goToStep('step1')}
+                {isStep2Visible && (
+                  <FormizStep name="step2" order={2}>
+                    <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
+                      Toggle Job
+                    </button>
 
-                  {isVisible && (
-                    <Input
-                      name="job"
-                      label="Job"
-                      validations={[
-                        {
-                          rule: isNotEqual('john'),
-                          message: 'Not john',
-                        },
-                        {
-                          rule: isRequired(),
-                          message: 'Required',
-                        },
-                      ]}
-                    />
-                  )}
-                </FormizStep>
+                    {isJobFieldVisible && (
+                      <Input
+                        name="job"
+                        label="Job"
+                        validations={[
+                          {
+                            rule: isNotEqual('john'),
+                            message: 'Not john',
+                          },
+                          {
+                            rule: isRequired(),
+                            message: 'Required',
+                          },
+                        ]}
+                      />
+                    )}
+                  </FormizStep>
+                )}
               </div>
 
               <div className="card-footer d-flex align-items-center">
@@ -135,10 +155,11 @@ function App() {
                       disabled={!step.isVisited}
                       className={`
                         btn btn-sm rounded-pill py-0 mx-1
-                        ${currentStep.name === step.name ? 'btn-primary' : 'btn-outline-dark'}
+                        ${currentStep.name === step.name ? 'btn-primary' : 'btn-link'}
                       `}
                     >
                       {step.isValid ? '✅' : '⚠️'}
+                      {' '}
                       {step.name}
                     </button>
                   ))}
@@ -185,10 +206,10 @@ function App() {
           />
 
           <div>
-            <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsVisible(!isVisible)}>
+            <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
               Toggle Job
             </button>
-            {isVisible && (
+            {isJobFieldVisible && (
               <Input
                 name="job"
                 label="Job"
