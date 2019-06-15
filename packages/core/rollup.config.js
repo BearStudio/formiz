@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel';
+import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import visualizer from 'rollup-plugin-visualizer';
@@ -27,6 +28,7 @@ const config = ({ output, format }) => ({
     babel({
       exclude: 'node_modules/**',
     }),
+    commonjs(),
     visualizer({
       filename: `../../.stats/formiz-core.${format}.html`,
       title: `@formiz/core [${format}]`,
