@@ -246,6 +246,30 @@ export const fieldUnregister = (name, isKeepValue) => (state) => {
   return newState;
 };
 
+export const fieldUpdateValidations = (
+  name,
+  validations
+) => (state) => {
+  const field = state.fields.find(x => x.name === name) || {};
+  const otherFields = state.fields.filter(x => x.name !== name);
+  const fields = [
+    ...otherFields,
+    {
+      ...field,
+      validations,
+    },
+  ];
+
+  let newState = {
+    ...state,
+    fields,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};
+
 export const fieldSetValue = (name, value) => (state) => {
   const field = state.fields.find(x => x.name === name);
   const otherFields = state.fields.filter(x => x.name !== name);

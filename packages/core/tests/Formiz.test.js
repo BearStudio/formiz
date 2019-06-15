@@ -86,7 +86,6 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    expect(mockInvalid.mock.calls.length).toBe(1);
     expect(isFormValid).toBe(false);
   });
 

@@ -12,7 +12,6 @@ const Input = (props) => {
   } = useFormiz(props);
   const { label } = props; // eslint-disable-line
   const [isTouched, setIsTouched] = React.useState(false);
-  const [isFocused, setIsFocused] = React.useState(false);
 
   const isError = !isValid && (!isPristine || isTouched);
 
@@ -25,12 +24,8 @@ const Input = (props) => {
         className={`form-control ${isError ? 'is-invalid' : ''}`}
         defaultValue={value}
         onChange={e => setValue(e.target.value.trim())}
-        onFocus={() => {
-          setIsFocused(true);
-        }}
         onBlur={() => {
           setIsTouched(true);
-          setIsFocused(false);
         }}
       />
       {isError && (
@@ -102,8 +97,9 @@ function App() {
                     defaultValue="john"
                     validations={[
                       {
-                        rule: isNotEqual('john'),
-                        message: 'Not john',
+                        rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
+                        message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
+                        dependencies: [isStep2Visible],
                       },
                       {
                         rule: isRequired(),
@@ -195,8 +191,8 @@ function App() {
             defaultValue="john"
             validations={[
               {
-                rule: isNotEqual('john'),
-                message: 'Not john',
+                rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
+                message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
               },
               {
                 rule: isRequired(),
