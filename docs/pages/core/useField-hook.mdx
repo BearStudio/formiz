@@ -1,19 +1,19 @@
 ---
 menu: Core
-name: useFormiz() hook
+name: useField() hook
 ---
 
-# `useFormiz()` hook
+# `useField()` hook
 
 ## Concept
 
-When using the `useFormiz` hook, you need to pass your component `props` to the hook.
+When using the `useField` hook, you need to pass your component `props` to the hook.
 
 Then the hook give you access to the field state.
 
 ```jsx
 import React from 'react'
-import { useFormiz } from '@formiz/core'
+import { useField } from '@formiz/core'
 
 const MyField = (props) => {
   const {
@@ -21,7 +21,7 @@ const MyField = (props) => {
     setValue,
     isValid,
     errorMessage,
-  } = useFormiz(props)
+  } = useField(props)
 
   return (
     ...
@@ -32,14 +32,14 @@ const MyField = (props) => {
 You can also be more verbose and only pass the 6 required props to the hook (`name`, `defaultValue`, `isRequired`, `validations`, `keepValue` and `onChange`).
 
 ```jsx
-useFormiz({ name, defaultValue, isRequired, validations, keepValue, onChange })
+useField({ name, defaultValue, isRequired, validations, keepValue, onChange })
 ```
 
 ---
 
 ## Hook values
 
-The `useFormiz` return an object with the following properties:
+The `useField` return an object with the following properties:
 
 ### `value`
 
@@ -65,7 +65,7 @@ Return the first error message.
 
 ## Field props
 
-When a component is created with the `useFormiz()` hook,
+When a component is created with the `useField()` hook,
 you can pass the following props to the component.
 
 ### `name` [required]
@@ -128,10 +128,10 @@ Set to `true` to keep the value when the field is unmounted from the DOM. (defau
 ```jsx
 // MyField.js
 import React from 'react'
-import { useFormiz } from '@formiz/core'
+import { useField } from '@formiz/core'
 
 const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid } = useFormiz(props)
+  const { value, setValue, errorMessage, isValid } = useField(props)
   const { customProperty } = props;
 
   return (

@@ -11,64 +11,55 @@ name: <FormizStep> component
 
 ```jsx
 import React from 'react'
-import { Formiz, FormizStep } from '@formiz/core'
+import { Formiz, FormizStep, useForm } from '@formiz/core'
 import { FieldInput } from '@formiz/fields'
 
 export const MyForm = () => {
+  const [myForm, myFormConnector] = useForm();
+
   const submitForm = (values) => {
     console.log(values); // { firstname: 'value', lastname: 'value' }
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} >
-      {({
-        submit,
-        isValid,
-        isSubmitted,
-        isStepValid,
-        isFirstStep,
-        isLastStep,
-        prevStep,
-        nextStep
-      }) => (
-        <form onSubmit={submit}>
-          <FormizStep name="step1" order={1}>
-            <FieldInput
-              name="firstname"
-              label="First Name"
-              isRequired="First Name is required"
-            />
-          </FormizStep>
-          <FormizStep name="step2" order={2}>
-            <FieldInput
-              name="lastname"
-              label="Last Name"
-              isRequired="Last Name is required"
-            />
-          </FormizStep>
-          <div>
-            {isFirstStep ? (
-              <button type="text" onClick={() => window.history.back()}>
-                Cancel
-              </button>
-            ) : (
-              <button type="button" onClick={prevStep}>
-                Back
-              </button>
-            )}
+    <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
+      <form onSubmit={myForm.submit}>
+        <FormizStep name="step1" order={1}>
+          <FieldInput
+            name="firstname"
+            label="First Name"
+            isRequired="First Name is required"
+          />
+        </FormizStep>
+        <FormizStep name="step2" order={2}>
+          <FieldInput
+            name="lastname"
+            label="Last Name"
+            isRequired="Last Name is required"
+          />
+        </FormizStep>
+        <div>
+          {isFirstStep ? (
+            <button type="text" onClick={() => window.history.back()}>
+              Cancel
+            </button>
+          ) : (
+            <button type="button" onClick={myForm.prevStep}>
+              Back
+            </button>
+          )}
 
-            {isLastStep ? (
-              <button type="submit" disabled={!isValid}>
-                Submit
-              </button>
-            ) : (
-              <button type="button" onClick={nextStep} disabled={!isStepValid}>
-                Continue
-              </button>
-            )}
-          </div>
-        </form>
-      )}
+          {isLastStep ? (
+            <button type="submit" disabled={!myForm.isValid}>
+              Submit
+            </button>
+          ) : (
+            <button type="button" onClick={myForm.nextStep} disabled={!myForm.isStepValid}>
+              Continue
+            </button>
+          )}
+        </div>
+      </form>
     </Formiz>
   )
 }

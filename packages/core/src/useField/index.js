@@ -32,7 +32,7 @@ export const useField = ({
   const { state, dispatch } = formContext;
 
   useEffect(() => {
-    console.log('Render useField');
+    // console.log('Render useField');
     prevValidations.current = validations;
     prevValidationsDependencies.current = validationsDependencies;
   });

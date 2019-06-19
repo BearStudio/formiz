@@ -6,7 +6,7 @@ import { Formiz } from '../src';
 import { FormContextProvider } from '../src/Form/Context';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from '../src/useField/errors';
 
-describe('Fields using `useFormiz()`', () => {
+describe('Fields using `useField()`', () => {
   it('Should crash if field is mount outside of `<FormContextProvider>`', () => {
     silent(() => {
       expect(() => {

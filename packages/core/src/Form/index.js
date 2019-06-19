@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import dequal from 'dequal';
+import { usePrevious } from '../usePrevious';
 import { useFormContext } from './Context';
 import {
   formSubmit, stepGoNext, stepGoPrev, stepGoTo,
@@ -10,26 +12,32 @@ import {
 
 export const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  noFormTag: PropTypes.bool,
   onSubmit: PropTypes.func,
   onValid: PropTypes.func,
   onInvalid: PropTypes.func,
   onChange: PropTypes.func,
+  connect: PropTypes.func,
 };
 
 export const defaultProps = {
   children: '',
+  noFormTag: false,
   onSubmit: () => {},
   onValid: () => {},
   onInvalid: () => {},
   onChange: () => {},
+  connect: () => {},
 };
 
 export const Form = ({
   children,
+  noFormTag,
   onSubmit,
   onValid,
   onInvalid,
   onChange,
+  connect,
 }) => {
   const { state, dispatch } = useFormContext();
   const {
@@ -46,6 +54,10 @@ export const Form = ({
   const currentStep = getStep(currentStepName, steps);
   const currentStepPosition = getStepPosition(currentStepName, steps);
 
+  const prevStep = usePrevious(currentStep);
+  const prevSteps = usePrevious(steps);
+  const prevOnSubmit = usePrevious(onSubmit);
+
   onChange(getFormValues(fields));
 
   if (isValid) {
@@ -54,16 +66,19 @@ export const Form = ({
     onInvalid();
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     if (e) {
       e.preventDefault();
     }
     onSubmit(getFormValues(fields));
     dispatch(formSubmit());
-  };
+  }, [
+    fields,
+    !dequal(onSubmit, prevOnSubmit),
+  ]);
 
-  if (typeof children === 'function') {
-    return children({
+  useEffect(() => {
+    connect({
       submit: handleSubmit,
       isValid,
       isSubmitted,
@@ -81,6 +96,20 @@ export const Form = ({
       prevStep: () => { dispatch(stepGoPrev()); },
       goToStep: (name) => { dispatch(stepGoTo(name)); },
     });
+  }, [
+    dispatch,
+    handleSubmit,
+    isValid,
+    isSubmitted,
+    !dequal(currentStep, prevStep),
+    !dequal(steps, prevSteps),
+    isStepValid,
+    currentStepPosition,
+    stepsCount,
+  ]);
+
+  if (noFormTag) {
+    return children;
   }
 
   return (
@@ -89,7 +118,6 @@ export const Form = ({
     </form>
   );
 };
-
 
 Form.propTypes = propTypes;
 Form.defaultProps = defaultProps;
