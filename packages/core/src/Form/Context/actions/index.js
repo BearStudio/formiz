@@ -222,11 +222,12 @@ export const fieldRegister = (
 
 export const fieldUnregister = (name, isKeepValue) => (state) => {
   const field = state.fields.find(x => x.name === name);
-  const otherFields = state.fields.filter(x => x.name !== name);
 
   if (!field) {
     return state;
   }
+
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   const fields = !isKeepValue ? otherFields : [
     ...otherFields,
@@ -250,7 +251,12 @@ export const fieldUpdateValidations = (
   name,
   validations
 ) => (state) => {
-  const field = state.fields.find(x => x.name === name) || {};
+  const field = state.fields.find(x => x.name === name);
+
+  if (!field) {
+    return state;
+  }
+
   const otherFields = state.fields.filter(x => x.name !== name);
   const fields = [
     ...otherFields,
@@ -272,11 +278,12 @@ export const fieldUpdateValidations = (
 
 export const fieldSetValue = (name, value) => (state) => {
   const field = state.fields.find(x => x.name === name);
-  const otherFields = state.fields.filter(x => x.name !== name);
 
   if (!field) {
     return state;
   }
+
+  const otherFields = state.fields.filter(x => x.name !== name);
 
   const fields = [
     ...otherFields,
