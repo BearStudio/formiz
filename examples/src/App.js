@@ -196,6 +196,24 @@ function App() {
             ]}
           />
 
+          {[...Array(20)].map((_x, index) => (
+            <Input
+              key={index}
+              name={`name-${index}`}
+              label={`Name ${index}`}
+              validations={[
+                {
+                  rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
+                  message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
+                },
+                {
+                  rule: isRequired(),
+                  message: 'Required',
+                },
+              ]}
+            />
+          ))}
+
           <div>
             <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
               Toggle Job
