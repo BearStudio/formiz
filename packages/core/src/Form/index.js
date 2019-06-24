@@ -11,7 +11,7 @@ import {
 } from './Context/helpers';
 
 export const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  children: PropTypes.node,
   noFormTag: PropTypes.bool,
   onSubmit: PropTypes.func,
   onValid: PropTypes.func,

@@ -28,7 +28,7 @@ export const useField = ({
   const { state, dispatch } = formContext;
 
   useEffect(() => {
-    // console.log('Render useField');
+    console.log('Render useField');
     prevValidations.current = validations;
   });
 
@@ -40,12 +40,11 @@ export const useField = ({
     };
   }, [name, step]);
 
-  // TODO: Optimize this :(
   useEffect(() => {
     dispatch(fieldUpdateValidations(name, validations));
   }, [
     name,
-    !dequal(prevValidations.current, validations),
+    !dequal(prevValidations.current, validations), // TODO: Optimize this :(
   ]);
 
   const field = state.fields.find(f => f.name === name);
