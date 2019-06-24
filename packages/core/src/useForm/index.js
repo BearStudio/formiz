@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { usePrevious } from '../usePrevious';
 
 export const useForm = () => {
-  const [form, setForm] = useState({
+  const [state, setState] = useState({
     submit: () => {},
     isValid: true,
     isSubmitted: false,
-    currentStep: null,
+    currentStep: {},
     steps: [],
     isStepValid: true,
     isFirstStep: true,
@@ -14,10 +15,13 @@ export const useForm = () => {
     prevStep: () => {},
     goToStep: () => {},
   });
+  const prevState = usePrevious(state);
 
   const formConnector = (val) => {
-    setForm(val);
+    if (val !== prevState) {
+      setState(val);
+    }
   };
 
-  return [form, formConnector];
+  return [state, formConnector];
 };
