@@ -40,7 +40,7 @@ describe('<Formiz />', () => {
     );
   });
 
-  it('Should be valid if all fields are valid', () => {
+  it('Should be valid if all fields are valid', (done) => {
     let isFormValid = true;
     const mockValid = jest.fn(() => { isFormValid = true; });
     const mockInvalid = jest.fn(() => { isFormValid = false; });
@@ -59,15 +59,16 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    expect(isFormValid).toBe(false);
-
     const input = form.find('input').first();
     input.simulate('change', { target: { value: 'New value' } });
 
-    expect(isFormValid).toBe(true);
+    setTimeout(() => {
+      expect(isFormValid).toBe(true);
+      done();
+    });
   });
 
-  it('Should be invalid if one field is invalid', () => {
+  it('Should be invalid if one field is invalid', (done) => {
     let isFormValid = true;
     const mockValid = jest.fn(() => { isFormValid = true; });
     const mockInvalid = jest.fn(() => { isFormValid = false; });
@@ -86,10 +87,13 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    expect(isFormValid).toBe(false);
+    setTimeout(() => {
+      expect(isFormValid).toBe(false);
+      done();
+    });
   });
 
-  it('Should get form values onSubmit', () => {
+  it('Should get form values onSubmit', (done) => {
     let formValues = null;
     const mockSubmit = jest.fn((values) => { formValues = values; });
 
@@ -102,17 +106,16 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    expect(mockSubmit.mock.calls.length).toBe(0);
-    expect(formValues).toBe(null);
-
-    form.simulate('submit');
-
-    expect(mockSubmit.mock.calls.length).toBe(1);
-    expect(formValues).toHaveProperty('field', null);
-    expect(formValues).toHaveProperty('field2', 'Value 2');
+    setTimeout(() => {
+      form.simulate('submit');
+      expect(mockSubmit.mock.calls.length).toBe(1);
+      expect(formValues).toHaveProperty('field', null);
+      expect(formValues).toHaveProperty('field2', 'Value 2');
+      done();
+    });
   });
 
-  it('Should get form values onChange', () => {
+  it('Should get form values onChange', (done) => {
     let formValues = null;
 
     const form = mount(
@@ -127,7 +130,10 @@ describe('<Formiz />', () => {
     const input = form.find('input').first();
     input.simulate('change', { target: { value: 'New value' } });
 
-    expect(formValues).toHaveProperty('field', 'New value');
-    expect(formValues).toHaveProperty('field2', 'Value 2');
+    setTimeout(() => {
+      expect(formValues).toHaveProperty('field', 'New value');
+      expect(formValues).toHaveProperty('field2', 'Value 2');
+      done();
+    });
   });
 });

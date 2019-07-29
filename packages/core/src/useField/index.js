@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react';
-import dequal from 'dequal';
+import { useEffect } from 'react';
 import { useFormContext } from '../Form/Context';
 import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
@@ -19,7 +18,6 @@ export const useField = ({
 
   const formContext = useFormContext();
   const step = useFormStepName();
-  const prevValidations = useRef(null);
 
   if (!formContext) {
     throw ErrorFieldWithoutForm;
@@ -29,7 +27,6 @@ export const useField = ({
 
   useEffect(() => {
     console.log('Render useField');
-    prevValidations.current = validations;
   });
 
   useEffect(() => {
@@ -44,7 +41,7 @@ export const useField = ({
     dispatch(fieldUpdateValidations(name, validations));
   }, [
     name,
-    !dequal(prevValidations.current, validations), // TODO: Optimize this :(
+    JSON.stringify(validations),
   ]);
 
   const field = state.fields.find(f => f.name === name);

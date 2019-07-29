@@ -43,8 +43,5 @@
     "rollup-plugin-node-resolve": "4.2.3",
     "rollup-plugin-terser": "4.0.4",
     "rollup-plugin-visualizer": "1.1.1"
-  },
-  "dependencies": {
-    "dequal": "1.0.0"
   }
 }

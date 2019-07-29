@@ -64,11 +64,12 @@ describe('<FormizStep />', () => {
     );
   });
 
-  it('Should register fields in steps', () => {
-    let formValues;
+  it('Should register fields in steps', (done) => {
+    let formValues = null;
+    const mockSubmit = jest.fn((values) => { formValues = values; });
 
     const form = mount(
-      <Formiz onSubmit={(values) => { formValues = values; }}>
+      <Formiz onSubmit={mockSubmit}>
         <FormizStep name="step1" order={0}>
           <Input name="field" />
           <Input name="field2" />
@@ -80,11 +81,13 @@ describe('<FormizStep />', () => {
       </Formiz>
     );
 
-    form.simulate('submit');
-
-    expect(formValues).toHaveProperty('field');
-    expect(formValues).toHaveProperty('field2');
-    expect(formValues).toHaveProperty('field3');
-    expect(formValues).toHaveProperty('field4');
+    setTimeout(() => {
+      form.simulate('submit');
+      expect(formValues).toHaveProperty('field');
+      expect(formValues).toHaveProperty('field2');
+      expect(formValues).toHaveProperty('field3');
+      expect(formValues).toHaveProperty('field4');
+      done();
+    });
   });
 });

@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, {
+  useContext, useEffect, useState, useRef, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import { initialState } from './actions';
 
@@ -7,11 +9,25 @@ export const FormContext = React.createContext();
 export const useFormContext = () => useContext(FormContext);
 
 export const FormContextProvider = ({ children, onStateChange }) => {
-  const [state, dispatch] = useReducer((_state, _action) => _action(_state), initialState);
+  const internalState = useRef(initialState);
+  const debounce = useRef(null);
+  const [state, setState] = useState(internalState.current);
+
+  const dispatch = useCallback((action) => {
+    internalState.current = action(internalState.current);
+
+    if (debounce.current) {
+      clearTimeout(debounce.current);
+    }
+
+    debounce.current = setTimeout(() => {
+      setState(internalState.current);
+    });
+  }, [internalState]);
 
   useEffect(() => {
-    onStateChange(state);
-  }, [state]);
+    onStateChange(internalState.current);
+  }, [internalState.current]);
 
   return (
     <FormContext.Provider value={{ state, dispatch }}>

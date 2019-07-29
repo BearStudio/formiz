@@ -1,7 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import dequal from 'dequal';
-import { usePrevious } from '../usePrevious';
 import { useFormContext } from './Context';
 import {
   formSubmit, stepGoNext, stepGoPrev, stepGoTo,
@@ -54,10 +52,6 @@ export const Form = ({
   const currentStep = getStep(currentStepName, steps);
   const currentStepPosition = getStepPosition(currentStepName, steps);
 
-  const prevStep = usePrevious(currentStep);
-  const prevSteps = usePrevious(steps);
-  const prevOnSubmit = usePrevious(onSubmit);
-
   onChange(getFormValues(fields));
 
   if (isValid) {
@@ -74,7 +68,7 @@ export const Form = ({
     dispatch(formSubmit());
   }, [
     fields,
-    !dequal(onSubmit, prevOnSubmit),
+    JSON.stringify(onSubmit),
   ]);
 
   useEffect(() => {
@@ -101,8 +95,8 @@ export const Form = ({
     handleSubmit,
     isValid,
     isSubmitted,
-    !dequal(currentStep, prevStep),
-    !dequal(steps, prevSteps),
+    JSON.stringify(currentStep),
+    JSON.stringify(steps),
     isStepValid,
     currentStepPosition,
     stepsCount,
