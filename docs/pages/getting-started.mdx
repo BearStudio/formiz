@@ -6,37 +6,82 @@ route: /getting-started
 # Getting Started
 
 
-### Install Formiz core & fields
+## With built-in Fields
+
+> Coming soon
+
+---
+
+## With customs Fields
+
+### Install Formiz core
 
 ```bash
-npm install @formiz/core @formiz/fields
+npm install @formiz/core
 ```
 
-### Create a form with fields
+### Create your first custom field
+
+A custom field can be anything, not just inputs.
+
+Here there is an example with an input, but you can litteraly **turn anything into a field** and you will **get validation for free**!
 
 ```jsx
 import React from 'react'
-import { Formiz } from '@formiz/core'
-import { FieldInput } from '@formiz/fields'
+import { useField } from '@formiz/core'
+
+export const MyField = (props) => {
+  const { value, setValue, errorMessage, isValid } = useField(props);
+  const { label } = props;
+
+  return (
+    <div>
+      <label>
+        { label }
+      </label>
+      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)}>
+      {!isValid && (
+        <p>
+          { errorMessage }
+        </p>
+      )}
+    </div>
+  )
+}
+```
+
+### Use your field in a form
+
+Then use your field as many time as you want :)
+
+**Each field need a property "name"** which will be the key in the object of values.<br />
+So, be sure that this key is **unique by form**.
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
+import { MyField } from './MyField'
 
 export const MyForm = () => {
+  const [myForm, myFormConnector] = useForm();
+
   const submitForm = (values) => {
-    console.log(values); // { firstname: 'value', lastname: 'value' }
+    console.log(values); // { firstName: 'value', lastName: 'value' }
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} >
-      <FieldInput
-        name="firstname"
+    <Formiz onValidSubmit={submitForm} connector={myFormConnector}>
+      <MyField
+        name="firstName"
         label="First Name"
         isRequired="First Name is required"
       />
-      <FieldInput
-        name="lastname"
+      <MyField
+        name="lastName"
         label="Last Name"
         isRequired="Last Name is required"
       />
-      <button type="submit">
+      <button type="submit" disabled={!myForm.isValid}>
         Submit
       </button>
     </Formiz>

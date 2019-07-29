@@ -41,25 +41,25 @@ useField({ name, defaultValue, isRequired, validations, keepValue, onChange })
 
 The `useField` return an object with the following properties:
 
-### `value`
+#### `value`
 
-Get the current value of the field.
+> Get the current value of the field.
 
-### `setValue()`
+#### `setValue()`
 
-Set the value of the field.
+> Set the value of the field.
 
-### `isValid`
+#### `isValid`
 
-Returns `true` if the field is valid.
+> Returns `true` if the field is valid.
 
-### `errorMessage`
+#### `errorMessage`
 
-Return the first error message.
+> Return the first error message.
 
-### `errorMessages`
+#### `errorMessages`
 
-// TODO
+> // TODO
 
 ---
 
@@ -68,27 +68,27 @@ Return the first error message.
 When a component is created with the `useField()` hook,
 you can pass the following props to the component.
 
-### `name` [required]
+#### `name` [required]
 
-The name is required to register the field in the form.
+> The name is required to register the field in the form.
 
 ```jsx
 <Field name="myFieldName" />
 ```
 
-### `defaultValue`
+#### `defaultValue`
 
-Pass an initial value to the field.
+> Pass an initial value to the field.
 
 ```jsx
 <Field name="myFieldName" defaultValue="My initial value" />
 ```
 
-### `validations`
+#### `validations`
 
-An array of object with:
-- `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
-- `message`: The message if the rule is invalid.
+> An array of object with:
+> - `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
+> - `message`: The message if the rule is invalid.
 
 ```jsx
 <Field
@@ -110,20 +110,20 @@ An array of object with:
 />
 ```
 
-### `keepValue`
+#### `keepValue`
 
-Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
+> Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
 
-### `onChange(fieldValue, formValues)`
+#### `onChange(fieldValue, formValues)`
 
-// TODO
+> // TODO
 
 
 ---
 
 ## Example
 
-### Create your custom field
+#### Create your custom field
 
 ```jsx
 // MyField.js
@@ -146,7 +146,7 @@ const MyField = (props) => {
 }
 ```
 
-### Use your custom field
+#### Use your custom field
 
 ```jsx
 import React from 'react'
