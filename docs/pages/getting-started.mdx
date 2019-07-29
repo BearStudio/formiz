@@ -5,15 +5,6 @@ route: /getting-started
 
 # Getting Started
 
-
-## With built-in Fields
-
-> Coming soon
-
----
-
-## With customs Fields
-
 ### Install Formiz core
 
 ```bash
@@ -31,8 +22,8 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid } = useField(props);
-  const { label } = props;
+  const { value, setValue, errorMessage, isValid } = useField(props)
+  const { label } = props
 
   return (
     <div>
@@ -63,27 +54,90 @@ import { Formiz, useForm } from '@formiz/core'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
-  const [myForm, myFormConnector] = useForm();
+  const [myForm, myFormConnector] = useForm()
 
   const submitForm = (values) => {
-    console.log(values); // { firstName: 'value', lastName: 'value' }
+    console.log(values) // { firstName: 'value', lastName: 'value' }
   }
 
   return (
     <Formiz onValidSubmit={submitForm} connector={myFormConnector}>
-      <MyField
-        name="firstName"
-        label="First Name"
-        isRequired="First Name is required"
-      />
-      <MyField
-        name="lastName"
-        label="Last Name"
-        isRequired="Last Name is required"
-      />
-      <button type="submit" disabled={!myForm.isValid}>
-        Submit
-      </button>
+      <form onSubmit={myForm.submit}>
+        <MyField
+          name="firstName"
+          label="First Name"
+          isRequired="First Name is required"
+        />
+        <MyField
+          name="lastName"
+          label="Last Name"
+          isRequired="Last Name is required"
+        />
+        <button type="submit" disabled={!myForm.isValid}>
+          Submit
+        </button>
+      </form>
+    </Formiz>
+  )
+}
+```
+
+### That's it 🎉
+
+Oh wait... you want to **turn the form into a mutli steps** form?
+
+### 🧙 Multi Steps form
+
+You already have your field so we just need to update our form to use steps.
+
+Import the `FormizStep` component and use it to split the form into steps.
+
+We need also need to update the submit button to allow the user to navigate between steps.
+
+```jsx
+import React from 'react'
+import { Formiz, FormizStep, useForm } from '@formiz/core'
+import { MyField } from './MyField'
+
+export const MyForm = () => {
+  const [myForm, myFormConnector] = useForm()
+
+  const submitForm = (values) => {
+    console.log(values) // { firstName: 'value', lastName: 'value' }
+  }
+
+  return (
+    <Formiz onValidSubmit={submitForm} connector={myFormConnector}>
+      <form onSubmit={myForm.submit}>
+        <FormizStep name="step1">
+          <MyField
+            name="firstName"
+            label="First Name"
+            isRequired="First Name is required"
+          />
+        </FormizStep>
+        <FormizStep name="step2">
+          <MyField
+            name="lastName"
+            label="Last Name"
+            isRequired="Last Name is required"
+          />
+        </FormizStep>
+        {!myForm.isFirstStep && (
+          <button type="button" onClick={myForm.prevStep}>
+            Back
+          </button>
+        )}
+        {myForm.isLastStep ? (
+          <button type="submit" disabled={!myForm.isValid}>
+            Submit
+          </button>
+        ) : (
+          <button type="button" onClick={myForm.nextStep} disabled={!myForm.isStepValid}>
+            Continue
+          </button>
+        )}
+      </form>
     </Formiz>
   )
 }

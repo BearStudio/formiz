@@ -132,7 +132,7 @@ import { useField } from '@formiz/core'
 
 const MyField = (props) => {
   const { value, setValue, errorMessage, isValid } = useField(props)
-  const { customProperty } = props;
+  const { customProperty } = props
 
   return (
     <div>
@@ -155,7 +155,7 @@ import { MyField } from './MyField'
 
 export const MyForm = () => {
   const submitForm = (values) => {
-    console.log(values); // { myCustomField: 'value' }
+    console.log(values) // { myCustomField: 'value' }
   }
 
   return (

@@ -12,35 +12,35 @@ name: <FormizStep> component
 ```jsx
 import React from 'react'
 import { Formiz, FormizStep, useForm } from '@formiz/core'
-import { FieldInput } from '@formiz/fields'
+import MyField from './MyField'
 
 export const MyForm = () => {
-  const [myForm, myFormConnector] = useForm();
+  const [myForm, myFormConnector] = useForm()
 
   const submitForm = (values) => {
-    console.log(values); // { firstname: 'value', lastname: 'value' }
+    console.log(values) // { firstname: 'value', lastname: 'value' }
   }
 
   return (
     <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
       <form onSubmit={myForm.submit}>
-        <FormizStep name="step1" order={1}>
-          <FieldInput
+        <FormizStep name="step1">
+          <MyField
             name="firstname"
             label="First Name"
             isRequired="First Name is required"
           />
         </FormizStep>
-        <FormizStep name="step2" order={2}>
-          <FieldInput
+        <FormizStep name="step2">
+          <MyField
             name="lastname"
             label="Last Name"
             isRequired="Last Name is required"
           />
         </FormizStep>
         <div>
-          {isFirstStep ? (
-            <button type="text" onClick={() => window.history.back()}>
+          {myForm.isFirstStep ? (
+            <button type="button" onClick={() => window.history.back()}>
               Cancel
             </button>
           ) : (
@@ -49,7 +49,7 @@ export const MyForm = () => {
             </button>
           )}
 
-          {isLastStep ? (
+          {myForm.isLastStep ? (
             <button type="submit" disabled={!myForm.isValid}>
               Submit
             </button>
