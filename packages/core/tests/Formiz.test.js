@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('<Formiz />', () => {
   it('Should mount without crashing', () => {
     mount(
-      <Formiz>
+      <Formiz autoForm>
         My Form
       </Formiz>
     );
@@ -18,7 +18,7 @@ describe('<Formiz />', () => {
 
   it('Should mount fields without crashing', () => {
     mount(
-      <Formiz>
+      <Formiz autoForm>
         <Input name="field" />
         <Input name="field2" />
       </Formiz>
@@ -28,7 +28,7 @@ describe('<Formiz />', () => {
   it('Should mount 2 separated `<Formiz>` without crashing', () => {
     mount(
       <div>
-        <Formiz>
+        <Formiz autoForm>
           <Input name="field" />
           <Input name="field2" />
         </Formiz>
@@ -46,7 +46,7 @@ describe('<Formiz />', () => {
     const mockInvalid = jest.fn(() => { isFormValid = false; });
 
     const form = mount(
-      <Formiz onValid={mockValid} onInvalid={mockInvalid}>
+      <Formiz onValid={mockValid} onInvalid={mockInvalid} autoForm>
         <Input
           name="field"
           validations={[
@@ -74,7 +74,7 @@ describe('<Formiz />', () => {
     const mockInvalid = jest.fn(() => { isFormValid = false; });
 
     mount(
-      <Formiz onValid={mockValid} onInvalid={mockInvalid}>
+      <Formiz onValid={mockValid} onInvalid={mockInvalid} autoForm>
         <Input
           name="field"
           validations={[
@@ -98,7 +98,7 @@ describe('<Formiz />', () => {
     const mockSubmit = jest.fn((values) => { formValues = values; });
 
     const form = mount(
-      <Formiz onSubmit={mockSubmit}>
+      <Formiz onSubmit={mockSubmit} autoForm>
         <Input
           name="field"
         />
@@ -119,7 +119,7 @@ describe('<Formiz />', () => {
     let formValues = null;
 
     const form = mount(
-      <Formiz onChange={(values) => { formValues = values; }}>
+      <Formiz onChange={(values) => { formValues = values; }} autoForm>
         <Input
           name="field"
         />

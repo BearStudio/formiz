@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from './Context';
 import {
@@ -10,7 +10,7 @@ import {
 
 export const propTypes = {
   children: PropTypes.node,
-  noFormTag: PropTypes.bool,
+  autoForm: PropTypes.bool,
   onSubmit: PropTypes.func,
   onValid: PropTypes.func,
   onInvalid: PropTypes.func,
@@ -20,7 +20,7 @@ export const propTypes = {
 
 export const defaultProps = {
   children: '',
-  noFormTag: false,
+  autoForm: false,
   onSubmit: () => {},
   onValid: () => {},
   onInvalid: () => {},
@@ -30,7 +30,7 @@ export const defaultProps = {
 
 export const Form = ({
   children,
-  noFormTag,
+  autoForm,
   onSubmit,
   onValid,
   onInvalid,
@@ -46,13 +46,15 @@ export const Form = ({
     steps,
   } = state;
 
+  const values = useMemo(() => getFormValues(fields), [fields]);
+
   const stepsCount = (steps || []).length;
 
   const currentStepName = getCurrentStepNameFromState(state);
   const currentStep = getStep(currentStepName, steps);
   const currentStepPosition = getStepPosition(currentStepName, steps);
 
-  onChange(getFormValues(fields));
+  onChange(values);
 
   if (isValid) {
     onValid();
@@ -64,10 +66,10 @@ export const Form = ({
     if (e) {
       e.preventDefault();
     }
-    onSubmit(getFormValues(fields));
+    onSubmit(values);
     dispatch(formSubmit());
   }, [
-    fields,
+    values,
     JSON.stringify(onSubmit),
   ]);
 
@@ -76,6 +78,7 @@ export const Form = ({
       submit: handleSubmit,
       isValid,
       isSubmitted,
+      values,
       currentStep,
       // eslint-disable-next-line no-shadow
       steps: (steps || []).map(({ name, isValid, isVisited }) => ({
@@ -102,7 +105,7 @@ export const Form = ({
     stepsCount,
   ]);
 
-  if (noFormTag) {
+  if (!autoForm) {
     return children;
   }
 

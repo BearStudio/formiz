@@ -62,7 +62,7 @@ function App() {
     <div>
       <div style={{ padding: '2rem' }}>
         <button className="btn btn-light btn-sm" type="button" onClick={() => setIsStep2Visible(!isStep2Visible)}>
-          Toggle Step 2
+          Toggle Step 2 {myForm.values.name}
         </button>
       </div>
       <div style={{ padding: '2rem' }}>
@@ -86,7 +86,7 @@ function App() {
                 />
               </FormizStep>
 
-              <FormizStep name="step1" order={1}>
+              <FormizStep name="step1">
                 <Input
                   name="name"
                   label="Name"
@@ -179,6 +179,7 @@ function App() {
           onSubmit={handleSubmit}
           onValid={() => setFormIsValid(true)}
           onInvalid={() => setFormIsValid(false)}
+          autoForm
         >
           <Input
             name="name"
@@ -243,7 +244,7 @@ function App() {
       </div>
 
       <div style={{ padding: '2rem' }}>
-        <Formiz onSubmit={handleSubmit}>
+        <Formiz onSubmit={handleSubmit} autoForm>
           <Input name="name" label="Name" />
 
           <button className="btn btn-primary" type="submit">

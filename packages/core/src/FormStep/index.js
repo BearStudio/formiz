@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { useFormContext } from '../Form/Context';
 import { stepRegister, stepUnregister, stepSetVisited } from '../Form/Context/actions';
 import { getStep, getCurrentStepNameFromState } from '../Form/Context/helpers';
-import { ErrorStepWithoutName, ErrorStepWithoutOrder } from './errors';
+import { ErrorStepWithoutName } from './errors';
 
 export const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   name: PropTypes.string.isRequired,
-  order: PropTypes.number.isRequired,
+  order: PropTypes.number,
 };
 
 export const defaultProps = {
   children: '',
+  order: 0,
 };
 
 export const FormStep = ({
@@ -22,10 +23,6 @@ export const FormStep = ({
 }) => {
   if (!name) {
     throw ErrorStepWithoutName;
-  }
-
-  if (!order && order !== 0) {
-    throw ErrorStepWithoutOrder;
   }
 
   const { state, dispatch } = useFormContext();

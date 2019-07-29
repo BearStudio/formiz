@@ -11,8 +11,8 @@ beforeEach(() => {
 describe('<FormizStep />', () => {
   it('Should mount without crashing', () => {
     mount(
-      <Formiz>
-        <FormizStep name="step1" order={0}>
+      <Formiz autoForm>
+        <FormizStep name="step1">
           Form Step 1
         </FormizStep>
       </Formiz>
@@ -23,7 +23,7 @@ describe('<FormizStep />', () => {
     silent(() => {
       expect(() => {
         mount(
-          <Formiz>
+          <Formiz autoForm>
             <FormizStep>
               Form Step
             </FormizStep>
@@ -38,8 +38,8 @@ describe('<FormizStep />', () => {
 
   it('Should mount fields without crashing', () => {
     mount(
-      <Formiz>
-        <FormizStep name="step1" order={0}>
+      <Formiz autoForm>
+        <FormizStep name="step1">
           <Input name="field" />
           <Input name="field2" />
         </FormizStep>
@@ -50,12 +50,12 @@ describe('<FormizStep />', () => {
   it('Should mount 2 `<FormizStep>` without crashing', () => {
     mount(
       <div>
-        <Formiz>
-          <FormizStep name="step1" order={0}>
+        <Formiz autoForm>
+          <FormizStep name="step1">
             <Input name="field" />
             <Input name="field2" />
           </FormizStep>
-          <FormizStep name="step2" order={1}>
+          <FormizStep name="step2">
             <Input name="field3" />
             <Input name="field4" />
           </FormizStep>
@@ -69,12 +69,12 @@ describe('<FormizStep />', () => {
     const mockSubmit = jest.fn((values) => { formValues = values; });
 
     const form = mount(
-      <Formiz onSubmit={mockSubmit}>
-        <FormizStep name="step1" order={0}>
+      <Formiz onSubmit={mockSubmit} autoForm>
+        <FormizStep name="step1">
           <Input name="field" />
           <Input name="field2" />
         </FormizStep>
-        <FormizStep name="step2" order={1}>
+        <FormizStep name="step2">
           <Input name="field3" />
           <Input name="field4" />
         </FormizStep>

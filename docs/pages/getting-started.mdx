@@ -61,7 +61,7 @@ export const MyForm = () => {
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} connector={myFormConnector}>
+    <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
       <form onSubmit={myForm.submit}>
         <MyField
           name="firstName"
@@ -86,6 +86,8 @@ export const MyForm = () => {
 
 Oh wait... you want to **turn the form into a mutli steps** form?
 
+![Magic](https://media2.giphy.com/media/12NUbkX6p4xOO4/giphy.gif?cid=790b76115d3f358a4832727977f39cad&rid=giphy.gif)
+
 ### 🧙 Multi Steps form
 
 You already have your field so we just need to update our form to use steps.
@@ -107,7 +109,7 @@ export const MyForm = () => {
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} connector={myFormConnector}>
+    <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
       <form onSubmit={myForm.submit}>
         <FormizStep name="step1">
           <MyField

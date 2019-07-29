@@ -1,0 +1,112 @@
+---
+menu: Core
+name: useForm() hook
+---
+
+# `useForm()` hook
+
+Use this hook to access values and methods from a `<Formiz>` component.
+
+## How to use?
+
+#### 1. Connect your form
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
+import { MyField } from './MyField'
+
+export const MyForm = () => {
+  const [myForm, myFormConnector] = useForm()
+
+  return (
+    <Formiz connect={myFormConnector}>
+      {/* Your fields here */}
+    </Formiz>
+  )
+}
+```
+
+#### 2. Access values and methods
+
+You have now access to the form.
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
+import { MyField } from './MyField'
+
+export const MyForm = () => {
+  const [myForm, myFormConnector] = useForm()
+
+  return (
+    <Formiz connect={myFormConnector}>
+      <form onSubmit={myForm.onSubmit}>
+        {myForm.isValid && 'The form is valid!'}
+        {/* Your fields here */}
+        <button type="submit">
+          Submit
+        </button>
+      <form>
+    </Formiz>
+  )
+}
+```
+
+## Hook values
+
+The `useForm` return an object with the following properties:
+
+#### `submit()`
+
+> Allow you to submit the form
+
+```jsx
+<form onSubmit={myForm.submit}>
+  ...
+</form>
+```
+
+#### `isValid`
+
+> Returns true if the form is valid.
+
+#### `isSubmitted`
+
+> Returns true if the form is submitted.
+
+#### `values`
+
+> Returns an object with all the values of the form.
+
+#### `currentStep`
+
+> Returns the current step name.
+
+#### `steps`
+
+> Returns an array with all the steps of the form.
+
+#### `isStepValid`
+
+> Returns true if the current step is valid.
+
+#### `isFirstStep`
+
+> Returns true if the current step is the first step.
+
+#### `isLastStep`
+
+> Returns true if the current step is the last step.
+
+#### `nextStep()`
+
+> Move to the next step.
+
+#### `prevStep()`
+
+> Move to the previous step.
+
+#### `goToStep(name)`
+
+> Go to a specific step.
