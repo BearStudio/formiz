@@ -11,9 +11,15 @@ export const link = {
   letterSpacing: '-0.02em',
   lineHeight: 1,
   mr: [null, 3],
+  mb: [null, '-9px'],
   fontSize: 4,
   ':hover': {
     color: 'primary',
+  },
+  ' img': {
+    display: 'block',
+    width: 200,
+    maxWidth: '100%',
   },
 };
 
