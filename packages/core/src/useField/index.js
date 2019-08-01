@@ -6,10 +6,21 @@ import {
 import { useFormStepName } from '../FormStep/Context';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
+const getIsRequiredValidation = (isRequired) => {
+  if (!isRequired && isRequired !== '') {
+    return {};
+  }
+  return {
+    rule: x => !!x,
+    message: isRequired !== true ? isRequired : '',
+  };
+};
+
 export const useField = ({
   name,
   defaultValue,
   validations = [],
+  isRequired,
   keepValue,
 }) => {
   if (!name) {
@@ -38,10 +49,18 @@ export const useField = ({
   }, [name, step]);
 
   useEffect(() => {
-    dispatch(fieldUpdateValidations(name, validations));
+    const extraRules = [
+      getIsRequiredValidation(isRequired),
+    ];
+
+    dispatch(fieldUpdateValidations(name, [
+      ...extraRules,
+      ...validations,
+    ]));
   }, [
     name,
     JSON.stringify(validations),
+    JSON.stringify(isRequired),
   ]);
 
   const field = state.fields.find(f => f.name === name);

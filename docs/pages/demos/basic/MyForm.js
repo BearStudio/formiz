@@ -14,23 +14,11 @@ export const MyForm = () => {
           name="firstName"
           label="First Name"
           isRequired="First Name is required"
-          validations={[
-            {
-              rule: x => !!x,
-              message: 'First Name is required',
-            },
-          ]}
         />
         <MyField
           name="lastName"
           label="Last Name"
-          isRequired="Last Name is required"
-          validations={[
-            {
-              rule: x => !!x,
-              message: 'Last Name is required',
-            },
-          ]}
+          isRequired
         />
         <button className="btn btn-primary" type="submit" disabled={!myForm.isValid}>
           Submit
