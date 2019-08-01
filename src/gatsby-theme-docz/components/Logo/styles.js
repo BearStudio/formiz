@@ -11,7 +11,7 @@ export const link = {
   letterSpacing: '-0.02em',
   lineHeight: 1,
   mr: [null, 3],
-  mb: [null, '-9px'],
+  mb: [null, '-1px'],
   fontSize: 4,
   ':hover': {
     color: 'primary',
@@ -24,7 +24,7 @@ export const link = {
 };
 
 export const description = {
-  color: 'header.text',
+  color: 'white',
   fontSize: 2,
   lineHeight: 1.3,
   opacity: 0.7,
