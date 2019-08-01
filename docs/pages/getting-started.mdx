@@ -30,7 +30,7 @@ export const MyField = (props) => {
       <label>
         { label }
       </label>
-      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)}>
+      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
       {!isValid && (
         <p>
           { errorMessage }

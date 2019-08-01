@@ -136,7 +136,7 @@ const MyField = (props) => {
 
   return (
     <div>
-      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)}>
+      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
       <strong>{ customProperty }</strong>
       {!isValid && (
         <p>{ errorMessage }</p>

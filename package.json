@@ -7,7 +7,15 @@
     "url": "https://github.com/ivan-dalmet"
   },
   "scripts": {
-    "bs": "lerna bootstrap"
+    "bs": "lerna bootstrap",
+    "start": "docz dev",
+    "build": "docz build"
+  },
+  "dependencies": {
+    "bootstrap": "4.3.1",
+    "docz": "2.0.0-rc.1",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -19,7 +27,6 @@
   },
   "workspaces": [
     "examples",
-    "docs/*",
     "packages/*"
   ]
 }

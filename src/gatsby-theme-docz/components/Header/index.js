@@ -3,6 +3,7 @@ import {
   jsx, Box, Flex,
 } from 'theme-ui';
 import { useConfig, useCurrentDoc } from 'docz';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import * as styles from 'gatsby-theme-docz/src/components/Header/styles';
 import { Edit, Github } from 'gatsby-theme-docz/src/components/Icons';

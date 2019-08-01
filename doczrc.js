@@ -4,11 +4,12 @@ export default {
   repository: 'https://github.com/ivan-dalmet/formiz',
 
   port: 4000,
-  files: '**/*.mdx',
+  files: 'docs/**/*.mdx',
 
   menu: [
     'Home',
     'Getting Started',
+    'Demos',
     'Core',
     'Fields',
     'Validations',

@@ -12,6 +12,8 @@ export const propTypes = {
   children: PropTypes.node,
   autoForm: PropTypes.bool,
   onSubmit: PropTypes.func,
+  onValidSubmit: PropTypes.func,
+  onInvalidSubmit: PropTypes.func,
   onValid: PropTypes.func,
   onInvalid: PropTypes.func,
   onChange: PropTypes.func,
@@ -22,6 +24,8 @@ export const defaultProps = {
   children: '',
   autoForm: false,
   onSubmit: () => {},
+  onValidSubmit: () => {},
+  onInvalidSubmit: () => {},
   onValid: () => {},
   onInvalid: () => {},
   onChange: () => {},
@@ -32,6 +36,8 @@ export const Form = ({
   children,
   autoForm,
   onSubmit,
+  onValidSubmit,
+  onInvalidSubmit,
   onValid,
   onInvalid,
   onChange,
@@ -67,6 +73,13 @@ export const Form = ({
       e.preventDefault();
     }
     onSubmit(values);
+
+    if (isValid) {
+      onValidSubmit(values);
+    } else {
+      onInvalidSubmit(values);
+    }
+
     dispatch(formSubmit());
   }, [
     values,
