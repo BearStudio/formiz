@@ -10,20 +10,28 @@ export const useFormContext = () => useContext(FormContext);
 
 export const FormContextProvider = ({ children, onStateChange }) => {
   const internalState = useRef(initialState);
+  const isMounted = useRef(false);
   const debounce = useRef(null);
   const [state, setState] = useState(internalState.current);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const dispatch = useCallback((action) => {
     internalState.current = action(internalState.current);
 
-    if (debounce.current) {
-      clearTimeout(debounce.current);
-    }
-
+    clearTimeout(debounce.current);
     debounce.current = setTimeout(() => {
-      setState(internalState.current);
+      if (isMounted.current) {
+        setState(internalState.current);
+      }
     });
-  }, [internalState]);
+  }, [internalState, debounce, setState]);
 
   useEffect(() => {
     onStateChange(internalState.current);
