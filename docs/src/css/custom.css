@@ -1,27 +1,24 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
-
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #D53F8C;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #48bb78;
+  --ifm-color-primary-dark: #2F855A;
+  --ifm-color-primary-darker: #276749;
+  --ifm-color-primary-darkest: #22543D;
+  --ifm-color-primary-light: #9AE6B4;
+  --ifm-color-primary-lighter: #C6F6D5;
+  --ifm-color-primary-lightest: #F0FFF4;
 
   --ifm-container-width: 60rem;
+
+  --color-warning: #F6E05E;
+  --color-warning-dark: #744210;
+}
+
+@import 'tailwind.min.css';
+
+* {
+  border-width: 0;
+  border-style: solid;
 }
 
 body {
@@ -38,4 +35,48 @@ body {
 
 #__docusaurus > main {
   flex-grow: 1;
+}
+
+/* Sidebar Category */
+.menu__link[href="#!"] {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  pointer-events: none;
+  margin-top: 2em;
+  opacity: 0.6;
+}
+
+.navbar .navbar__brand {
+  align-items: flex-end;
+}
+
+.navbar .navbar__brand > strong {
+  background: var(--color-warning);
+  color: var(--color-warning-dark);
+  font-size: 0.45rem;
+  margin-left: -1.8rem;
+  margin-bottom: -0.3rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.05rem 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.callout {
+  padding: 1rem;
+  border-radius: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+.callout.is-warning {
+  background: var(--color-warning);
+  color: var(--color-warning-dark);
+}
+
+.callout.callout.is-warning::before {
+  content: '⚠️';
+  margin-right: 0.4rem;
+  text-shadow: 0 0 1rem white;
 }

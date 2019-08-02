@@ -1,5 +1,6 @@
 import React from 'react';
-import { useField } from '../../../../packages/core/src';
+import { useField } from '@formiz/core';
+import { Input } from './Input';
 
 export const MyField = (props) => {
   const {
@@ -7,18 +8,17 @@ export const MyField = (props) => {
   } = useField(props);
   const { label } = props;
   return (
-    <div className="form-group">
-      <label>
+    <div className="mb-4">
+      <label className="block font-bold text-sm text-gray-600 mb-1">
         { label }
       </label>
-      <input
+      <Input
         type="text"
-        className={`form-control ${!isValid ? 'is-invalid' : ''}`}
         defaultValue={value}
         onChange={e => setValue(e.target.value)}
       />
       {!isValid && (
-        <div className="invalid-feedback">
+        <div className="block text-sm text-red-600 mt-1">
           { errorMessage }
         </div>
       )}

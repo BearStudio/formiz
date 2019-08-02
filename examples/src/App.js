@@ -69,7 +69,6 @@ function App() {
         <Formiz
           onSubmit={handleSubmit}
           connect={myFormConnector}
-          noFormTag
         >
           <form className="card">
             <div className="card-body" style={{ minHeight: 200 }}>
@@ -95,7 +94,6 @@ function App() {
                     {
                       rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
                       message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
-                      dependencies: [isStep2Visible],
                     },
                     {
                       rule: isRequired(),

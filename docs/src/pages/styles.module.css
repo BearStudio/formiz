@@ -11,10 +11,31 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 10vh 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.heroBanner > * {
+  position: relative;
+  z-index: 2;
+}
+
+.heroBanner::before {
+  z-index: 1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(https://source.unsplash.com/PC_lbSSxCZE/1600x900);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.1;
+  filter: grayscale(1);
 }
 
 @media screen and (max-width: 966px) {

@@ -9,12 +9,13 @@ module.exports = {
   title: 'Formiz',
   tagline: 'React multi steps forms with full validation',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  baseUrl: '/formiz/',
   favicon: 'img/favicon.ico',
   organizationName: 'ivan-dalmet', // Usually your GitHub org/user name.
   projectName: 'formiz', // Usually your repo name.
   themeConfig: {
     navbar: {
+      title: 'alpha',
       logo: {
         alt: 'Formiz',
         src: 'img/logo.svg',
@@ -63,7 +64,7 @@ module.exports = {
       //   alt: 'Facebook Open Source Logo',
       //   src: 'https://docusaurus.io/img/oss_logo.png',
       // },
-      copyright: 'Coded with ❤️ by Ivan Dalmet. Documentation powered by Docusaurus.',
+      copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet. Documentation powered by Docusaurus (v2).',
     },
   },
   presets: [

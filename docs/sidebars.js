@@ -8,7 +8,6 @@
 module.exports = {
   docs: {
     Introduction: [
-      // 'home',
       'getting-started',
       'demos/basic-demo',
     ],
@@ -18,7 +17,10 @@ module.exports = {
       'core/use-form',
       'core/use-field',
     ],
-    'Fields (coming soon)': [],
+    'Fields (coming soon)': [
+      'validations/rules',
+    ],
+    'Validations (coming soon)': [],
     'Plugins (coming soon)': [],
   },
 };

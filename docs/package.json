@@ -7,15 +7,18 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy"
+    "tailwind:build": "yarn tailwind build src/css/tailwind.css -o src/css/tailwind.min.css",
+    "deploy": "GIT_USER=ivan-dalmet CURRENT_BRANCH=master USE_SSH=true docusaurus deploy"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.24",
     "@docusaurus/preset-classic": "^2.0.0-alpha.24",
     "@formiz/core": "*",
     "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "tailwindcss": "^1.1.1"
   },
   "browserslist": {
     "production": [

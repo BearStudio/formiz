@@ -7,27 +7,11 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import withBaseUrl from '@docusaurus/withBaseUrl';
 import styles from './styles.module.css';
+import { NotReady } from '../components/warning';
 
 const features = [
   {
-    title: <>Easy form validation</>,
-    description: (
-      <>
-        Create custom forms in React with full validation without the pain.
-      </>
-    ),
-  },
-  {
-    title: <>No more logic duplication</>,
-    description: (
-      <>
-        Don&apos;t duplicate your logicbetween display and validation.
-        Validation is enabled only if the field is displayed.
-      </>
-    ),
-  },
-  {
-    title: <>Multi steps forms</>,
+    title: <>🧙‍ Multi steps forms</>,
     description: (
       <>
         Multi steps forms logic available out of the box!
@@ -36,18 +20,39 @@ const features = [
     ),
   },
   {
-    title: <>Custom fields with your own UX</>,
+    title: <>✅ Easy form validation</>,
     description: (
       <>
-        Turn everything into a form field with full validation!
+        Create forms in React with full validation without the pain.
+        Turn everything into a custom field with full validation!
       </>
     ),
   },
   {
-    title: <>React hooks</>,
+    title: <>🐛 No more logic duplication</>,
+    description: (
+      <>
+        Don&apos;t duplicate your logic between display and validation.
+        Validation is enabled only if the field is displayed.
+      </>
+    ),
+  },
+  {
+    title: <>💅 Forms with your own UX</>,
+    description: (
+      <>
+        Choose how to render validations, form buttons
+        and navigation between setps (wizard, tabs, other).
+        It&apos;s your choice!
+      </>
+    ),
+  },
+  {
+    title: <>⚛️ Built with hooks</>,
     description: (
       <>
         Use hooks &amp; cut the complexity to create custom fields :)
+        Use complexe logic without even thinking of it.
       </>
     ),
   },
@@ -58,8 +63,8 @@ function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`${siteConfig.title} | React multi steps forms`}
+      description="Create custom multi steps forms with full validation without the pain."
     >
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">
@@ -82,10 +87,11 @@ function Home() {
         {features && features.length && (
           <section className={styles.features}>
             <div className="container">
+              <NotReady />
               <h2 style={{ margin: '1em 0 2em 0', textAlign: 'center' }}>
                 Why Formiz?
               </h2>
-              <div className="row">
+              <div className="row" style={{ justifyContent: 'center' }}>
                 {features.map(({ imageUrl, title, description }, idx) => (
                   <div
                     key={idx} // eslint-disable-line react/no-array-index-key

@@ -7,7 +7,9 @@
     "url": "https://github.com/ivan-dalmet"
   },
   "scripts": {
-    "bs": "lerna bootstrap"
+    "bs": "lerna bootstrap",
+    "start": "cd docs && yarn start | lerna run start ",
+    "docs:deploy": "lerna run build && cd docs && yarn deploy"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
