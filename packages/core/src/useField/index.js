@@ -36,9 +36,9 @@ export const useField = ({
 
   const { state, dispatch } = formContext;
 
-  useEffect(() => {
-    console.log('Render useField');
-  });
+  // useEffect(() => {
+  //   console.log('Render useField');
+  // });
 
   useEffect(() => {
     dispatch(fieldRegister(name, { value: defaultValue, step, validations }));

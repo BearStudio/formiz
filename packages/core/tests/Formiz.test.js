@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import { Input } from './utils';
 import { Formiz } from '../src';
@@ -60,11 +61,14 @@ describe('<Formiz />', () => {
     );
 
     const input = form.find('input').first();
-    input.simulate('change', { target: { value: 'New value' } });
 
-    setTimeout(() => {
-      expect(isFormValid).toBe(true);
-      done();
+    act(() => {
+      input.simulate('change', { target: { value: 'New value' } });
+
+      setTimeout(() => {
+        expect(isFormValid).toBe(true);
+        done();
+      });
     });
   });
 
@@ -128,6 +132,7 @@ describe('<Formiz />', () => {
     );
 
     const input = form.find('input').first();
+
     input.simulate('change', { target: { value: 'New value' } });
 
     setTimeout(() => {

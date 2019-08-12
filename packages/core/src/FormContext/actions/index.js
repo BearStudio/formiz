@@ -47,7 +47,7 @@ export const formSubmit = () => state => ({
   Step Actions
 */
 
-export const stepRegister = (name, order = 0) => (state) => {
+export const stepRegister = (name, order = 0, label = '') => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
   const steps = getStepsOrdered([
@@ -55,11 +55,14 @@ export const stepRegister = (name, order = 0) => (state) => {
     {
       ...step,
       name,
+      label,
       order,
       isValid: true,
       isVisited: false,
     },
-  ]);
+  ])
+    // Add index
+    .map((x, index) => ({ ...x, index }));
 
   let newState = {
     ...state,

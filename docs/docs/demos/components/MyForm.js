@@ -18,14 +18,14 @@ export const MyForm = () => {
           style={{ minHeight: '16rem' }}
         >
           <div className="p-4 mb-4">
-            <FormizStep name="step1" order={1}>
+            <FormizStep name="step1">
               <MyField
                 name="firstName"
                 label="First Name"
                 isRequired="First Name is required"
               />
             </FormizStep>
-            <FormizStep name="step2" order={2}>
+            <FormizStep name="step2">
               <MyField
                 name="lastName"
                 label="Last Name"
@@ -38,12 +38,13 @@ export const MyForm = () => {
             <div className="mr-auto" style={{ minWidth: '6rem' }}>
               {!myForm.isFirstStep && (
                 <Button type="button" onClick={myForm.prevStep}>
-                Previous
+                  Previous
                 </Button>
               )}
             </div>
             <div className="text-sm text-gray-500">
-              Step {myForm.currentStep && myForm.currentStep.order} of {myForm.steps.length}
+              {console.log(myForm.steps)}
+              Step {myForm.currentStep && myForm.currentStep.index + 1} of {myForm.steps.length}
             </div>
             <div className="ml-auto" style={{ minWidth: '6rem' }}>
               {myForm.isLastStep ? (

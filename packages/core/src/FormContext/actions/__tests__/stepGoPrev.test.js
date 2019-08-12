@@ -5,9 +5,9 @@ describe('[FormContext:Action] stepGoPrev()', () => {
     const { navigatedStepName } = stepGoPrev()({
       navigatedStepName: 'step3',
       steps: [
-        { name: 'step1', order: 0 },
-        { name: 'step2', order: 1 },
-        { name: 'step3', order: 2 },
+        { name: 'step1' },
+        { name: 'step2' },
+        { name: 'step3' },
       ],
     });
 
@@ -18,9 +18,9 @@ describe('[FormContext:Action] stepGoPrev()', () => {
     const { navigatedStepName } = stepGoPrev()({
       navigatedStepName: 'step1',
       steps: [
-        { name: 'step1', order: 0 },
-        { name: 'step2', order: 1 },
-        { name: 'step3', order: 2 },
+        { name: 'step1' },
+        { name: 'step2' },
+        { name: 'step3' },
       ],
     });
 

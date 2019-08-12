@@ -35,4 +35,5 @@ export const getStepPosition = (stepName, steps) => (steps || [])
   .findIndex(x => x.name === stepName) || 0;
 
 export const getStepsOrdered = steps => (steps || [])
-  .sort((a, b) => a.order - b.order);
+  .sort((a, b) => a.order - b.order)
+  .sort((a, b) => a.index - b.index);

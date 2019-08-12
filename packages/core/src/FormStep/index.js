@@ -8,17 +8,20 @@ import { ErrorStepWithoutName } from './errors';
 export const propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   name: PropTypes.string.isRequired,
+  label: PropTypes.node,
   order: PropTypes.number,
 };
 
 export const defaultProps = {
   children: '',
+  label: '',
   order: 0,
 };
 
 export const FormStep = ({
   children,
   name,
+  label,
   order,
 }) => {
   if (!name) {
@@ -36,7 +39,7 @@ export const FormStep = ({
   }
 
   useEffect(() => {
-    dispatch(stepRegister(name, order));
+    dispatch(stepRegister(name, order, label));
 
     return () => {
       dispatch(stepUnregister(name));

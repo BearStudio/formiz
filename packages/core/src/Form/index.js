@@ -46,8 +46,8 @@ export const Form = ({
   const { state, dispatch } = useFormContext();
   const {
     fields,
-    isValid,
-    isSubmitted,
+    isValid: isFormValid,
+    isSubmitted: isFormSubmitted,
     isStepValid,
     steps,
   } = state;
@@ -59,10 +59,23 @@ export const Form = ({
   const currentStepName = getCurrentStepNameFromState(state);
   const currentStep = getStep(currentStepName, steps);
   const currentStepPosition = getStepPosition(currentStepName, steps);
+  const getStepProperties = ({
+    name,
+    label,
+    isValid,
+    isVisited,
+    index,
+  }) => ({
+    name,
+    label,
+    isValid,
+    isVisited,
+    index,
+  });
 
   onChange(values);
 
-  if (isValid) {
+  if (isFormValid) {
     onValid();
   } else {
     onInvalid();
@@ -74,7 +87,7 @@ export const Form = ({
     }
     onSubmit(values);
 
-    if (isValid) {
+    if (isFormValid) {
       onValidSubmit(values);
     } else {
       onInvalidSubmit(values);
@@ -89,16 +102,11 @@ export const Form = ({
   useEffect(() => {
     connect({
       submit: handleSubmit,
-      isValid,
-      isSubmitted,
+      isValid: isFormValid,
+      isSubmitted: isFormSubmitted,
       values,
-      currentStep,
-      // eslint-disable-next-line no-shadow
-      steps: (steps || []).map(({ name, isValid, isVisited }) => ({
-        name,
-        isValid,
-        isVisited,
-      })),
+      currentStep: getStepProperties(currentStep),
+      steps: (steps || []).map(getStepProperties),
       isStepValid,
       isFirstStep: currentStepPosition === 0,
       isLastStep: currentStepPosition === stepsCount - 1,
@@ -109,8 +117,8 @@ export const Form = ({
   }, [
     dispatch,
     handleSubmit,
-    isValid,
-    isSubmitted,
+    isFormValid,
+    isFormSubmitted,
     JSON.stringify(currentStep),
     JSON.stringify(steps),
     isStepValid,
