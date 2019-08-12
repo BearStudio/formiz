@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useFormContext } from '../Form/Context';
+import { useFormContext } from '../FormContext';
 import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
-} from '../Form/Context/actions';
-import { useFormStepName } from '../FormStep/Context';
+} from '../FormContext/actions';
+import { useFormStepName } from '../FormStepContext';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
 const getIsRequiredValidation = (isRequired) => {

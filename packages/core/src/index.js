@@ -5,14 +5,14 @@ import {
   propTypes as propTypesForm,
   defaultProps as defaultPropsForm,
 } from './Form';
-import { FormContextProvider } from './Form/Context';
+import { FormContextProvider } from './FormContext';
 
 import {
   FormStep,
   propTypes as propTypesFormStep,
   defaultProps as defaultPropsFormStep,
 } from './FormStep';
-import { FormStepContextProvider } from './FormStep/Context';
+import { FormStepContextProvider } from './FormStepContext';
 
 export { useField } from './useField';
 export { useForm } from './useForm';

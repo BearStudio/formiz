@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useFormContext } from '../Form/Context';
-import { stepRegister, stepUnregister, stepSetVisited } from '../Form/Context/actions';
-import { getStep, getCurrentStepNameFromState } from '../Form/Context/helpers';
+import { useFormContext } from '../FormContext';
+import { stepRegister, stepUnregister, stepSetVisited } from '../FormContext/actions';
+import { getStep, getCurrentStepNameFromState } from '../FormContext/helpers';
 import { ErrorStepWithoutName } from './errors';
 
 export const propTypes = {

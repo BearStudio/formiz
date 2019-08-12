@@ -2,7 +2,7 @@ import React, {
   useContext, useEffect, useState, useRef, useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
-import { initialState } from './actions';
+import { initialState } from './initialState';
 
 export const FormContext = React.createContext();
 

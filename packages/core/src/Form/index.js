@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useFormContext } from './Context';
+import { useFormContext } from '../FormContext';
 import {
   formSubmit, stepGoNext, stepGoPrev, stepGoTo,
-} from './Context/actions';
+} from '../FormContext/actions';
 import {
   getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
-} from './Context/helpers';
+} from '../FormContext/helpers';
 
 export const propTypes = {
   children: PropTypes.node,
