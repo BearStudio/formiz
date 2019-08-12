@@ -1,66 +1,60 @@
 {
   "main": [
-    "/formiz/main.e8a437e529f8ebd99fdb.css",
-    "/formiz/main.a9718c626530f603f720.js"
+    "/formiz/main.0d13e9dad7b6485e9767.css",
+    "/formiz/main.6c727368b86f1542f79c.js"
   ],
   "component---site-src-pages-index-jsc-4-f-f99": [
     "/formiz/component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css",
-    "/formiz/component---site-src-pages-index-jsc-4-f-f99.24936272a8b11d9818a7.js"
+    "/formiz/component---site-src-pages-index-jsc-4-f-f99.95f1361eedc3f3594dc8.js"
   ],
   "component---theme-doc-legacy-page-9-e-7-ca5": [],
   "docsMetadata---formiz-docsb-26-521": [
-    "/formiz/docsMetadata---formiz-docsb-26-521.118d2a1afb31fe28125d.js"
+    "/formiz/docsMetadata---formiz-docsb-26-521.09f7b2c80ab305f97d4a.js"
   ],
   "component---theme-doc-legacy-item-031-769": [
     "/formiz/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
-    "/formiz/component---theme-doc-legacy-item-031-769.d1fe60b7c4511c1e657e.js"
+    "/formiz/component---theme-doc-legacy-item-031-769.976745d4fce74df8660a.js"
   ],
   "content---formiz-docs-getting-started-302-11d": [
-    "/formiz/content---formiz-docs-getting-started-302-11d.93c4092213780e86d640.js"
+    "/formiz/content---formiz-docs-getting-started-302-11d.bd34d5d8d6f39bf623da.js"
   ],
   "metadata---formiz-docs-getting-started-949-004": [
-    "/formiz/metadata---formiz-docs-getting-started-949-004.81a63b22acf66c454d54.js"
+    "/formiz/metadata---formiz-docs-getting-started-949-004.7ce81edd9ab5787b13ca.js"
   ],
   "content---formiz-docs-core-formizb-92-0d5": [
-    "/formiz/content---formiz-docs-core-formizb-92-0d5.e811a9b085ec3904a5e8.js"
+    "/formiz/content---formiz-docs-core-formizb-92-0d5.8d4e75ab11c2c2ac46e1.js"
   ],
   "metadata---formiz-docs-core-formiz-914-ddd": [
-    "/formiz/metadata---formiz-docs-core-formiz-914-ddd.a30d6bde49bde6635935.js"
-  ],
-  "content---formiz-docs-core-use-field-5-c-8-be4": [
-    "/formiz/content---formiz-docs-core-use-field-5-c-8-be4.fe8ae1ad63f90eaad214.js"
-  ],
-  "metadata---formiz-docs-core-use-field-319-68c": [
-    "/formiz/metadata---formiz-docs-core-use-field-319-68c.e771f5f75f689be9782c.js"
-  ],
-  "content---formiz-docs-core-use-formc-12-eb2": [
-    "/formiz/content---formiz-docs-core-use-formc-12-eb2.338e18cb9ca5730ebc92.js"
-  ],
-  "metadata---formiz-docs-core-use-form-62-e-70a": [
-    "/formiz/metadata---formiz-docs-core-use-form-62-e-70a.162ac90b78d2589fe036.js"
-  ],
-  "content---formiz-docs-validations-rules-291-55b": [
-    "/formiz/content---formiz-docs-validations-rules-291-55b.ec1ed6a254026303393b.js"
-  ],
-  "metadata---formiz-docs-validations-rules-60-b-79b": [
-    "/formiz/metadata---formiz-docs-validations-rules-60-b-79b.89955b9568a6f6fb94a3.js"
+    "/formiz/metadata---formiz-docs-core-formiz-914-ddd.d78197f58b0f744d67a1.js"
   ],
   "content---formiz-docs-core-formiz-step-60-d-bb3": [
-    "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.073aa19cf4dbaa5c9807.js"
+    "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.bc58526842651c6d8cf4.js"
   ],
   "metadata---formiz-docs-core-formiz-stepe-19-76f": [
-    "/formiz/metadata---formiz-docs-core-formiz-stepe-19-76f.510c00919ff0f1ce4214.js"
+    "/formiz/metadata---formiz-docs-core-formiz-stepe-19-76f.e5b2623c7c6cc2eb54da.js"
+  ],
+  "content---formiz-docs-core-use-field-5-c-8-be4": [
+    "/formiz/content---formiz-docs-core-use-field-5-c-8-be4.435b7d728f69a310e25e.js"
+  ],
+  "metadata---formiz-docs-core-use-field-319-68c": [
+    "/formiz/metadata---formiz-docs-core-use-field-319-68c.e4af60e13ca1bc76fc90.js"
+  ],
+  "content---formiz-docs-core-use-formc-12-eb2": [
+    "/formiz/content---formiz-docs-core-use-formc-12-eb2.75c99f881b6025521bcf.js"
+  ],
+  "metadata---formiz-docs-core-use-form-62-e-70a": [
+    "/formiz/metadata---formiz-docs-core-use-form-62-e-70a.003dd8c2361e59888111.js"
   ],
   "content---formiz-docs-demos-basic-demob-32-c36": [
-    "/formiz/content---formiz-docs-demos-basic-demob-32-c36.da2bb0811ec54d8e89b9.js"
+    "/formiz/content---formiz-docs-demos-basic-demob-32-c36.a44cab86c3e7b26aedb6.js"
   ],
   "metadata---formiz-docs-demos-basic-demo-2-e-5-214": [
-    "/formiz/metadata---formiz-docs-demos-basic-demo-2-e-5-214.d42659e0d87f377c2840.js"
+    "/formiz/metadata---formiz-docs-demos-basic-demo-2-e-5-214.928b45e5daf6638367ab.js"
   ],
-  "content---formiz-docs-demos-basic-basic-demob-76-ae4": [
-    "/formiz/content---formiz-docs-demos-basic-basic-demob-76-ae4.6827acf140a1a3198ab1.js"
+  "content---formiz-docs-validations-rules-291-55b": [
+    "/formiz/content---formiz-docs-validations-rules-291-55b.fff02537c5bb077be79a.js"
   ],
-  "metadata---formiz-docs-demos-basic-basic-demo-31-b-dd4": [
-    "/formiz/metadata---formiz-docs-demos-basic-basic-demo-31-b-dd4.408874ab583511399b37.js"
+  "metadata---formiz-docs-validations-rules-60-b-79b": [
+    "/formiz/metadata---formiz-docs-validations-rules-60-b-79b.55654c51df1c5c8bad2c.js"
   ]
 }

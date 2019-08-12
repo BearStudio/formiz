@@ -7,15 +7,15 @@
       1,
       2,
       3,
-      23,
-      24,
+      21,
+      22,
       0
     ],
     "1": [
       0,
       2,
-      23,
-      24,
+      21,
+      22,
       1
     ],
     "@site/src/pages/index.js": [
@@ -39,71 +39,65 @@
     "@site/docs/core/useForm-hook.mdx": [
       7
     ],
-    "@site/docs/demos/basic/basic-demo.mdx": [
+    "@site/docs/demos/basic-demo.mdx": [
       8
     ],
-    "@site/docs/demos/basic-demo.mdx": [
+    "@site/docs/getting-started.mdx": [
       9
     ],
-    "@site/docs/getting-started.mdx": [
+    "@site/docs/validations/rules.mdx": [
       10
     ],
-    "@site/docs/validations/rules.mdx": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-05e.json": [
       11
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-05e.json": [
+    "main": [
+      20,
       12
     ],
-    "main": [
-      22,
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-formiz-298.json": [
       13
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-formiz-298.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-formiz-step-b2a.json": [
       14
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-formiz-step-b2a.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-use-field-382.json": [
       15
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-use-field-382.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-use-form-926.json": [
       16
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-core-use-form-926.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-demos-basic-demo-e89.json": [
       17
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-demos-basic-basic-demo-87a.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-getting-started-136.json": [
       18
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-demos-basic-demo-e89.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-validations-rules-db0.json": [
       19
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-getting-started-136.json": [
-      20
-    ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/formiz-docs-validations-rules-db0.json": [
-      21
-    ],
     "runtime~main": [
-      13,
-      22
+      12,
+      20
     ],
     "@theme/DocLegacyPage": [
       0,
       1,
-      23
+      21
     ],
     "@theme/NotFound": [
       0,
       1,
-      24
+      22
     ]
   },
   "assets": {
     "0": {
       "js": [
         {
-          "file": "0.ba756dcb7b676fe476e3.js",
-          "hash": "ab25e33057f09b4dd30c",
-          "publicPath": "/formiz/0.ba756dcb7b676fe476e3.js"
+          "file": "0.79fa2bd5e7b6a900e8ea.js",
+          "hash": "2e98ebe0d2f2907866a0",
+          "publicPath": "/formiz/0.79fa2bd5e7b6a900e8ea.js"
         }
       ]
     },
@@ -111,15 +105,15 @@
       "css": [
         {
           "file": "1.bbf143bbbaa5c13446d8.css",
-          "hash": "dc64b16e33f462b55b54",
+          "hash": "e0f62a262ddb7ce643d1",
           "publicPath": "/formiz/1.bbf143bbbaa5c13446d8.css"
         }
       ],
       "js": [
         {
-          "file": "1.a4a2ce183dd40740b052.js",
-          "hash": "dc64b16e33f462b55b54",
-          "publicPath": "/formiz/1.a4a2ce183dd40740b052.js"
+          "file": "1.72958e27258f41c681ba.js",
+          "hash": "e0f62a262ddb7ce643d1",
+          "publicPath": "/formiz/1.72958e27258f41c681ba.js"
         }
       ]
     },
@@ -127,15 +121,15 @@
       "css": [
         {
           "file": "component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css",
-          "hash": "25829f6e9329849ed0b8",
+          "hash": "a07ad41681a7f306b9a6",
           "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css"
         }
       ],
       "js": [
         {
-          "file": "component---site-src-pages-index-jsc-4-f-f99.24936272a8b11d9818a7.js",
-          "hash": "25829f6e9329849ed0b8",
-          "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.24936272a8b11d9818a7.js"
+          "file": "component---site-src-pages-index-jsc-4-f-f99.95f1361eedc3f3594dc8.js",
+          "hash": "a07ad41681a7f306b9a6",
+          "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.95f1361eedc3f3594dc8.js"
         }
       ]
     },
@@ -143,218 +137,200 @@
       "css": [
         {
           "file": "component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
-          "hash": "ed0f51eb6a62be737849",
+          "hash": "edfa7f7ad926c1ba69bc",
           "publicPath": "/formiz/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css"
         }
       ],
       "js": [
         {
-          "file": "component---theme-doc-legacy-item-031-769.d1fe60b7c4511c1e657e.js",
-          "hash": "ed0f51eb6a62be737849",
-          "publicPath": "/formiz/component---theme-doc-legacy-item-031-769.d1fe60b7c4511c1e657e.js"
+          "file": "component---theme-doc-legacy-item-031-769.976745d4fce74df8660a.js",
+          "hash": "edfa7f7ad926c1ba69bc",
+          "publicPath": "/formiz/component---theme-doc-legacy-item-031-769.976745d4fce74df8660a.js"
         }
       ]
     },
     "4": {
       "js": [
         {
-          "file": "content---formiz-docs-core-formiz-step-60-d-bb3.073aa19cf4dbaa5c9807.js",
-          "hash": "e7e76ed14477d5a04d94",
-          "publicPath": "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.073aa19cf4dbaa5c9807.js"
+          "file": "content---formiz-docs-core-formiz-step-60-d-bb3.bc58526842651c6d8cf4.js",
+          "hash": "95b521fc2169893313e0",
+          "publicPath": "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.bc58526842651c6d8cf4.js"
         }
       ]
     },
     "5": {
       "js": [
         {
-          "file": "content---formiz-docs-core-formizb-92-0d5.e811a9b085ec3904a5e8.js",
-          "hash": "0358c85ef47e15c82bdc",
-          "publicPath": "/formiz/content---formiz-docs-core-formizb-92-0d5.e811a9b085ec3904a5e8.js"
+          "file": "content---formiz-docs-core-formizb-92-0d5.8d4e75ab11c2c2ac46e1.js",
+          "hash": "2e607d90db0f751f1396",
+          "publicPath": "/formiz/content---formiz-docs-core-formizb-92-0d5.8d4e75ab11c2c2ac46e1.js"
         }
       ]
     },
     "6": {
       "js": [
         {
-          "file": "content---formiz-docs-core-use-field-5-c-8-be4.fe8ae1ad63f90eaad214.js",
-          "hash": "4ddfabc3a89d06f4d7a3",
-          "publicPath": "/formiz/content---formiz-docs-core-use-field-5-c-8-be4.fe8ae1ad63f90eaad214.js"
+          "file": "content---formiz-docs-core-use-field-5-c-8-be4.435b7d728f69a310e25e.js",
+          "hash": "53736acc5b1db30b170f",
+          "publicPath": "/formiz/content---formiz-docs-core-use-field-5-c-8-be4.435b7d728f69a310e25e.js"
         }
       ]
     },
     "7": {
       "js": [
         {
-          "file": "content---formiz-docs-core-use-formc-12-eb2.338e18cb9ca5730ebc92.js",
-          "hash": "c543502f71c81c7cc782",
-          "publicPath": "/formiz/content---formiz-docs-core-use-formc-12-eb2.338e18cb9ca5730ebc92.js"
+          "file": "content---formiz-docs-core-use-formc-12-eb2.75c99f881b6025521bcf.js",
+          "hash": "2771fe960ce364914004",
+          "publicPath": "/formiz/content---formiz-docs-core-use-formc-12-eb2.75c99f881b6025521bcf.js"
         }
       ]
     },
     "8": {
       "js": [
         {
-          "file": "content---formiz-docs-demos-basic-basic-demob-76-ae4.6827acf140a1a3198ab1.js",
-          "hash": "56dfa07a2d6d62da2a62",
-          "publicPath": "/formiz/content---formiz-docs-demos-basic-basic-demob-76-ae4.6827acf140a1a3198ab1.js"
+          "file": "content---formiz-docs-demos-basic-demob-32-c36.a44cab86c3e7b26aedb6.js",
+          "hash": "1ac8214efa1376338c49",
+          "publicPath": "/formiz/content---formiz-docs-demos-basic-demob-32-c36.a44cab86c3e7b26aedb6.js"
         }
       ]
     },
     "9": {
       "js": [
         {
-          "file": "content---formiz-docs-demos-basic-demob-32-c36.da2bb0811ec54d8e89b9.js",
-          "hash": "c07adc0e41a4b0453223",
-          "publicPath": "/formiz/content---formiz-docs-demos-basic-demob-32-c36.da2bb0811ec54d8e89b9.js"
+          "file": "content---formiz-docs-getting-started-302-11d.bd34d5d8d6f39bf623da.js",
+          "hash": "2fabd48871aeec1883bc",
+          "publicPath": "/formiz/content---formiz-docs-getting-started-302-11d.bd34d5d8d6f39bf623da.js"
         }
       ]
     },
     "10": {
       "js": [
         {
-          "file": "content---formiz-docs-getting-started-302-11d.93c4092213780e86d640.js",
-          "hash": "33ef7c86674e6fb5be6b",
-          "publicPath": "/formiz/content---formiz-docs-getting-started-302-11d.93c4092213780e86d640.js"
+          "file": "content---formiz-docs-validations-rules-291-55b.fff02537c5bb077be79a.js",
+          "hash": "e9e0bf7007116f2631b4",
+          "publicPath": "/formiz/content---formiz-docs-validations-rules-291-55b.fff02537c5bb077be79a.js"
         }
       ]
     },
     "11": {
       "js": [
         {
-          "file": "content---formiz-docs-validations-rules-291-55b.ec1ed6a254026303393b.js",
-          "hash": "8c74382c7e9fc8cb50b7",
-          "publicPath": "/formiz/content---formiz-docs-validations-rules-291-55b.ec1ed6a254026303393b.js"
+          "file": "docsMetadata---formiz-docsb-26-521.09f7b2c80ab305f97d4a.js",
+          "hash": "773620a5f37b66e5f930",
+          "publicPath": "/formiz/docsMetadata---formiz-docsb-26-521.09f7b2c80ab305f97d4a.js"
         }
       ]
     },
     "12": {
-      "js": [
-        {
-          "file": "docsMetadata---formiz-docsb-26-521.118d2a1afb31fe28125d.js",
-          "hash": "91b3c82f88331f9e13dc",
-          "publicPath": "/formiz/docsMetadata---formiz-docsb-26-521.118d2a1afb31fe28125d.js"
-        }
-      ]
-    },
-    "13": {
       "css": [
         {
-          "file": "main.e8a437e529f8ebd99fdb.css",
-          "hash": "407ba19b02f7edac1b40",
-          "publicPath": "/formiz/main.e8a437e529f8ebd99fdb.css"
+          "file": "main.0d13e9dad7b6485e9767.css",
+          "hash": "13e62a26804fa6e5e272",
+          "publicPath": "/formiz/main.0d13e9dad7b6485e9767.css"
         }
       ],
       "js": [
         {
-          "file": "main.a9718c626530f603f720.js",
-          "hash": "407ba19b02f7edac1b40",
-          "publicPath": "/formiz/main.a9718c626530f603f720.js"
+          "file": "main.6c727368b86f1542f79c.js",
+          "hash": "13e62a26804fa6e5e272",
+          "publicPath": "/formiz/main.6c727368b86f1542f79c.js"
+        }
+      ]
+    },
+    "13": {
+      "js": [
+        {
+          "file": "metadata---formiz-docs-core-formiz-914-ddd.d78197f58b0f744d67a1.js",
+          "hash": "2ac43efd358821c80ab9",
+          "publicPath": "/formiz/metadata---formiz-docs-core-formiz-914-ddd.d78197f58b0f744d67a1.js"
         }
       ]
     },
     "14": {
       "js": [
         {
-          "file": "metadata---formiz-docs-core-formiz-914-ddd.a30d6bde49bde6635935.js",
-          "hash": "0b1ad96594787fbb3d7f",
-          "publicPath": "/formiz/metadata---formiz-docs-core-formiz-914-ddd.a30d6bde49bde6635935.js"
+          "file": "metadata---formiz-docs-core-formiz-stepe-19-76f.e5b2623c7c6cc2eb54da.js",
+          "hash": "7dafd0e5b228c79fdc5d",
+          "publicPath": "/formiz/metadata---formiz-docs-core-formiz-stepe-19-76f.e5b2623c7c6cc2eb54da.js"
         }
       ]
     },
     "15": {
       "js": [
         {
-          "file": "metadata---formiz-docs-core-formiz-stepe-19-76f.510c00919ff0f1ce4214.js",
-          "hash": "c5dd0698dd186ed36ee6",
-          "publicPath": "/formiz/metadata---formiz-docs-core-formiz-stepe-19-76f.510c00919ff0f1ce4214.js"
+          "file": "metadata---formiz-docs-core-use-field-319-68c.e4af60e13ca1bc76fc90.js",
+          "hash": "3cd1e00d57824d4ca780",
+          "publicPath": "/formiz/metadata---formiz-docs-core-use-field-319-68c.e4af60e13ca1bc76fc90.js"
         }
       ]
     },
     "16": {
       "js": [
         {
-          "file": "metadata---formiz-docs-core-use-field-319-68c.e771f5f75f689be9782c.js",
-          "hash": "455d6eca241983b2d213",
-          "publicPath": "/formiz/metadata---formiz-docs-core-use-field-319-68c.e771f5f75f689be9782c.js"
+          "file": "metadata---formiz-docs-core-use-form-62-e-70a.003dd8c2361e59888111.js",
+          "hash": "c6c54dd1e7c2757f6556",
+          "publicPath": "/formiz/metadata---formiz-docs-core-use-form-62-e-70a.003dd8c2361e59888111.js"
         }
       ]
     },
     "17": {
       "js": [
         {
-          "file": "metadata---formiz-docs-core-use-form-62-e-70a.162ac90b78d2589fe036.js",
-          "hash": "4c953d7420a36037efa9",
-          "publicPath": "/formiz/metadata---formiz-docs-core-use-form-62-e-70a.162ac90b78d2589fe036.js"
+          "file": "metadata---formiz-docs-demos-basic-demo-2-e-5-214.928b45e5daf6638367ab.js",
+          "hash": "4fec131d7d8fe5aa7ae1",
+          "publicPath": "/formiz/metadata---formiz-docs-demos-basic-demo-2-e-5-214.928b45e5daf6638367ab.js"
         }
       ]
     },
     "18": {
       "js": [
         {
-          "file": "metadata---formiz-docs-demos-basic-basic-demo-31-b-dd4.408874ab583511399b37.js",
-          "hash": "820e264109c707b1bb37",
-          "publicPath": "/formiz/metadata---formiz-docs-demos-basic-basic-demo-31-b-dd4.408874ab583511399b37.js"
+          "file": "metadata---formiz-docs-getting-started-949-004.7ce81edd9ab5787b13ca.js",
+          "hash": "16ca2c01420999bf2afb",
+          "publicPath": "/formiz/metadata---formiz-docs-getting-started-949-004.7ce81edd9ab5787b13ca.js"
         }
       ]
     },
     "19": {
       "js": [
         {
-          "file": "metadata---formiz-docs-demos-basic-demo-2-e-5-214.d42659e0d87f377c2840.js",
-          "hash": "99a6385fdd1504bcf123",
-          "publicPath": "/formiz/metadata---formiz-docs-demos-basic-demo-2-e-5-214.d42659e0d87f377c2840.js"
+          "file": "metadata---formiz-docs-validations-rules-60-b-79b.55654c51df1c5c8bad2c.js",
+          "hash": "246c89103637109b9d5e",
+          "publicPath": "/formiz/metadata---formiz-docs-validations-rules-60-b-79b.55654c51df1c5c8bad2c.js"
         }
       ]
     },
     "20": {
       "js": [
         {
-          "file": "metadata---formiz-docs-getting-started-949-004.81a63b22acf66c454d54.js",
-          "hash": "e137979a2e5aff259c28",
-          "publicPath": "/formiz/metadata---formiz-docs-getting-started-949-004.81a63b22acf66c454d54.js"
+          "file": "runtime~main.6817080843a81d3f11b4.js",
+          "hash": "8adfc9a95e9d37024222",
+          "publicPath": "/formiz/runtime~main.6817080843a81d3f11b4.js"
         }
       ]
     },
     "21": {
+      "css": [
+        {
+          "file": "21.32d0f644c214de0358fb.css",
+          "hash": "6349e002b6e3d60cc41c",
+          "publicPath": "/formiz/21.32d0f644c214de0358fb.css"
+        }
+      ],
       "js": [
         {
-          "file": "metadata---formiz-docs-validations-rules-60-b-79b.89955b9568a6f6fb94a3.js",
-          "hash": "f1b346155c7434df5d46",
-          "publicPath": "/formiz/metadata---formiz-docs-validations-rules-60-b-79b.89955b9568a6f6fb94a3.js"
+          "file": "21.75171af30c880afac25e.js",
+          "hash": "6349e002b6e3d60cc41c",
+          "publicPath": "/formiz/21.75171af30c880afac25e.js"
         }
       ]
     },
     "22": {
       "js": [
         {
-          "file": "runtime~main.844d7d959360eaa323e3.js",
-          "hash": "375377e0585cc6386cd2",
-          "publicPath": "/formiz/runtime~main.844d7d959360eaa323e3.js"
-        }
-      ]
-    },
-    "23": {
-      "css": [
-        {
-          "file": "23.32d0f644c214de0358fb.css",
-          "hash": "4fe0fe91a6e361e0e7ac",
-          "publicPath": "/formiz/23.32d0f644c214de0358fb.css"
-        }
-      ],
-      "js": [
-        {
-          "file": "23.b2047de42f85a4a552ab.js",
-          "hash": "4fe0fe91a6e361e0e7ac",
-          "publicPath": "/formiz/23.b2047de42f85a4a552ab.js"
-        }
-      ]
-    },
-    "24": {
-      "js": [
-        {
-          "file": "24.fde410902bd2b8566d6e.js",
-          "hash": "415be7d6a1f5889fb4dd",
-          "publicPath": "/formiz/24.fde410902bd2b8566d6e.js"
+          "file": "22.6de3a4f4fd793a012593.js",
+          "hash": "5d8cfb510ec18aa6a6c5",
+          "publicPath": "/formiz/22.6de3a4f4fd793a012593.js"
         }
       ]
     }
