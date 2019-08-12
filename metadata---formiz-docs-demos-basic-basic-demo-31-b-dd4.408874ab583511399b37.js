@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[18],{52:function(o){o.exports=JSON.parse('{"name":"Basic Demo","menu":"Demos","id":"demos/basic/basic-demo","title":"basic-demo","description":"import { MyForm } from \'./MyForm\'","source":"@site/docs/demos/basic/basic-demo.mdx","permalink":"/formiz/docs/demos/basic/basic-demo"}')}}]);
