@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{51:function(i){i.exports=JSON.parse('{"id":"validations/rules","title":"Validation Rules","description":"**[WIP] ⚠️ Not available yet**","source":"@site/docs/validations/rules.mdx","permalink":"/formiz/docs/validations/rules"}')}}]);
