@@ -4,7 +4,7 @@ This is a **👩‍🔬 work in progress** repo.
 
 ## 📚 Full documentation
 
-Full documentation & demos: [https://ivan-dalmet.github.io/formiz/](https://ivan-dalmet.github.io/formiz/)
+Full documentation & demos: [formiz-react.com](https://formiz-react.com)
 
 ## 📋 TODO
 
