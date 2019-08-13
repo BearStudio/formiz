@@ -121,15 +121,15 @@
       "css": [
         {
           "file": "component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css",
-          "hash": "a07ad41681a7f306b9a6",
+          "hash": "705bf8ae07969653df5c",
           "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css"
         }
       ],
       "js": [
         {
-          "file": "component---site-src-pages-index-jsc-4-f-f99.95f1361eedc3f3594dc8.js",
-          "hash": "a07ad41681a7f306b9a6",
-          "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.95f1361eedc3f3594dc8.js"
+          "file": "component---site-src-pages-index-jsc-4-f-f99.a907a20e0dffcb282b7f.js",
+          "hash": "705bf8ae07969653df5c",
+          "publicPath": "/formiz/component---site-src-pages-index-jsc-4-f-f99.a907a20e0dffcb282b7f.js"
         }
       ]
     },
@@ -152,9 +152,9 @@
     "4": {
       "js": [
         {
-          "file": "content---formiz-docs-core-formiz-step-60-d-bb3.bc58526842651c6d8cf4.js",
-          "hash": "95b521fc2169893313e0",
-          "publicPath": "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.bc58526842651c6d8cf4.js"
+          "file": "content---formiz-docs-core-formiz-step-60-d-bb3.367bb82119436cc929d0.js",
+          "hash": "7b22189bfab306040ca3",
+          "publicPath": "/formiz/content---formiz-docs-core-formiz-step-60-d-bb3.367bb82119436cc929d0.js"
         }
       ]
     },
@@ -188,9 +188,9 @@
     "8": {
       "js": [
         {
-          "file": "content---formiz-docs-demos-basic-demob-32-c36.a44cab86c3e7b26aedb6.js",
-          "hash": "1ac8214efa1376338c49",
-          "publicPath": "/formiz/content---formiz-docs-demos-basic-demob-32-c36.a44cab86c3e7b26aedb6.js"
+          "file": "content---formiz-docs-demos-basic-demob-32-c36.ad9dfef5d13e02f977c6.js",
+          "hash": "83f05e4dcc11bdf6b990",
+          "publicPath": "/formiz/content---formiz-docs-demos-basic-demob-32-c36.ad9dfef5d13e02f977c6.js"
         }
       ]
     },
@@ -303,9 +303,9 @@
     "20": {
       "js": [
         {
-          "file": "runtime~main.6817080843a81d3f11b4.js",
-          "hash": "8adfc9a95e9d37024222",
-          "publicPath": "/formiz/runtime~main.6817080843a81d3f11b4.js"
+          "file": "runtime~main.8c7b322c0cddf928f665.js",
+          "hash": "5d1777e9c8eedfa95fc9",
+          "publicPath": "/formiz/runtime~main.8c7b322c0cddf928f665.js"
         }
       ]
     },
