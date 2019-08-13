@@ -9,7 +9,7 @@ module.exports = {
   title: 'Formiz',
   tagline: 'React multi steps forms with full validation',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/formiz/',
+  baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'ivan-dalmet', // Usually your GitHub org/user name.
   projectName: 'formiz', // Usually your repo name.
