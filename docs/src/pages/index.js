@@ -86,7 +86,7 @@ function Home() {
       <main>
         {features && features.length && (
           <section className={styles.features}>
-            <div className="container">
+            <div className="container" style={{ maxWidth: '60rem' }}>
               <NotReady />
               <h2 style={{ margin: '1em 0 2em 0', textAlign: 'center' }}>
                 Why Formiz?
