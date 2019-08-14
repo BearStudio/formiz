@@ -64,7 +64,7 @@ module.exports = {
       //   alt: 'Facebook Open Source Logo',
       //   src: 'https://docusaurus.io/img/oss_logo.png',
       // },
-      copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet. Documentation powered by Docusaurus (v2).',
+      copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
     },
   },
   presets: [
