@@ -1,7 +1,7 @@
 {
   "main": [
     "/main.c3010e52a3169816011e.css",
-    "/main.4f89ef275e11f4e49a77.js"
+    "/main.b817189ec516a60d1003.js"
   ],
   "component---site-src-pages-index-jsc-4-f-f99": [
     "/component---site-src-pages-index-jsc-4-f-f99.f0830d294420086d6d58.css",
@@ -9,7 +9,7 @@
   ],
   "component---theme-doc-legacy-page-9-e-7-ca5": [],
   "docsMetadata---docs-4-ff-842": [
-    "/docsMetadata---docs-4-ff-842.59bdcef3f11890da2897.js"
+    "/docsMetadata---docs-4-ff-842.5ecf53b8587500b9701e.js"
   ],
   "component---theme-doc-legacy-item-031-769": [
     "/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
@@ -27,34 +27,34 @@
   "metadata---docs-core-formizc-17-b0c": [
     "/metadata---docs-core-formizc-17-b0c.935659a6a54f0388f7ac.js"
   ],
+  "content---docs-core-formiz-step-60-d-a1a": [
+    "/content---docs-core-formiz-step-60-d-a1a.809beac1b880b2715b57.js"
+  ],
+  "metadata---docs-core-formiz-step-93-c-849": [
+    "/metadata---docs-core-formiz-step-93-c-849.fe506a069bdeca7cf14b.js"
+  ],
+  "content---docs-core-use-field-5-c-8-761": [
+    "/content---docs-core-use-field-5-c-8-761.b54e21264fb126858e28.js"
+  ],
+  "metadata---docs-core-use-fieldb-0-b-84c": [
+    "/metadata---docs-core-use-fieldb-0-b-84c.1fe6bb3c306303330b2b.js"
+  ],
+  "content---docs-core-use-formc-12-e66": [
+    "/content---docs-core-use-formc-12-e66.4697ce2091b0a668a5a8.js"
+  ],
+  "metadata---docs-core-use-formd-07-830": [
+    "/metadata---docs-core-use-formd-07-830.bf9e144ca8a43a265537.js"
+  ],
   "content---docs-demos-basic-demoe-5-b-74d": [
     "/content---docs-demos-basic-demoe-5-b-74d.02761634bf42f3b1ea20.js"
   ],
   "metadata---docs-demos-basic-demo-694-b1c": [
-    "/metadata---docs-demos-basic-demo-694-b1c.774d7644655331b40109.js"
-  ],
-  "content---docs-core-use-field-5-c-8-761": [
-    "/content---docs-core-use-field-5-c-8-761.10eb24360caab8e33940.js"
-  ],
-  "metadata---docs-core-use-fieldb-0-b-84c": [
-    "/metadata---docs-core-use-fieldb-0-b-84c.b64101337a94c4d7c697.js"
-  ],
-  "content---docs-core-use-formc-12-e66": [
-    "/content---docs-core-use-formc-12-e66.a052710e17117cd66bec.js"
-  ],
-  "metadata---docs-core-use-formd-07-830": [
-    "/metadata---docs-core-use-formd-07-830.c892433086467e69fddf.js"
+    "/metadata---docs-demos-basic-demo-694-b1c.62dde4911a678ee20b12.js"
   ],
   "content---docs-validations-rules-291-bf3": [
-    "/content---docs-validations-rules-291-bf3.73e7319e571035a237d3.js"
+    "/content---docs-validations-rules-291-bf3.c5dd1871bbedc8060910.js"
   ],
   "metadata---docs-validations-rulesef-0-e49": [
-    "/metadata---docs-validations-rulesef-0-e49.69b725bb2d4f231aca5b.js"
-  ],
-  "content---docs-core-formiz-step-60-d-a1a": [
-    "/content---docs-core-formiz-step-60-d-a1a.2171e4bcef1bff651836.js"
-  ],
-  "metadata---docs-core-formiz-step-93-c-849": [
-    "/metadata---docs-core-formiz-step-93-c-849.502aa1abaa5c7ffc85e4.js"
+    "/metadata---docs-validations-rulesef-0-e49.17b756e4869ad8c5ff70.js"
   ]
 }
