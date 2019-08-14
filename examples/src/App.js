@@ -72,7 +72,7 @@ function App() {
         >
           <form className="card">
             <div className="card-body" style={{ minHeight: 200 }}>
-              <FormizStep name="step3" order={3}>
+              <FormizStep name="step3" label="Step C" order={3}>
                 <Input
                   name="email"
                   label="Email"
@@ -85,7 +85,7 @@ function App() {
                 />
               </FormizStep>
 
-              <FormizStep name="step1">
+              <FormizStep name="step1" label="Step A">
                 <Input
                   name="name"
                   label="Name"
@@ -106,7 +106,7 @@ function App() {
 
               {!isStep2Visible && myForm.currentStep.name === 'step2' && myForm.goToStep('step1')}
               {isStep2Visible && (
-                <FormizStep name="step2" order={2}>
+                <FormizStep name="step2" label="Step B" order={2}>
                   <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
                     Toggle Job
                   </button>
@@ -150,7 +150,7 @@ function App() {
                   >
                     {step.isValid ? '✅' : '⚠️'}
                     {' '}
-                    {step.name}
+                    {step.label}
                   </button>
                 ))}
               </div>

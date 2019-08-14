@@ -7,7 +7,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import withBaseUrl from '@docusaurus/withBaseUrl';
 import styles from './styles.module.css';
-import { NotReady } from '../components/warning';
+import { NotReady } from '../messages';
 
 const features = [
   {
