@@ -1,7 +1,6 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { Input } from './utils';
+import { Input, wait } from './utils';
 import { Formiz } from '../src';
 
 beforeEach(() => {
@@ -41,7 +40,7 @@ describe('<Formiz />', () => {
     );
   });
 
-  it('Should be valid if all fields are valid', (done) => {
+  it('Should be valid if all fields are valid', async () => {
     let isFormValid = true;
     const mockValid = jest.fn(() => { isFormValid = true; });
     const mockInvalid = jest.fn(() => { isFormValid = false; });
@@ -60,19 +59,19 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
+    await wait();
+
+    expect(isFormValid).toBe(false);
+
     const input = form.find('input').first();
+    input.simulate('change', { target: { value: 'New value' } });
 
-    act(() => {
-      input.simulate('change', { target: { value: 'New value' } });
+    await wait();
 
-      setTimeout(() => {
-        expect(isFormValid).toBe(true);
-        done();
-      });
-    });
+    expect(isFormValid).toBe(true);
   });
 
-  it('Should be invalid if one field is invalid', (done) => {
+  it('Should be invalid if one field is invalid', async () => {
     let isFormValid = true;
     const mockValid = jest.fn(() => { isFormValid = true; });
     const mockInvalid = jest.fn(() => { isFormValid = false; });
@@ -91,13 +90,12 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    setTimeout(() => {
-      expect(isFormValid).toBe(false);
-      done();
-    });
+    await wait();
+
+    expect(isFormValid).toBe(false);
   });
 
-  it('Should get form values onSubmit', (done) => {
+  it('Should get form values onSubmit', async () => {
     let formValues = null;
     const mockSubmit = jest.fn((values) => { formValues = values; });
 
@@ -110,16 +108,15 @@ describe('<Formiz />', () => {
       </Formiz>
     );
 
-    setTimeout(() => {
-      form.simulate('submit');
-      expect(mockSubmit.mock.calls.length).toBe(1);
-      expect(formValues).toHaveProperty('field', null);
-      expect(formValues).toHaveProperty('field2', 'Value 2');
-      done();
-    });
+    await wait();
+
+    form.simulate('submit');
+    expect(mockSubmit.mock.calls.length).toBe(1);
+    expect(formValues).toHaveProperty('field', null);
+    expect(formValues).toHaveProperty('field2', 'Value 2');
   });
 
-  it('Should get form values onChange', (done) => {
+  it('Should get form values onChange', async () => {
     let formValues = null;
 
     const form = mount(
@@ -135,10 +132,9 @@ describe('<Formiz />', () => {
 
     input.simulate('change', { target: { value: 'New value' } });
 
-    setTimeout(() => {
-      expect(formValues).toHaveProperty('field', 'New value');
-      expect(formValues).toHaveProperty('field2', 'Value 2');
-      done();
-    });
+    await wait();
+
+    expect(formValues).toHaveProperty('field', 'New value');
+    expect(formValues).toHaveProperty('field2', 'Value 2');
   });
 });

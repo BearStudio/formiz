@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { silent, Input } from './utils';
+import { Input, silent, wait } from './utils';
 import { Formiz, FormizStep } from '../src';
 import { ErrorStepWithoutName } from '../src/FormStep/errors';
 
@@ -64,7 +64,7 @@ describe('<FormizStep />', () => {
     );
   });
 
-  it('Should register fields in steps', (done) => {
+  it('Should register fields in steps', async () => {
     let formValues = null;
     const mockSubmit = jest.fn((values) => { formValues = values; });
 
@@ -81,13 +81,12 @@ describe('<FormizStep />', () => {
       </Formiz>
     );
 
-    setTimeout(() => {
-      form.simulate('submit');
-      expect(formValues).toHaveProperty('field');
-      expect(formValues).toHaveProperty('field2');
-      expect(formValues).toHaveProperty('field3');
-      expect(formValues).toHaveProperty('field4');
-      done();
-    });
+    await wait();
+
+    form.simulate('submit');
+    expect(formValues).toHaveProperty('field');
+    expect(formValues).toHaveProperty('field2');
+    expect(formValues).toHaveProperty('field3');
+    expect(formValues).toHaveProperty('field4');
   });
 });
