@@ -1,14 +1,7 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 module.exports = {
   title: 'Formiz',
   tagline: 'React multi steps forms with full validation',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://formiz-react.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'ivan-dalmet', // Usually your GitHub org/user name.
