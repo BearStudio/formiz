@@ -13,6 +13,7 @@
     "max-len": ["warn"],
     "no-multiple-empty-lines": ["warn"],
     "no-trailing-spaces": ["warn"],
+    "no-underscore-dangle": ["off"],
     "no-unused-vars": ["warn"],
     "react/forbid-prop-types": ["warn"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],

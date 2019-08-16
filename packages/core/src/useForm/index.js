@@ -20,11 +20,11 @@ export const useForm = () => {
   });
   const prevState = usePrevious(state);
 
-  const formConnector = (val) => {
+  const connect = (val) => {
     if (val !== prevState) {
       setState(val);
     }
   };
 
-  return [state, formConnector];
+  return { ...state, __connect__: connect };
 };

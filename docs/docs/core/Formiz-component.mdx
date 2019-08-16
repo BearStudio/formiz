@@ -7,56 +7,43 @@ import { WIP, NotImplemented } from '../../src/messages'
 
 ## Props
 
-#### `onSubmit(values, actions)`
+#### `onSubmit(values)`
 
 > Triggered when the form is **submitted**.
 
-#### `onValidSubmit(values, actions)`
+#### `onValidSubmit(values)`
 
 > Triggered when the form is **valid** and **submitted**.
 
-#### `onInvalidSubmit(values, actions)`
+#### `onInvalidSubmit(values)`
 
 > Triggered when the form is **invalid** and **submitted**.
 
-#### `onChange(values, actions)`
+#### `onChange(values)`
 
-> Triggered every time the form change.
-
-> ⚠️ This is triggered when each field is mounted.
-> ℹ️ You can get `values` of the form with the useForm() hook.
+> Triggered every time the form change.<br />
+> ⚠️ This is triggered when each field is mounted.<br />
+> ℹ️ Instead you can get `values` of the form with the [useForm()](/docs/core/use-form) hook.
 
 #### `onValid()`
 
-> Triggered when the form is **valid**.
-
-> ℹ️ You can get `isValid` value with the useForm() hook.
+> Triggered when the form is **valid**.<br />
+> ℹ️ Instead you can get `isValid` value with the [useForm()](/docs/core/use-form) hook.
 
 #### `onInvalid()`
 
-> Triggered when the form is **invalid**.
-
-> ℹ️ You can get `isValid` value with the useForm() hook.
+> Triggered when the form is **invalid**.<br />
+> ℹ️ Instead you can get `isValid` value with the [useForm()](/docs/core/use-form) hook.
 
 #### `autoForm`
 
-> Set to `true` to auto add a `<form>` element with auto onSubmit.
+> Set to `true` to auto add a `<form>` element with auto onSubmit.<br />
+> ℹ️ Instead you can get the `submit()` method with the [useForm()](/docs/core/use-form) hook and use it with your own `<form>` element.
 
-> ℹ️ You can get the `submit()` method with the useForm() hook.
+#### `connect`
 
----
-
-## Actions
-
-`onSubmit()`, `onValidSubmit()`, `onInvalidSubmit()` and `onChange()` props get a second argument of `actions` which is an object of actions that you can apply to the form.
-
-#### `actions.invalidateFields()`
-
-<NotImplemented of="actions.invalidateFields()" />
-
-#### `actions.resetForm()`
-
-<NotImplemented of="actions.resetForm()" />
+> Allow you to connect your form with the [useForm()](/docs/core/use-form) hook.<br />
+> See [useForm() documentation](/docs/core/use-form) for more details
 
 ---
 
@@ -65,9 +52,12 @@ import { WIP, NotImplemented } from '../../src/messages'
 <WIP />
 
 ```jsx
+const myForm = useForm()
+
 <Formiz
-  onValidSubmit={(values, { invalidateFields }) => {
-    invalidateFields({
+  connect={myForm}
+  onValidSubmit={(values) => {
+    myForm.invalidateFields({
       fieldName: 'Error message',
     })
   }}

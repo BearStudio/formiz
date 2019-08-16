@@ -47,7 +47,7 @@ function App() {
   const [isStep2Visible, setIsStep2Visible] = React.useState(true);
   const [formIsValid, setFormIsValid] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [myForm, myFormConnector] = useForm();
+  const myForm = useForm();
 
   const handleSubmit = (values) => {
     setIsLoading(true);
@@ -68,7 +68,7 @@ function App() {
       <div style={{ padding: '2rem' }}>
         <Formiz
           onSubmit={handleSubmit}
-          connect={myFormConnector}
+          connect={myForm}
         >
           <form className="card">
             <div className="card-body" style={{ minHeight: 200 }}>

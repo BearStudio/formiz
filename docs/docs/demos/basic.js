@@ -30,7 +30,7 @@ const MyField = (props) => {
 export const MyForm = `
 // 2. Create a form with multi steps & fields
 const MyForm = () => {
-  const [myForm, myFormConnector] = useForm()
+  const myForm = useForm()
   const [isLoading, setIsLoading] = React.useState(false)
   const submitForm = (values) => {
     setIsLoading(true)
@@ -41,7 +41,7 @@ const MyForm = () => {
     }, 1000)
   }
   return (
-    <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
+    <Formiz onValidSubmit={submitForm} connect={myForm}>
       <form
         onSubmit={myForm.submit}
         className="flex flex-col bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"

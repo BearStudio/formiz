@@ -17,7 +17,9 @@ export const propTypes = {
   onValid: PropTypes.func,
   onInvalid: PropTypes.func,
   onChange: PropTypes.func,
-  connect: PropTypes.func,
+  connect: PropTypes.shape({
+    __connect__: PropTypes.func,
+  }),
 };
 
 export const defaultProps = {
@@ -29,7 +31,9 @@ export const defaultProps = {
   onValid: () => {},
   onInvalid: () => {},
   onChange: () => {},
-  connect: () => {},
+  connect: {
+    __connect__: () => {},
+  },
 };
 
 export const Form = ({
@@ -101,7 +105,7 @@ export const Form = ({
   ]);
 
   useEffect(() => {
-    connect({
+    connect.__connect__({
       submit: handleSubmit,
       isValid: isFormValid,
       isSubmitted: isFormSubmitted,
@@ -118,6 +122,7 @@ export const Form = ({
       goToStep: (name) => { dispatch(stepGoTo(name)); },
     });
   }, [
+    JSON.stringify(connect.__connect__),
     dispatch,
     handleSubmit,
     isFormValid,

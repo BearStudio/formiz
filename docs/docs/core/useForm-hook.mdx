@@ -3,6 +3,8 @@ id: use-form
 title: useForm() hook
 ---
 
+import { NotImplemented } from '../../src/messages'
+
 Use this hook to access values and methods from a `<Formiz>` component.
 
 ## How to use?
@@ -15,10 +17,10 @@ import { Formiz, useForm } from '@formiz/core'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
-  const [myForm, myFormConnector] = useForm()
+  const myForm = useForm()
 
   return (
-    <Formiz connect={myFormConnector}>
+    <Formiz connect={myForm}>
       {/* Your fields here */}
     </Formiz>
   )
@@ -35,10 +37,10 @@ import { Formiz, useForm } from '@formiz/core'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
-  const [myForm, myFormConnector] = useForm()
+  const myForm = useForm()
 
   return (
-    <Formiz connect={myFormConnector}>
+    <Formiz connect={myForm}>
       <form onSubmit={myForm.submit}>
         {myForm.isValid && 'The form is valid!'}
         {/* Your fields here */}
@@ -76,6 +78,27 @@ The `useForm` return an object with the following properties:
 #### `values`
 
 > Returns an object with all the values of the form.
+
+#### `invalidateFields()`
+
+> Allow you to invalidate one or many fields.<br />
+> Useful for API errors or other external errors.
+
+```js
+invalidateFields([
+  'fieldName': 'My error message',
+  'secondFieldName': 'Another error message',
+])
+```
+
+<NotImplemented of="invalidateFields()" />
+
+#### `resetForm()`
+
+> Allow to reset all fields values to their defaultValue.
+
+<NotImplemented of="resetForm()" />
+
 
 #### `currentStep`
 

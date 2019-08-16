@@ -9,6 +9,8 @@
   "scripts": {
     "bs": "lerna bootstrap",
     "start": "cd docs && yarn start | lerna run start ",
+    "test": "lerna run test",
+    "test:dev": "cd packages/core && yarn test:dev",
     "docs:deploy": "lerna run build && cd docs && yarn deploy"
   },
   "devDependencies": {
