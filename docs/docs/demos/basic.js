@@ -2,9 +2,10 @@ export const MyField = `
 // 1. Create a reusable field
 const MyField = (props) => {
   const {
-    value, setValue, errorMessage, isValid, isSubmitted
+    value, setValue, errorMessage, isValid, isPristine, isSubmitted
   } = useField(props)
   const { label } = props
+  const showError = !isValid && (!isPristine || isSubmitted)
   return (
     <div className="mb-4">
       <label className="block font-bold text-sm text-gray-600 mb-1">
@@ -13,9 +14,10 @@ const MyField = (props) => {
       <Input
         type="text"
         defaultValue={value}
+        isValid={!showError}
         onChange={e => setValue(e.target.value)}
       />
-      {!isValid && isSubmitted && (
+      {showError && (
         <div className="block text-sm text-red-600 mt-1">
           { errorMessage }
         </div>
@@ -29,8 +31,14 @@ export const MyForm = `
 // 2. Create a form with multi steps & fields
 const MyForm = () => {
   const [myForm, myFormConnector] = useForm()
+  const [isLoading, setIsLoading] = React.useState(false)
   const submitForm = (values) => {
-    console.log(values); // { firstName: 'value', lastName: 'value' }
+    setIsLoading(true)
+
+    setTimeout(() => {
+      setIsLoading(false)
+      alert(JSON.stringify(values)) // { firstName: 'value', lastName: 'value' }
+    }, 1000)
   }
   return (
     <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
@@ -84,8 +92,9 @@ const MyForm = () => {
               <Button
                 color="primary"
                 type="submit"
+                isDisabled={isLoading}
               >
-                Submit
+                {isLoading ? 'Loading...' : 'Submit'}
               </Button>
             ) : (
               <Button
