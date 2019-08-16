@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useFormContext } from '../FormContext';
+import { getStep } from '../FormContext/helpers';
 import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
 } from '../FormContext/actions';
@@ -28,7 +29,7 @@ export const useField = ({
   }
 
   const formContext = useFormContext();
-  const step = useFormStepName();
+  const stepName = useFormStepName();
 
   if (!formContext) {
     throw ErrorFieldWithoutForm;
@@ -41,12 +42,12 @@ export const useField = ({
   // });
 
   useEffect(() => {
-    dispatch(fieldRegister(name, { value: defaultValue, step, validations }));
+    dispatch(fieldRegister(name, { value: defaultValue, step: stepName, validations }));
 
     return () => {
       dispatch(fieldUnregister(name, keepValue));
     };
-  }, [name, step]);
+  }, [name, stepName]);
 
   useEffect(() => {
     const extraRules = [
@@ -65,6 +66,8 @@ export const useField = ({
 
   const field = state.fields.find(f => f.name === name);
   const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];
+  const currentStep = getStep(stepName, state.steps);
+  const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
 
   return {
     value: field ? field.value : null,
@@ -72,6 +75,7 @@ export const useField = ({
     errorMessage: errorMessages[0],
     isValid: field ? !field.errors.length : true,
     isPristine: field ? field.isPristine : true,
+    isSubmitted,
     setValue: (value) => {
       dispatch(fieldSetValue(name, value));
     },

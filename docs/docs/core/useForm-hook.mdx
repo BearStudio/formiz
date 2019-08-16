@@ -39,7 +39,7 @@ export const MyForm = () => {
 
   return (
     <Formiz connect={myFormConnector}>
-      <form onSubmit={myForm.onSubmit}>
+      <form onSubmit={myForm.submit}>
         {myForm.isValid && 'The form is valid!'}
         {/* Your fields here */}
         <button type="submit">
@@ -88,6 +88,11 @@ The `useForm` return an object with the following properties:
 #### `isStepValid`
 
 > Returns true if the current step is valid.
+> Returns an array with all the steps of the form.
+
+#### `isStepSubmitted`
+
+> Returns true if the current step is submitted.
 
 #### `isFirstStep`
 
@@ -96,6 +101,10 @@ The `useForm` return an object with the following properties:
 #### `isLastStep`
 
 > Returns true if the current step is the last step.
+
+#### `submitStep()`
+
+> Allow you to submit the current step.
 
 #### `nextStep()`
 

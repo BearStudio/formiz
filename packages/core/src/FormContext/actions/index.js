@@ -19,28 +19,31 @@ export const formValidate = () => (state) => {
     }));
 
   const isValid = fields.every(x => !x.errors.length);
-  const currenStepName = getCurrentStepNameFromState(state);
-  const step = getStep(currenStepName, state.steps);
   const steps = (state.steps || []).map(s => ({
     ...s,
     isValid: getFieldsByStep(s.name, fields).every(x => !x.errors.length),
   }));
-  const isStepValid = (steps.find(x => x.name === step.name) || {}).isValid;
-
 
   return {
     ...state,
     fields,
     steps,
     isValid,
-    isStepValid: isStepValid === undefined ? true : isStepValid,
   };
 };
 
-export const formSubmit = () => state => ({
-  ...state,
-  isSubmitted: true,
-});
+export const formSubmit = () => (state) => {
+  const steps = (state.steps || []).map(step => ({
+    ...step,
+    isSubmitted: true,
+  }));
+
+  return {
+    ...state,
+    steps,
+    isSubmitted: true,
+  };
+};
 
 
 /*
@@ -59,6 +62,7 @@ export const stepRegister = (name, order = 0, label = '') => (state) => {
       order,
       isValid: true,
       isVisited: false,
+      isSubmitted: false,
     },
   ])
     // Add index
@@ -155,6 +159,29 @@ export const stepGoPrev = () => (state) => {
   prevStepPosition = prevStepPosition < 0 ? 0 : prevStepPosition;
 
   return stepGoToPosition(prevStepPosition)(state);
+};
+
+export const stepSubmit = name => (state) => {
+  const step = state.steps.find(x => x.name === name) || {};
+  const otherSteps = state.steps.filter(x => x.name !== name);
+  const steps = getStepsOrdered([
+    ...otherSteps,
+    {
+      ...step,
+      isSubmitted: true,
+    },
+  ]);
+
+  let newState = {
+    ...state,
+    steps,
+  };
+
+  if (step.isValid) {
+    newState = stepGoNext()(newState);
+  }
+
+  return newState;
 };
 
 /*

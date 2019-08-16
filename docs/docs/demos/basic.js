@@ -2,7 +2,7 @@ export const MyField = `
 // 1. Create a reusable field
 const MyField = (props) => {
   const {
-    value, setValue, errorMessage, isValid,
+    value, setValue, errorMessage, isValid, isSubmitted
   } = useField(props)
   const { label } = props
   return (
@@ -15,7 +15,7 @@ const MyField = (props) => {
         defaultValue={value}
         onChange={e => setValue(e.target.value)}
       />
-      {!isValid && (
+      {!isValid && isSubmitted && (
         <div className="block text-sm text-red-600 mt-1">
           { errorMessage }
         </div>
@@ -84,7 +84,6 @@ const MyForm = () => {
               <Button
                 color="primary"
                 type="submit"
-                isDisabled={!myForm.isValid}
               >
                 Submit
               </Button>
@@ -92,8 +91,7 @@ const MyForm = () => {
               <Button
                 color="primary"
                 type="button"
-                onClick={myForm.nextStep}
-                isDisabled={!myForm.isStepValid}
+                onClick={myForm.submitStep}
               >
                 Next
               </Button>

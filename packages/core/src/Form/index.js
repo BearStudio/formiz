@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
 import {
-  formSubmit, stepGoNext, stepGoPrev, stepGoTo,
+  formSubmit, stepSubmit, stepGoNext, stepGoPrev, stepGoTo,
 } from '../FormContext/actions';
 import {
   getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
@@ -48,7 +48,6 @@ export const Form = ({
     fields,
     isValid: isFormValid,
     isSubmitted: isFormSubmitted,
-    isStepValid,
     steps,
   } = state;
 
@@ -64,12 +63,14 @@ export const Form = ({
     label,
     isValid,
     isVisited,
+    isSubmitted,
     index,
   }) => ({
     name,
     label,
     isValid,
     isVisited,
+    isSubmitted,
     index,
   });
 
@@ -107,9 +108,11 @@ export const Form = ({
       values,
       currentStep: getStepProperties(currentStep),
       steps: (steps || []).map(getStepProperties),
-      isStepValid,
+      isStepValid: currentStep.isValid,
+      isStepSubmitted: currentStep.isSubmitted,
       isFirstStep: currentStepPosition === 0,
       isLastStep: currentStepPosition === stepsCount - 1,
+      submitStep: () => { dispatch(stepSubmit(currentStepName)); },
       nextStep: () => { dispatch(stepGoNext()); },
       prevStep: () => { dispatch(stepGoPrev()); },
       goToStep: (name) => { dispatch(stepGoTo(name)); },
@@ -121,7 +124,6 @@ export const Form = ({
     isFormSubmitted,
     JSON.stringify(currentStep),
     JSON.stringify(steps),
-    isStepValid,
     currentStepPosition,
     stepsCount,
   ]);

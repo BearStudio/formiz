@@ -8,8 +8,10 @@ export const initialState = {
     {
       name: 'myStep',
       order: 0,
+      index: 0,
       isValid: true,
       isVisited: false,
+      isSubmitted: false,
     }
     */
   ],
@@ -19,6 +21,8 @@ export const initialState = {
       name: 'myField',
       value: 'Field Value',
       isActive: true,
+      isPristine: true,
+      step: 'stepName',
       validations: [],
       errors: [],
     }
