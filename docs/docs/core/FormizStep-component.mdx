@@ -28,14 +28,14 @@ import { Formiz, FormizStep, useForm } from '@formiz/core'
 import MyField from './MyField'
 
 export const MyForm = () => {
-  const [myForm, myFormConnector] = useForm()
+  const myForm = useForm()
 
   const submitForm = (values) => {
     console.log(values) // { firstname: 'value', lastname: 'value' }
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} connect={myFormConnector}>
+    <Formiz onValidSubmit={submitForm} connect={myForm}>
       <form onSubmit={myForm.submit}>
         <FormizStep name="step1">
           <MyField
@@ -67,7 +67,7 @@ export const MyForm = () => {
               Submit
             </button>
           ) : (
-            <button type="button" onClick={myForm.nextStep} disabled={!myForm.isStepValid}>
+            <button type="button" onClick={myForm.submitStep} disabled={!myForm.isStepValid}>
               Continue
             </button>
           )}
