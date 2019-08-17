@@ -146,6 +146,33 @@ you can pass the following props to the component.
 
 ---
 
+## PropTypes validations
+
+If you using [prop-types](https://www.npmjs.com/package/prop-types) to document props in your project,
+you can get `fieldPropTypes` and `fieldDefaultProps` from `@formiz/core` to pass to your custom fields for PropTypes validations.
+
+```jsx
+// MyField.js
+import React from 'react'
+import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core'
+
+const MyField = (props) => {
+  // ...
+}
+
+MyField.propTypes = {
+  ...fieldPropTypes,
+  // Your custom props
+}
+
+MyField.defaultProps = {
+  ...fieldDefaultProps,
+  // Your custom props
+}
+```
+
+---
+
 ## Example
 
 #### Create your custom field
@@ -175,24 +202,28 @@ const MyField = (props) => {
 
 ```jsx
 import React from 'react'
-import { Formiz } from '@formiz/core'
+import { Formiz, useForm } from '@formiz/core'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
+  const myForm = useForm()
+
   const submitForm = (values) => {
     console.log(values) // { myCustomField: 'value' }
   }
 
   return (
-    <Formiz onSubmit={submitForm} >
-      <MyField
-        name="myCustomField"
-        customProperty="Custom Field"
-        isRequired="Custom Field is required"
-      />
-      <button type="submit">
-        Submit
-      </button>
+    <Formiz onValidSubmit={submitForm}>
+      <form submit={myForm.submit}>
+        <MyField
+          name="myCustomField"
+          customProperty="Custom Field"
+          isRequired="Custom Field is required"
+        />
+        <button type="submit">
+          Submit
+        </button>
+      </form>
     </Formiz>
   )
 }

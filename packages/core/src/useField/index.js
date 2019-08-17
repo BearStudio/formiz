@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
 import { getStep } from '../FormContext/helpers';
 import {
@@ -6,6 +7,26 @@ import {
 } from '../FormContext/actions';
 import { useFormStepName } from '../FormStepContext';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
+
+export const fieldPropTypes = {
+  defaultValue: PropTypes.any,
+  isRequired: PropTypes.string,
+  keepValue: PropTypes.bool,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  validations: PropTypes.arrayOf(PropTypes.shape({
+    rule: PropTypes.func,
+    message: PropTypes.string,
+  })),
+};
+
+export const fieldDefaultProps = {
+  defaultValue: null,
+  isRequired: false,
+  keepValue: false,
+  onChange: () => {},
+  validations: [],
+};
 
 const getIsRequiredValidation = (isRequired) => {
   if (!isRequired && isRequired !== '') {

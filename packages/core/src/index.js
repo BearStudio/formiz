@@ -14,8 +14,8 @@ import {
 } from './FormStep';
 import { FormStepContextProvider } from './FormStepContext';
 
-export { useField } from './useField';
 export { useForm } from './useForm';
+export { useField, fieldPropTypes, fieldDefaultProps } from './useField';
 
 export const Formiz = props => (
   <FormContextProvider>
