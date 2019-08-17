@@ -18,11 +18,12 @@ const getIsRequiredValidation = (isRequired) => {
 };
 
 export const useField = ({
-  name,
   defaultValue,
-  validations = [],
   isRequired,
   keepValue,
+  name,
+  onChange,
+  validations = [],
 }) => {
   if (!name) {
     throw ErrorFieldWithoutName;
@@ -79,6 +80,9 @@ export const useField = ({
     isSubmitted,
     setValue: (value) => {
       dispatch(fieldSetValue(name, value));
+      if (onChange) {
+        onChange(value);
+      }
     },
   };
 };
