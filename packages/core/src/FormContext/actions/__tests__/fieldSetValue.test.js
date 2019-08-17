@@ -30,4 +30,26 @@ describe('[FormContext:Action] fieldSetValue()', () => {
 
     expect(fields).toHaveLength(1);
   });
+
+  it('fieldSetValue should remove the external error on the given field', () => {
+    const { fields } = fieldSetValue('myField2', 'new value')({
+      fields: [
+        {
+          name: 'myField',
+          value: 'my value',
+          isActive: true,
+          externalError: 'External error',
+        },
+        {
+          name: 'myField2',
+          value: 'my value',
+          isActive: true,
+          externalError: 'External error',
+        },
+      ],
+    });
+
+    expect(fields[0]).toHaveProperty('externalError', 'External error');
+    expect(fields[1]).not.toHaveProperty('externalError');
+  });
 });

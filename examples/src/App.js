@@ -55,6 +55,9 @@ function App() {
 
     setTimeout(() => {
       setIsLoading(false);
+      myForm.invalidateFields({
+        name: 'Nope',
+      });
     }, 1000);
   };
 

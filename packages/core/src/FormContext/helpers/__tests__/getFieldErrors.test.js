@@ -143,4 +143,17 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
 
     expect(formValues).toHaveProperty('myField', '');
   });
+
+  it('Should return an error if one field has an external error', () => {
+    const field = {
+      name: 'myField',
+      value: 'not my value',
+      isActive: true,
+      externalError: 'External error',
+    };
+
+    const errors = getFieldErrors(field.name, [field]);
+
+    expect(errors).toHaveLength(1);
+  });
 });

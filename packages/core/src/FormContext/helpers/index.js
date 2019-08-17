@@ -14,13 +14,19 @@ export const getFormValues = fields => (fields || [])
 export const getFieldErrors = (fieldName, fields) => {
   const field = getField(fieldName, fields);
 
-  if (!field || !field.validations) {
+  if (!field) {
     return [];
   }
 
-  return field.validations
+  const errorMessages = (field.validations || [])
     .map(x => (x.rule && !x.rule(field.value, getFormValues(fields)) ? x.message : '___FIELD_IS_VALID___'))
     .filter(x => x !== '___FIELD_IS_VALID___');
+
+  if (field.externalError) {
+    return [field.externalError, ...errorMessages];
+  }
+
+  return errorMessages;
 };
 
 export const getStep = (stepName, steps) => (steps || [])

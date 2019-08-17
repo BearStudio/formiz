@@ -1,7 +1,6 @@
 import {
   getFieldsByStep,
   getFieldErrors,
-  getStep,
   getCurrentStepNameFromState,
   getStepsOrdered,
   getStepPosition,
@@ -30,6 +29,30 @@ export const formValidate = () => (state) => {
     steps,
     isValid,
   };
+};
+
+export const formInvalidateFields = fieldsErrors => (state) => {
+  const fields = state.fields.map((field) => {
+    const errorMessage = fieldsErrors[field.name];
+
+    if (!errorMessage) {
+      return field;
+    }
+
+    return {
+      ...field,
+      externalError: errorMessage,
+    };
+  });
+
+  let newState = {
+    ...state,
+    fields,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
 };
 
 export const formSubmit = () => (state) => {
@@ -286,11 +309,12 @@ export const fieldSetValue = (name, value) => (state) => {
   }
 
   const otherFields = state.fields.filter(x => x.name !== name);
+  const { externalError, ...fieldWithoutExternalError } = field;
 
   const fields = [
     ...otherFields,
     {
-      ...field,
+      ...fieldWithoutExternalError,
       value,
       isPristine: false,
     },

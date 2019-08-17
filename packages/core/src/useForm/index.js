@@ -7,6 +7,8 @@ export const useForm = () => {
     isValid: true,
     isSubmitted: false,
     values: {},
+    invalidateFields: () => {},
+    reset: () => {},
     currentStep: {},
     steps: [],
     isStepValid: true,
