@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
 import {
-  formSubmit, formInvalidateFields, stepSubmit, stepGoNext, stepGoPrev, stepGoTo,
+  formSubmit, formInvalidateFields, stepSubmit, stepGoNext, stepGoPrev, stepGoTo, formReset,
 } from '../FormContext/actions';
 import {
   getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
@@ -111,7 +111,7 @@ export const Form = ({
       isSubmitted: isFormSubmitted,
       values,
       invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
-      reset: () => {}, // TODO
+      reset: () => { dispatch(formReset()); },
       currentStep: getStepProperties(currentStep),
       steps: (steps || []).map(getStepProperties),
       isStepValid: currentStep.isValid,

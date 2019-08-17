@@ -68,6 +68,32 @@ export const formSubmit = () => (state) => {
   };
 };
 
+export const formReset = () => (state) => {
+  const fields = (state.fields || []).map(field => ({
+    ...field,
+    isPristine: true,
+    value: field.defaultValue,
+  }));
+
+  const steps = (state.steps || []).map(step => ({
+    ...step,
+    isSubmitted: false,
+    isVisited: false,
+  }));
+
+  let newState = {
+    ...state,
+    fields,
+    steps,
+    isSubmitted: false,
+    navigatedStepName: state.initialStepName,
+    resetKey: state.resetKey + 1,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};
 
 /*
   Step Actions
@@ -227,6 +253,7 @@ export const fieldRegister = (
       ...field,
       name,
       value: field.value || value,
+      defaultValue: value,
       isActive: true,
       isPristine: true,
       step,

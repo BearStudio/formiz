@@ -13,7 +13,7 @@ const isNotEqual = (val) => x => (x || '').toLowerCase() !== (val || '').toLower
 
 const Input = (props) => {
   const {
-    value, setValue, errorMessage, isValid, isPristine,
+    value, setValue, errorMessage, isValid, isPristine, resetKey,
   } = useField(props);
   const { label } = props; // eslint-disable-line
   const [isTouched, setIsTouched] = React.useState(false);
@@ -26,6 +26,7 @@ const Input = (props) => {
         {label}
       </label>
       <input
+        key={resetKey}
         className={`form-control ${isError ? 'is-invalid' : ''}`}
         defaultValue={value}
         onChange={e => setValue(e.target.value.trim())}
@@ -64,8 +65,11 @@ function App() {
   return (
     <div>
       <div style={{ padding: '2rem' }}>
-        <button className="btn btn-light btn-sm" type="button" onClick={() => setIsStep2Visible(!isStep2Visible)}>
-          Toggle Step 2 {myForm.values.name}
+        <button className="btn btn-light btn-sm mr-2" type="button" onClick={() => setIsStep2Visible(!isStep2Visible)}>
+          Toggle Step 2
+        </button>
+        <button className="btn btn-light btn-sm" type="button" onClick={() => myForm.reset()}>
+          Reset Multi Step Form
         </button>
       </div>
       <div style={{ padding: '2rem' }}>

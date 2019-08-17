@@ -2,7 +2,7 @@ export const MyField = `
 // 1. Create a reusable field
 const MyField = (props) => {
   const {
-    value, setValue, errorMessage, isValid, isPristine, isSubmitted
+    value, setValue, errorMessage, isValid, isPristine, isSubmitted, resetKey
   } = useField(props)
   const { label } = props
   const showError = !isValid && (!isPristine || isSubmitted)
@@ -12,6 +12,7 @@ const MyField = (props) => {
         { label }
       </label>
       <Input
+        key={resetKey}
         type="text"
         defaultValue={value}
         isValid={!showError}

@@ -1,4 +1,5 @@
 export const initialState = {
+  resetKey: 0,
   isValid: true,
   isSubmitted: false,
   initialStepName: null,
@@ -20,6 +21,7 @@ export const initialState = {
     {
       name: 'myField',
       value: 'Field Value',
+      defaultValue: 'Field Value',
       isActive: true,
       isPristine: true,
       step: 'stepName',

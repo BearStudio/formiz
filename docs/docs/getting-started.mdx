@@ -30,7 +30,7 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid } = useField(props)
+  const { value, setValue, errorMessage, isValid, resetKey } = useField(props)
   const { label } = props
 
   return (
@@ -38,7 +38,7 @@ export const MyField = (props) => {
       <label>
         { label }
       </label>
-      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
+      <input key={resetKey} type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
       {!isValid && (
         <p>
           { errorMessage }

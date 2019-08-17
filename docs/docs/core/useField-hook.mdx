@@ -69,6 +69,15 @@ The `useField` return an object with the following properties:
 
 > Return all error messages.
 
+#### `resetKey`
+
+> Allow you to put a key on elements that you want to be reinitialize when the from is reset.<br />
+> Can be useful for element like `<input>` or `<select>`.
+
+```jsx
+<input key={resetKey} />
+```
+
 ---
 
 ## Field props
@@ -148,12 +157,12 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid } = useField(props)
+  const { value, setValue, errorMessage, isValid, resetKey } = useField(props)
   const { customProperty } = props
 
   return (
     <div>
-      <input type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
+      <input key={resetKey} type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
       <strong>{ customProperty }</strong>
       {!isValid && (
         <p>{ errorMessage }</p>
