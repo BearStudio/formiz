@@ -1,7 +1,7 @@
-# [WIP] Formiz Core
-
-## ⚠️ DO NOT USE ⚠️
+# @formiz/core
 
 This is a **👩‍🔬 work in progress** package.
 
-Visit the [Formiz Github](https://github.com/ivan-dalmet/formiz) for more informations.
+## 📚 Full documentation
+
+Full documentation & demos: [formiz-react.com](https://formiz-react.com)
