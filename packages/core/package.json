@@ -5,6 +5,7 @@
     "access": "public"
   },
   "scripts": {
+    "prepare": "yarn build",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "test": "jest",
