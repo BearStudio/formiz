@@ -12,7 +12,7 @@ export const Alpha = () => (
     , API is subject to change.
     {' '}
     <strong>
-      Do no use in production.
+      Do not use in production.
     </strong>
   </div>
 );
