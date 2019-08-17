@@ -7,7 +7,7 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import withBaseUrl from '@docusaurus/withBaseUrl';
 import styles from './styles.module.css';
-import { NotReady } from '../messages';
+import { Alpha } from '../messages';
 
 const features = [
   {
@@ -87,7 +87,7 @@ function Home() {
         {features && features.length && (
           <section className={styles.features}>
             <div className="container" style={{ maxWidth: '60rem' }}>
-              <NotReady />
+              <Alpha />
               <h2 style={{ margin: '1em 0 2em 0', textAlign: 'center' }}>
                 Why Formiz?
               </h2>
