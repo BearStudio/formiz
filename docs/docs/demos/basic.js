@@ -7,19 +7,19 @@ const MyField = (props) => {
   const { label } = props
   const showError = !isValid && (!isPristine || isSubmitted)
   return (
-    <div className="mb-4">
-      <label className="block font-bold text-sm text-gray-600 mb-1">
+    <div className="demo-form-group">
+      <label className="demo-label">
         { label }
       </label>
-      <Input
+      <input
         key={resetKey}
         type="text"
         defaultValue={value}
-        isValid={!showError}
+        className={\`demo-input \${showError ? 'is-error' : ''}\`}
         onChange={e => setValue(e.target.value)}
       />
       {showError && (
-        <div className="block text-sm text-red-600 mt-1">
+        <div className="demo-form-error">
           { errorMessage }
         </div>
       )}
@@ -48,10 +48,10 @@ const MyForm = () => {
     <Formiz onValidSubmit={submitForm} connect={myForm}>
       <form
         onSubmit={myForm.submit}
-        className="flex flex-col bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+        className="demo-form"
         style={{ minHeight: '16rem' }}
       >
-        <div className="p-4 mb-4">
+        <div className="demo-form__content">
           <FormizStep name="step1">
             <MyField
               name="firstName"
@@ -68,15 +68,16 @@ const MyForm = () => {
           </FormizStep>
         </div>
 
-        <div className="flex flex-wrap items-center p-4 bg-gray-100 mt-auto">
+        <div className="demo-form__footer">
           <div className="mr-auto" style={{ minWidth: '6rem' }}>
             {!myForm.isFirstStep && (
-              <Button
+              <button
+                className="demo-button"
                 type="button"
                 onClick={myForm.prevStep}
               >
                 Previous
-              </Button>
+              </button>
             )}
           </div>
           <div className="text-sm text-gray-500 p-2 text-center w-full xs:w-auto order-first xs:order-none">
@@ -93,21 +94,22 @@ const MyForm = () => {
             style={{ minWidth: '6rem' }}
           >
             {myForm.isLastStep ? (
-              <Button
-                color="primary"
+              <button
+                className="demo-button is-primary"
                 type="submit"
-                isDisabled={isLoading}
+                disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
               >
                 {isLoading ? 'Loading...' : 'Submit'}
-              </Button>
+              </button>
             ) : (
-              <Button
-                color="primary"
+              <button
+                className="demo-button is-primary"
                 type="button"
                 onClick={myForm.submitStep}
+                disabled={!myForm.isStepValid && myForm.isStepSubmitted}
               >
                 Next
-              </Button>
+              </button>
             )}
           </div>
         </div>

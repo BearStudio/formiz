@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   LiveProvider,
   LiveEditor,
@@ -12,10 +13,6 @@ import {
   Formiz, FormizStep, useForm, useField,
 } from '@formiz/core';
 
-
-import { Button } from './Button';
-import { Input } from './Input';
-
 export const CodePreview = ({ code }) => (
   <LiveProvider
     code={(code).trim()}
@@ -25,8 +22,6 @@ export const CodePreview = ({ code }) => (
       FormizStep,
       useForm,
       useField,
-      Button,
-      Input,
     }}
     theme={nightOwlTheme}
     noInline
@@ -40,3 +35,7 @@ export const CodePreview = ({ code }) => (
     </div>
   </LiveProvider>
 );
+
+CodePreview.propTypes = {
+  code: PropTypes.string.isRequired,
+};
