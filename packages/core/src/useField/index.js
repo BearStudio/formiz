@@ -33,7 +33,7 @@ const getIsRequiredValidation = (isRequired) => {
     return {};
   }
   return {
-    rule: x => !!x,
+    rule: x => !!x || x === 0,
     message: isRequired !== true ? isRequired : '',
   };
 };
