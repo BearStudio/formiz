@@ -1,6 +1,6 @@
 # @formiz/core
 
-This is a **👩‍🔬 work in progress** package.
+This is an early and alpha release of Formiz. API is subject to change. Do not use in production.
 
 ## 📚 Full documentation
 
