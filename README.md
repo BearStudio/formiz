@@ -1,5 +1,5 @@
 # Formiz
-React multi steps forms with full validation
+React multi steps forms with full validations
 
 👩‍🔬 This is an early and alpha release of Formiz. API is subject to change. Do not use in production.
 

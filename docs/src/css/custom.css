@@ -64,6 +64,10 @@ body {
   border-radius: 0.2rem;
 }
 
+.footer {
+  margin-top: auto;
+}
+
 .callout {
   padding: 1rem;
   border-radius: 0.2rem;

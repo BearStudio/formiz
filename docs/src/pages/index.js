@@ -64,7 +64,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.title} | React multi steps forms`}
-      description="Create custom multi steps forms with full validation without the pain."
+      description="Create custom multi steps forms with full validations without the pain."
     >
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">

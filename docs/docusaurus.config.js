@@ -1,12 +1,13 @@
 module.exports = {
   title: 'Formiz',
-  tagline: 'React multi steps forms with full validation',
+  tagline: 'React multi steps forms with full validations',
   url: 'https://formiz-react.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'ivan-dalmet', // Usually your GitHub org/user name.
   projectName: 'formiz', // Usually your repo name.
   themeConfig: {
+    image: 'img/social.jpg',
     navbar: {
       title: 'alpha',
       logo: {
