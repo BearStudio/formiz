@@ -15,13 +15,11 @@ const config = ({ output, format }) => ({
     globals: {
       'prop-types': 'PropTypes',
       react: 'React',
-      'react-dom': 'ReactDOM',
     },
   },
   external: [
     'prop-types',
     'react',
-    'react-dom',
   ],
   plugins: [
     resolve(),
