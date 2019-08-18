@@ -60,6 +60,9 @@ module.exports = {
       // },
       copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
     },
+    googleAnalytics: {
+      trackingID: 'UA-137797247-2',
+    },
   },
   presets: [
     [
