@@ -8,10 +8,12 @@
   },
   "scripts": {
     "bs": "lerna bootstrap",
-    "start": "cd docs && yarn start | lerna run start ",
-    "test": "lerna run test",
-    "test:dev": "cd packages/core && yarn test:dev",
-    "docs:deploy": "lerna run build && cd docs && yarn deploy"
+    "start": "lerna run start --parallel --ignore @formiz/example",
+    "test": "lerna run test --parallel --ignore @formiz/{docs,example}",
+    "test:dev": "lerna run test:dev --parallel --ignore @formiz/{docs,example}",
+    "deploy": "lerna publish --ignore-changes @formiz/{docs,example}",
+    "postdeploy": "yarn docs:deploy",
+    "docs:deploy": "lerna run build --parallel --ignore @formiz/example && lerna run deploy --scope @formiz/docs"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -24,6 +26,6 @@
   "workspaces": [
     "examples",
     "docs",
-    "packages/*"
+    "./packages/*"
   ]
 }

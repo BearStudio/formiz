@@ -12,10 +12,10 @@ module.exports = {
       'core/use-form',
       'core/use-field',
     ],
-    'Fields (coming soon)': [
+    Validations: [
       'validations/rules',
     ],
-    'Validations (coming soon)': [],
+    'Built-in Fields (coming soon)': [],
     'Plugins (coming soon)': [],
   },
 };

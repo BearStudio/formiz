@@ -2,14 +2,13 @@ import React from 'react';
 
 export const Alpha = () => (
   <div className="callout is-warning">
-    <code>@formiz/core</code>
+    This is an
     {' '}
-    is in
+    <strong>early and alpha release</strong>
     {' '}
-    <strong>
-      alpha
-    </strong>
-    , API is subject to change.
+    of Formiz.
+    {' '}
+    API is subject to change.
     {' '}
     <strong>
       Do not use in production.
