@@ -11,12 +11,12 @@ import { Alpha } from '../src/messages'
 
 With [Yarn](https://yarnpkg.com)
 ```bash
-yarn add @formiz/core
+yarn add @formiz/core @formiz/validations
 ```
 
 With [NPM](https://www.npmjs.com/)
 ```bash
-npm install @formiz/core
+npm install @formiz/core @formiz/validations
 ```
 
 ### Create your first custom field
@@ -59,6 +59,7 @@ So, be sure that this key is **unique by form**.
 ```jsx
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
+import { isEmail } from '@formiz/validations'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
@@ -80,6 +81,14 @@ export const MyForm = () => {
           name="lastName"
           label="Last Name"
           isRequired="Last Name is required"
+        />
+        <MyField
+          name="email"
+          label="Email"
+          validations={[
+            rule: isEmail(),
+            message: 'This is not a valid email',
+          ]}
         />
         <button type="submit" disabled={!myForm.isValid}>
           Submit
