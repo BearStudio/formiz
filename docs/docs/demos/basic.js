@@ -1,32 +1,4 @@
-export const MyField = `
-// 1. Create a reusable field
-const MyField = (props) => {
-  const {
-    value, setValue, errorMessage, isValid, isPristine, isSubmitted, resetKey
-  } = useField(props)
-  const { label } = props
-  const showError = !isValid && (!isPristine || isSubmitted)
-  return (
-    <div className="demo-form-group">
-      <label className="demo-label">
-        { label }
-      </label>
-      <input
-        key={resetKey}
-        type="text"
-        defaultValue={value}
-        className={\`demo-input \${showError ? 'is-error' : ''}\`}
-        onChange={e => setValue(e.target.value)}
-      />
-      {showError && (
-        <div className="demo-form-error">
-          { errorMessage }
-        </div>
-      )}
-    </div>
-  )
-}
-`;
+import { MyField } from './MyField';
 
 export const MyForm = `
 // 2. Create a form with multi steps & fields
@@ -40,13 +12,14 @@ const MyForm = () => {
       setIsLoading(false)
       alert(JSON.stringify(values)) // { firstName: 'value', lastName: 'value' }
       myForm.invalidateFields({
-        lastName: 'Error from API',
+        email: 'Error from API',
       })
     }, 1000)
   }
   return (
     <Formiz onValidSubmit={submitForm} connect={myForm}>
       <form
+        noValidate
         onSubmit={myForm.submitStep}
         className="demo-form"
         style={{ minHeight: '16rem' }}
@@ -58,12 +31,22 @@ const MyForm = () => {
               label="First Name"
               isRequired="First Name is required"
             />
-          </FormizStep>
-          <FormizStep name="step2">
             <MyField
               name="lastName"
               label="Last Name"
               isRequired="Last Name is required"
+            />
+          </FormizStep>
+          <FormizStep name="step2">
+            <MyField
+              name="email"
+              label="Email"
+              type="email"
+            />
+            <MyField
+              name="password"
+              label="Password"
+              type="password"
             />
           </FormizStep>
         </div>
@@ -93,16 +76,23 @@ const MyForm = () => {
             className="ml-auto"
             style={{ minWidth: '6rem' }}
           >
-            <button
-              className="demo-button is-primary"
-              type="submit"
-              disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
-            >
-              {myForm.isLastStep
-                ? (isLoading ? 'Loading...' : 'Submit')
-                : 'Next'
-              }
-            </button>
+            {myForm.isLastStep ? (
+              <button
+                className="demo-button is-primary"
+                type="submit"
+                disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
+              >
+                {isLoading ? 'Loading...' : 'Submit'}
+              </button>
+            ) : (
+              <button
+                className="demo-button is-primary"
+                type="submit"
+                disabled={!myForm.isStepValid && myForm.isStepSubmitted}
+              >
+                Next
+              </button>
+            )}
           </div>
         </div>
       </form>
@@ -112,6 +102,8 @@ const MyForm = () => {
 `;
 
 export const Render = `
+${MyField}
+${MyForm}
 render(
   <MyForm />
 )
