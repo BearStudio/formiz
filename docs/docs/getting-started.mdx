@@ -86,8 +86,10 @@ export const MyForm = () => {
           name="email"
           label="Email"
           validations={[
-            rule: isEmail(),
-            message: 'This is not a valid email',
+            {
+              rule: isEmail(),
+              message: 'This is not a valid email',
+            },
           ]}
         />
         <button type="submit" disabled={!myForm.isValid}>
