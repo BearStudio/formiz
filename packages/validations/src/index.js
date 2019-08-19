@@ -19,6 +19,10 @@ export const isNotEmptyArray = () => (value) => {
 };
 
 export const isEmail = () => (value) => {
+  if (value === null || value === undefined) {
+    return true;
+  }
+
   if (!isString(value)) return false;
 
   return !value || emailRegex.test(value);

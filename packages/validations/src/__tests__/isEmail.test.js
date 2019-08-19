@@ -2,15 +2,15 @@ import {
   isEmail,
 } from '../index';
 
-describe('isRequired', () => {
+describe('isEmail', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isEmail()(null)).toBe(false);
+    expect(isEmail()(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isEmail()(undefined)).toBe(false);
+    expect(isEmail()(undefined)).toBe(true);
   });
 
   // Strings

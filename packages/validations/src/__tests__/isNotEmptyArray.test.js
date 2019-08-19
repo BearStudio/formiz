@@ -2,7 +2,7 @@ import {
   isNotEmptyArray,
 } from '../index';
 
-describe('isRequired', () => {
+describe('isNotEmptyArray', () => {
   // Empty
 
   it('Test if value is null', () => {
