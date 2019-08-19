@@ -36,7 +36,7 @@ export const MyForm = () => {
 
   return (
     <Formiz onValidSubmit={submitForm} connect={myForm}>
-      <form onSubmit={myForm.submit}>
+      <form onSubmit={myForm.submitStep}>
         <FormizStep name="step1">
           <MyField
             name="firstname"
@@ -67,7 +67,7 @@ export const MyForm = () => {
               Submit
             </button>
           ) : (
-            <button type="button" onClick={myForm.submitStep} disabled={!myForm.isStepValid}>
+            <button type="submit" disabled={!myForm.isStepValid}>
               Continue
             </button>
           )}

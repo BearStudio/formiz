@@ -4,6 +4,7 @@ import {
   getCurrentStepNameFromState,
   getStepsOrdered,
   getStepPosition,
+  getFormValues,
 } from '../helpers';
 
 /*
@@ -55,17 +56,35 @@ export const formInvalidateFields = fieldsErrors => (state) => {
   return newState;
 };
 
-export const formSubmit = () => (state) => {
+export const formSubmit = (
+  callback = () => {},
+  callbackOnValid = () => {},
+  callbackOnInvalid = () => {}
+) => (state) => {
   const steps = (state.steps || []).map(step => ({
     ...step,
     isSubmitted: true,
   }));
 
-  return {
+  const formValues = getFormValues(state.fields);
+
+  callback(formValues);
+
+  let newState = {
     ...state,
     steps,
     isSubmitted: true,
   };
+
+  newState = formValidate()(newState);
+
+  if (newState.isValid) {
+    callbackOnValid(formValues);
+  } else {
+    callbackOnInvalid(formValues);
+  }
+
+  return newState;
 };
 
 export const formReset = () => (state) => {
@@ -210,7 +229,12 @@ export const stepGoPrev = () => (state) => {
   return stepGoToPosition(prevStepPosition)(state);
 };
 
-export const stepSubmit = name => (state) => {
+export const stepSubmit = (
+  name,
+  callback = () => {},
+  callbackOnValid = () => {},
+  callbackOnInvalid = () => {}
+) => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
   const steps = getStepsOrdered([
@@ -226,8 +250,16 @@ export const stepSubmit = name => (state) => {
     steps,
   };
 
-  if (step.isValid) {
-    newState = stepGoNext()(newState);
+  if (!step.isValid) {
+    return newState;
+  }
+
+  const { navigatedStepName: prevStepName } = newState;
+
+  newState = stepGoNext()(newState);
+
+  if (prevStepName === newState.navigatedStepName) {
+    newState = formSubmit(callback, callbackOnValid, callbackOnInvalid)(newState);
   }
 
   return newState;

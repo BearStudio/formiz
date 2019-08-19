@@ -115,6 +115,8 @@ Import the `FormizStep` component and use it to split the form into steps.
 
 We need also need to update the submit button to allow the user to navigate between steps.
 
+And we need to update the `onSubmit` on the `<form>` element to not submit all the form but just the current step.
+
 ```jsx
 import React from 'react'
 import { Formiz, FormizStep, useForm } from '@formiz/core'
@@ -129,7 +131,7 @@ export const MyForm = () => {
 
   return (
     <Formiz onValidSubmit={submitForm} connect={myForm}>
-      <form onSubmit={myForm.submit}>
+      <form onSubmit={myForm.submitStep}>
         <FormizStep name="step1">
           <MyField
             name="firstName"
@@ -154,7 +156,7 @@ export const MyForm = () => {
             Submit
           </button>
         ) : (
-          <button type="button" onClick={myForm.submitStep} disabled={!myForm.isStepValid}>
+          <button type="submit" disabled={!myForm.isStepValid}>
             Continue
           </button>
         )}

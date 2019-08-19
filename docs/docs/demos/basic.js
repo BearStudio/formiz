@@ -47,7 +47,7 @@ const MyForm = () => {
   return (
     <Formiz onValidSubmit={submitForm} connect={myForm}>
       <form
-        onSubmit={myForm.submit}
+        onSubmit={myForm.submitStep}
         className="demo-form"
         style={{ minHeight: '16rem' }}
       >
@@ -93,24 +93,16 @@ const MyForm = () => {
             className="ml-auto"
             style={{ minWidth: '6rem' }}
           >
-            {myForm.isLastStep ? (
-              <button
-                className="demo-button is-primary"
-                type="submit"
-                disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
-              >
-                {isLoading ? 'Loading...' : 'Submit'}
-              </button>
-            ) : (
-              <button
-                className="demo-button is-primary"
-                type="button"
-                onClick={myForm.submitStep}
-                disabled={!myForm.isStepValid && myForm.isStepSubmitted}
-              >
-                Next
-              </button>
-            )}
+            <button
+              className="demo-button is-primary"
+              type="submit"
+              disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
+            >
+              {myForm.isLastStep
+                ? (isLoading ? 'Loading...' : 'Submit')
+                : 'Next'
+              }
+            </button>
           </div>
         </div>
       </form>

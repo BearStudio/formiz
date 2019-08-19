@@ -77,7 +77,7 @@ function App() {
           onSubmit={handleSubmit}
           connect={myForm}
         >
-          <form className="card">
+          <form className="card" onSubmit={myForm.submitStep}>
             <div className="card-body" style={{ minHeight: 200 }}>
               <FormizStep name="step3" label="Step C" order={3}>
                 <Input
@@ -164,12 +164,12 @@ function App() {
 
               {myForm.isLastStep
                 ? (
-                  <button className="btn btn-primary ml-auto" type="button" onClick={myForm.submit} disabled={!myForm.isValid || isLoading}>
+                  <button className="btn btn-primary ml-auto" type="submit" disabled={!myForm.isValid || isLoading}>
                     { isLoading ? 'Loading... ' : 'Submit' }
                   </button>
                 )
                 : (
-                  <button className="btn btn-primary ml-auto" type="button" onClick={myForm.nextStep} disabled={!myForm.isStepValid}>
+                  <button className="btn btn-primary ml-auto" type="submit" disabled={!myForm.isStepValid}>
                     Next
                   </button>
                 )

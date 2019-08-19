@@ -90,18 +90,25 @@ export const Form = ({
     if (e) {
       e.preventDefault();
     }
-    onSubmit(values);
 
-    if (isFormValid) {
-      onValidSubmit(values);
-    } else {
-      onInvalidSubmit(values);
+    dispatch(formSubmit(onSubmit, onValidSubmit, onInvalidSubmit));
+  }, [
+    JSON.stringify(onSubmit),
+    JSON.stringify(onValidSubmit),
+    JSON.stringify(onInvalidSubmit),
+  ]);
+
+  const handleStepSubmit = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
     }
 
-    dispatch(formSubmit());
+    dispatch(stepSubmit(currentStepName, onSubmit, onValidSubmit, onInvalidSubmit));
   }, [
-    values,
+    currentStepName,
     JSON.stringify(onSubmit),
+    JSON.stringify(onValidSubmit),
+    JSON.stringify(onInvalidSubmit),
   ]);
 
   useEffect(() => {
@@ -118,7 +125,7 @@ export const Form = ({
       isStepSubmitted: currentStep.isSubmitted,
       isFirstStep: currentStepPosition === 0,
       isLastStep: currentStepPosition === stepsCount - 1,
-      submitStep: () => { dispatch(stepSubmit(currentStepName)); },
+      submitStep: handleStepSubmit,
       nextStep: () => { dispatch(stepGoNext()); },
       prevStep: () => { dispatch(stepGoPrev()); },
       goToStep: (name) => { dispatch(stepGoTo(name)); },
