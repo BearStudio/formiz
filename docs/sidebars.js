@@ -4,7 +4,8 @@ module.exports = {
       'getting-started',
     ],
     Demos: [
-      'demos/basic-demo',
+      'demos/wizard',
+      // 'demos/simple',
     ],
     Core: [
       'core/formiz',

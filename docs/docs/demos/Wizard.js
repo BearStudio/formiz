@@ -10,7 +10,7 @@ const MyForm = () => {
 
     setTimeout(() => {
       setIsLoading(false)
-      alert(JSON.stringify(values)) // { firstName: 'value', lastName: 'value' }
+      alert(JSON.stringify(values))
       myForm.invalidateFields({
         email: 'Error from API',
       })

@@ -16,7 +16,7 @@ module.exports = {
       },
       links: [
         { to: 'docs/getting-started', label: 'Docs', position: 'left' },
-        { to: 'docs/demos/basic-demo', label: 'Demos', position: 'left' },
+        { to: 'docs/demos/wizard', label: 'Demos', position: 'left' },
         {
           href: 'https://github.com/ivan-dalmet/formiz',
           label: 'GitHub',

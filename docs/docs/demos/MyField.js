@@ -4,12 +4,13 @@ const MyField = (props) => {
   const {
     value, setValue, errorMessage, isValid, isPristine, isSubmitted, resetKey
   } = useField(props)
-  const { label, type } = props
+  const { label, type, isRequired } = props
   const showError = !isValid && (!isPristine || isSubmitted)
   return (
     <div className="demo-form-group">
       <label className="demo-label">
         { label }
+        {isRequired && ' *'}
       </label>
       <input
         key={resetKey}
