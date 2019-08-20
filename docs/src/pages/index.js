@@ -80,6 +80,15 @@ function Home() {
             >
               Get Started
             </Link>
+            <Link
+              className={classnames(
+                'button button--lg',
+                styles.getStarted,
+              )}
+              to={withBaseUrl('docs/demos/wizard')}
+            >
+              Demos
+            </Link>
           </div>
         </div>
       </header>
