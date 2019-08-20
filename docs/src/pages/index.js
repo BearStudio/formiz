@@ -82,7 +82,7 @@ function Home() {
             </Link>
             <Link
               className={classnames(
-                'button button--lg',
+                'button button--secondary button--lg',
                 styles.getStarted,
               )}
               to={withBaseUrl('docs/demos/wizard')}
