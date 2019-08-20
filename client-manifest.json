@@ -5,104 +5,112 @@
   "origins": {
     "0": [
       1,
-      2,
       3,
-      22,
-      23,
+      4,
+      24,
+      25,
       0
     ],
     "1": [
       0,
-      2,
-      22,
-      23,
+      3,
+      24,
+      25,
       1
     ],
-    "21": [
-      8,
-      21
+    "2": [
+      9,
+      10,
+      2
     ],
     "@site/src/pages/index.js": [
       0,
       1,
-      2
+      3
     ],
     "@theme/DocLegacyItem": [
       0,
-      3
-    ],
-    "@site/docs/core/FormizStep-component.mdx": [
       4
     ],
-    "@site/docs/core/Formiz-component.mdx": [
+    "@site/docs/core/FormizStep-component.mdx": [
       5
     ],
-    "@site/docs/core/useField-hook.mdx": [
+    "@site/docs/core/Formiz-component.mdx": [
       6
     ],
-    "@site/docs/core/useForm-hook.mdx": [
+    "@site/docs/core/useField-hook.mdx": [
       7
     ],
-    "@site/docs/demos/basic.mdx": [
-      21,
+    "@site/docs/core/useForm-hook.mdx": [
       8
     ],
-    "@site/docs/getting-started.mdx": [
+    "@site/docs/demos/simple.mdx": [
+      2,
       9
     ],
-    "@site/docs/validations/rules.mdx": [
+    "@site/docs/demos/wizard.mdx": [
+      2,
       10
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-b5f.json": [
+    "@site/docs/getting-started.mdx": [
       11
     ],
-    "main": [
-      20,
+    "@site/docs/validations/rules.mdx": [
       12
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-formiz-step-99e.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-b5f.json": [
       13
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-formiz-22b.json": [
+    "main": [
+      23,
       14
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-use-field-616.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-formiz-step-99e.json": [
       15
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-use-form-a5f.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-formiz-22b.json": [
       16
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-demos-basic-demo-8de.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-use-field-616.json": [
       17
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-getting-started-521.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-core-use-form-a5f.json": [
       18
     ],
-    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-validations-rules-80a.json": [
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-demos-simple-3d2.json": [
       19
     ],
-    "runtime~main": [
-      12,
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-demos-wizard-038.json": [
       20
+    ],
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-getting-started-521.json": [
+      21
+    ],
+    "/Users/ivan/PERSO/side-projects/formiz/docs/.docusaurus/docusaurus-plugin-content-docs/docs-validations-rules-80a.json": [
+      22
+    ],
+    "runtime~main": [
+      14,
+      23
     ],
     "@theme/DocLegacyPage": [
       0,
       1,
-      22
+      24
     ],
     "@theme/NotFound": [
       0,
       1,
-      23
+      25
     ]
   },
   "assets": {
     "0": {
       "js": [
         {
-          "file": "0.5d0ee1d1d11da8ff98f6.js",
-          "hash": "c36995989ecf755bf222",
-          "publicPath": "/0.5d0ee1d1d11da8ff98f6.js"
+          "file": "0.49c31e9a8a0ea45c8916.js",
+          "hash": "2b0ab02209dd02da0941",
+          "publicPath": "/0.49c31e9a8a0ea45c8916.js"
         }
       ]
     },
@@ -110,241 +118,259 @@
       "css": [
         {
           "file": "1.bbf143bbbaa5c13446d8.css",
-          "hash": "c8a3689d2a674b251792",
+          "hash": "2ab953e38c6553a67dc3",
           "publicPath": "/1.bbf143bbbaa5c13446d8.css"
         }
       ],
       "js": [
         {
-          "file": "1.76102c61b86ee1d882d1.js",
-          "hash": "c8a3689d2a674b251792",
-          "publicPath": "/1.76102c61b86ee1d882d1.js"
+          "file": "1.3f89b97439516b067da2.js",
+          "hash": "2ab953e38c6553a67dc3",
+          "publicPath": "/1.3f89b97439516b067da2.js"
         }
       ]
     },
     "2": {
-      "css": [
-        {
-          "file": "component---site-src-pages-index-jsc-4-f-f99.0a95f6204ae99b2eb49d.css",
-          "hash": "d5a0f6ab9fd3e1443401",
-          "publicPath": "/component---site-src-pages-index-jsc-4-f-f99.0a95f6204ae99b2eb49d.css"
-        }
-      ],
       "js": [
         {
-          "file": "component---site-src-pages-index-jsc-4-f-f99.d0453334b171cc8b4691.js",
-          "hash": "d5a0f6ab9fd3e1443401",
-          "publicPath": "/component---site-src-pages-index-jsc-4-f-f99.d0453334b171cc8b4691.js"
+          "file": "2.1f748fb988c89cf5799f.js",
+          "hash": "7074b238d9f056d8bd24",
+          "publicPath": "/2.1f748fb988c89cf5799f.js"
         }
       ]
     },
     "3": {
       "css": [
         {
+          "file": "component---site-src-pages-index-jsc-4-f-f99.2a28ec5e30b62a25ae26.css",
+          "hash": "f743252e148002f2034d",
+          "publicPath": "/component---site-src-pages-index-jsc-4-f-f99.2a28ec5e30b62a25ae26.css"
+        }
+      ],
+      "js": [
+        {
+          "file": "component---site-src-pages-index-jsc-4-f-f99.1e8277c69a091e22b2b8.js",
+          "hash": "f743252e148002f2034d",
+          "publicPath": "/component---site-src-pages-index-jsc-4-f-f99.1e8277c69a091e22b2b8.js"
+        }
+      ]
+    },
+    "4": {
+      "css": [
+        {
           "file": "component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
-          "hash": "a1e7be448a7f75e0909f",
+          "hash": "a5138c005d450256c7f4",
           "publicPath": "/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css"
         }
       ],
       "js": [
         {
-          "file": "component---theme-doc-legacy-item-031-769.3618f759be6a83935e65.js",
-          "hash": "a1e7be448a7f75e0909f",
-          "publicPath": "/component---theme-doc-legacy-item-031-769.3618f759be6a83935e65.js"
-        }
-      ]
-    },
-    "4": {
-      "js": [
-        {
-          "file": "content---docs-core-formiz-step-60-d-a1a.f5f30ae637deb4af9d9f.js",
-          "hash": "4cfda7f3c276ecc1a71b",
-          "publicPath": "/content---docs-core-formiz-step-60-d-a1a.f5f30ae637deb4af9d9f.js"
+          "file": "component---theme-doc-legacy-item-031-769.63a15e7b888be8ce1f4c.js",
+          "hash": "a5138c005d450256c7f4",
+          "publicPath": "/component---theme-doc-legacy-item-031-769.63a15e7b888be8ce1f4c.js"
         }
       ]
     },
     "5": {
       "js": [
         {
-          "file": "content---docs-core-formizb-92-126.820d36f0b79617ae05fb.js",
-          "hash": "41449b4d8f41e3c06431",
-          "publicPath": "/content---docs-core-formizb-92-126.820d36f0b79617ae05fb.js"
+          "file": "content---docs-core-formiz-step-60-d-a1a.3b0db87dbe8c37136eb1.js",
+          "hash": "9e7a9df56564c5d21b33",
+          "publicPath": "/content---docs-core-formiz-step-60-d-a1a.3b0db87dbe8c37136eb1.js"
         }
       ]
     },
     "6": {
       "js": [
         {
-          "file": "content---docs-core-use-field-5-c-8-761.d0d29decca2b21b868e5.js",
-          "hash": "56adf6729b369e21c5cd",
-          "publicPath": "/content---docs-core-use-field-5-c-8-761.d0d29decca2b21b868e5.js"
+          "file": "content---docs-core-formizb-92-126.fcea90470a1f45ad41d7.js",
+          "hash": "2e33e5b298b2358cda3b",
+          "publicPath": "/content---docs-core-formizb-92-126.fcea90470a1f45ad41d7.js"
         }
       ]
     },
     "7": {
       "js": [
         {
-          "file": "content---docs-core-use-formc-12-e66.2e95621a80aa9bae4651.js",
-          "hash": "743f4378993c4b62a38a",
-          "publicPath": "/content---docs-core-use-formc-12-e66.2e95621a80aa9bae4651.js"
+          "file": "content---docs-core-use-field-5-c-8-761.f8eac353e21d0e5e2433.js",
+          "hash": "cbd9531eeb9c0a41a2ca",
+          "publicPath": "/content---docs-core-use-field-5-c-8-761.f8eac353e21d0e5e2433.js"
         }
       ]
     },
     "8": {
       "js": [
         {
-          "file": "content---docs-demos-basic-demoe-5-b-74d.08b06580aeb718c442ec.js",
-          "hash": "55b561dcd6bd57e45535",
-          "publicPath": "/content---docs-demos-basic-demoe-5-b-74d.08b06580aeb718c442ec.js"
+          "file": "content---docs-core-use-formc-12-e66.dacb2754a2dc18bf3276.js",
+          "hash": "5797ee4e785b362e41a9",
+          "publicPath": "/content---docs-core-use-formc-12-e66.dacb2754a2dc18bf3276.js"
         }
       ]
     },
     "9": {
       "js": [
         {
-          "file": "content---docs-getting-started-302-242.304be8085e706c2234d8.js",
-          "hash": "89ac1c814fcaac356338",
-          "publicPath": "/content---docs-getting-started-302-242.304be8085e706c2234d8.js"
+          "file": "content---docs-demos-simple-7-c-1-066.2996851056e6ed69c921.js",
+          "hash": "efbec9abad847d221ae6",
+          "publicPath": "/content---docs-demos-simple-7-c-1-066.2996851056e6ed69c921.js"
         }
       ]
     },
     "10": {
       "js": [
         {
-          "file": "content---docs-validations-rules-291-bf3.b14b6f348e1f9d5030bb.js",
-          "hash": "74f89e8bf51dc388ea93",
-          "publicPath": "/content---docs-validations-rules-291-bf3.b14b6f348e1f9d5030bb.js"
+          "file": "content---docs-demos-wizard-58-f-5bb.7d213c61c1756a97b111.js",
+          "hash": "98c2b8745a7c6e53abfb",
+          "publicPath": "/content---docs-demos-wizard-58-f-5bb.7d213c61c1756a97b111.js"
         }
       ]
     },
     "11": {
       "js": [
         {
-          "file": "docsMetadata---docs-4-ff-842.ecb7fb4574635a797798.js",
-          "hash": "535146f0b925fd3d468c",
-          "publicPath": "/docsMetadata---docs-4-ff-842.ecb7fb4574635a797798.js"
+          "file": "content---docs-getting-started-302-242.6e819a5b5644875b5c4e.js",
+          "hash": "7226bef0bdec2935a8a0",
+          "publicPath": "/content---docs-getting-started-302-242.6e819a5b5644875b5c4e.js"
         }
       ]
     },
     "12": {
-      "css": [
-        {
-          "file": "main.25675519337e641d139f.css",
-          "hash": "831485ae957d86100b52",
-          "publicPath": "/main.25675519337e641d139f.css"
-        }
-      ],
       "js": [
         {
-          "file": "main.84ae57fb2f4a0b94fc6b.js",
-          "hash": "831485ae957d86100b52",
-          "publicPath": "/main.84ae57fb2f4a0b94fc6b.js"
+          "file": "content---docs-validations-rules-291-bf3.b71b1a117cb8ed6ead7b.js",
+          "hash": "a3c7a8a13563ed5da4a5",
+          "publicPath": "/content---docs-validations-rules-291-bf3.b71b1a117cb8ed6ead7b.js"
         }
       ]
     },
     "13": {
       "js": [
         {
-          "file": "metadata---docs-core-formiz-step-93-c-849.58e21e077db859c9194c.js",
-          "hash": "8443c1424386d70b49d4",
-          "publicPath": "/metadata---docs-core-formiz-step-93-c-849.58e21e077db859c9194c.js"
+          "file": "docsMetadata---docs-4-ff-842.de040fa812ba1497b1f6.js",
+          "hash": "8a51fad3f0917b2e9e21",
+          "publicPath": "/docsMetadata---docs-4-ff-842.de040fa812ba1497b1f6.js"
         }
       ]
     },
     "14": {
+      "css": [
+        {
+          "file": "main.25675519337e641d139f.css",
+          "hash": "5ccb32631617fdf7eca6",
+          "publicPath": "/main.25675519337e641d139f.css"
+        }
+      ],
       "js": [
         {
-          "file": "metadata---docs-core-formizc-17-b0c.6651f95826759b7ca506.js",
-          "hash": "154f1ee7d896b7df1296",
-          "publicPath": "/metadata---docs-core-formizc-17-b0c.6651f95826759b7ca506.js"
+          "file": "main.146be49adb70f0c07216.js",
+          "hash": "5ccb32631617fdf7eca6",
+          "publicPath": "/main.146be49adb70f0c07216.js"
         }
       ]
     },
     "15": {
       "js": [
         {
-          "file": "metadata---docs-core-use-fieldb-0-b-84c.848405bde1b49936807b.js",
-          "hash": "2a05448a1737951412af",
-          "publicPath": "/metadata---docs-core-use-fieldb-0-b-84c.848405bde1b49936807b.js"
+          "file": "metadata---docs-core-formiz-step-93-c-849.f107d825c47728cf055b.js",
+          "hash": "ef19366b02108ac2e8ca",
+          "publicPath": "/metadata---docs-core-formiz-step-93-c-849.f107d825c47728cf055b.js"
         }
       ]
     },
     "16": {
       "js": [
         {
-          "file": "metadata---docs-core-use-formd-07-830.1ced915a2190182cc47c.js",
-          "hash": "d01c83bd34485ccef5f7",
-          "publicPath": "/metadata---docs-core-use-formd-07-830.1ced915a2190182cc47c.js"
+          "file": "metadata---docs-core-formizc-17-b0c.ae4f117e5a67c2a1d71e.js",
+          "hash": "5dae82838357e8af15ec",
+          "publicPath": "/metadata---docs-core-formizc-17-b0c.ae4f117e5a67c2a1d71e.js"
         }
       ]
     },
     "17": {
       "js": [
         {
-          "file": "metadata---docs-demos-basic-demo-694-b1c.04bcb05437c94b2d6181.js",
-          "hash": "c7a9dcf96aabbebc00eb",
-          "publicPath": "/metadata---docs-demos-basic-demo-694-b1c.04bcb05437c94b2d6181.js"
+          "file": "metadata---docs-core-use-fieldb-0-b-84c.141ff56062121ae66699.js",
+          "hash": "fe755adb671ba357c3f9",
+          "publicPath": "/metadata---docs-core-use-fieldb-0-b-84c.141ff56062121ae66699.js"
         }
       ]
     },
     "18": {
       "js": [
         {
-          "file": "metadata---docs-getting-started-9-dc-e73.58aaf614d51f9c35fb72.js",
-          "hash": "64f626bbb8bdbbf90c03",
-          "publicPath": "/metadata---docs-getting-started-9-dc-e73.58aaf614d51f9c35fb72.js"
+          "file": "metadata---docs-core-use-formd-07-830.038e8e8153d6d62608da.js",
+          "hash": "8a255a194880887d2a46",
+          "publicPath": "/metadata---docs-core-use-formd-07-830.038e8e8153d6d62608da.js"
         }
       ]
     },
     "19": {
       "js": [
         {
-          "file": "metadata---docs-validations-rulesef-0-e49.6c99dac7ab307690e80f.js",
-          "hash": "2f0189c9bb32bfd5df6d",
-          "publicPath": "/metadata---docs-validations-rulesef-0-e49.6c99dac7ab307690e80f.js"
+          "file": "metadata---docs-demos-simplee-4-c-59d.99c1a40375e854b8ba70.js",
+          "hash": "14c2a07890da4e8e1c63",
+          "publicPath": "/metadata---docs-demos-simplee-4-c-59d.99c1a40375e854b8ba70.js"
         }
       ]
     },
     "20": {
       "js": [
         {
-          "file": "runtime~main.baaaaff08f91c84ad0ed.js",
-          "hash": "0488470051893c7d0021",
-          "publicPath": "/runtime~main.baaaaff08f91c84ad0ed.js"
+          "file": "metadata---docs-demos-wizardf-28-033.1433077fd3974ea9bde2.js",
+          "hash": "03270e7d429d72b350b4",
+          "publicPath": "/metadata---docs-demos-wizardf-28-033.1433077fd3974ea9bde2.js"
         }
       ]
     },
     "21": {
       "js": [
         {
-          "file": "21.bfb57542fae840315874.js",
-          "hash": "08c52a7ac8793de217fc",
-          "publicPath": "/21.bfb57542fae840315874.js"
+          "file": "metadata---docs-getting-started-9-dc-e73.8bc9090c9f2114df2589.js",
+          "hash": "500828a2515930efee23",
+          "publicPath": "/metadata---docs-getting-started-9-dc-e73.8bc9090c9f2114df2589.js"
         }
       ]
     },
     "22": {
-      "css": [
-        {
-          "file": "22.32d0f644c214de0358fb.css",
-          "hash": "255cc0d9c52159829fcf",
-          "publicPath": "/22.32d0f644c214de0358fb.css"
-        }
-      ],
       "js": [
         {
-          "file": "22.f5bf1b6b35b1bd97ee5f.js",
-          "hash": "255cc0d9c52159829fcf",
-          "publicPath": "/22.f5bf1b6b35b1bd97ee5f.js"
+          "file": "metadata---docs-validations-rulesef-0-e49.6f41e5bb1597db77ea09.js",
+          "hash": "17e22ae3c57ad1c9ce4a",
+          "publicPath": "/metadata---docs-validations-rulesef-0-e49.6f41e5bb1597db77ea09.js"
         }
       ]
     },
     "23": {
       "js": [
         {
-          "file": "23.3c06c34f4ac7985f492a.js",
-          "hash": "ef69a84bb43af9fd94c1",
-          "publicPath": "/23.3c06c34f4ac7985f492a.js"
+          "file": "runtime~main.705cfca1aef7fb5041f2.js",
+          "hash": "a518c514308e6a61d372",
+          "publicPath": "/runtime~main.705cfca1aef7fb5041f2.js"
+        }
+      ]
+    },
+    "24": {
+      "css": [
+        {
+          "file": "24.32d0f644c214de0358fb.css",
+          "hash": "610f959b9a25bde5802c",
+          "publicPath": "/24.32d0f644c214de0358fb.css"
+        }
+      ],
+      "js": [
+        {
+          "file": "24.d757e710e3be16b8974e.js",
+          "hash": "610f959b9a25bde5802c",
+          "publicPath": "/24.d757e710e3be16b8974e.js"
+        }
+      ]
+    },
+    "25": {
+      "js": [
+        {
+          "file": "25.4f06471093d86c60e183.js",
+          "hash": "3a278dc9a5f2a4d676e7",
+          "publicPath": "/25.4f06471093d86c60e183.js"
         }
       ]
     }
