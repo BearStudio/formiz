@@ -1,4 +1,6 @@
 import { MyField } from './MyField';
+import { FieldsStep1 } from './FieldsStep1';
+import { FieldsStep2 } from './FieldsStep2';
 
 export const MyForm = `
 // 2. Create a form with multi steps & fields
@@ -26,28 +28,10 @@ const MyForm = () => {
       >
         <div className="demo-form__content">
           <FormizStep name="step1">
-            <MyField
-              name="firstName"
-              label="First Name"
-              isRequired="First Name is required"
-            />
-            <MyField
-              name="lastName"
-              label="Last Name"
-              isRequired="Last Name is required"
-            />
+            ${FieldsStep1}
           </FormizStep>
           <FormizStep name="step2">
-            <MyField
-              name="email"
-              label="Email"
-              type="email"
-            />
-            <MyField
-              name="password"
-              label="Password"
-              type="password"
-            />
+            ${FieldsStep2}
           </FormizStep>
         </div>
 

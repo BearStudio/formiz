@@ -1,4 +1,6 @@
 import { MyField } from './MyField';
+import { FieldsStep1 } from './FieldsStep1';
+import { FieldsStep2 } from './FieldsStep2';
 
 export const MyForm = `
 // 2. Create a form with multi steps & fields
@@ -25,26 +27,8 @@ const MyForm = () => {
         style={{ minHeight: '16rem' }}
       >
         <div className="demo-form__content">
-          <MyField
-            name="firstName"
-            label="First Name"
-            // isRequired="First Name is required"
-          />
-          <MyField
-            name="lastName"
-            label="Last Name"
-            // isRequired="Last Name is required"
-          />
-          <MyField
-            name="email"
-            label="Email"
-            type="email"
-          />
-          <MyField
-            name="password"
-            label="Password"
-            type="password"
-          />
+          ${FieldsStep1}
+          ${FieldsStep2}
         </div>
 
         <div className="demo-form__footer">

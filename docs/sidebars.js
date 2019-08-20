@@ -5,7 +5,7 @@ module.exports = {
     ],
     Demos: [
       'demos/wizard',
-      // 'demos/simple',
+      'demos/simple',
     ],
     Core: [
       'core/formiz',

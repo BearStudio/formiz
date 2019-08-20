@@ -15,6 +15,7 @@
     "@docusaurus/core": "2.0.0-alpha.24",
     "@docusaurus/preset-classic": "2.0.0-alpha.24",
     "@formiz/core": "^1.0.0-alpha.5",
+    "@formiz/validations": "^1.0.0-alpha.5",
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
     "react": "16.9.0",

@@ -12,6 +12,7 @@ import nightOwlTheme from 'prism-react-renderer/themes/nightOwl';
 import {
   Formiz, FormizStep, useForm, useField,
 } from '@formiz/core';
+import * as validations from '@formiz/validations';
 
 export const CodePreview = ({ code }) => (
   <LiveProvider
@@ -22,6 +23,7 @@ export const CodePreview = ({ code }) => (
       FormizStep,
       useForm,
       useField,
+      validations,
     }}
     theme={nightOwlTheme}
     noInline
