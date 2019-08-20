@@ -4,6 +4,9 @@
     "browser": true,
     "jest": true
   },
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "import/no-unresolved": ["off"],
@@ -16,6 +19,8 @@
     "no-underscore-dangle": ["off"],
     "no-unused-vars": ["warn"],
     "react/forbid-prop-types": ["warn"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "jsx-a11y/label-has-for": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"]

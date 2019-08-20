@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
 import {
@@ -86,30 +86,21 @@ export const Form = ({
     onInvalid();
   }
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
     if (e) {
       e.preventDefault();
     }
 
     dispatch(formSubmit(onSubmit, onValidSubmit, onInvalidSubmit));
-  }, [
-    JSON.stringify(onSubmit),
-    JSON.stringify(onValidSubmit),
-    JSON.stringify(onInvalidSubmit),
-  ]);
+  };
 
-  const handleStepSubmit = useCallback((e) => {
+  const handleStepSubmit = (e) => {
     if (e) {
       e.preventDefault();
     }
 
     dispatch(stepSubmit(currentStepName, onSubmit, onValidSubmit, onInvalidSubmit));
-  }, [
-    currentStepName,
-    JSON.stringify(onSubmit),
-    JSON.stringify(onValidSubmit),
-    JSON.stringify(onInvalidSubmit),
-  ]);
+  };
 
   useEffect(() => {
     connect.__connect__({
@@ -131,13 +122,15 @@ export const Form = ({
       goToStep: (name) => { dispatch(stepGoTo(name)); },
     });
   }, [
-    JSON.stringify(connect.__connect__),
     dispatch,
-    handleSubmit,
+    JSON.stringify(connect.__connect__),
+    JSON.stringify(handleSubmit),
+    JSON.stringify(handleStepSubmit),
     isFormValid,
     isFormSubmitted,
-    JSON.stringify(currentStep),
+    JSON.stringify(values),
     JSON.stringify(steps),
+    JSON.stringify(currentStep),
     currentStepPosition,
     stepsCount,
   ]);

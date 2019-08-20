@@ -5,7 +5,6 @@ export const MyForm = `
 const MyForm = () => {
   const myForm = useForm()
   const [isLoading, setIsLoading] = React.useState(false)
-  console.log(myForm.values)
   const submitForm = (values) => {
     setIsLoading(true)
 

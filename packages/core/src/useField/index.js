@@ -69,7 +69,12 @@ export const useField = ({
     return () => {
       dispatch(fieldUnregister(name, keepValue));
     };
-  }, [name, stepName]);
+  }, [
+    dispatch,
+    name,
+    stepName,
+    keepValue,
+  ]);
 
   useEffect(() => {
     const extraRules = [
@@ -81,6 +86,7 @@ export const useField = ({
       ...validations,
     ]));
   }, [
+    dispatch,
     name,
     JSON.stringify(validations),
     JSON.stringify(isRequired),

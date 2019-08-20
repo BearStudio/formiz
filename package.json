@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "lerna": "^3.13.4"
   },
   "workspaces": [
