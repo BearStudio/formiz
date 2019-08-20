@@ -62,6 +62,19 @@
 .demo-form {
   @apply flex flex-col bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden;
 
+  &__tabs {
+    min-height: 3.6rem;
+    @apply flex px-4 border-b border-gray-200;
+  }
+
+  &__tab {
+    @apply cursor-pointer bg-transparent border-b-2 border-transparent text-gray-500 text-base font-bold py-4 px-5 outline-none;
+
+    &.is-active {
+      @apply border-blue-500 text-blue-500;
+    }
+  }
+
   &__content {
     @apply p-4 mb-4;
   }

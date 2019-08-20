@@ -5,6 +5,7 @@ module.exports = {
     ],
     Demos: [
       'demos/wizard',
+      'demos/multi-tabs',
       'demos/simple',
     ],
     Core: [
