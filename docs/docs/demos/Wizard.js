@@ -64,7 +64,7 @@ const MyForm = () => {
               <button
                 className="demo-button is-primary"
                 type="submit"
-                disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
+                disabled={isLoading || (!myForm.isValid && myForm.isStepSubmitted)}
               >
                 {isLoading ? 'Loading...' : 'Submit'}
               </button>
