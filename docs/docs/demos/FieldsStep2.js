@@ -1,26 +1,27 @@
-export const FieldsStep2 = `
+export const FieldsStep2 = withValues => `
             <MyField
               name="email"
               label="Email"
               type="email"
+              isRequired="Email is required"
               validations={[
                 {
                   rule: validations.isEmail(),
                   message: 'Not a valid email',
                 }
               ]}
+              ${withValues ? 'defaultValue="hailey@company.com"' : ''}
             />
+
             <MyField
               name="password"
               label="Password"
               type="password"
-              isRequired="Password is required"
             />
             <MyField
               name="passwordConfirm"
               label="Confirm password"
               type="password"
-              isRequired="Confirm password is required"
               validations={[
                 {
                   rule: (value, values) => values.password === value,

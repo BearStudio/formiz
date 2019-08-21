@@ -16,6 +16,7 @@ const MyForm = () => {
       myForm.invalidateFields({
         email: 'Error from API',
       })
+      myForm.goToStep('step2')
     }, 1000)
   }
   return (
@@ -44,10 +45,10 @@ const MyForm = () => {
 
         <div className="demo-form__content">
           <FormizStep name="step1" label="Step A">
-            ${FieldsStep1}
+            ${FieldsStep1(true)}
           </FormizStep>
           <FormizStep name="step2" label="Step B">
-            ${FieldsStep2}
+            ${FieldsStep2(true)}
           </FormizStep>
         </div>
 

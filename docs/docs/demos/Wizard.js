@@ -28,10 +28,10 @@ const MyForm = () => {
       >
         <div className="demo-form__content">
           <FormizStep name="step1">
-            ${FieldsStep1}
+            ${FieldsStep1()}
           </FormizStep>
           <FormizStep name="step2">
-            ${FieldsStep2}
+            ${FieldsStep2()}
           </FormizStep>
         </div>
 

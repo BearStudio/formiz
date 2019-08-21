@@ -27,8 +27,8 @@ const MyForm = () => {
         style={{ minHeight: '16rem' }}
       >
         <div className="demo-form__content">
-          ${FieldsStep1}
-          ${FieldsStep2}
+          ${FieldsStep1()}
+          ${FieldsStep2()}
         </div>
 
         <div className="demo-form__footer">
