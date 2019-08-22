@@ -6,11 +6,21 @@ import { getStep, getCurrentStepNameFromState } from '../FormContext/helpers';
 import { ErrorStepWithoutName } from './errors';
 
 export const propTypes = {
-  as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  as: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+    PropTypes.shape({ $$typeof: PropTypes.symbol, render: PropTypes.func }),
+    PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+      PropTypes.shape({ $$typeof: PropTypes.symbol, render: PropTypes.func }),
+    ])),
+  ]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   name: PropTypes.string.isRequired,
   label: PropTypes.node,
   order: PropTypes.number,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export const defaultProps = {
@@ -18,6 +28,7 @@ export const defaultProps = {
   children: '',
   label: '',
   order: 0,
+  style: {},
 };
 
 export const FormStep = ({
@@ -26,6 +37,8 @@ export const FormStep = ({
   name,
   label,
   order,
+  style,
+  ...props
 }) => {
   if (!name) {
     throw ErrorStepWithoutName;
@@ -58,8 +71,10 @@ export const FormStep = ({
   return (
     <Tag
       style={{
+        ...style,
         display: !isActive ? 'none' : null,
       }}
+      {...props}
     >
       {children}
     </Tag>
