@@ -1,7 +1,7 @@
 {
   "main": [
     "/main.7951206344ab19ef8c9d.css",
-    "/main.fdf5c6f3af81a193c710.js"
+    "/main.8bcb8cf5678d69e877c2.js"
   ],
   "component---site-src-pages-index-jsc-4-f-f99": [
     "/component---site-src-pages-index-jsc-4-f-f99.2a28ec5e30b62a25ae26.css",
@@ -9,11 +9,11 @@
   ],
   "component---theme-doc-legacy-page-9-e-7-ca5": [],
   "docsMetadata---docs-4-ff-842": [
-    "/docsMetadata---docs-4-ff-842.9db597d4c3f0fe3fd51f.js"
+    "/docsMetadata---docs-4-ff-842.df0b761661e59961bfd9.js"
   ],
   "component---theme-doc-legacy-item-031-769": [
     "/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
-    "/component---theme-doc-legacy-item-031-769.fdea80d1653b67ceb370.js"
+    "/component---theme-doc-legacy-item-031-769.6fb29ebcb69b5322fbdb.js"
   ],
   "content---docs-getting-started-302-242": [
     "/content---docs-getting-started-302-242.70f424588c7d863a773b.js"
@@ -27,17 +27,17 @@
   "metadata---docs-core-formizc-17-b0c": [
     "/metadata---docs-core-formizc-17-b0c.f51343a23f87eb1d22cc.js"
   ],
-  "content---docs-core-formiz-step-60-d-a1a": [
-    "/content---docs-core-formiz-step-60-d-a1a.eb8c6abb07faa2e250dd.js"
-  ],
-  "metadata---docs-core-formiz-step-93-c-849": [
-    "/metadata---docs-core-formiz-step-93-c-849.04c98789d9bc95f46ca5.js"
-  ],
   "content---docs-core-use-field-5-c-8-761": [
-    "/content---docs-core-use-field-5-c-8-761.415cbdff80bd941613ed.js"
+    "/content---docs-core-use-field-5-c-8-761.711e483904c5be5f86b9.js"
   ],
   "metadata---docs-core-use-fieldb-0-b-84c": [
-    "/metadata---docs-core-use-fieldb-0-b-84c.52da58d952689299e815.js"
+    "/metadata---docs-core-use-fieldb-0-b-84c.1c7c462cc50d7b38596e.js"
+  ],
+  "content---docs-core-formiz-step-60-d-a1a": [
+    "/content---docs-core-formiz-step-60-d-a1a.1fd73b1b762ac938a545.js"
+  ],
+  "metadata---docs-core-formiz-step-93-c-849": [
+    "/metadata---docs-core-formiz-step-93-c-849.ebee4d0edb03a05bf9d5.js"
   ],
   "content---docs-core-use-formc-12-e66": [
     "/content---docs-core-use-formc-12-e66.b4dbb471353dd29f68f1.js"
@@ -45,28 +45,28 @@
   "metadata---docs-core-use-formd-07-830": [
     "/metadata---docs-core-use-formd-07-830.13ceac92be213508ce3b.js"
   ],
-  "content---docs-demos-multi-tabs-736-0f3": [
-    "/content---docs-demos-multi-tabs-736-0f3.744b1422177733b64906.js"
-  ],
-  "metadata---docs-demos-multi-tabs-334-d68": [
-    "/metadata---docs-demos-multi-tabs-334-d68.3447531514239f8bfce3.js"
-  ],
-  "content---docs-demos-simple-7-c-1-066": [
-    "/content---docs-demos-simple-7-c-1-066.3b9f5feb8169addb1958.js"
-  ],
-  "metadata---docs-demos-simplee-4-c-59d": [
-    "/metadata---docs-demos-simplee-4-c-59d.31e87de63c642aacc364.js"
-  ],
-  "content---docs-demos-wizard-58-f-5bb": [
-    "/content---docs-demos-wizard-58-f-5bb.a3f2ad82739a6ac64bf9.js"
-  ],
-  "metadata---docs-demos-wizardf-28-033": [
-    "/metadata---docs-demos-wizardf-28-033.c46f33cabd893a3388ed.js"
-  ],
   "content---docs-validations-rules-291-bf3": [
-    "/content---docs-validations-rules-291-bf3.c3172230719698ce4699.js"
+    "/content---docs-validations-rules-291-bf3.bf117b2b3fa7cd5673a4.js"
   ],
   "metadata---docs-validations-rulesef-0-e49": [
-    "/metadata---docs-validations-rulesef-0-e49.c8bc59d10597810400b2.js"
+    "/metadata---docs-validations-rulesef-0-e49.25d45571278ddee1ade4.js"
+  ],
+  "content---docs-demos-multi-tabs-736-0f3": [
+    "/content---docs-demos-multi-tabs-736-0f3.182e134e63054f3f7c8b.js"
+  ],
+  "metadata---docs-demos-multi-tabs-334-d68": [
+    "/metadata---docs-demos-multi-tabs-334-d68.62fd04ea454cd1276fe0.js"
+  ],
+  "content---docs-demos-simple-7-c-1-066": [
+    "/content---docs-demos-simple-7-c-1-066.c9c4b86fcdade88eafd8.js"
+  ],
+  "metadata---docs-demos-simplee-4-c-59d": [
+    "/metadata---docs-demos-simplee-4-c-59d.9f2e5de8159bbdff883a.js"
+  ],
+  "content---docs-demos-wizard-58-f-5bb": [
+    "/content---docs-demos-wizard-58-f-5bb.47f7922c8749c3c5a0c9.js"
+  ],
+  "metadata---docs-demos-wizardf-28-033": [
+    "/metadata---docs-demos-wizardf-28-033.3e4d33de3a2baf39f820.js"
   ]
 }
