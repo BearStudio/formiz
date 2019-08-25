@@ -13,7 +13,7 @@
     "test:dev": "lerna run test:dev --parallel --ignore @formiz/{docs,example}",
     "deploy": "lerna publish --ignore-changes @formiz/{docs,example}",
     "postdeploy": "yarn docs:deploy",
-    "docs:deploy": "lerna run build --parallel --ignore @formiz/example && lerna run deploy --scope @formiz/docs"
+    "docs:deploy": "lerna run build --parallel --ignore @formiz/{docs,example} && lerna run deploy --scope @formiz/docs"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

@@ -3,6 +3,7 @@
 
 # production
 /build
+/src/css/tailwind.min.css
 
 # generated files
 .docusaurus
