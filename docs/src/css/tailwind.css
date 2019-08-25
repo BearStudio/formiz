@@ -43,14 +43,18 @@
     @apply outline-none shadow-outline;
   }
 
-  &.is-error {
+  .is-error & {
     @apply border-red-600;
   }
 }
 
-/* Form error */
-.demo-form-error {
-  @apply block text-sm text-red-600 mt-1;
+/* Form feedback */
+.demo-form-feedback {
+  @apply block text-sm text-gray-600 mt-1;
+
+  .is-error & {
+    @apply text-red-600;
+  }
 }
 
 /* Form Group */

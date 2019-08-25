@@ -5,7 +5,7 @@ title: useForm() hook
 
 Use this hook to access values and methods from a `<Formiz>` component.
 
-## How to use?
+## Usage
 
 #### 1. Connect your form
 
@@ -51,33 +51,40 @@ export const MyForm = () => {
 }
 ```
 
+---
+
 ## Hook values
 
 The `useForm` return an object with the following properties:
 
-#### `submit()`
+### `submit()`
 
 > Allow you to submit the form
 
 ```jsx
-<form onSubmit={myForm.submit}>
-  ...
-</form>
+<Formiz connect={myForm}>
+  <form onSubmit={myForm.submit}>
+    {/* Your fields here */}
+    <button type="submit">
+      Submit
+    </button>
+  </form>
+</Formiz>
 ```
 
-#### `isValid`
+### `isValid`
 
 > Returns true if the form is valid.
 
-#### `isSubmitted`
+### `isSubmitted`
 
 > Returns true if the form is submitted.
 
-#### `values`
+### `values`
 
 > Returns an object with all the values of the form.
 
-#### `invalidateFields()`
+### `invalidateFields()`
 
 > Allow you to invalidate one or many fields.<br />
 > Useful for API errors or other external errors.
@@ -89,47 +96,63 @@ invalidateFields([
 ])
 ```
 
-#### `reset()`
+### `reset()`
 
 > Allow to reset the form with all fields values to their defaultValue.
 
-#### `currentStep`
+### `currentStep`
 
 > Returns the current step name.
 
-#### `steps`
+### `steps`
 
 > Returns an array with all the steps of the form.
 
-#### `isStepValid`
+### `isStepValid`
 
 > Returns true if the current step is valid.
 > Returns an array with all the steps of the form.
 
-#### `isStepSubmitted`
+### `isStepSubmitted`
 
 > Returns true if the current step is submitted.
 
-#### `isFirstStep`
+### `isFirstStep`
 
 > Returns true if the current step is the first step.
 
-#### `isLastStep`
+### `isLastStep`
 
 > Returns true if the current step is the last step.
 
-#### `submitStep()`
+### `submitStep()`
 
-> Allow you to submit the current step.
+> Allows you to submit the current step.
 
-#### `nextStep()`
+```jsx
+<Formiz connect={myForm}>
+  <form onSubmit={myForm.submitStep}>
+    <FormizStep name="step1">
+      {/* Your fields here */}
+    </FormizStep>
+    <FormizStep name="step2">
+      {/* Your fields here */}
+    </FormizStep>
+    <button type="submit">
+      Submit
+    </button>
+  </form>
+</Formiz>
+```
+
+### `nextStep()`
 
 > Move to the next step.
 
-#### `prevStep()`
+### `prevStep()`
 
 > Move to the previous step.
 
-#### `goToStep(name)`
+### `goToStep(name)`
 
 > Go to a specific step.

@@ -4,20 +4,25 @@ title: Getting Started
 ---
 
 import { Alpha } from '../src/messages'
+import { MyField } from './demos/MyField'
 
 <Alpha />
 
-### Install Formiz core
+## Installation
 
 With [Yarn](https://yarnpkg.com)
 ```bash
 yarn add @formiz/core @formiz/validations
 ```
 
-With [NPM](https://www.npmjs.com/)
+Or with [NPM](https://www.npmjs.com/)
 ```bash
 npm install @formiz/core @formiz/validations
 ```
+
+---
+
+## Usage
 
 ### Create your first custom field
 
@@ -25,24 +30,137 @@ A custom field can be anything, not just inputs.
 
 Here there is an example with an input, but you can litteraly **turn anything into a field** and you will **get validation for free**!
 
+#### 1. Create a new field
+
+Create a `MyField.js` file, then import the `useField` hook from `@formiz/core`
+
+```jsx
+import React from 'react'
+import { useField } from '@formiz/core'
+
+export const MyField = () => {
+  // ...
+});
+```
+
+#### 2. Pass props to the hook
+
+Get the props from the MyField component and pass it to the hook.
+
+Import the `useField` hook from `@formiz/core`
+
 ```jsx
 import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid, resetKey } = useField(props)
-  const { label } = props
+  const {} = useField(props); // Pass the props to the hook
+  // ...
+});
+```
+
+#### 3. Make it works
+
+Create the `<input>` and make it interactive like this:
+
+```jsx
+import React from 'react'
+import { useField } from '@formiz/core'
+
+export const MyField = (props) => {
+  const { resetKey, setValue, value } = useField(props);
+
+  return (
+    <input
+      key={resetKey} // Allow to recreate the field if the form is reset
+      defaultValue={value} // Pass the defaultValue for the input
+      onChange={e => setValue(e.target.value)} // Update the value onChange
+    />
+  );
+});
+```
+
+#### 3. Display error
+
+Display the `errorMessage` below the `<input>`.
+
+```jsx
+import React from 'react'
+import { useField } from '@formiz/core'
+
+export const MyField = (props) => {
+  const { errorMessage, isValid, resetKey, setValue, value } = useField(props);
 
   return (
     <div>
-      <label>
+      <input
+        key={resetKey}
+        defaultValue={value}
+        onChange={e => setValue(e.target.value)}
+      />
+      {
+        !isValid
+        && errorMessage // Display error message
+      }
+    </div>
+  );
+});
+```
+
+#### 4. Improve UX and accessibility
+
+- Add a custom label and add `*` if the field is required.
+- Allow to change the input type.
+- Add css classes for style.
+- Display error only if the field changed or the form/step is submitted.
+- Don't apply the `is-error` class if the input is focused.
+- Add `id`, `for` and aria attributes for accessibility.
+
+```jsx
+import React from 'react'
+import { useField } from '@formiz/core'
+
+export const MyField = (props) => {
+  const {
+    errorMessage,
+    id,
+    isValid,
+    isPristine,
+    isSubmitted,
+    resetKey,
+    setValue,
+    value,
+  } = useField(props)
+  const { label, type, isRequired } = props
+  const [isFocused, setIsFocused] = React.useState(false);
+  const showError = !isValid && (!isPristine || isSubmitted)
+
+  return (
+    <div className={`demo-form-group ${(showError && !isFocused) ? 'is-error' : ''}`}>
+      <label
+        className="demo-label"
+        htmlFor={id}
+      >
         { label }
+        {isRequired && ' *'}
       </label>
-      <input key={resetKey} type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
-      {!isValid && (
-        <p>
+      <input
+        key={resetKey}
+        id={id}
+        type={type || 'text'}
+        defaultValue={value}
+        className="demo-input"
+        onChange={e => setValue(e.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        aria-invalid={!isValid}
+        aria-required={!!isRequired}
+        aria-describedby={!isValid ? `${id}-error` : null}
+      />
+      {showError && (
+        <div id={`${id}-error`} className="demo-form-feedback">
           { errorMessage }
-        </p>
+        </div>
       )}
     </div>
   )
@@ -51,27 +169,102 @@ export const MyField = (props) => {
 
 ### Use your field in a form
 
-Then use your field as many time as you want :)
+#### 1. Create the form
 
-**Each field need a property "name"** which will be the key in the object of values.<br />
-So, be sure that this key is **unique by form**.
+```jsx
+import React from 'react'
+import { Formiz } from '@formiz/core'
+
+export const MyForm = () => {
+  return (
+    <Formiz>
+      {/* ... */}
+    </Formiz>
+  )
+}
+```
+
+#### 2. Connect the form with the `useForm` hook
 
 ```jsx
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
-import { isEmail } from '@formiz/validations'
-import { MyField } from './MyField'
+
+export const MyForm = () => {
+  const myForm = useForm() // Call useForm
+
+  return (
+    <Formiz
+      connect={myForm} // Connect to your form
+    >
+      {/* ... */}
+    </Formiz>
+  )
+}
+```
+
+#### 3. Handle submit
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
 
 export const MyForm = () => {
   const myForm = useForm()
 
-  const submitForm = (values) => {
-    console.log(values) // { firstName: 'value', lastName: 'value' }
+  const handleSubmit = (values) => {
+    console.log(values) // Retrieves values after submit
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} connect={myForm}>
-      <form onSubmit={myForm.submit}>
+    <Formiz
+      connect={myForm}
+      onValidSubmit={handleSubmit} // Handle submit only if the form is valid
+    >
+      <form // create an html form
+        onSubmit={myForm.submit} // Pass the Formiz submit to the onSubmit
+      >
+        {/* Your fields here */}
+
+        <button
+          type="submit" // Create a submit button
+          disabled={!myForm.isValid} // Disable the button if the form is not valid
+        >
+          Submit
+        </button>
+      </form>
+    </Formiz>
+  )
+}
+```
+
+#### 4. Add fields to the form
+
+**Each field need a property "name"** which will be the key in the object of values.<br />
+So, be sure this key is **unique by form**.
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
+import { isEmail } from '@formiz/validations' // Import some validations
+import { MyField } from './MyField' // Import your field
+
+export const MyForm = () => {
+  const myForm = useForm()
+
+  const handleSubmit = (values) => {
+    console.log(values)
+  }
+
+  return (
+    <Formiz
+      connect={myForm}
+      onValidSubmit={handleSubmit}
+    >
+      <form
+        onSubmit={myForm.submit}
+      >
+
         <MyField
           name="firstName"
           label="First Name"
@@ -92,7 +285,11 @@ export const MyForm = () => {
             },
           ]}
         />
-        <button type="submit" disabled={!myForm.isValid}>
+
+        <button
+          type="submit"
+          disabled={!myForm.isValid}
+        >
           Submit
         </button>
       </form>
@@ -101,51 +298,74 @@ export const MyForm = () => {
 }
 ```
 
-### That's it 🎉
-
-Oh wait... you want to **turn the form into a mutli steps** form?
-
-![Magic](https://media2.giphy.com/media/12NUbkX6p4xOO4/giphy.gif?cid=790b76115d3f358a4832727977f39cad&rid=giphy.gif)
-
 ### 🧙 Multi Steps form
 
-You already have your field so we just need to update our form to use steps.
+Oh wait... you want to **turn the form into a multi steps** form?
 
-Import the `FormizStep` component and use it to split the form into steps.
+Good news, that pretty easy!
 
-We need also need to update the submit button to allow the user to navigate between steps.
+You already have your fields so we just need to update the form to use steps.
 
-And we need to update the `onSubmit` on the `<form>` element to not submit all the form but just the current step.
+**Each FormizStep need a property "name"**, be sure this key is unique by form.
 
 ```jsx
 import React from 'react'
-import { Formiz, FormizStep, useForm } from '@formiz/core'
+import {
+  Formiz,
+  FormizStep, // Import the FormizStep component
+  useForm,
+} from '@formiz/core'
+import { isEmail } from '@formiz/validations'
 import { MyField } from './MyField'
 
 export const MyForm = () => {
   const myForm = useForm()
 
-  const submitForm = (values) => {
-    console.log(values) // { firstName: 'value', lastName: 'value' }
+  const handleSubmit = (values) => {
+    console.log(values)
   }
 
   return (
-    <Formiz onValidSubmit={submitForm} connect={myForm}>
-      <form onSubmit={myForm.submitStep}>
-        <FormizStep name="step1">
+    <Formiz
+      connect={myForm}
+      onValidSubmit={handleSubmit}
+    >
+      <form
+        // Change the myForm.submit to myForm.submitStep
+        onSubmit={myForm.submitStep}
+      >
+
+        <FormizStep
+          name="step1" // Split the form with FormizStep
+        >
           <MyField
             name="firstName"
             label="First Name"
             isRequired="First Name is required"
           />
-        </FormizStep>
-        <FormizStep name="step2">
           <MyField
             name="lastName"
             label="Last Name"
             isRequired="Last Name is required"
           />
         </FormizStep>
+
+        <FormizStep
+          name="step2" // Split the form with FormizStep
+        >
+          <MyField
+            name="email"
+            label="Email"
+            validations={[
+              {
+                rule: isEmail(),
+                message: 'This is not a valid email',
+              },
+            ]}
+          />
+        </FormizStep>
+
+        {/* Update the submit button to allow navigation between steps. */}
         {!myForm.isFirstStep && (
           <button type="button" onClick={myForm.prevStep}>
             Back
@@ -165,3 +385,7 @@ export const MyForm = () => {
   )
 }
 ```
+
+![Magic](https://media2.giphy.com/media/12NUbkX6p4xOO4/giphy.gif?cid=790b76115d3f358a4832727977f39cad&rid=giphy.gif)
+
+#### That's it 🎉

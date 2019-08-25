@@ -14,7 +14,7 @@ const MyForm = () => {
       setIsLoading(false)
       alert(JSON.stringify(values))
       myForm.invalidateFields({
-        email: 'Error from API',
+        email: 'You can display an error after an API call',
       })
       myForm.goToStep('step2')
     }, 1000)

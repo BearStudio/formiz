@@ -9,7 +9,7 @@ import { NotImplemented } from '../../src/messages'
 
 When using the `useField` hook, you need to pass your component `props` to the hook.
 
-Then the hook give you access to the field state.
+Then the hook gives you access to the field state.
 
 ```jsx
 import React from 'react'
@@ -29,49 +29,43 @@ const MyField = (props) => {
 }
 ```
 
-You can also be more verbose and only pass the 6 required props to the hook (`name`, `defaultValue`, `isRequired`, `validations`, `keepValue` and `onChange`).
-
-```jsx
-useField({ name, defaultValue, isRequired, validations, keepValue, onChange })
-```
-
 ---
 
 ## Hook values
 
 The `useField` return an object with the following properties:
 
-#### `value`
+### `value`
 
 > Get the current value of the field.
 
-#### `setValue()`
+### `setValue()`
 
 > Set the value of the field.
 
-#### `isValid`
+### `isValid`
 
 > Returns `true` if the field is valid.
 
-#### `isPristine`
+### `isPristine`
 
 > Returns `true` if the field has not been changed.
 
-#### `isSubmitted`
+### `isSubmitted`
 
 > Returns `true` either if the current step or the form is submitted.
 
-#### `errorMessage`
+### `errorMessage`
 
-> Return the first error message.
+> Returns the first error message.
 
-#### `errorMessages`
+### `errorMessages`
 
-> Return all error messages.
+> Returns all error messages.
 
-#### `resetKey`
+### `resetKey`
 
-> Allow you to put a key on elements that you want to be reinitialize when the from is reset.<br />
+> Allows you to put a key on elements that you want to be reinitialize when the from is reset.<br />
 > Can be useful for element like `<input>` or `<select>`.
 
 ```jsx
@@ -85,7 +79,8 @@ The `useField` return an object with the following properties:
 When a component is created with the `useField()` hook,
 you can pass the following props to the component.
 
-#### `name` [required]
+### `name` *
+**Required**
 
 > The name is required to register the field in the form.
 
@@ -93,15 +88,23 @@ you can pass the following props to the component.
 <Field name="myFieldName" />
 ```
 
-#### `defaultValue`
+### `defaultValue`
 
 > Pass an initial value to the field.
+
+### `id`
+
+> Return a unique id
+
+```jsx
+<Field name="myFieldName" />
+```
 
 ```jsx
 <Field name="myFieldName" defaultValue="My initial value" />
 ```
 
-#### `isRequired`
+### `isRequired`
 
 > Shortcut for isRequired() validation
 
@@ -110,7 +113,15 @@ you can pass the following props to the component.
 <Field name="myFieldName" isRequired="Field is required" />
 ```
 
-#### `validations`
+### `keepValue`
+
+> Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
+
+### `onChange(fieldValue)`
+
+> Triggered everytime that setValue() is called inside the field.
+
+### `validations`
 
 > An array of object with:
 > - `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
@@ -136,14 +147,6 @@ you can pass the following props to the component.
 />
 ```
 
-#### `keepValue`
-
-> Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
-
-#### `onChange(fieldValue)`
-
-> Trigger everytime that setValue() is called inside the field.
-
 ---
 
 ## PropTypes validations
@@ -168,63 +171,5 @@ MyField.propTypes = {
 MyField.defaultProps = {
   ...fieldDefaultProps,
   // Your custom props
-}
-```
-
----
-
-## Example
-
-#### Create your custom field
-
-```jsx
-// MyField.js
-import React from 'react'
-import { useField } from '@formiz/core'
-
-const MyField = (props) => {
-  const { value, setValue, errorMessage, isValid, resetKey } = useField(props)
-  const { customProperty } = props
-
-  return (
-    <div>
-      <input key={resetKey} type="text" defaultValue={value} onChange={(e) => setValue(e.target.value)} />
-      <strong>{ customProperty }</strong>
-      {!isValid && (
-        <p>{ errorMessage }</p>
-      )}
-    </div>
-  )
-}
-```
-
-#### Use your custom field
-
-```jsx
-import React from 'react'
-import { Formiz, useForm } from '@formiz/core'
-import { MyField } from './MyField'
-
-export const MyForm = () => {
-  const myForm = useForm()
-
-  const submitForm = (values) => {
-    console.log(values) // { myCustomField: 'value' }
-  }
-
-  return (
-    <Formiz onValidSubmit={submitForm}>
-      <form submit={myForm.submit}>
-        <MyField
-          name="myCustomField"
-          customProperty="Custom Field"
-          isRequired="Custom Field is required"
-        />
-        <button type="submit">
-          Submit
-        </button>
-      </form>
-    </Formiz>
-  )
 }
 ```
