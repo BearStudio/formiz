@@ -5,7 +5,7 @@ import {
   formSubmit, formInvalidateFields, stepSubmit, stepGoNext, stepGoPrev, stepGoTo, formReset,
 } from '../FormContext/actions';
 import {
-  getFormValues, getStep, getStepPosition, getCurrentStepNameFromState,
+  getFormValues, getStep, getStepPosition, getCurrentStepNameFromState, getFieldStepName,
 } from '../FormContext/helpers';
 
 export const propTypes = {
@@ -63,6 +63,7 @@ export const Form = ({
   const currentStepName = getCurrentStepNameFromState(state);
   const currentStep = getStep(currentStepName, steps);
   const currentStepPosition = getStepPosition(currentStepName, steps);
+
   const getStepProperties = ({
     name,
     label,
@@ -119,6 +120,7 @@ export const Form = ({
       isFirstStep: currentStepPosition === 0,
       isLastStep: currentStepPosition === stepsCount - 1,
       submitStep: handleStepSubmit,
+      getFieldStepName: fieldName => getFieldStepName(fieldName, fields),
       nextStep: () => { dispatch(stepGoNext()); },
       prevStep: () => { dispatch(stepGoPrev()); },
       goToStep: (name) => { dispatch(stepGoTo(name)); },
@@ -133,6 +135,7 @@ export const Form = ({
     isFormSubmitted,
     JSON.stringify(values),
     JSON.stringify(steps),
+    JSON.stringify(fields),
     JSON.stringify(currentStep),
     currentStepPosition,
     stepsCount,

@@ -17,6 +17,7 @@ export const useForm = () => {
     isFirstStep: true,
     isLastStep: true,
     submitStep: () => {},
+    getFieldStepName: () => {},
     nextStep: () => {},
     prevStep: () => {},
     goToStep: () => {},

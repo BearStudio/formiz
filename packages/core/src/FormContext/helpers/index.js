@@ -43,3 +43,13 @@ export const getStepPosition = (stepName, steps) => (steps || [])
 export const getStepsOrdered = steps => (steps || [])
   .sort((a, b) => a.order - b.order)
   .sort((a, b) => a.index - b.index);
+
+export const getFieldStepName = (fieldName, fields) => {
+  const field = fields.find(x => x.name === fieldName);
+
+  if (!field || !field.isActive) {
+    return undefined;
+  }
+
+  return field.step;
+};
