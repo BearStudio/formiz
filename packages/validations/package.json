@@ -1,9 +1,22 @@
 {
   "name": "@formiz/validations",
   "version": "1.0.0-alpha.5",
+  "repository": "https://github.com/ivan-dalmet/formiz/tree/master/packages/validations",
+  "homepage": "https://formiz-react.com/",
+  "author": "Ivan Dalmet <ivan@dalmet.fr> (https://ivan.dalmet.fr/)",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "react",
+    "forms",
+    "wizard",
+    "multi-step-form",
+    "form-validation",
+    "form-validation-react",
+    "form-fields"
+  ],
   "scripts": {
     "prepare": "yarn build",
     "start": "rollup -c -w",
