@@ -1,9 +1,9 @@
 import { stepRegister, stepSubmit, stepGoTo } from '../index';
-import { initialState } from '../../initialState';
+import { getInitialState } from '../../initialState';
 
 describe('[FormContext:Action] stepSubmit()', () => {
   it('Should submit step and go to next step', () => {
-    let state = stepRegister('step1')(initialState);
+    let state = stepRegister('step1')(getInitialState());
     state = stepRegister('step2')(state);
     state = stepRegister('step3')(state);
 
@@ -20,7 +20,7 @@ describe('[FormContext:Action] stepSubmit()', () => {
   });
 
   it('Should submit step and submit form if it is the last step', () => {
-    let state = stepRegister('step1')(initialState);
+    let state = stepRegister('step1')(getInitialState());
     state = stepRegister('step2')(state);
     state = stepRegister('step3')(state);
 

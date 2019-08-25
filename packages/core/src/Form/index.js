@@ -49,6 +49,7 @@ export const Form = ({
 }) => {
   const { state, dispatch } = useFormContext();
   const {
+    id,
     fields,
     isValid: isFormValid,
     isSubmitted: isFormSubmitted,
@@ -104,6 +105,7 @@ export const Form = ({
 
   useEffect(() => {
     connect.__connect__({
+      id,
       submit: handleSubmit,
       isValid: isFormValid,
       isSubmitted: isFormSubmitted,
@@ -126,6 +128,7 @@ export const Form = ({
     JSON.stringify(connect.__connect__),
     JSON.stringify(handleSubmit),
     JSON.stringify(handleStepSubmit),
+    id,
     isFormValid,
     isFormSubmitted,
     JSON.stringify(values),

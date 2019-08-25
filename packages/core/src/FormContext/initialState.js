@@ -1,4 +1,5 @@
-export const initialState = {
+export const getInitialState = id => ({
+  id,
   resetKey: 0,
   isValid: true,
   isSubmitted: false,
@@ -30,4 +31,4 @@ export const initialState = {
     }
     */
   ],
-};
+});

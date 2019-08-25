@@ -3,6 +3,7 @@ import { usePrevious } from '../usePrevious';
 
 export const useForm = () => {
   const [state, setState] = useState({
+    id: null,
     submit: () => {},
     isValid: true,
     isSubmitted: false,

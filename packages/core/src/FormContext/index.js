@@ -1,15 +1,16 @@
 import React, {
-  useContext, useEffect, useState, useRef, useCallback,
+  useContext, useEffect, useState, useRef, useCallback, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
-import { initialState } from './initialState';
+import { getInitialState } from './initialState';
 
 export const FormContext = React.createContext();
 
 export const useFormContext = () => useContext(FormContext);
 
 export const FormContextProvider = ({ children, onStateChange }) => {
-  const internalState = useRef(initialState);
+  const formId = useMemo(() => Math.random().toString(36).substr(2, 9), []);
+  const internalState = useRef(getInitialState(formId));
   const isMounted = useRef(false);
   const debounce = useRef(null);
   const [state, setState] = useState(internalState.current);

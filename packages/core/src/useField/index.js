@@ -59,10 +59,6 @@ export const useField = ({
 
   const { state, dispatch } = formContext;
 
-  // useEffect(() => {
-  //   console.log('Render useField');
-  // });
-
   useEffect(() => {
     dispatch(fieldRegister(name, { value: defaultValue, step: stepName, validations }));
 
@@ -98,6 +94,7 @@ export const useField = ({
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
 
   return {
+    id: `${state.id}-${name}`,
     resetKey: state.resetKey,
     value: field ? field.value : null,
     errorMessages,

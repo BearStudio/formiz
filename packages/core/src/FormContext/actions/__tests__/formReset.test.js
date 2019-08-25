@@ -1,11 +1,11 @@
 import {
   formSubmit, formReset, stepRegister, stepSetVisited, fieldRegister, fieldSetValue, stepGoTo,
 } from '../index';
-import { initialState } from '../../initialState';
+import { getInitialState } from '../../initialState';
 
 describe('[FormContext:Action] formReset()', () => {
   it('Should reset the form without unregister fields and steps', () => {
-    let state = stepRegister('step1')(initialState);
+    let state = stepRegister('step1')(getInitialState());
     state = stepRegister('step2')(state);
     state = stepRegister('step3')(state);
 
