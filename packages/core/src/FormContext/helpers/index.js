@@ -1,15 +1,46 @@
+const isObject = x => x && typeof x === 'object' && x.constructor === Object;
+
+const parseValues = values => Object.keys(values)
+  .reduce(
+    (acc, key) => parseDotNameValues(key, acc), // eslint-disable-line no-use-before-define
+    values
+  );
+
+const parseDotNameValues = (name, values) => {
+  if (name.indexOf('.') < 0) {
+    return values;
+  }
+
+  const value = values[name];
+  const { [name]: deletedKey, ...nextValues } = values || {};
+  const [current, ...path] = name.split('.');
+  const group = {
+    ...(isObject(values[current]) ? values[current] : {}),
+    [path.join('.')]: value,
+  };
+
+  return {
+    ...nextValues,
+    [current]: parseValues(group),
+  };
+};
+
+export const getFormValues = (fields) => {
+  const values = (fields || [])
+    .filter(field => field.isActive)
+    .reduce((obj, field) => ({
+      ...obj,
+      [field.name]: field.value,
+    }), {});
+
+  return parseValues(values);
+};
+
 export const getField = (fieldName, fields) => (fields || [])
   .find(x => x.name === fieldName);
 
 export const getFieldsByStep = (stepName, fields) => (fields || [])
   .filter(x => x.step === stepName);
-
-export const getFormValues = fields => (fields || [])
-  .filter(field => field.isActive)
-  .reduce((obj, field) => ({
-    ...obj,
-    [field.name]: field.value,
-  }), {});
 
 export const getFieldErrors = (fieldName, fields) => {
   const field = getField(fieldName, fields);

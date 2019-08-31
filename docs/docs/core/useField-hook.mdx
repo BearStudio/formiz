@@ -88,6 +88,28 @@ you can pass the following props to the component.
 <Field name="myFieldName" />
 ```
 
+**Nested values**
+
+The `name` props can use lodash-like dot paths to reference nested values.
+
+```jsx
+<Field name="fieldA" />
+<Field name="fieldB" />
+<Field name="myGroup.fieldA" />
+<Field name="myGroup.fieldB" />
+
+/* Form values
+{
+  fieldA: 'value',
+  fieldB: 'value',
+  group: {
+    fieldA: 'value',
+    fieldB: 'value',
+  },
+}
+*/
+```
+
 ### `defaultValue`
 
 > Pass an initial value to the field.
