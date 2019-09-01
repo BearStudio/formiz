@@ -88,7 +88,7 @@ export const formSubmit = (
 };
 
 export const formReset = () => (state) => {
-  const fields = (state.fields || []).map(field => ({
+  const fields = (state.fields || []).map(({ externalError, ...field }) => ({
     ...field,
     isPristine: true,
     value: field.defaultValue,

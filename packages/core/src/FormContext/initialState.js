@@ -28,6 +28,7 @@ export const getInitialState = id => ({
       step: 'stepName',
       validations: [],
       errors: [],
+      externalError: null,
     }
     */
   ],
