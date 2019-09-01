@@ -70,8 +70,6 @@ describe('[FormContext:Helper] getFormValues()', () => {
 
     const values = getFormValues(fields);
 
-    console.log(values);
-
     expect(Object.keys(values)).toHaveLength(3);
     expect(Object.keys(values.group)).toHaveLength(3);
     expect(Object.keys(values.group.subgroup)).toHaveLength(2);
