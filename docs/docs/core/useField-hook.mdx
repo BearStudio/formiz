@@ -88,7 +88,7 @@ you can pass the following props to the component.
 <Field name="myFieldName" />
 ```
 
-**Nested values**
+**Nested objects**
 
 The `name` props can use lodash-like dot paths to reference nested values.
 
@@ -106,6 +106,30 @@ The `name` props can use lodash-like dot paths to reference nested values.
     fieldA: 'value',
     fieldB: 'value',
   },
+}
+*/
+```
+
+**Arrays**
+
+The `name` props allow also arrays and arrays of objects out of the box.
+Using lodash-like bracket syntax for `name` allow you to handle fields in a list.
+
+```jsx
+<Field name="myArray[0]" />
+<Field name="myArray[1]" />
+<Field name="myArrayOfObjects[0].fieldA" />
+<Field name="myArrayOfObjects[0].fieldB" />
+<Field name="myArrayOfObjects[1].fieldA" />
+<Field name="myArrayOfObjects[1].fieldB" />
+
+/* Form values
+{
+  myArray: ['value', 'value'],
+  myArrayOfObjects: [
+    { fieldA: 'value', fieldB: 'value' },
+    { fieldA: 'value', fieldB: 'value' },
+  ],
 }
 */
 ```

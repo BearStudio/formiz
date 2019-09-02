@@ -2,21 +2,48 @@ const isObject = x => x && typeof x === 'object' && x.constructor === Object;
 
 const parseValues = values => Object.keys(values)
   .reduce(
-    (acc, key) => parseDotNameValues(key, acc), // eslint-disable-line no-use-before-define
+    (acc, key) => parseValuesName(key, acc), // eslint-disable-line no-use-before-define
     values
   );
 
-const parseDotNameValues = (name, values) => {
-  if (name.indexOf('.') < 0) {
+// TODO: refactoring
+const parseValuesName = (name, values) => {
+  if (name.indexOf('.') < 0 && name.indexOf('[') < 0) {
     return values;
   }
 
   const value = values[name];
   const { [name]: deletedKey, ...nextValues } = values || {};
-  const [current, ...path] = name.split('.');
+  const [current, ...otherNames] = name.split('.');
+  const isArraySyntax = current.match(/\[([0-9]*)\]$/g);
+
+  if (isArraySyntax) {
+    const [currentName,, currentIndex] = current.split(/(\[|\])/g);
+    const currentCollection = values[currentName] || [];
+
+    if (otherNames.length) {
+      const group = {
+        ...(values[currentName] && isObject(values[currentName][currentIndex])
+          ? values[currentName][currentIndex]
+          : {}
+        ),
+        [otherNames.join('.')]: value,
+      };
+
+      currentCollection[currentIndex] = parseValues(group);
+    } else {
+      currentCollection[currentIndex] = value;
+    }
+
+    return {
+      ...nextValues,
+      [currentName]: currentCollection,
+    };
+  }
+
   const group = {
     ...(isObject(values[current]) ? values[current] : {}),
-    [path.join('.')]: value,
+    [otherNames.join('.')]: value,
   };
 
   return {
