@@ -49,7 +49,7 @@ import { useField } from '@formiz/core'
 
 export const MyField = () => {
   // ...
-});
+};
 ```
 
 #### 2. Pass props to the hook
@@ -65,7 +65,7 @@ import { useField } from '@formiz/core'
 export const MyField = (props) => {
   const {} = useField(props); // Pass the props to the hook
   // ...
-});
+};
 ```
 
 #### 3. Make it works
@@ -86,7 +86,7 @@ export const MyField = (props) => {
       onChange={e => setValue(e.target.value)} // Update the value onChange
     />
   );
-});
+};
 ```
 
 #### 3. Display error
@@ -113,7 +113,7 @@ export const MyField = (props) => {
       }
     </div>
   );
-});
+};
 ```
 
 #### 4. Improve UX and accessibility
