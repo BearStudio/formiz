@@ -22,7 +22,7 @@ const Counter = (props) => {
     value,
   } = useField(props);
   // eslint-disable-next-line
-  const { label, type, isRequired } = props;
+  const { label, isRequired } = props;
   const showError = !isValid && (!isPristine || isSubmitted);
   const [counter, setCounter] = React.useState(value || 0);
 
@@ -47,11 +47,11 @@ const Counter = (props) => {
         { label }
         {isRequired && ' *'}
       </label>
-      {counter}
-      <button type="button" onClick={counterMinus}>
+      <button type="button" className="btn mr-2" onClick={counterMinus}>
         -
       </button>
-      <button type="button" onClick={counterPlus}>
+      {counter}
+      <button type="button" className="btn ml-2" onClick={counterPlus}>
         +
       </button>
       {showError && (
@@ -152,24 +152,31 @@ function App() {
         >
           <form onSubmit={myFormRepeater.submit}>
             {repeater.map((itemId, index) => (
-              <div key={itemId} className="d-flex align-items-center">
-                <Counter name={`collection[${index}].counter`} />
-                <Input
-                  name={`collection[${index}].name`}
-                  label="Name"
-                  validations={[
-                    {
-                      rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
-                      message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
-                    },
-                    {
-                      rule: isRequired(),
-                      message: 'Required',
-                    },
-                  ]}
-                />
+              <div key={itemId} className="d-flex">
                 <div>
-                  <button type="button" className="btn" onClick={() => repeaterRemoveItem(itemId)}>
+                  <Counter
+                    label="Counter"
+                    name={`collection[${index}].counter`}
+                  />
+                </div>
+                <div className="mx-4">
+                  <Input
+                    name={`collection[${index}].name`}
+                    label="Name"
+                    validations={[
+                      {
+                        rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
+                        message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
+                      },
+                      {
+                        rule: isRequired(),
+                        message: 'Required',
+                      },
+                    ]}
+                  />
+                </div>
+                <div className="mt-2">
+                  <button type="button" className="btn mt-4" onClick={() => repeaterRemoveItem(itemId)}>
                     Remove
                   </button>
                 </div>

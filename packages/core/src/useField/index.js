@@ -6,6 +6,7 @@ import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
 } from '../FormContext/actions';
 import { useFormStepName } from '../FormStepContext';
+import { usePrevious } from '../usePrevious';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
 export const fieldPropTypes = {
@@ -58,9 +59,19 @@ export const useField = ({
   }
 
   const { state, dispatch } = formContext;
+  const previousName = usePrevious(name);
+  const field = state.fields.find(f => f.name === name);
+  const previousField = state.fields.find(f => f.name === previousName);
+  const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];
+  const currentStep = getStep(stepName, state.steps);
+  const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
 
   useEffect(() => {
-    dispatch(fieldRegister(name, { value: defaultValue, step: stepName, validations }));
+    dispatch(fieldRegister(name, {
+      value: previousField ? previousField.value : defaultValue,
+      step: stepName,
+      validations,
+    }));
 
     return () => {
       dispatch(fieldUnregister(name, keepValue));
@@ -87,11 +98,6 @@ export const useField = ({
     JSON.stringify(validations),
     JSON.stringify(isRequired),
   ]);
-
-  const field = state.fields.find(f => f.name === name);
-  const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];
-  const currentStep = getStep(stepName, state.steps);
-  const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
 
   return {
     id: `${field ? field.id : state.id}-${name}`,
