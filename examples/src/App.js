@@ -9,34 +9,97 @@ import {
 const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 const isRequired = () => x => !!x;
 const isEmail = () => x => !x || emailRegex.test(x);
-const isNotEqual = (val) => x => (x || '').toLowerCase() !== (val || '').toLowerCase();
+const isNotEqual = val => x => (x || '').toLowerCase() !== (val || '').toLowerCase();
 
-const Input = (props) => {
+const Counter = (props) => {
   const {
-    value, setValue, errorMessage, isValid, isPristine, resetKey,
+    errorMessage,
+    id,
+    isValid,
+    isPristine,
+    isSubmitted,
+    setValue,
+    value,
   } = useField(props);
-  const { label } = props; // eslint-disable-line
-  const [isTouched, setIsTouched] = React.useState(false);
+  // eslint-disable-next-line
+  const { label, type, isRequired } = props;
+  const showError = !isValid && (!isPristine || isSubmitted);
+  const [counter, setCounter] = React.useState(value || 0);
 
-  const isError = !isValid && (!isPristine || isTouched);
+  const counterPlus = () => {
+    const newCounter = counter + 1;
+    setValue(newCounter);
+    setCounter(newCounter);
+  };
+
+  const counterMinus = () => {
+    const newCounter = counter - 1;
+    setValue(newCounter);
+    setCounter(newCounter);
+  };
 
   return (
     <div className="form-group">
-      <label style={{ display: 'block' }}>
-        {label}
+      <label
+        style={{ display: 'block' }}
+        htmlFor={id}
+      >
+        { label }
+        {isRequired && ' *'}
+      </label>
+      {counter}
+      <button type="button" onClick={counterMinus}>
+        -
+      </button>
+      <button type="button" onClick={counterPlus}>
+        +
+      </button>
+      {showError && (
+        <div id={`${id}-error`} className="invalid-feedback">
+          { errorMessage }
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Input = (props) => {
+  const {
+    errorMessage,
+    id,
+    isValid,
+    isPristine,
+    isSubmitted,
+    resetKey,
+    setValue,
+    value,
+  } = useField(props);
+  // eslint-disable-next-line
+  const { label, type, isRequired } = props;
+  const showError = !isValid && (!isPristine || isSubmitted);
+
+  return (
+    <div className="form-group">
+      <label
+        style={{ display: 'block' }}
+        htmlFor={id}
+      >
+        { label }
+        {isRequired && ' *'}
       </label>
       <input
         key={resetKey}
-        className={`form-control ${isError ? 'is-invalid' : ''}`}
+        id={id}
+        type={type || 'text'}
         defaultValue={value}
-        onChange={e => setValue(e.target.value.trim())}
-        onBlur={() => {
-          setIsTouched(true);
-        }}
+        className={`form-control ${showError ? 'is-invalid' : ''}`}
+        onChange={e => setValue(e.target.value)}
+        aria-invalid={!isValid}
+        aria-describedby={!isValid ? `${id}-error` : null}
       />
-      {isError && (
-        <div className="invalid-feedback">
-          {errorMessage}
+      {showError && (
+        <div id={`${id}-error`} className="invalid-feedback">
+          { errorMessage }
         </div>
       )}
     </div>
@@ -48,6 +111,8 @@ function App() {
   const [isStep2Visible, setIsStep2Visible] = React.useState(true);
   const [formIsValid, setFormIsValid] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [repeater, setRepeater] = React.useState(['a', 'b']);
+  const myFormRepeater = useForm();
   const myForm = useForm();
 
   const handleSubmit = (values) => {
@@ -62,6 +127,14 @@ function App() {
     }, 1000);
   };
 
+  const repeaterAddItem = () => {
+    setRepeater(c => [...c, `id-${Math.random().toString(36).substr(2, 9)}`]); // `id-${Math.random().toString(36).substr(2, 9)}`
+  };
+
+  const repeaterRemoveItem = (id) => {
+    setRepeater(c => c.filter(x => x !== id));
+  };
+
   return (
     <div>
       <div style={{ padding: '2rem' }}>
@@ -72,6 +145,46 @@ function App() {
           Reset Multi Step Form
         </button>
       </div>
+      <div style={{ padding: '2rem' }}>
+        <Formiz
+          onSubmit={handleSubmit}
+          connect={myFormRepeater}
+        >
+          <form onSubmit={myFormRepeater.submit}>
+            {repeater.map((itemId, index) => (
+              <div key={itemId} className="d-flex align-items-center">
+                <Counter name={`collection[${index}].counter`} />
+                <Input
+                  name={`collection[${index}].name`}
+                  label="Name"
+                  validations={[
+                    {
+                      rule: isNotEqual(isStep2Visible ? 'john' : 'toto'),
+                      message: `Not ${isStep2Visible ? 'john' : 'toto'}`,
+                    },
+                    {
+                      rule: isRequired(),
+                      message: 'Required',
+                    },
+                  ]}
+                />
+                <div>
+                  <button type="button" className="btn" onClick={() => repeaterRemoveItem(itemId)}>
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            <button type="button" className="btn" onClick={() => repeaterAddItem()}>
+              Add
+            </button>
+            <button className="btn btn-primary" type="submit">
+              Submit
+            </button>
+          </form>
+        </Formiz>
+      </div>
+
       <div style={{ padding: '2rem' }}>
         <Formiz
           onSubmit={handleSubmit}
@@ -204,6 +317,7 @@ function App() {
 
           {[...Array(20)].map((_x, index) => (
             <Input
+              // eslint-disable-next-line react/no-array-index-key
               key={index}
               name={`name-${index}`}
               label={`Name ${index}`}

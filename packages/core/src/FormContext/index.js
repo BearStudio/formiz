@@ -3,13 +3,14 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { getInitialState } from './initialState';
+import { getUniqueId } from './helpers';
 
 export const FormContext = React.createContext();
 
 export const useFormContext = () => useContext(FormContext);
 
 export const FormContextProvider = ({ children, onStateChange }) => {
-  const formId = useMemo(() => Math.random().toString(36).substr(2, 9), []);
+  const formId = useMemo(() => getUniqueId(), []);
   const internalState = useRef(getInitialState(formId));
   const isMounted = useRef(false);
   const debounce = useRef(null);

@@ -5,6 +5,7 @@ import {
   getStepsOrdered,
   getStepPosition,
   getFormValues,
+  getUniqueId,
 } from '../helpers';
 
 /*
@@ -283,6 +284,7 @@ export const fieldRegister = (
     ...otherFields,
     {
       ...field,
+      id: getUniqueId(),
       name,
       value: field.value || value,
       defaultValue: value,

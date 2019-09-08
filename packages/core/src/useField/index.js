@@ -94,7 +94,7 @@ export const useField = ({
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
 
   return {
-    id: `${state.id}-${name}`,
+    id: `${field ? field.id : state.id}-${name}`,
     resetKey: state.resetKey,
     value: field ? field.value : null,
     errorMessages,

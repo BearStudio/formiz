@@ -111,3 +111,5 @@ export const getFieldStepName = (fieldName, fields) => {
 
   return field.step;
 };
+
+export const getUniqueId = () => `id-${Math.random().toString(36).substr(2, 9)}`;
