@@ -1,4 +1,7 @@
 # Formiz
+
+![Tests Badge](https://github.com/ivan-dalmet/formiz/workflows/Formiz%20Test/badge.svg)
+
 React multi steps forms with full validations
 
 👩‍🔬 This is an early and alpha release of Formiz. API is subject to change. Do not use in production.
