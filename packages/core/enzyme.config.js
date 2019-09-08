@@ -6,6 +6,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 // TODO REMOVE THIS WORKAROUND
 // Temporary workaround to clean warnings about act() to see real test errors
+// eslint-disable-next-line no-console
 const consoleError = console.error;
 beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation((...args) => {
