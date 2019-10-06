@@ -1,27 +1,9 @@
 import { useState } from 'react';
 import { usePrevious } from '../usePrevious';
+import { initialExposedFormState } from '../useExposedFormState';
 
 export const useForm = () => {
-  const [state, setState] = useState({
-    id: null,
-    submit: () => {},
-    isValid: true,
-    isSubmitted: false,
-    values: {},
-    invalidateFields: () => {},
-    reset: () => {},
-    currentStep: {},
-    steps: [],
-    isStepValid: true,
-    isStepSubmitted: false,
-    isFirstStep: true,
-    isLastStep: true,
-    submitStep: () => {},
-    getFieldStepName: () => {},
-    nextStep: () => {},
-    prevStep: () => {},
-    goToStep: () => {},
-  });
+  const [state, setState] = useState(initialExposedFormState);
   const prevState = usePrevious(state);
 
   const connect = (val) => {

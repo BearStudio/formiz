@@ -9,7 +9,13 @@ export const FormContext = React.createContext();
 
 export const useFormContext = () => useContext(FormContext);
 
-export const FormContextProvider = ({ children, onStateChange }) => {
+export const FormContextProvider = ({
+  children,
+  onStateChange,
+  onSubmit,
+  onValidSubmit,
+  onInvalidSubmit,
+}) => {
   const formId = useMemo(() => getUniqueId(), []);
   const internalState = useRef(getInitialState(formId));
   const isMounted = useRef(false);
@@ -40,7 +46,15 @@ export const FormContextProvider = ({ children, onStateChange }) => {
   }, [internalState.current]);
 
   return (
-    <FormContext.Provider value={{ state, dispatch }}>
+    <FormContext.Provider
+      value={{
+        state,
+        dispatch,
+        onSubmit,
+        onValidSubmit,
+        onInvalidSubmit,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );
@@ -49,8 +63,14 @@ export const FormContextProvider = ({ children, onStateChange }) => {
 FormContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
   onStateChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  onValidSubmit: PropTypes.func,
+  onInvalidSubmit: PropTypes.func,
 };
 
 FormContextProvider.defaultProps = {
   onStateChange: () => {},
+  onSubmit: () => {},
+  onValidSubmit: () => {},
+  onInvalidSubmit: () => {},
 };
