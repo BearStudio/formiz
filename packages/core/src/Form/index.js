@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
-import { useExposedFormState } from '../useExposedFormState';
+import { useFormState } from '../useFormState';
 
 export const propTypes = {
   children: PropTypes.node,
@@ -33,9 +33,9 @@ export const Form = ({
   onChange,
   connect,
 }) => {
-  const { state, dispatch } = useFormContext();
+  const { dispatch } = useFormContext();
 
-  const exposedState = useExposedFormState({ dispatch, state });
+  const exposedState = useFormState();
 
   onChange(exposedState.values);
 

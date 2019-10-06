@@ -5,7 +5,7 @@ title: useForm() hook
 
 Use this hook to access values and methods from a `<Formiz>` component.
 
-## Usage
+## Usage from outside `<Formiz>`
 
 #### 1. Connect your form
 
@@ -46,6 +46,30 @@ export const MyForm = () => {
           Submit
         </button>
       <form>
+    </Formiz>
+  )
+}
+```
+
+## Usage from a child component of `<Formiz>`
+
+```jsx
+import React from 'react'
+import { Formiz, useForm } from '@formiz/core'
+import { MyField } from './MyField'
+
+export const MySubComponent = () => {
+  const myForm = useForm()
+
+  return myForm.isValid && 'The form is valid!';
+}
+
+export const MyForm = () => {
+  return (
+    <Formiz>
+      ...
+      <MySubComponent />
+      ...
     </Formiz>
   )
 }

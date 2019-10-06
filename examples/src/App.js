@@ -106,6 +106,18 @@ const Input = (props) => {
   );
 };
 
+const SubFormComponent = () => {
+  const { isValid, values } = useForm();
+
+  return (
+    <div className="alert alert-primary">
+      {isValid ? 'Yep' : 'Nope'}
+      {' '}
+      {values.collection && values.collection[1].name}
+    </div>
+  );
+};
+
 function App() {
   const [isJobFieldVisible, setIsJobFieldVisible] = React.useState(false);
   const [isStep2Visible, setIsStep2Visible] = React.useState(true);
@@ -137,6 +149,7 @@ function App() {
 
   return (
     <div>
+      <SubFormComponent />
       <div style={{ padding: '2rem' }}>
         <button className="btn btn-light btn-sm mr-2" type="button" onClick={() => setIsStep2Visible(!isStep2Visible)}>
           Toggle Step 2
@@ -151,6 +164,7 @@ function App() {
           connect={myFormRepeater}
         >
           <form onSubmit={myFormRepeater.submit}>
+            <SubFormComponent />
             {repeater.map((itemId, index) => (
               <div key={itemId} className="d-flex">
                 <div>

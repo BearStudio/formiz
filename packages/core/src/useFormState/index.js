@@ -6,7 +6,7 @@ import {
 } from '../FormContext/helpers';
 import { useFormContext } from '../FormContext';
 
-export const initialExposedFormState = {
+export const initialFormState = {
   id: null,
   submit: () => {},
   isValid: true,
@@ -27,10 +27,17 @@ export const initialExposedFormState = {
   goToStep: () => {},
 };
 
-export const useExposedFormState = ({
-  dispatch,
-  state,
-}) => {
+export const useFormState = () => {
+  const formContext = useFormContext();
+
+  if (!formContext) {
+    return null;
+  }
+
+  const {
+    state, dispatch, onSubmit, onValidSubmit, onInvalidSubmit,
+  } = formContext;
+
   const {
     id,
     fields,
@@ -38,8 +45,6 @@ export const useExposedFormState = ({
     isSubmitted: isFormSubmitted,
     steps,
   } = state;
-
-  const { onSubmit, onValidSubmit, onInvalidSubmit } = useFormContext();
 
   const values = getFormValues(fields);
 
