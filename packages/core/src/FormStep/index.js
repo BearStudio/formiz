@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
-import { stepRegister, stepUnregister, stepSetVisited } from '../FormContext/actions';
-import { getStep, getCurrentStepNameFromState } from '../FormContext/helpers';
+import {
+  stepRegister, stepUnregister, stepSetVisited, stepUpdate, stepGoPrev,
+} from '../FormContext/actions';
 import { ErrorStepWithoutName } from './errors';
+import { useFormState } from '../useFormState';
 
 export const propTypes = {
   as: PropTypes.oneOfType([
@@ -17,6 +19,7 @@ export const propTypes = {
     ])),
   ]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  isEnabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
   label: PropTypes.node,
   order: PropTypes.number,
@@ -26,6 +29,7 @@ export const propTypes = {
 export const defaultProps = {
   as: 'div',
   children: '',
+  isEnabled: true,
   label: '',
   order: 0,
   style: {},
@@ -34,6 +38,7 @@ export const defaultProps = {
 export const FormStep = ({
   as: Tag,
   children,
+  isEnabled,
   name,
   label,
   order,
@@ -44,23 +49,34 @@ export const FormStep = ({
     throw ErrorStepWithoutName;
   }
 
-  const { state, dispatch } = useFormContext();
+  const { dispatch } = useFormContext();
+  const { currentStep } = useFormState();
 
-  const currentStepName = getCurrentStepNameFromState(state);
-  const currentStep = getStep(currentStepName, state.steps);
-  const isActive = currentStepName === name;
-
-  if (currentStep.name && !currentStep.isVisited && isActive) {
-    dispatch(stepSetVisited(currentStepName));
-  }
+  const isActive = currentStep.name === name;
 
   useEffect(() => {
-    dispatch(stepRegister(name, order, label));
+    if (currentStep.name && !currentStep.isVisited && isActive) {
+      dispatch(stepSetVisited(currentStep.name));
+    }
+  });
+
+  useEffect(() => {
+    if (isActive && !isEnabled) {
+      dispatch(stepGoPrev());
+    }
+  }, [isEnabled, isActive]);
+
+  useEffect(() => {
+    dispatch(stepRegister(name, { order }));
 
     return () => {
       dispatch(stepUnregister(name));
     };
   }, [name, order]);
+
+  useEffect(() => {
+    dispatch(stepUpdate(name, { label, isEnabled: !!isEnabled }));
+  }, [isEnabled, label]);
 
   if (typeof children === 'function') {
     return children({
@@ -76,7 +92,7 @@ export const FormStep = ({
       }}
       {...props}
     >
-      {children}
+      {isEnabled && children}
     </Tag>
   );
 };

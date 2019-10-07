@@ -14,6 +14,7 @@ describe('[FormContext:Action] stepRegister()', () => {
     expect(steps[0]).toHaveProperty('isValid', true);
     expect(steps[0]).toHaveProperty('isVisited', false);
     expect(steps[0]).toHaveProperty('isSubmitted', false);
+    expect(steps[0]).toHaveProperty('isEnabled', true);
   });
 
   it('Should register multi steps', () => {
@@ -35,13 +36,13 @@ describe('[FormContext:Action] stepRegister()', () => {
   });
 
   it('Should get steps based on order key and not register order', () => {
-    const state1 = stepRegister('myStep2', 2)({
+    const state1 = stepRegister('myStep2', { order: 2 })({
       steps: [],
     });
 
-    const state2 = stepRegister('myStep3', 3)(state1);
+    const state2 = stepRegister('myStep3', { order: 3 })(state1);
 
-    const { steps } = stepRegister('myStep1', 1)(state2);
+    const { steps } = stepRegister('myStep1', { order: 1 })(state2);
 
     expect(steps).toHaveLength(3);
 

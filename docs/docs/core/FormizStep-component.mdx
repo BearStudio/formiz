@@ -60,11 +60,30 @@ import { FormizStep } from '@formiz/core'
 </Formiz>
 ```
 
+### `isEnabled`
+
+> Set if the step should be enabled or not (default is `true`)
+
+```jsx
+{/* Display: `step1` > `step3`. */}
+<Formiz>
+  <FormizStep name="step1">
+    {/* Your fields here */}
+  </FormizStep>
+  <FormizStep name="step2" isEnabled={false}>
+    {/* Your fields here */}
+  </FormizStep>
+  <FormizStep name="step3">
+    {/* Your fields here */}
+  </FormizStep>
+</Formiz>
+```
+
 ### `order`
 
 > Order is a number to display the steps in the correct order. (default is `0`)
 <br />
-> Use this if you have conditionnal steps displayed or if you want to control steps order without changing the markup.
+> If you use order, all steps should get an order property to prevent unexpected behavior.
 
 ```jsx
 {/* Display order: `step2` > `step3` > `step1`. */}

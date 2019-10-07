@@ -1,6 +1,7 @@
 import { MyField } from './MyField';
 import { FieldsStep1 } from './FieldsStep1';
 import { FieldsStep2 } from './FieldsStep2';
+import { FieldsStep3 } from './FieldsStep3';
 
 export const MyForm = `
 // 2. Create a form with multi steps & fields
@@ -33,13 +34,16 @@ const MyForm = () => {
           <FormizStep name="step2">
             ${FieldsStep2()}
           </FormizStep>
+          <FormizStep name="step3">
+            ${FieldsStep3()}
+          </FormizStep>
         </div>
 
         <div className="demo-form__footer">
           <div className="mr-auto" style={{ minWidth: '6rem' }}>
             {!myForm.isFirstStep && (
               <button
-                className="demo-button"
+                className="demo-button is-full"
                 type="button"
                 onClick={myForm.prevStep}
               >
@@ -62,7 +66,7 @@ const MyForm = () => {
           >
             {myForm.isLastStep ? (
               <button
-                className="demo-button is-primary"
+                className="demo-button is-full is-primary"
                 type="submit"
                 disabled={isLoading || (!myForm.isValid && myForm.isStepSubmitted)}
               >
@@ -70,7 +74,7 @@ const MyForm = () => {
               </button>
             ) : (
               <button
-                className="demo-button is-primary"
+                className="demo-button is-full is-primary"
                 type="submit"
                 disabled={!myForm.isStepValid && myForm.isStepSubmitted}
               >

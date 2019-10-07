@@ -5,9 +5,9 @@ describe('[FormContext:Action] stepGoNext()', () => {
     const { navigatedStepName } = stepGoNext()({
       navigatedStepName: 'step1',
       steps: [
-        { name: 'step1' },
-        { name: 'step2' },
-        { name: 'step3' },
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: true },
+        { name: 'step3', isEnabled: true },
       ],
     });
 
@@ -18,9 +18,22 @@ describe('[FormContext:Action] stepGoNext()', () => {
     const { navigatedStepName } = stepGoNext()({
       navigatedStepName: 'step3',
       steps: [
-        { name: 'step1' },
-        { name: 'step2' },
-        { name: 'step3' },
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: true },
+        { name: 'step3', isEnabled: true },
+      ],
+    });
+
+    expect(navigatedStepName).toBe('step3');
+  });
+
+  it('Should skip not enabled steps', () => {
+    const { navigatedStepName } = stepGoNext()({
+      navigatedStepName: 'step1',
+      steps: [
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: false },
+        { name: 'step3', isEnabled: true },
       ],
     });
 

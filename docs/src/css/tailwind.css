@@ -5,7 +5,7 @@
 /* Button */
 .demo-button {
   transition: 0.2s;
-  @apply block w-full text-sm font-bold py-3 px-4 bg-transparent rounded appearance-none border-solid border-gray-300;
+  @apply inline-block text-sm font-bold py-3 px-4 bg-transparent rounded appearance-none border-solid border-gray-300;
 
   &:hover,
   &:focus {
@@ -20,12 +20,29 @@
     @apply opacity-25 pointer-events-none;
   }
 
+  &.is-full {
+    @apply block w-full;
+  }
+
+  &.is-small {
+    @apply py-2 px-3;
+  }
+
   &.is-primary {
     @apply bg-blue-500 text-white border-none;
 
     &:hover,
     &:focus {
       @apply bg-blue-600;
+    }
+  }
+
+  &.is-secondary {
+    @apply bg-gray-200 text-blue-600 border-none;
+
+    &:hover,
+    &:focus {
+      @apply bg-blue-600 text-white;
     }
   }
 }

@@ -213,19 +213,6 @@ function App() {
         >
           <form className="card" onSubmit={myForm.submitStep}>
             <div className="card-body" style={{ minHeight: 200 }}>
-              <FormizStep name="step3" label="Step C" order={3}>
-                <Input
-                  name="email"
-                  label="Email"
-                  validations={[
-                    {
-                      rule: isEmail(),
-                      message: 'Invalid email',
-                    },
-                  ]}
-                />
-              </FormizStep>
-
               <FormizStep name="step1" label="Step A">
                 <Input
                   name="name"
@@ -242,34 +229,42 @@ function App() {
                     },
                   ]}
                 />
-
               </FormizStep>
 
-              {!isStep2Visible && myForm.currentStep.name === 'step2' && myForm.goToStep('step1')}
-              {isStep2Visible && (
-                <FormizStep name="step2" label="Step B" order={2}>
-                  <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
-                    Toggle Job
-                  </button>
+              <FormizStep name="step2" label="Step B" isEnabled={isStep2Visible}>
+                <button className="btn btn-light btn-sm mb-3" type="button" onClick={() => setIsJobFieldVisible(!isJobFieldVisible)}>
+                  Toggle Job
+                </button>
 
-                  {isJobFieldVisible && (
-                    <Input
-                      name="job"
-                      label="Job"
-                      validations={[
-                        {
-                          rule: isNotEqual('john'),
-                          message: 'Not john',
-                        },
-                        {
-                          rule: isRequired(),
-                          message: 'Required',
-                        },
-                      ]}
-                    />
-                  )}
-                </FormizStep>
-              )}
+                {isJobFieldVisible && (
+                  <Input
+                    name="job"
+                    label="Job"
+                    validations={[
+                      {
+                        rule: isNotEqual('john'),
+                        message: 'Not john',
+                      },
+                      {
+                        rule: isRequired(),
+                        message: 'Required',
+                      },
+                    ]}
+                  />
+                )}
+              </FormizStep>
+              <FormizStep name="step3" label={isStep2Visible ? 'Step C' : 'Step B (C)'}>
+                <Input
+                  name="email"
+                  label="Email"
+                  validations={[
+                    {
+                      rule: isEmail(),
+                      message: 'Invalid email',
+                    },
+                  ]}
+                />
+              </FormizStep>
             </div>
 
             <div className="card-footer d-flex align-items-center">

@@ -8,6 +8,8 @@ export const MyForm = `
 const MyForm = () => {
   const myForm = useForm()
   const [isLoading, setIsLoading] = React.useState(false)
+  const [isStep2Visible, setIsStep2Visible] = React.useState(true)
+
   const submitForm = (values) => {
     setIsLoading(true)
 
@@ -17,8 +19,6 @@ const MyForm = () => {
       myForm.invalidateFields({
         email: 'You can display an error after an API call',
       })
-      const step = myForm.getFieldStepName('email')
-      myForm.goToStep(step)
     }, 1000)
   }
   return (
@@ -29,6 +29,15 @@ const MyForm = () => {
         className="demo-form"
         style={{ minHeight: '16rem' }}
       >
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setIsStep2Visible(x => !x)}
+            className="demo-button is-secondary is-small"
+          >
+            {isStep2Visible ? 'Hide' : 'Show' } step 2
+          </button>
+        </div>
         <div className="demo-form__tabs">
           {myForm.steps.map(step => (
             <button
@@ -44,12 +53,11 @@ const MyForm = () => {
             </button>
           ))}
         </div>
-
         <div className="demo-form__content">
           <FormizStep name="step1" label="Step A">
             ${FieldsStep1(true)}
           </FormizStep>
-          <FormizStep name="step2" label="Step B">
+          <FormizStep name="step2" label="Step B" isEnabled={isStep2Visible}>
             ${FieldsStep2(true)}
           </FormizStep>
           <FormizStep name="step3" label="Step C">
@@ -58,6 +66,15 @@ const MyForm = () => {
         </div>
 
         <div className="demo-form__footer">
+          <div className="text-sm text-gray-500 p-2 text-center w-full xs:w-auto order-first xs:order-none">
+            Step
+            {' '}
+            {myForm.currentStep && myForm.currentStep.index + 1}
+            {' '}
+            of
+            {' '}
+            {myForm.steps.length}
+          </div>
           <div
             className="ml-auto"
             style={{ minWidth: '6rem' }}

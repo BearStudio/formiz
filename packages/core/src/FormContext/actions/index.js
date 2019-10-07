@@ -6,6 +6,7 @@ import {
   getStepPosition,
   getFormValues,
   getUniqueId,
+  getEnabledSteps,
 } from '../helpers';
 
 /*
@@ -62,7 +63,7 @@ export const formSubmit = (
   callbackOnValid = () => {},
   callbackOnInvalid = () => {}
 ) => (state) => {
-  const steps = (state.steps || []).map(step => ({
+  const steps = getEnabledSteps(state.steps).map(step => ({
     ...step,
     isSubmitted: true,
   }));
@@ -119,7 +120,7 @@ export const formReset = () => (state) => {
   Step Actions
 */
 
-export const stepRegister = (name, order = 0, label = '') => (state) => {
+export const stepRegister = (name, { order = 0, label = '', isEnabled = true } = {}) => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
   const steps = getStepsOrdered([
@@ -132,10 +133,9 @@ export const stepRegister = (name, order = 0, label = '') => (state) => {
       isValid: true,
       isVisited: false,
       isSubmitted: false,
+      isEnabled,
     },
-  ])
-    // Add index
-    .map((x, index) => ({ ...x, index }));
+  ]);
 
   let newState = {
     ...state,
@@ -162,6 +162,24 @@ export const stepUnregister = name => (state) => {
   return newState;
 };
 
+export const stepUpdate = (name, { label, isEnabled } = {}) => (state) => {
+  const step = state.steps.find(x => x.name === name) || {};
+  const otherSteps = state.steps.filter(x => x.name !== name);
+  const steps = getStepsOrdered([
+    ...otherSteps,
+    {
+      ...step,
+      label,
+      isEnabled,
+    },
+  ]);
+
+  return {
+    ...state,
+    steps,
+  };
+};
+
 export const stepSetVisited = name => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
@@ -182,7 +200,7 @@ export const stepSetVisited = name => (state) => {
 export const stepGoTo = name => (state) => {
   const { steps } = state;
 
-  const newStep = (steps || []).find(x => x.name === name);
+  const newStep = getEnabledSteps(steps).find(x => x.name === name);
 
   if (!newStep || !newStep.name) {
     return state;
@@ -201,7 +219,7 @@ export const stepGoTo = name => (state) => {
 export const stepGoToPosition = position => (state) => {
   const { steps } = state;
 
-  const newStep = (steps || [])[position] || {};
+  const newStep = getEnabledSteps(steps)[position] || {};
 
   return stepGoTo(newStep.name)(state);
 };
@@ -209,7 +227,7 @@ export const stepGoToPosition = position => (state) => {
 export const stepGoNext = () => (state) => {
   const { steps } = state;
 
-  const stepsCount = (steps || []).length;
+  const stepsCount = getEnabledSteps(steps).length;
   const currenStepName = getCurrentStepNameFromState(state);
   const currentStepPosition = getStepPosition(currenStepName, steps);
   let nextStepPosition = stepsCount > 0 ? currentStepPosition + 1 : 0;

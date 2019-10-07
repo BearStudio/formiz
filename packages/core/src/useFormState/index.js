@@ -2,7 +2,12 @@ import {
   formInvalidateFields, stepGoNext, stepGoPrev, stepGoTo, formReset, formSubmit, stepSubmit,
 } from '../FormContext/actions';
 import {
-  getFormValues, getCurrentStepNameFromState, getStep, getStepPosition, getFieldStepName,
+  getFormValues,
+  getCurrentStepNameFromState,
+  getStep,
+  getStepPosition,
+  getFieldStepName,
+  getEnabledSteps,
 } from '../FormContext/helpers';
 import { useFormContext } from '../FormContext';
 
@@ -48,11 +53,28 @@ export const useFormState = () => {
 
   const values = getFormValues(fields);
 
-  const stepsCount = (steps || []).length;
+  const getStepProperties = ({
+    name,
+    label,
+    isValid,
+    isVisited,
+    isSubmitted,
+    index,
+  }) => ({
+    name,
+    label,
+    isValid,
+    isVisited,
+    isSubmitted,
+    index,
+  });
+
+  const enabledSteps = getEnabledSteps(steps);
+  const stepsCount = enabledSteps.length;
 
   const currentStepName = getCurrentStepNameFromState(state);
-  const currentStep = getStep(currentStepName, steps);
-  const currentStepPosition = getStepPosition(currentStepName, steps);
+  const currentStep = getStep(currentStepName, enabledSteps);
+  const currentStepPosition = getStepPosition(currentStepName, enabledSteps);
 
   const handleSubmit = (e) => {
     if (e) {
@@ -70,22 +92,6 @@ export const useFormState = () => {
     dispatch(stepSubmit(currentStepName, onSubmit, onValidSubmit, onInvalidSubmit));
   };
 
-  const getStepProperties = ({
-    name,
-    label,
-    isValid,
-    isVisited,
-    isSubmitted,
-    index,
-  }) => ({
-    name,
-    label,
-    isValid,
-    isVisited,
-    isSubmitted,
-    index,
-  });
-
   return {
     id,
     submit: handleSubmit,
@@ -95,7 +101,7 @@ export const useFormState = () => {
     invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
     reset: () => { dispatch(formReset()); },
     currentStep: getStepProperties(currentStep),
-    steps: (steps || []).map(getStepProperties),
+    steps: enabledSteps.map(getStepProperties),
     isStepValid: currentStep.isValid,
     isStepSubmitted: currentStep.isSubmitted,
     isFirstStep: currentStepPosition === 0,

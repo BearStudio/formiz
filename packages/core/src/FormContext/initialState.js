@@ -14,6 +14,7 @@ export const getInitialState = id => ({
       isValid: true,
       isVisited: false,
       isSubmitted: false,
+      isEnabled: true,
     }
     */
   ],

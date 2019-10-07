@@ -7,6 +7,7 @@ module.exports = {
       'demos/wizard',
       'demos/multi-tabs',
       'demos/simple',
+      'demos/conditional',
     ],
     Core: [
       'core/formiz',

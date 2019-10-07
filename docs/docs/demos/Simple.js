@@ -1,6 +1,7 @@
 import { MyField } from './MyField';
 import { FieldsStep1 } from './FieldsStep1';
 import { FieldsStep2 } from './FieldsStep2';
+import { FieldsStep3 } from './FieldsStep3';
 
 export const MyForm = `
 // 2. Create a form with multi steps & fields
@@ -29,6 +30,7 @@ const MyForm = () => {
         <div className="demo-form__content">
           ${FieldsStep1()}
           ${FieldsStep2()}
+          ${FieldsStep3()}
         </div>
 
         <div className="demo-form__footer">
@@ -37,7 +39,7 @@ const MyForm = () => {
             style={{ minWidth: '6rem' }}
           >
             <button
-              className="demo-button is-primary"
+              className="demo-button is-full is-primary"
               type="submit"
               disabled={isLoading || (!myForm.isValid && myForm.isSubmitted)}
             >

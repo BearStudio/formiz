@@ -5,9 +5,9 @@ describe('[FormContext:Action] stepGoTo()', () => {
     const { navigatedStepName } = stepGoTo('step3')({
       navigatedStepName: 'step2',
       steps: [
-        { name: 'step1' },
-        { name: 'step2' },
-        { name: 'step3' },
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: true },
+        { name: 'step3', isEnabled: true },
       ],
     });
 
@@ -18,9 +18,22 @@ describe('[FormContext:Action] stepGoTo()', () => {
     const { navigatedStepName } = stepGoTo('step4')({
       navigatedStepName: 'step2',
       steps: [
-        { name: 'step1' },
-        { name: 'step2' },
-        { name: 'step3' },
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: true },
+        { name: 'step3', isEnabled: true },
+      ],
+    });
+
+    expect(navigatedStepName).toBe('step2');
+  });
+
+  it('Should stay at the current step if step name is not enabled', () => {
+    const { navigatedStepName } = stepGoTo('step3')({
+      navigatedStepName: 'step2',
+      steps: [
+        { name: 'step1', isEnabled: true },
+        { name: 'step2', isEnabled: true },
+        { name: 'step3', isEnabled: false },
       ],
     });
 

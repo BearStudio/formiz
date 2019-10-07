@@ -7,6 +7,7 @@ describe('[FormContext:Action] stepUnregister()', () => {
         {
           name: 'myStep',
           order: 1,
+          isEnabled: true,
         },
       ],
     });
@@ -20,6 +21,7 @@ describe('[FormContext:Action] stepUnregister()', () => {
         {
           name: 'anotherStep',
           order: 1,
+          isEnabled: true,
         },
       ],
     });

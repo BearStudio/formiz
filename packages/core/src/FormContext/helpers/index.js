@@ -87,8 +87,13 @@ export const getFieldErrors = (fieldName, fields) => {
   return errorMessages;
 };
 
-export const getStep = (stepName, steps) => (steps || [])
-  .find(x => x.name === stepName) || {};
+export const getEnabledSteps = steps => (steps || [])
+  .filter(x => x.isEnabled);
+
+export const getStepsOrdered = steps => (steps || [])
+  .sort((a, b) => a.order - b.order)
+  .sort((a, b) => a.index - b.index)
+  .map((x, index) => ({ ...x, index }));
 
 export const getCurrentStepNameFromState = state => (
   state.navigatedStepName
@@ -96,11 +101,14 @@ export const getCurrentStepNameFromState = state => (
 );
 
 export const getStepPosition = (stepName, steps) => (steps || [])
+  .filter(x => x.isEnabled)
   .findIndex(x => x.name === stepName) || 0;
 
-export const getStepsOrdered = steps => (steps || [])
-  .sort((a, b) => a.order - b.order)
-  .sort((a, b) => a.index - b.index);
+export const getStep = (stepName, steps) => {
+  const enabledSteps = getEnabledSteps(steps);
+  return getStepsOrdered(enabledSteps)
+    .find(x => x.name === stepName) || {};
+};
 
 export const getFieldStepName = (fieldName, fields) => {
   const field = fields.find(x => x.name === fieldName);
