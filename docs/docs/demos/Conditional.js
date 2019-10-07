@@ -1,5 +1,5 @@
 import { MyField } from './MyField';
-import { FieldsStep1 } from './FieldsStep1';
+import { FieldsStep1 } from './FieldsStep1Conditional';
 import { FieldsStep2 } from './FieldsStep2';
 import { FieldsStep3 } from './FieldsStep3';
 
@@ -8,6 +8,7 @@ export const MyForm = `
 const MyForm = () => {
   const myForm = useForm()
   const [isLoading, setIsLoading] = React.useState(false)
+  const [isFieldNameVisible, setIsFieldNameVisible] = React.useState(true)
   const [isStep2Visible, setIsStep2Visible] = React.useState(true)
 
   const submitForm = (values) => {
@@ -32,8 +33,15 @@ const MyForm = () => {
         <div className="mt-4 text-center">
           <button
             type="button"
+            onClick={() => setIsFieldNameVisible(x => !x)}
+            className="demo-button is-secondary is-small mx-1"
+          >
+            {isFieldNameVisible ? 'Hide' : 'Show' } Field "Name"
+          </button>
+          <button
+            type="button"
             onClick={() => setIsStep2Visible(x => !x)}
-            className="demo-button is-secondary is-small"
+            className="demo-button is-secondary is-small mx-1"
           >
             {isStep2Visible ? 'Hide' : 'Show' } Step B
           </button>
@@ -55,7 +63,7 @@ const MyForm = () => {
         </div>
         <div className="demo-form__content">
           <FormizStep name="step1" label="Step A">
-            ${FieldsStep1(true)}
+            ${FieldsStep1(false)}
           </FormizStep>
           <FormizStep name="step2" label="Step B" isEnabled={isStep2Visible}>
             ${FieldsStep2(true)}

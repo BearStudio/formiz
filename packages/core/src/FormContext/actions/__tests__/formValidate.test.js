@@ -14,6 +14,7 @@ describe('[FormContext:Action] formValidate()', () => {
       fields: [
         {
           name: 'a',
+          isEnabled: true,
           validations: [
             {
               rule: x => !!x,
@@ -33,6 +34,7 @@ describe('[FormContext:Action] formValidate()', () => {
       fields: [
         {
           name: 'a',
+          isEnabled: true,
           value: 'value',
           validations: [
             {
@@ -55,6 +57,35 @@ describe('[FormContext:Action] formValidate()', () => {
     expect(isValid).toBe(true);
   });
 
+  it('isValid should be true if all enabled fields are valid', () => {
+    const { isValid } = formValidate()({
+      fields: [
+        {
+          name: 'a',
+          isEnabled: true,
+          value: 'value',
+          validations: [
+            {
+              rule: isRequired(),
+            },
+          ],
+        },
+        {
+          name: 'b',
+          isEnabled: false,
+          value: 'my value',
+          validations: [
+            {
+              rule: isEqual('nope'),
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(isValid).toBe(true);
+  });
+
   it('current step should be valid if all fields are valid in the current step', () => {
     const { isValid, steps } = formValidate()({
       navigatedStepName: 'step2',
@@ -62,6 +93,7 @@ describe('[FormContext:Action] formValidate()', () => {
       fields: [
         {
           name: 'a',
+          isEnabled: true,
           step: 'step1',
           validations: [
             {
@@ -71,6 +103,7 @@ describe('[FormContext:Action] formValidate()', () => {
         },
         {
           name: 'b',
+          isEnabled: true,
           step: 'step2',
           value: 'my value',
           validations: [
@@ -93,6 +126,7 @@ describe('[FormContext:Action] formValidate()', () => {
       fields: [
         {
           name: 'a',
+          isEnabled: true,
           step: 'step1',
           validations: [
             {
@@ -102,6 +136,7 @@ describe('[FormContext:Action] formValidate()', () => {
         },
         {
           name: 'b',
+          isEnabled: true,
           step: 'step2',
           validations: [
             {
@@ -123,6 +158,7 @@ describe('[FormContext:Action] formValidate()', () => {
       fields: [
         {
           name: 'a',
+          isEnabled: true,
           step: 'step2',
           validations: [
             {
@@ -132,6 +168,7 @@ describe('[FormContext:Action] formValidate()', () => {
         },
         {
           name: 'b',
+          isEnabled: true,
           step: 'step2',
           validations: [
             {

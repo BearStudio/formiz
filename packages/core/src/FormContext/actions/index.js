@@ -1,5 +1,5 @@
 import {
-  getFieldsByStep,
+  getEnabledFieldsByStep,
   getFieldErrors,
   getCurrentStepNameFromState,
   getStepsOrdered,
@@ -20,10 +20,10 @@ export const formValidate = () => (state) => {
       errors: getFieldErrors(x.name, state.fields),
     }));
 
-  const isValid = fields.every(x => !x.errors.length);
+  const isValid = fields.filter(x => x.isEnabled).every(x => !x.errors.length);
   const steps = (state.steps || []).map(s => ({
     ...s,
-    isValid: getFieldsByStep(s.name, fields).every(x => !x.errors.length),
+    isValid: getEnabledFieldsByStep(s.name, fields).every(x => !x.errors.length),
   }));
 
   return {

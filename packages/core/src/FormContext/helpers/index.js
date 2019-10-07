@@ -66,7 +66,8 @@ export const getFormValues = (fields) => {
 export const getField = (fieldName, fields) => (fields || [])
   .find(x => x.name === fieldName);
 
-export const getFieldsByStep = (stepName, fields) => (fields || [])
+export const getEnabledFieldsByStep = (stepName, fields) => (fields || [])
+  .filter(x => x.isEnabled)
   .filter(x => x.step === stepName);
 
 export const getFieldErrors = (fieldName, fields) => {
