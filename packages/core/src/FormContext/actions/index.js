@@ -63,7 +63,7 @@ export const formSubmit = (
   callbackOnValid = () => {},
   callbackOnInvalid = () => {}
 ) => (state) => {
-  const steps = getEnabledSteps(state.steps).map(step => ({
+  const steps = (state.steps || []).map(step => ({
     ...step,
     isSubmitted: true,
   }));
