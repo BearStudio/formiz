@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useState, useRef, useCallback, useMemo,
+  useContext, useEffect, useState, useCallback, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { getInitialState } from './initialState';
