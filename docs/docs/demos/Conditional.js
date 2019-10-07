@@ -35,7 +35,7 @@ const MyForm = () => {
             onClick={() => setIsStep2Visible(x => !x)}
             className="demo-button is-secondary is-small"
           >
-            {isStep2Visible ? 'Hide' : 'Show' } step 2
+            {isStep2Visible ? 'Hide' : 'Show' } Step B
           </button>
         </div>
         <div className="demo-form__tabs">

@@ -28,7 +28,7 @@ const MyField = (props) => {
         key={resetKey}
         id={id}
         type={type || 'text'}
-        defaultValue={value}
+        value={value || ''}
         className="demo-input"
         onChange={e => setValue(e.target.value)}
         onFocus={() => setIsFocused(true)}

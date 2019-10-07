@@ -82,7 +82,7 @@ export const MyField = (props) => {
   return (
     <input
       key={resetKey} // Allow to recreate the field if the form is reset
-      defaultValue={value} // Pass the defaultValue for the input
+      value={value || ''} // Pass the value for the input
       onChange={e => setValue(e.target.value)} // Update the value onChange
     />
   );
@@ -104,7 +104,7 @@ export const MyField = (props) => {
     <div>
       <input
         key={resetKey}
-        defaultValue={value}
+        value={value || ''}
         onChange={e => setValue(e.target.value)}
       />
       {
@@ -157,7 +157,7 @@ export const MyField = (props) => {
         key={resetKey}
         id={id}
         type={type || 'text'}
-        defaultValue={value}
+        value={value || ''}
         className="demo-input"
         onChange={e => setValue(e.target.value)}
         onFocus={() => setIsFocused(true)}

@@ -77,6 +77,7 @@ const Input = (props) => {
   // eslint-disable-next-line
   const { label, type, isRequired } = props;
   const showError = !isValid && (!isPristine || isSubmitted);
+  const [inputValue, setInputValue] = React.useState(value || '');
 
   return (
     <div className="form-group">
@@ -91,9 +92,12 @@ const Input = (props) => {
         key={resetKey}
         id={id}
         type={type || 'text'}
-        defaultValue={value}
+        value={inputValue}
         className={`form-control ${showError ? 'is-invalid' : ''}`}
-        onChange={e => setValue(e.target.value)}
+        onChange={(e) => {
+          setValue(e.target.value.trim());
+          setInputValue(e.target.value);
+        }}
         aria-invalid={!isValid}
         aria-describedby={!isValid ? `${id}-error` : null}
       />
