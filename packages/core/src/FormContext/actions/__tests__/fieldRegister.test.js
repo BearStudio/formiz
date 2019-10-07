@@ -10,7 +10,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', null);
     expect(field).toHaveProperty('step', null);
     expect(field).toHaveProperty('validations', []);
@@ -25,7 +25,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'myValue');
     expect(field).toHaveProperty('step', null);
     expect(field).toHaveProperty('validations', []);
@@ -37,7 +37,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: false,
+          isEnabled: false,
         },
       ],
     });
@@ -46,7 +46,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
   });
 
@@ -59,7 +59,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('step', 'myStep');
   });
 
@@ -72,7 +72,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('step', null);
   });
 
@@ -88,7 +88,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: false,
+          isEnabled: false,
         },
       ],
     });
@@ -97,7 +97,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
     expect(field).toHaveProperty('step', null);
     expect(field).toHaveProperty('validations');

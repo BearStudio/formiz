@@ -7,7 +7,7 @@ describe('[FormContext:Action] fieldSetValue()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -23,7 +23,7 @@ describe('[FormContext:Action] fieldSetValue()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -37,13 +37,13 @@ describe('[FormContext:Action] fieldSetValue()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
           externalError: 'External error',
         },
         {
           name: 'myField2',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
           externalError: 'External error',
         },
       ],

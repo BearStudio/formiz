@@ -6,17 +6,17 @@ describe('[FormContext:Helper] getFormValues()', () => {
       {
         name: 'fieldA',
         value: 'Value A',
-        isActive: true,
+        isEnabled: true,
       },
       {
         name: 'fieldB',
         value: 'Value B',
-        isActive: true,
+        isEnabled: true,
       },
       {
         name: 'fieldC',
         value: 'Value C',
-        isActive: true,
+        isEnabled: true,
       },
     ];
 
@@ -33,7 +33,7 @@ describe('[FormContext:Helper] getFormValues()', () => {
       {
         name: 'fieldA',
         value: 'Value A',
-        isActive: false,
+        isEnabled: false,
       },
       {
         name: 'fieldB',
@@ -42,7 +42,7 @@ describe('[FormContext:Helper] getFormValues()', () => {
       {
         name: 'fieldC',
         value: 'Value C',
-        isActive: true,
+        isEnabled: true,
       },
     ];
 
@@ -60,12 +60,12 @@ describe('[FormContext:Helper] getFormValues()', () => {
 
   it('Should get object with dot syntax', () => {
     const fields = [
-      { name: 'group.subgroup.fieldA', value: 'Value A3', isActive: true },
-      { name: 'fieldA', value: 'Value A', isActive: true },
-      { name: 'fieldB', value: 'Value B', isActive: true },
-      { name: 'group.fieldA', value: 'Value A2', isActive: true },
-      { name: 'group.fieldB', value: 'Value B2', isActive: true },
-      { name: 'group.subgroup.fieldB', value: 'Value B3', isActive: true },
+      { name: 'group.subgroup.fieldA', value: 'Value A3', isEnabled: true },
+      { name: 'fieldA', value: 'Value A', isEnabled: true },
+      { name: 'fieldB', value: 'Value B', isEnabled: true },
+      { name: 'group.fieldA', value: 'Value A2', isEnabled: true },
+      { name: 'group.fieldB', value: 'Value B2', isEnabled: true },
+      { name: 'group.subgroup.fieldB', value: 'Value B3', isEnabled: true },
     ];
 
     const values = getFormValues(fields);
@@ -83,17 +83,17 @@ describe('[FormContext:Helper] getFormValues()', () => {
 
   it('Should get array with [x] syntax', () => {
     const fields = [
-      { name: 'array[0]', value: 'Value A', isActive: true },
-      { name: 'array[1]', value: 'Value B', isActive: true },
-      { name: 'array[2]', value: 'Value C', isActive: true },
-      { name: 'collection[0].fieldA', value: 'Value A1', isActive: true },
-      { name: 'collection[0].fieldB', value: 'Value B1', isActive: true },
-      { name: 'collection[1].fieldA', value: 'Value A2', isActive: true },
-      { name: 'collection[1].fieldB', value: 'Value B2', isActive: true },
-      { name: 'collection[2].group.fieldA', value: 'Value A3', isActive: true },
-      { name: 'collection[2].group.fieldB', value: 'Value B3', isActive: true },
-      { name: 'group.array[0].fieldA', value: 'Value A', isActive: true },
-      { name: 'group.array[1].fieldA', value: 'Value B', isActive: true },
+      { name: 'array[0]', value: 'Value A', isEnabled: true },
+      { name: 'array[1]', value: 'Value B', isEnabled: true },
+      { name: 'array[2]', value: 'Value C', isEnabled: true },
+      { name: 'collection[0].fieldA', value: 'Value A1', isEnabled: true },
+      { name: 'collection[0].fieldB', value: 'Value B1', isEnabled: true },
+      { name: 'collection[1].fieldA', value: 'Value A2', isEnabled: true },
+      { name: 'collection[1].fieldB', value: 'Value B2', isEnabled: true },
+      { name: 'collection[2].group.fieldA', value: 'Value A3', isEnabled: true },
+      { name: 'collection[2].group.fieldB', value: 'Value B3', isEnabled: true },
+      { name: 'group.array[0].fieldA', value: 'Value A', isEnabled: true },
+      { name: 'group.array[1].fieldA', value: 'Value B', isEnabled: true },
     ];
 
     const values = getFormValues(fields);

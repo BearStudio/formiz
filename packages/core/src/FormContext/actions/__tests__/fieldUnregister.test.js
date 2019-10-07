@@ -7,7 +7,7 @@ describe('[FormContext:Action] fieldUnregister()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -21,7 +21,7 @@ describe('[FormContext:Action] fieldUnregister()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -35,7 +35,7 @@ describe('[FormContext:Action] fieldUnregister()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -43,7 +43,7 @@ describe('[FormContext:Action] fieldUnregister()', () => {
     expect(fields).toHaveLength(1);
 
     const field = fields.find(x => x.name === 'myField');
-    expect(field).toHaveProperty('isActive', false);
+    expect(field).toHaveProperty('isEnabled', false);
     expect(field).toHaveProperty('value', 'my value');
   });
 });

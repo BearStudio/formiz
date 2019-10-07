@@ -23,7 +23,7 @@ export const getInitialState = id => ({
       name: 'myField',
       value: 'Field Value',
       defaultValue: 'Field Value',
-      isActive: true,
+      isEnabled: true,
       isPristine: true,
       step: 'stepName',
       validations: [],

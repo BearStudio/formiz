@@ -18,7 +18,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: 'my value',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule: isRequired(),
@@ -38,7 +38,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: 'not my value',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule: isRequired(),
@@ -58,7 +58,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: '',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule: x => !!x,
@@ -78,7 +78,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: 'not my value',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule: isRequired(),
@@ -101,7 +101,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: '',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule: isRequired(),
@@ -131,7 +131,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: '',
-      isActive: true,
+      isEnabled: true,
       validations: [
         {
           rule,
@@ -148,7 +148,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     const field = {
       name: 'myField',
       value: 'not my value',
-      isActive: true,
+      isEnabled: true,
       externalError: 'External error',
     };
 

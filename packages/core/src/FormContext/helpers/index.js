@@ -54,7 +54,7 @@ const parseValuesName = (name, values) => {
 
 export const getFormValues = (fields) => {
   const values = (fields || [])
-    .filter(field => field.isActive)
+    .filter(field => field.isEnabled)
     .reduce((obj, field) => ({
       ...obj,
       [field.name]: field.value,
@@ -105,7 +105,7 @@ export const getStepsOrdered = steps => (steps || [])
 export const getFieldStepName = (fieldName, fields) => {
   const field = fields.find(x => x.name === fieldName);
 
-  if (!field || !field.isActive) {
+  if (!field || !field.isEnabled) {
     return undefined;
   }
 

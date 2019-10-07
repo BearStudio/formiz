@@ -288,7 +288,7 @@ export const fieldRegister = (
       name,
       value: field.value || value,
       defaultValue: value,
-      isActive: true,
+      isEnabled: true,
       isPristine: true,
       step,
       validations,
@@ -319,7 +319,7 @@ export const fieldUnregister = (name, isKeepValue) => (state) => {
     ...otherFields,
     {
       ...field,
-      isActive: false,
+      isEnabled: false,
     },
   ];
 

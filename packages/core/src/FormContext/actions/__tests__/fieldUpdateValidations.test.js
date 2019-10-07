@@ -13,7 +13,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
         {
           name: 'myField',
           value: 'my value',
-          isActive: true,
+          isEnabled: true,
         },
       ],
     });
@@ -22,7 +22,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
 
     const field = fields.find(x => x.name === 'myField');
 
-    expect(field).toHaveProperty('isActive', true);
+    expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
     expect(field).toHaveProperty('validations', validations);
   });
@@ -38,7 +38,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
       {
         name: 'myField',
         value: 'my value',
-        isActive: true,
+        isEnabled: true,
       },
     ];
 
