@@ -17,27 +17,15 @@ export const FormContextProvider = ({
   onInvalidSubmit,
 }) => {
   const formId = useMemo(() => getUniqueId(), []);
-  const internalState = useRef(getInitialState(formId));
-  const isMounted = useRef(false);
-  const debounce = useRef(null);
-  const [state, setState] = useState(internalState.current);
-
-  useEffect(() => {
-    isMounted.current = true;
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+  const [state, setState] = useState(getInitialState(formId));
 
   const dispatch = useCallback((action) => {
-    internalState.current = action(internalState.current);
-    setState(internalState.current);
-  }, [internalState, debounce, setState]);
+    setState(s => action(s));
+  }, []);
 
   useEffect(() => {
-    onStateChange(internalState.current);
-  }, [internalState.current]);
+    onStateChange(state);
+  }, [state]);
 
   return (
     <FormContext.Provider
