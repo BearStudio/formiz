@@ -32,13 +32,7 @@ export const FormContextProvider = ({
 
   const dispatch = useCallback((action) => {
     internalState.current = action(internalState.current);
-
-    clearTimeout(debounce.current);
-    debounce.current = setTimeout(() => {
-      if (isMounted.current) {
-        setState(internalState.current);
-      }
-    });
+    setState(internalState.current);
   }, [internalState, debounce, setState]);
 
   useEffect(() => {
