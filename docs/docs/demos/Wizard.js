@@ -17,6 +17,8 @@ const MyForm = () => {
       myForm.invalidateFields({
         email: 'You can display an error after an API call',
       })
+      const step = myForm.getFieldStepName('email')
+      myForm.goToStep(step)
     }, 1000)
   }
   return (
