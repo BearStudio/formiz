@@ -3,10 +3,16 @@
   "version": "1.0.0-alpha.18",
   "private": true,
   "dependencies": {
+    "@chakra-ui/core": "^0.4.0",
+    "@emotion/core": "^10.0.21",
+    "@emotion/styled": "^10.0.17",
     "@formiz/core": "^1.0.0-alpha.18",
+    "emotion-theming": "^10.0.19",
     "react": "16.9.0",
     "react-dom": "16.9.0",
-    "react-scripts": "3.0.0"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.0.0",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "PORT=3010 react-scripts start",
