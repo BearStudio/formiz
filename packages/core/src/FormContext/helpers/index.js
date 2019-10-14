@@ -92,8 +92,8 @@ export const getEnabledSteps = steps => (steps || [])
   .filter(x => x.isEnabled);
 
 export const getStepsOrdered = steps => (steps || [])
-  .sort((a, b) => a.order - b.order)
   .sort((a, b) => a.index - b.index)
+  .sort((a, b) => a.order - b.order)
   .map((x, index) => ({ ...x, index }));
 
 export const getCurrentStepNameFromState = state => (
