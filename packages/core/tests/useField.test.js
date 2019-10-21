@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { mount } from 'enzyme';
-import { silent, Input } from './utils';
+import { silent, Input, wait } from './utils';
 import { Formiz } from '../src';
 import { FormContextProvider } from '../src/FormContext';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from '../src/useField/errors';
@@ -96,7 +96,7 @@ describe('Fields using `useField()`', () => {
 
     const component = mount(
       <FormContextProvider onStateChange={onStateChange}>
-        <Input name="field1" defaultValue="Default value" />
+        <Input name="field1" defaultValue="Default value" debounce={0} />
       </FormContextProvider>
     );
 
@@ -118,9 +118,9 @@ describe('Fields using `useField()`', () => {
 
     const Component = ({ isVisible }) => (
       <FormContextProvider onStateChange={onStateChange}>
-        <Input name="field1" />
+        <Input name="field1" debounce={0} />
         {isVisible && (
-          <Input name="field2" />
+          <Input name="field2" debounce={0} />
         )}
       </FormContextProvider>
     );
@@ -131,6 +131,8 @@ describe('Fields using `useField()`', () => {
     input1.simulate('change', { target: { value: 'New value' } });
 
     component.setProps({ isVisible: true });
+
+    wait(100);
 
     expect(fields).toHaveLength(2);
 

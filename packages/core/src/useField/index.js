@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
 import { getStep } from '../FormContext/helpers';
@@ -6,10 +6,12 @@ import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
 } from '../FormContext/actions';
 import { useFormStepName } from '../FormStepContext';
-import { usePrevious } from '../usePrevious';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 
+const DEFAULT_FIELD_DEBOUNCE = 100;
+
 export const fieldPropTypes = {
+  debounce: PropTypes.number,
   defaultValue: PropTypes.any,
   isRequired: PropTypes.string,
   keepValue: PropTypes.bool,
@@ -22,6 +24,7 @@ export const fieldPropTypes = {
 };
 
 export const fieldDefaultProps = {
+  debounce: DEFAULT_FIELD_DEBOUNCE,
   defaultValue: null,
   isRequired: false,
   keepValue: false,
@@ -40,6 +43,7 @@ const getIsRequiredValidation = (isRequired) => {
 };
 
 export const useField = ({
+  debounce = DEFAULT_FIELD_DEBOUNCE,
   defaultValue,
   isRequired,
   keepValue,
@@ -59,57 +63,98 @@ export const useField = ({
   }
 
   const { state, dispatch } = formContext;
-  const previousName = usePrevious(name);
-  const field = state.fields.find(f => f.name === name);
-  const previousField = state.fields.find(f => f.name === previousName);
-  const errorMessages = field ? (field.errors || []).filter(x => !!x) : [];
+  const field = state.fields.find(f => f.name === name) || {};
+  const errorMessages = (field.errors || []).filter(x => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
+  const [localValue, setLocalValue] = useState(field.value || defaultValue);
 
+  const debounceRef = useRef(debounce);
+  debounceRef.current = debounce;
+
+  const defaultValueRef = useRef();
+  defaultValueRef.current = defaultValue;
+
+  const valueRef = useRef();
+  valueRef.current = field.value;
+
+  const nameRef = useRef();
+  nameRef.current = name;
+
+  const keepValueRef = useRef();
+  keepValueRef.current = keepValue;
+
+  // Reset value if resetKey change
+  const isFirstMountRef = useRef(true);
+  useEffect(() => {
+    if (!isFirstMountRef.current) {
+      setLocalValue(defaultValueRef.current);
+    }
+    isFirstMountRef.current = false;
+  }, [state.resetKey]);
+
+  // Update state value from local value
+  useEffect(() => {
+    if (localValue === defaultValueRef.current || localValue === valueRef.current) {
+      return () => {};
+    }
+
+    if (!debounceRef.current) {
+      dispatch(fieldSetValue(nameRef.current, localValue));
+      return () => {};
+    }
+
+    const timer = setTimeout(() => {
+      dispatch(fieldSetValue(nameRef.current, localValue));
+    }, debounceRef.current);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [localValue]);
+
+  // Mount & Unmount field
   useEffect(() => {
     dispatch(fieldRegister(name, {
-      value: previousField ? previousField.value : defaultValue,
+      value: valueRef.current || defaultValueRef.current,
       step: stepName,
       validations,
     }));
 
     return () => {
-      dispatch(fieldUnregister(name, keepValue));
+      dispatch(fieldUnregister(name, keepValueRef.current));
     };
   }, [
-    dispatch,
     name,
     stepName,
-    keepValue,
   ]);
 
+  // Update Validations
   useEffect(() => {
     const extraRules = [
       getIsRequiredValidation(isRequired),
     ];
 
-    dispatch(fieldUpdateValidations(name, [
+    dispatch(fieldUpdateValidations(nameRef.current, [
       ...extraRules,
       ...validations,
     ]));
   }, [
-    dispatch,
-    name,
     JSON.stringify(validations),
     JSON.stringify(isRequired),
   ]);
 
   return {
-    id: `${field ? field.id : state.id}-${name}`,
+    id: `${field.id || state.id}-${name}`,
     resetKey: state.resetKey,
-    value: field ? field.value : null,
+    value: localValue || '',
     errorMessages,
     errorMessage: errorMessages[0],
-    isValid: field ? !field.errors.length : true,
-    isPristine: field ? field.isPristine : true,
+    isValid: field.errors ? !field.errors.length : true,
+    isPristine: !!field.isPristine,
     isSubmitted,
     setValue: (value) => {
-      dispatch(fieldSetValue(name, value));
+      setLocalValue(value);
       if (onChange) {
         onChange(value);
       }

@@ -66,7 +66,7 @@ describe('<Formiz />', () => {
     const input = form.find('input').first();
     input.simulate('change', { target: { value: 'New value' } });
 
-    await wait();
+    await wait(100);
 
     expect(isFormValid).toBe(true);
   });
@@ -132,7 +132,7 @@ describe('<Formiz />', () => {
 
     input.simulate('change', { target: { value: 'New value' } });
 
-    await wait();
+    await wait(100);
 
     expect(formValues).toHaveProperty('field', 'New value');
     expect(formValues).toHaveProperty('field2', 'Value 2');

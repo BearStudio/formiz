@@ -43,6 +43,10 @@ The `useField` return an object with the following properties:
 
 > Set the value of the field.
 
+### `id`
+
+> Return a unique id.
+
 ### `isValid`
 
 > Returns `true` if the field is valid.
@@ -134,17 +138,13 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 */
 ```
 
+### `debounce`
+
+> Number in milliseconds for debouncing validations. (default is `100`).
+
 ### `defaultValue`
 
 > Pass an initial value to the field.
-
-### `id`
-
-> Return a unique id
-
-```jsx
-<Field name="myFieldName" />
-```
 
 ```jsx
 <Field name="myFieldName" defaultValue="My initial value" />
