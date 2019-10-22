@@ -1,7 +1,7 @@
 {
   "main": [
     "/main.b576e59bc521a7e889cf.css",
-    "/main.359ac9c1a9a1346561d5.js"
+    "/main.94e5e6308ceb5ec9010c.js"
   ],
   "component---site-src-pages-index-jsc-4-f-f99": [
     "/component---site-src-pages-index-jsc-4-f-f99.2a28ec5e30b62a25ae26.css",
@@ -9,47 +9,47 @@
   ],
   "component---theme-doc-legacy-page-9-e-7-ca5": [],
   "docsMetadata---docs-4-ff-842": [
-    "/docsMetadata---docs-4-ff-842.6abed809994dc4ab3ef6.js"
+    "/docsMetadata---docs-4-ff-842.2cabd874bab74e53a10e.js"
   ],
   "component---theme-doc-legacy-item-031-769": [
     "/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
     "/component---theme-doc-legacy-item-031-769.8b2410e80eb928e29af5.js"
   ],
-  "content---docs-core-formiz-step-60-d-a1a": [
-    "/content---docs-core-formiz-step-60-d-a1a.83dbf0302579f4ec7d63.js"
-  ],
-  "metadata---docs-core-formiz-step-93-c-849": [
-    "/metadata---docs-core-formiz-step-93-c-849.97ea9507bd7b5eb39acb.js"
-  ],
   "content---docs-core-formizb-92-126": [
-    "/content---docs-core-formizb-92-126.21adcfc1d601f3950804.js"
+    "/content---docs-core-formizb-92-126.0401f2de2ac9c9578fb9.js"
   ],
   "metadata---docs-core-formizc-17-b0c": [
-    "/metadata---docs-core-formizc-17-b0c.3ec0859b85f199cd744c.js"
+    "/metadata---docs-core-formizc-17-b0c.03a6f8d2de4a9025b533.js"
   ],
-  "content---docs-core-use-formc-12-e66": [
-    "/content---docs-core-use-formc-12-e66.8104e98d9674e7eb3cfd.js"
+  "content---docs-core-formiz-step-60-d-a1a": [
+    "/content---docs-core-formiz-step-60-d-a1a.cd5ccca69e860a7466dc.js"
   ],
-  "metadata---docs-core-use-formd-07-830": [
-    "/metadata---docs-core-use-formd-07-830.ab99b8bedef870f803cd.js"
+  "metadata---docs-core-formiz-step-93-c-849": [
+    "/metadata---docs-core-formiz-step-93-c-849.88e3ce33b6ff47949c86.js"
   ],
   "content---docs-core-use-field-5-c-8-761": [
-    "/content---docs-core-use-field-5-c-8-761.5340e09e9d43c4146c2e.js"
+    "/content---docs-core-use-field-5-c-8-761.5ee6dee182262c24410f.js"
   ],
   "metadata---docs-core-use-fieldb-0-b-84c": [
-    "/metadata---docs-core-use-fieldb-0-b-84c.42e435feea07fc65ad22.js"
+    "/metadata---docs-core-use-fieldb-0-b-84c.7d399158170985e4a3d0.js"
   ],
-  "content---docs-demos-conditional-7-f-9-e1b": [
-    "/content---docs-demos-conditional-7-f-9-e1b.ec6f827a094fc7b09fbe.js"
+  "content---docs-core-use-formc-12-e66": [
+    "/content---docs-core-use-formc-12-e66.8967be471311df3919df.js"
   ],
-  "metadata---docs-demos-conditionale-10-b4f": [
-    "/metadata---docs-demos-conditionale-10-b4f.2c150170cc9bb121ca5d.js"
+  "metadata---docs-core-use-formd-07-830": [
+    "/metadata---docs-core-use-formd-07-830.4e0c8d1e07af4c587bc9.js"
   ],
   "content---docs-demos-multi-tabs-736-0f3": [
-    "/content---docs-demos-multi-tabs-736-0f3.13189afadfa5524cba64.js"
+    "/content---docs-demos-multi-tabs-736-0f3.91038ba5bd3580f57fa8.js"
   ],
   "metadata---docs-demos-multi-tabs-334-d68": [
-    "/metadata---docs-demos-multi-tabs-334-d68.80b65f79cfa5284da8df.js"
+    "/metadata---docs-demos-multi-tabs-334-d68.89729481c05b357f9f01.js"
+  ],
+  "content---docs-demos-simple-7-c-1-066": [
+    "/content---docs-demos-simple-7-c-1-066.0bad98a821f07c5ed813.js"
+  ],
+  "metadata---docs-demos-simplee-4-c-59d": [
+    "/metadata---docs-demos-simplee-4-c-59d.0b5279817b3441f78dab.js"
   ],
   "content---docs-demos-wizard-58-f-5bb": [
     "/content---docs-demos-wizard-58-f-5bb.e250a1565caa3d9ed7d8.js"
@@ -57,17 +57,17 @@
   "metadata---docs-demos-wizardf-28-033": [
     "/metadata---docs-demos-wizardf-28-033.fb1aa261281a6b860832.js"
   ],
-  "content---docs-demos-simple-7-c-1-066": [
-    "/content---docs-demos-simple-7-c-1-066.76f236769f2ff3d8bf60.js"
-  ],
-  "metadata---docs-demos-simplee-4-c-59d": [
-    "/metadata---docs-demos-simplee-4-c-59d.afb95b4038c30097d928.js"
-  ],
   "content---docs-validations-rules-291-bf3": [
-    "/content---docs-validations-rules-291-bf3.09ed71903e96c543f160.js"
+    "/content---docs-validations-rules-291-bf3.8e07b2b1ed5fefaf105f.js"
   ],
   "metadata---docs-validations-rulesef-0-e49": [
-    "/metadata---docs-validations-rulesef-0-e49.5ea26f0fa579da655c3e.js"
+    "/metadata---docs-validations-rulesef-0-e49.3553112411aea4775776.js"
+  ],
+  "content---docs-demos-conditional-7-f-9-e1b": [
+    "/content---docs-demos-conditional-7-f-9-e1b.ec6f827a094fc7b09fbe.js"
+  ],
+  "metadata---docs-demos-conditionale-10-b4f": [
+    "/metadata---docs-demos-conditionale-10-b4f.38ddf18beae61d6ae146.js"
   ],
   "content---docs-getting-started-302-242": [
     "/content---docs-getting-started-302-242.7f010cf3d9c1df742053.js"
