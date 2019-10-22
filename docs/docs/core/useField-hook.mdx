@@ -47,6 +47,11 @@ The `useField` return an object with the following properties:
 
 > Return a unique id.
 
+```jsx
+<label htmlFor={id}>...</label>
+<input id={id} />
+```
+
 ### `isValid`
 
 > Returns `true` if the field is valid.
@@ -140,7 +145,11 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `debounce`
 
-> Number in milliseconds for debouncing validations. (default is `100`).
+> Number of milliseconds for debouncing validations. (default is `100`).
+
+```jsx
+<Field name="myFieldName" debounce={200} />
+```
 
 ### `defaultValue`
 
@@ -166,6 +175,10 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 ### `onChange(fieldValue)`
 
 > Triggered everytime that setValue() is called inside the field.
+
+```jsx
+<Field name="myFieldName" onChange={val => console.log(val)} />
+```
 
 ### `validations`
 
