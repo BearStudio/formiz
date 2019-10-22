@@ -1,12 +1,12 @@
 {
   "name": "@formiz/example",
-  "version": "1.0.0-alpha.18",
+  "version": "1.0.0-alpha.19",
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "^0.4.0",
     "@emotion/core": "^10.0.21",
     "@emotion/styled": "^10.0.17",
-    "@formiz/core": "^1.0.0-alpha.18",
+    "@formiz/core": "^1.0.0-alpha.19",
     "emotion-theming": "^10.0.19",
     "react": "16.9.0",
     "react-dom": "16.9.0",
