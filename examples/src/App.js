@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { ThemeProvider, CSSReset, Box, Stack } from '@chakra-ui/core';
+import {
+  ThemeProvider, CSSReset, Box, Stack,
+} from '@chakra-ui/core';
 
 import theme from './theme';
 import { NavBar } from './NavBar';
@@ -8,6 +10,7 @@ import { AutoForm } from './pages/AutoForm';
 import { Wizard } from './pages/Wizard';
 import { Repeater } from './pages/Repeater';
 import { LotOfFields } from './pages/LotOfFields';
+import { UseCase1 } from './pages/UseCase1/index';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
             </Route>
             <Route path="/lot-of-fields" exact>
               <LotOfFields />
+            </Route>
+            <Route path="/use-case-1" exact>
+              <UseCase1 />
             </Route>
           </Box>
         </Stack>

@@ -9,9 +9,10 @@ export const LotOfFields = () => {
   const form = useForm();
 
   const handleSubmit = (values) => {
+    // eslint-disable-next-line no-alert
     alert(JSON.stringify(values, null, 2));
     form.invalidateFields({
-      'name-0': 'You can display an error after an API call'
+      'name-0': 'You can display an error after an API call',
     });
     const stepWithError = form.getFieldStepName('name-0');
     form.goToStep(stepWithError);
@@ -53,8 +54,8 @@ export const LotOfFields = () => {
               validations={[
                 {
                   rule: isEmail(),
-                  message: 'Not a valid email'
-                }
+                  message: 'Not a valid email',
+                },
               ]}
             />
           ))}
@@ -75,7 +76,13 @@ export const LotOfFields = () => {
               fontSize="sm"
               color="gray.500"
             >
-              Step {form.currentStep.index + 1} / {form.steps.length}
+              Step
+              {' '}
+              {form.currentStep.index + 1}
+              {' '}
+/
+              {' '}
+              {form.steps.length}
             </Box>
             <Button
               type="submit"

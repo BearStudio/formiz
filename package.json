@@ -8,7 +8,7 @@
   },
   "scripts": {
     "bs": "lerna bootstrap",
-    "start": "lerna run start --parallel --ignore @formiz/example",
+    "start": "lerna run start --parallel",
     "test": "lerna run test --parallel --ignore @formiz/{docs,example}",
     "test:dev": "lerna run test:dev --parallel --ignore @formiz/{docs,example}",
     "lint": "lerna run lint",

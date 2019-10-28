@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Flex, PseudoBox } from '@chakra-ui/core';
+import { Flex, PseudoBox } from '@chakra-ui/core';
 
 const NavBarItem = ({ children, to, ...props }) => {
   const { pathname } = useLocation();
@@ -35,35 +35,38 @@ const NavBarItem = ({ children, to, ...props }) => {
   );
 };
 
-export const NavBar = () => {
-  return (
-    <Flex
-      mb="6"
-      py="4"
-      borderRight="1px solid"
-      borderColor="gray.200"
-      flexDir="column"
+export const NavBar = () => (
+  <Flex
+    mb="6"
+    py="4"
+    borderRight="1px solid"
+    borderColor="gray.200"
+    flexDir="column"
+  >
+    <NavBarItem
+      to="/"
     >
-      <NavBarItem
-        to="/"
-      >
         AutoForm
-      </NavBarItem>
-      <NavBarItem
-        to="/wizard"
-      >
+    </NavBarItem>
+    <NavBarItem
+      to="/wizard"
+    >
         Wizard
-      </NavBarItem>
-      <NavBarItem
-        to="/repeater"
-      >
+    </NavBarItem>
+    <NavBarItem
+      to="/repeater"
+    >
         Repeater
-      </NavBarItem>
-      <NavBarItem
-        to="/lot-of-fields"
-      >
+    </NavBarItem>
+    <NavBarItem
+      to="/lot-of-fields"
+    >
         Lot of fields
-      </NavBarItem>
-    </Flex>
-  );
-};
+    </NavBarItem>
+    <NavBarItem
+      to="/use-case-1"
+    >
+        Use Case 1
+    </NavBarItem>
+  </Flex>
+);

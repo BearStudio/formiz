@@ -9,9 +9,10 @@ export const Wizard = () => {
   const form = useForm();
 
   const handleSubmit = (values) => {
+    // eslint-disable-next-line no-alert
     alert(JSON.stringify(values, null, 2));
     form.invalidateFields({
-      name: 'You can display an error after an API call'
+      name: 'You can display an error after an API call',
     });
     const stepWithError = form.getFieldStepName('name');
     form.goToStep(stepWithError);
@@ -45,8 +46,8 @@ export const Wizard = () => {
             validations={[
               {
                 rule: isEmail(),
-                message: 'Not a valid email'
-              }
+                message: 'Not a valid email',
+              },
             ]}
           />
         </FormizStep>
@@ -72,7 +73,13 @@ export const Wizard = () => {
               fontSize="sm"
               color="gray.500"
             >
-              Step {form.currentStep.index + 1} / {form.steps.length}
+              Step
+              {' '}
+              {form.currentStep.index + 1}
+              {' '}
+              /
+              {' '}
+              {form.steps.length}
             </Box>
             <Button
               type="submit"

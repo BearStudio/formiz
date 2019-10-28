@@ -4,11 +4,11 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-  Input,
+  Select,
 } from '@chakra-ui/core';
 import { useField } from '@formiz/core';
 
-export const FieldInput = (props) => {
+export const FieldSelect = (props) => {
   const {
     errorMessage,
     id,
@@ -19,7 +19,7 @@ export const FieldInput = (props) => {
     value,
   } = useField(props);
   const {
-    label, type, isRequired, placeholder, helper, ...rest
+    label, options, isRequired, placeholder, helper, ...rest
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -30,7 +30,7 @@ export const FieldInput = (props) => {
 
   return (
     <FormControl mb="6" isInvalid={showError} isRequired={!!isRequired} {...rest}>
-      <FormLabel htmlFor={id}>
+      <FormLabel htmlFor={id} m="0">
         {label}
       </FormLabel>
       {!!helper && (
@@ -38,9 +38,8 @@ export const FieldInput = (props) => {
           {helper}
         </FormHelperText>
       )}
-      <Input
+      <Select
         key={resetKey}
-        type={type || 'text'}
         id={id}
         value={value || ''}
         onChange={e => setValue(e.target.value)}
@@ -48,7 +47,13 @@ export const FieldInput = (props) => {
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
-      />
+      >
+        {(options || []).map(item => (
+          <option value={item.value}>
+            {item.label || item.value}
+          </option>
+        ))}
+      </Select>
       <FormErrorMessage id={`${id}-error`}>
         { errorMessage }
       </FormErrorMessage>

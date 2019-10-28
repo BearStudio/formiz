@@ -9,10 +9,11 @@ export const AutoForm = () => {
   const form = useForm();
 
   const handleSubmit = (values) => {
+    // eslint-disable-next-line no-alert
     alert(JSON.stringify(values, null, 2));
     form.invalidateFields({
-      name: 'You can display an error after an API call'
-    })
+      name: 'You can display an error after an API call',
+    });
   };
 
   return (
@@ -37,8 +38,8 @@ export const AutoForm = () => {
         validations={[
           {
             rule: isEmail(),
-            message: 'Not a valid email'
-          }
+            message: 'Not a valid email',
+          },
         ]}
       />
       <FieldInput

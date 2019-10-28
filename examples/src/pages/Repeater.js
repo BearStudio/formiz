@@ -1,30 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import uuidv4 from 'uuid/v4';
 import { Formiz, useForm } from '@formiz/core';
-import { Button, Flex, Stack, IconButton, Box } from '@chakra-ui/core';
+import {
+  Button, Flex, Stack, IconButton, Box,
+} from '@chakra-ui/core';
 import { FieldInput } from '../components/FieldInput';
 import { PageHeader } from '../components/PageHeader';
+import { AddPlaceholder } from '../components/AddPlaceholder';
 
 const defaultCollection = [
   {
     id: uuidv4(),
-    name: 'Default name'
+    name: 'Default name',
   },
   {
     id: uuidv4(),
-  }
+  },
 ];
 
 export const Repeater = () => {
   const form = useForm();
-  const [collection, setCollection] = React.useState(defaultCollection);
+  const [collection, setCollection] = useState(defaultCollection);
 
   const handleSubmit = (values) => {
+    // eslint-disable-next-line no-alert
     alert(JSON.stringify(values, null, 2));
-    console.log(values.collection.length)
     form.invalidateFields({
-      name: 'You can display an error after an API call'
-    })
+      name: 'You can display an error after an API call',
+    });
   };
 
   const addItem = () => {
@@ -32,7 +35,7 @@ export const Repeater = () => {
       ...c,
       {
         id: uuidv4(),
-      }
+      },
     ]);
   };
 
@@ -81,33 +84,7 @@ export const Repeater = () => {
           </Stack>
         ))}
 
-        <Button
-          onClick={addItem}
-          role="group"
-          w="full"
-          h="auto"
-          d="flex"
-          justifyContent="start"
-          p="4"
-          backgroundColor="gray.50"
-          border="1px dashed"
-          borderColor="gray.200"
-          rounded="md"
-          transition="0.2s"
-          _hover={{ borderColor: 'gray.400' }}
-          _focus={{ outline: 'none', boxShadow: 'outline' }}
-          _active={{ backgroundColor: 'gray.200' }}
-        >
-          <Button
-            as="span"
-            leftIcon="add"
-            size="sm"
-            variant="outline"
-            _groupHover={{ backgroundColor: 'gray.100' }}
-          >
-            Add member
-          </Button>
-        </Button>
+        <AddPlaceholder label="Add member" onClick={addItem} />
 
         <Flex mt="4">
           <Button
