@@ -58,7 +58,7 @@ export const Form = ({
   }
 
   return (
-    <form onSubmit={exposedState.submit}>
+    <form noValidate onSubmit={exposedState.submit}>
       { children }
     </form>
   );
