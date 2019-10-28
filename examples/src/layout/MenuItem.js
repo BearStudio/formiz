@@ -5,14 +5,18 @@ import { PseudoBox } from '@chakra-ui/core';
 
 const propTypes = {
   children: PropTypes.node,
+  direction: PropTypes.oneOf(['left', 'right']),
   to: PropTypes.string,
 };
 const defaultProps = {
   children: '',
-  to: '/',
+  direction: 'left',
+  to: null,
 };
 
-export const NavBarItem = ({ children, to, ...props }) => {
+export const MenuItem = ({
+  children, direction, to, ...props
+}) => {
   const { pathname } = useLocation();
   const isActive = pathname === to;
 
@@ -20,15 +24,16 @@ export const NavBarItem = ({ children, to, ...props }) => {
     <PseudoBox
       as={Link}
       to={to}
-      px="4"
+      px="5"
       py="1"
       mr="-1px"
       fontWeight="bold"
-      borderRight="3px solid transparent"
+      borderLeft={direction === 'left' ? '3px solid transparent' : null}
+      borderRight={direction === 'right' ? '3px solid transparent' : null}
       borderColor={isActive ? 'gray.700' : null}
       color={isActive ? 'gray.700' : 'gray.500'}
       transition="0.2s"
-      textAlign="right"
+      textAlign={direction === 'left' ? 'left' : 'right'}
       _hover={{
         textDecoration: 'none',
         color: 'gray.700',
@@ -45,5 +50,5 @@ export const NavBarItem = ({ children, to, ...props }) => {
   );
 };
 
-NavBarItem.propTypes = propTypes;
-NavBarItem.defaultProps = defaultProps;
+MenuItem.propTypes = propTypes;
+MenuItem.defaultProps = defaultProps;

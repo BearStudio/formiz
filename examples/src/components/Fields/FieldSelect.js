@@ -8,7 +8,7 @@ import { FormGroup } from '../FormGroup';
 
 const propTypes = {
   label: PropTypes.node,
-  isRequired: PropTypes.bool,
+  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeholder: PropTypes.string,
   helper: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types

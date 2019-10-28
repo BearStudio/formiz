@@ -17,24 +17,40 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CSSReset />
-        <Stack p="8" maxW="6xl" m="auto" isInline>
+        <Stack minH="100vh" m="auto" overflow="hidden" direction={{ base: 'column', md: 'row' }}>
           <NavBar />
-          <Box py="5" px="8" w="100%" maxW="xl" mx="auto">
-            <Route path="/" exact>
-              <AutoForm />
-            </Route>
-            <Route path="/wizard" exact>
-              <Wizard />
-            </Route>
-            <Route path="/repeater" exact>
-              <Repeater />
-            </Route>
-            <Route path="/lot-of-fields" exact>
-              <LotOfFields />
-            </Route>
-            <Route path="/use-case-1" exact>
-              <UseCase1 />
-            </Route>
+          <Box flex="1" w="100%" position="relative">
+            <Box
+              py="8"
+              px={{ base: 4, md: 8 }}
+              position="absolute"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              overflow="auto"
+            >
+              <Box
+                maxW="xl"
+                mx="auto"
+              >
+                <Route path="/" exact>
+                  <AutoForm />
+                </Route>
+                <Route path="/wizard" exact>
+                  <Wizard />
+                </Route>
+                <Route path="/repeater" exact>
+                  <Repeater />
+                </Route>
+                <Route path="/lot-of-fields" exact>
+                  <LotOfFields />
+                </Route>
+                <Route path="/real-life-1" exact>
+                  <UseCase1 />
+                </Route>
+              </Box>
+            </Box>
           </Box>
         </Stack>
       </ThemeProvider>

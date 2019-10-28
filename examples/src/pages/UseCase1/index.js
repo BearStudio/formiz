@@ -27,7 +27,7 @@ export const UseCase1 = () => {
       submitLabel="Create app"
     >
       <PageHeader>
-        UseCase1
+        Real life #1
       </PageHeader>
 
       <Heading fontSize="lg" mb={6} mt={12}>

@@ -9,7 +9,7 @@ import { FormGroup } from '../FormGroup';
 const propTypes = {
   label: PropTypes.node,
   type: PropTypes.string,
-  isRequired: PropTypes.bool,
+  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeholder: PropTypes.string,
   helper: PropTypes.node,
 };
