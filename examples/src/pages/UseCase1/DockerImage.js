@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FormizStep } from '@formiz/core';
+import React, { useState, useEffect } from 'react';
+import { FormizStep, useForm } from '@formiz/core';
 import {
   Checkbox, Link, Icon, Code,
 } from '@chakra-ui/core';
@@ -8,6 +8,12 @@ import { FieldSelect } from '../../components/FieldSelect';
 
 export const DockerImage = () => {
   const [isPrivate, setIsPrivate] = useState(false);
+  const form = useForm();
+
+  useEffect(() => {
+    setIsPrivate(false);
+  }, [form.resetKey]);
+
   return (
     <FormizStep name="dockerImage">
       <FieldInput

@@ -39,17 +39,19 @@ export const FieldSelect = (props) => {
         </FormHelperText>
       )}
       <Select
-        key={resetKey}
         id={id}
         value={value || ''}
-        onChange={e => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
+        selectProps={{
+          key: resetKey,
+          onChange: e => setValue(e.target.value),
+        }}
       >
         {(options || []).map(item => (
-          <option value={item.value}>
+          <option key={item.value} value={item.value}>
             {item.label || item.value}
           </option>
         ))}

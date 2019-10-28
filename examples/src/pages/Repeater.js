@@ -89,7 +89,9 @@ export const Repeater = () => {
           </Stack>
         ))}
 
-        <AddPlaceholder label="Add member" onClick={addItem} />
+        {collection.length <= 20 && (
+          <AddPlaceholder label="Add member" onClick={addItem} />
+        )}
 
         <Flex mt="4">
           <Button

@@ -68,7 +68,9 @@ export const ExposedPorts = () => {
           </Box>
         </Stack>
       ))}
-      <AddPlaceholder label="Add port" onClick={addItem} />
+      {exposedPorts.length <= 20 && (
+        <AddPlaceholder label="Add port" onClick={addItem} />
+      )}
     </FormizStep>
   );
 };
