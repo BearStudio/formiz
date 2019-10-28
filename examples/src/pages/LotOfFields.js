@@ -4,6 +4,7 @@ import { isEmail } from '@formiz/validations';
 import { Button, Grid, Box } from '@chakra-ui/core';
 import { FieldInput } from '../components/FieldInput';
 import { PageHeader } from '../components/PageHeader';
+import { Debug } from '../components/Debug';
 
 export const LotOfFields = () => {
   const form = useForm();
@@ -95,6 +96,7 @@ export const LotOfFields = () => {
           </Grid>
         )}
       </form>
+      <Debug />
     </Formiz>
   );
 };

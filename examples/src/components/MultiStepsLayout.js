@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
 import { Box, Grid, Button } from '@chakra-ui/core';
+import { Debug } from './Debug';
 
 export const MultiStepsLayout = ({
   form: externalForm,
@@ -58,6 +59,8 @@ export const MultiStepsLayout = ({
           </Grid>
         )}
       </form>
+
+      <Debug />
     </Formiz>
   );
 };

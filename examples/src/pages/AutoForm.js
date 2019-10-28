@@ -4,6 +4,7 @@ import { isEmail } from '@formiz/validations';
 import { Button, Flex } from '@chakra-ui/core';
 import { FieldInput } from '../components/FieldInput';
 import { PageHeader } from '../components/PageHeader';
+import { Debug } from '../components/Debug';
 
 export const AutoForm = () => {
   const form = useForm();
@@ -56,6 +57,8 @@ export const AutoForm = () => {
           Submit
         </Button>
       </Flex>
+
+      <Debug />
     </Formiz>
   );
 };

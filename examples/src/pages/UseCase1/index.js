@@ -38,7 +38,6 @@ export const UseCase1 = () => {
       <DockerImage />
       <ExposedPorts />
       <General />
-
     </MultiStepsLayout>
   );
 };

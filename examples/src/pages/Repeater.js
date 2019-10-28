@@ -7,6 +7,7 @@ import {
 import { FieldInput } from '../components/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { AddPlaceholder } from '../components/AddPlaceholder';
+import { Debug } from '../components/Debug';
 
 const defaultCollection = [
   {
@@ -101,6 +102,7 @@ export const Repeater = () => {
           </Button>
         </Flex>
       </form>
+      <Debug />
     </Formiz>
   );
 };
