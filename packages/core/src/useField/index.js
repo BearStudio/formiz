@@ -78,9 +78,6 @@ export const useField = ({
   const valueRef = useRef();
   valueRef.current = field.value;
 
-  const nameRef = useRef();
-  nameRef.current = name;
-
   const keepValueRef = useRef();
   keepValueRef.current = keepValue;
 
@@ -95,7 +92,7 @@ export const useField = ({
 
   // Update state value from local value
   useEffect(() => {
-    if (localValue === defaultValueRef.current || localValue === valueRef.current) {
+    if (localValue === defaultValueRef.current) {
       return () => {};
     }
 
@@ -134,11 +131,12 @@ export const useField = ({
       getIsRequiredValidation(isRequired),
     ];
 
-    dispatch(fieldUpdateValidations(nameRef.current, [
+    dispatch(fieldUpdateValidations(name, [
       ...extraRules,
       ...validations,
     ]));
   }, [
+    name,
     JSON.stringify(validations),
     JSON.stringify(isRequired),
   ]);
