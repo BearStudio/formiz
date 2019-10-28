@@ -100,25 +100,24 @@ export const useField = ({
     }
 
     if (!debounceRef.current) {
-      dispatch(fieldSetValue(nameRef.current, localValue));
+      dispatch(fieldSetValue(name, localValue));
       return () => {};
     }
 
     const timer = setTimeout(() => {
-      dispatch(fieldSetValue(nameRef.current, localValue));
+      dispatch(fieldSetValue(name, localValue));
     }, debounceRef.current);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [localValue]);
+  }, [localValue, name]);
 
   // Mount & Unmount field
   useEffect(() => {
     dispatch(fieldRegister(name, {
       value: valueRef.current || defaultValueRef.current,
       step: stepName,
-      validations,
     }));
 
     return () => {
