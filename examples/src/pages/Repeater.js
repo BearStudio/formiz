@@ -4,7 +4,7 @@ import { Formiz, useForm } from '@formiz/core';
 import {
   Button, Flex, Stack, IconButton, Box,
 } from '@chakra-ui/core';
-import { FieldInput } from '../components/FieldInput';
+import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { AddPlaceholder } from '../components/AddPlaceholder';
 import { Debug } from '../components/Debug';

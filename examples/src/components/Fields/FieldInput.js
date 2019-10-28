@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
 } from '@chakra-ui/core';
 import { useField } from '@formiz/core';
+import { FormGroup } from '../FormGroup';
+
+const propTypes = {
+  label: PropTypes.node,
+  type: PropTypes.string,
+  isRequired: PropTypes.bool,
+  placeholder: PropTypes.string,
+  helper: PropTypes.node,
+};
+const defaultProps = {
+  label: '',
+  type: 'text',
+  isRequired: false,
+  placeholder: '',
+  helper: '',
+};
 
 export const FieldInput = (props) => {
   const {
@@ -19,7 +32,7 @@ export const FieldInput = (props) => {
     value,
   } = useField(props);
   const {
-    label, type, isRequired, placeholder, helper, ...rest
+    label, type, isRequired, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -28,16 +41,18 @@ export const FieldInput = (props) => {
     setIsTouched(false);
   }, [resetKey]);
 
+  const formGroupProps = {
+    errorMessage,
+    helper,
+    id,
+    isRequired,
+    label,
+    showError,
+    ...otherProps,
+  };
+
   return (
-    <FormControl mb="6" isInvalid={showError} isRequired={!!isRequired} {...rest}>
-      <FormLabel htmlFor={id}>
-        {label}
-      </FormLabel>
-      {!!helper && (
-        <FormHelperText mt="0" mb="3">
-          {helper}
-        </FormHelperText>
-      )}
+    <FormGroup {...formGroupProps}>
       <Input
         key={resetKey}
         type={type || 'text'}
@@ -49,9 +64,9 @@ export const FieldInput = (props) => {
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
       />
-      <FormErrorMessage id={`${id}-error`}>
-        { errorMessage }
-      </FormErrorMessage>
-    </FormControl>
+    </FormGroup>
   );
 };
+
+FieldInput.propTypes = propTypes;
+FieldInput.defaultProps = defaultProps;

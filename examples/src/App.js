@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/core';
 
 import theme from './theme';
-import { NavBar } from './NavBar';
+import { NavBar } from './layout/NavBar';
 import { AutoForm } from './pages/AutoForm';
 import { Wizard } from './pages/Wizard';
 import { Repeater } from './pages/Repeater';

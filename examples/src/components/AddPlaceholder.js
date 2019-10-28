@@ -1,10 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '@chakra-ui/core';
 
-const propTypes = {};
-const defaultProps = {};
+const propTypes = {
+  label: PropTypes.node,
+};
+const defaultProps = {
+  label: 'Add',
+};
 
-export const AddPlaceholder = ({ label = 'Add', ...props }) => (
+export const AddPlaceholder = ({ label, ...props }) => (
   <Button
     role="group"
     my="6"

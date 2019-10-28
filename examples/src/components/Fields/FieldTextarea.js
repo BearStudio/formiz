@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
   Textarea,
 } from '@chakra-ui/core';
 import { useField } from '@formiz/core';
+import { FormGroup } from '../FormGroup';
+
+const propTypes = {
+  label: PropTypes.node,
+  type: PropTypes.string,
+  isRequired: PropTypes.bool,
+  placeholder: PropTypes.string,
+  helper: PropTypes.node,
+};
+const defaultProps = {
+  label: '',
+  type: 'text',
+  isRequired: false,
+  placeholder: '',
+  helper: '',
+};
 
 export const FieldTextarea = (props) => {
   const {
@@ -15,11 +29,10 @@ export const FieldTextarea = (props) => {
     isSubmitted,
     resetKey,
     setValue,
-    FormHelperText,
     value,
   } = useField(props);
   const {
-    label, isRequired, placeholder, helper, ...rest
+    label, isRequired, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -28,16 +41,18 @@ export const FieldTextarea = (props) => {
     setIsTouched(false);
   }, [resetKey]);
 
+  const formGroupProps = {
+    errorMessage,
+    helper,
+    id,
+    isRequired,
+    label,
+    showError,
+    ...otherProps,
+  };
+
   return (
-    <FormControl mb="6" isInvalid={showError} isRequired={!!isRequired} {...rest}>
-      <FormLabel htmlFor={id} m="0">
-        {label}
-      </FormLabel>
-      {!!helper && (
-        <FormHelperText mt="0" mb="3">
-          {helper}
-        </FormHelperText>
-      )}
+    <FormGroup {...formGroupProps}>
       <Textarea
         key={resetKey}
         id={id}
@@ -48,9 +63,9 @@ export const FieldTextarea = (props) => {
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
       />
-      <FormErrorMessage id={`${id}-error`}>
-        { errorMessage }
-      </FormErrorMessage>
-    </FormControl>
+    </FormGroup>
   );
 };
+
+FieldTextarea.propTypes = propTypes;
+FieldTextarea.defaultProps = defaultProps;

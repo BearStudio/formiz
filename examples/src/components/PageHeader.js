@@ -1,8 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, Heading } from '@chakra-ui/core';
 import { useForm } from '@formiz/core';
 
-export const PageHeader = ({ children, onReset = () => {} }) => {
+
+const propTypes = {
+  children: PropTypes.node,
+  onReset: PropTypes.func,
+};
+const defaultProps = {
+  children: '',
+  onReset: () => {},
+};
+
+
+export const PageHeader = ({ children, onReset }) => {
   const form = useForm();
 
   return (
@@ -21,3 +33,6 @@ export const PageHeader = ({ children, onReset = () => {} }) => {
     </Heading>
   );
 };
+
+PageHeader.propTypes = propTypes;
+PageHeader.defaultProps = defaultProps;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormizStep } from '@formiz/core';
-import { FieldInput } from '../../components/FieldInput';
-import { FieldTextarea } from '../../components/FieldTextarea';
+import { FieldInput } from '../../components/Fields/FieldInput';
+import { FieldTextarea } from '../../components/Fields/FieldTextarea';
 
 export const General = () => (
   <FormizStep name="step1">

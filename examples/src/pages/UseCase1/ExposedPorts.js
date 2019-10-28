@@ -4,7 +4,7 @@ import {
   IconButton, Box, Stack,
 } from '@chakra-ui/core';
 import uuidv4 from 'uuid/v4';
-import { FieldInput } from '../../components/FieldInput';
+import { FieldInput } from '../../components/Fields/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
 
 export const ExposedPorts = () => {

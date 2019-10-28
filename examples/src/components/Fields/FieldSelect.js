@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Select,
 } from '@chakra-ui/core';
 import { useField } from '@formiz/core';
+import { FormGroup } from '../FormGroup';
+
+const propTypes = {
+  label: PropTypes.node,
+  isRequired: PropTypes.bool,
+  placeholder: PropTypes.string,
+  helper: PropTypes.node,
+  // eslint-disable-next-line react/forbid-prop-types
+  options: PropTypes.array,
+};
+const defaultProps = {
+  label: '',
+  isRequired: false,
+  placeholder: '',
+  helper: '',
+  options: [],
+};
 
 export const FieldSelect = (props) => {
   const {
@@ -19,7 +33,7 @@ export const FieldSelect = (props) => {
     value,
   } = useField(props);
   const {
-    label, options, isRequired, placeholder, helper, ...rest
+    label, options, isRequired, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -28,16 +42,18 @@ export const FieldSelect = (props) => {
     setIsTouched(false);
   }, [resetKey]);
 
+  const formGroupProps = {
+    errorMessage,
+    helper,
+    id,
+    isRequired,
+    label,
+    showError,
+    ...otherProps,
+  };
+
   return (
-    <FormControl mb="6" isInvalid={showError} isRequired={!!isRequired} {...rest}>
-      <FormLabel htmlFor={id} m="0">
-        {label}
-      </FormLabel>
-      {!!helper && (
-        <FormHelperText mt="0" mb="3">
-          {helper}
-        </FormHelperText>
-      )}
+    <FormGroup {...formGroupProps}>
       <Select
         id={id}
         value={value || ''}
@@ -56,9 +72,9 @@ export const FieldSelect = (props) => {
           </option>
         ))}
       </Select>
-      <FormErrorMessage id={`${id}-error`}>
-        { errorMessage }
-      </FormErrorMessage>
-    </FormControl>
+    </FormGroup>
   );
 };
+
+FieldSelect.propTypes = propTypes;
+FieldSelect.defaultProps = defaultProps;

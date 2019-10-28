@@ -1,7 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formiz, useForm } from '@formiz/core';
 import { Box, Grid, Button } from '@chakra-ui/core';
 import { Debug } from './Debug';
+
+
+const propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  form: PropTypes.object,
+  children: PropTypes.node,
+  submitLabel: PropTypes.node,
+};
+const defaultProps = {
+  form: null,
+  children: '',
+  submitLabel: '',
+};
 
 export const MultiStepsLayout = ({
   form: externalForm,
@@ -64,3 +78,6 @@ export const MultiStepsLayout = ({
     </Formiz>
   );
 };
+
+MultiStepsLayout.propTypes = propTypes;
+MultiStepsLayout.defaultProps = defaultProps;

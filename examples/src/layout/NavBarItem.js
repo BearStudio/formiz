@@ -1,8 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Flex, PseudoBox } from '@chakra-ui/core';
+import { PseudoBox } from '@chakra-ui/core';
 
-const NavBarItem = ({ children, to, ...props }) => {
+const propTypes = {
+  children: PropTypes.node,
+  to: PropTypes.string,
+};
+const defaultProps = {
+  children: '',
+  to: '/',
+};
+
+export const NavBarItem = ({ children, to, ...props }) => {
   const { pathname } = useLocation();
   const isActive = pathname === to;
 
@@ -35,38 +45,5 @@ const NavBarItem = ({ children, to, ...props }) => {
   );
 };
 
-export const NavBar = () => (
-  <Flex
-    mb="6"
-    py="4"
-    borderRight="1px solid"
-    borderColor="gray.200"
-    flexDir="column"
-  >
-    <NavBarItem
-      to="/"
-    >
-        AutoForm
-    </NavBarItem>
-    <NavBarItem
-      to="/wizard"
-    >
-        Wizard
-    </NavBarItem>
-    <NavBarItem
-      to="/repeater"
-    >
-        Repeater
-    </NavBarItem>
-    <NavBarItem
-      to="/lot-of-fields"
-    >
-        Lot of fields
-    </NavBarItem>
-    <NavBarItem
-      to="/use-case-1"
-    >
-        Use Case 1
-    </NavBarItem>
-  </Flex>
-);
+NavBarItem.propTypes = propTypes;
+NavBarItem.defaultProps = defaultProps;
