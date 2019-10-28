@@ -116,7 +116,7 @@ export const useField = ({
   // Mount & Unmount field
   useEffect(() => {
     dispatch(fieldRegister(name, {
-      value: valueRef.current || defaultValueRef.current,
+      value: defaultValueRef.current,
       step: stepName,
     }));
 
