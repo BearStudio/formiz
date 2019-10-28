@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FormizStep } from '@formiz/core';
+import React, { useState, useEffect } from 'react';
+import { FormizStep, useForm } from '@formiz/core';
 import {
   IconButton, Box, Stack,
 } from '@chakra-ui/core';
@@ -8,7 +8,12 @@ import { FieldInput } from '../../components/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
 
 export const ExposedPorts = () => {
+  const form = useForm();
   const [exposedPorts, setExposedPorts] = useState([]);
+
+  useEffect(() => {
+    setExposedPorts([]);
+  }, [form.resetKey]);
 
   const addItem = () => {
     setExposedPorts(s => [

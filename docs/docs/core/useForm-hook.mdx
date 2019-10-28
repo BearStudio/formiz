@@ -124,6 +124,16 @@ invalidateFields([
 
 > Allows to reset the form with all fields values to their defaultValue.
 
+### `resetKey`
+
+> Allows you to reset some internal state when the form is reset.
+
+```js
+useEffect(() => {
+  // Reset stuff here
+}, [myForm.resetKey]);
+```
+
 ### `getFieldStepName(fieldName)`
 
 > Allows you to get the step name of a field.

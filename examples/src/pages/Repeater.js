@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import uuidv4 from 'uuid/v4';
 import { Formiz, useForm } from '@formiz/core';
 import {
@@ -21,6 +21,10 @@ const defaultCollection = [
 export const Repeater = () => {
   const form = useForm();
   const [collection, setCollection] = useState(defaultCollection);
+
+  useEffect(() => {
+    setCollection(defaultCollection);
+  }, [form.resetKey]);
 
   const handleSubmit = (values) => {
     // eslint-disable-next-line no-alert
@@ -52,7 +56,7 @@ export const Repeater = () => {
         noValidate
         onSubmit={form.submit}
       >
-        <PageHeader onReset={() => setCollection(defaultCollection)}>
+        <PageHeader>
           Repeater
         </PageHeader>
 

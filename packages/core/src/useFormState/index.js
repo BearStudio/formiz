@@ -19,6 +19,7 @@ export const initialFormState = {
   values: {},
   invalidateFields: () => {},
   reset: () => {},
+  resetKey: 0,
   currentStep: {},
   steps: [],
   isStepValid: true,
@@ -49,6 +50,7 @@ export const useFormState = () => {
     isValid: isFormValid,
     isSubmitted: isFormSubmitted,
     steps,
+    resetKey,
   } = state;
 
   const values = getFormValues(fields);
@@ -100,6 +102,7 @@ export const useFormState = () => {
     values,
     invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
     reset: () => { dispatch(formReset()); },
+    resetKey,
     currentStep: getStepProperties(currentStep),
     steps: enabledSteps.map(getStepProperties),
     isStepValid: currentStep.isValid,
