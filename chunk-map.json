@@ -1,7 +1,7 @@
 {
   "main": [
     "/main.b576e59bc521a7e889cf.css",
-    "/main.94e5e6308ceb5ec9010c.js"
+    "/main.b36195d90eabcff1da55.js"
   ],
   "component---site-src-pages-index-jsc-4-f-f99": [
     "/component---site-src-pages-index-jsc-4-f-f99.2a28ec5e30b62a25ae26.css",
@@ -9,7 +9,7 @@
   ],
   "component---theme-doc-legacy-page-9-e-7-ca5": [],
   "docsMetadata---docs-4-ff-842": [
-    "/docsMetadata---docs-4-ff-842.2cabd874bab74e53a10e.js"
+    "/docsMetadata---docs-4-ff-842.c9e67b3de0023344b6f9.js"
   ],
   "component---theme-doc-legacy-item-031-769": [
     "/component---theme-doc-legacy-item-031-769.6b6b6628c904ee3af21d.css",
@@ -21,53 +21,53 @@
   "metadata---docs-core-formizc-17-b0c": [
     "/metadata---docs-core-formizc-17-b0c.03a6f8d2de4a9025b533.js"
   ],
-  "content---docs-core-formiz-step-60-d-a1a": [
-    "/content---docs-core-formiz-step-60-d-a1a.cd5ccca69e860a7466dc.js"
-  ],
-  "metadata---docs-core-formiz-step-93-c-849": [
-    "/metadata---docs-core-formiz-step-93-c-849.88e3ce33b6ff47949c86.js"
-  ],
   "content---docs-core-use-field-5-c-8-761": [
-    "/content---docs-core-use-field-5-c-8-761.5ee6dee182262c24410f.js"
+    "/content---docs-core-use-field-5-c-8-761.6d1c19adf438c29c2faf.js"
   ],
   "metadata---docs-core-use-fieldb-0-b-84c": [
-    "/metadata---docs-core-use-fieldb-0-b-84c.7d399158170985e4a3d0.js"
+    "/metadata---docs-core-use-fieldb-0-b-84c.ae735510a59f69650c1f.js"
   ],
-  "content---docs-core-use-formc-12-e66": [
-    "/content---docs-core-use-formc-12-e66.8967be471311df3919df.js"
+  "content---docs-core-formiz-step-60-d-a1a": [
+    "/content---docs-core-formiz-step-60-d-a1a.cb35a705d6cc0492261c.js"
   ],
-  "metadata---docs-core-use-formd-07-830": [
-    "/metadata---docs-core-use-formd-07-830.4e0c8d1e07af4c587bc9.js"
-  ],
-  "content---docs-demos-multi-tabs-736-0f3": [
-    "/content---docs-demos-multi-tabs-736-0f3.91038ba5bd3580f57fa8.js"
-  ],
-  "metadata---docs-demos-multi-tabs-334-d68": [
-    "/metadata---docs-demos-multi-tabs-334-d68.89729481c05b357f9f01.js"
-  ],
-  "content---docs-demos-simple-7-c-1-066": [
-    "/content---docs-demos-simple-7-c-1-066.0bad98a821f07c5ed813.js"
-  ],
-  "metadata---docs-demos-simplee-4-c-59d": [
-    "/metadata---docs-demos-simplee-4-c-59d.0b5279817b3441f78dab.js"
-  ],
-  "content---docs-demos-wizard-58-f-5bb": [
-    "/content---docs-demos-wizard-58-f-5bb.e250a1565caa3d9ed7d8.js"
-  ],
-  "metadata---docs-demos-wizardf-28-033": [
-    "/metadata---docs-demos-wizardf-28-033.fb1aa261281a6b860832.js"
-  ],
-  "content---docs-validations-rules-291-bf3": [
-    "/content---docs-validations-rules-291-bf3.8e07b2b1ed5fefaf105f.js"
-  ],
-  "metadata---docs-validations-rulesef-0-e49": [
-    "/metadata---docs-validations-rulesef-0-e49.3553112411aea4775776.js"
+  "metadata---docs-core-formiz-step-93-c-849": [
+    "/metadata---docs-core-formiz-step-93-c-849.90aab76b14f578c9bfc2.js"
   ],
   "content---docs-demos-conditional-7-f-9-e1b": [
-    "/content---docs-demos-conditional-7-f-9-e1b.ec6f827a094fc7b09fbe.js"
+    "/content---docs-demos-conditional-7-f-9-e1b.8d3761303a9afe7dc14e.js"
   ],
   "metadata---docs-demos-conditionale-10-b4f": [
-    "/metadata---docs-demos-conditionale-10-b4f.38ddf18beae61d6ae146.js"
+    "/metadata---docs-demos-conditionale-10-b4f.55189533357f2883b894.js"
+  ],
+  "content---docs-core-use-formc-12-e66": [
+    "/content---docs-core-use-formc-12-e66.b171c39c9f53baac7fd9.js"
+  ],
+  "metadata---docs-core-use-formd-07-830": [
+    "/metadata---docs-core-use-formd-07-830.782421f412cdb5831db1.js"
+  ],
+  "content---docs-demos-wizard-58-f-5bb": [
+    "/content---docs-demos-wizard-58-f-5bb.e119f67a01d04a20cc99.js"
+  ],
+  "metadata---docs-demos-wizardf-28-033": [
+    "/metadata---docs-demos-wizardf-28-033.4c5adc21634dd76c2891.js"
+  ],
+  "content---docs-demos-multi-tabs-736-0f3": [
+    "/content---docs-demos-multi-tabs-736-0f3.e92592ba7419a84af523.js"
+  ],
+  "metadata---docs-demos-multi-tabs-334-d68": [
+    "/metadata---docs-demos-multi-tabs-334-d68.6005c0f25797ee68faf1.js"
+  ],
+  "content---docs-demos-simple-7-c-1-066": [
+    "/content---docs-demos-simple-7-c-1-066.509853d186aad2d1a19c.js"
+  ],
+  "metadata---docs-demos-simplee-4-c-59d": [
+    "/metadata---docs-demos-simplee-4-c-59d.afb95b4038c30097d928.js"
+  ],
+  "content---docs-validations-rules-291-bf3": [
+    "/content---docs-validations-rules-291-bf3.09ed71903e96c543f160.js"
+  ],
+  "metadata---docs-validations-rulesef-0-e49": [
+    "/metadata---docs-validations-rulesef-0-e49.5ea26f0fa579da655c3e.js"
   ],
   "content---docs-getting-started-302-242": [
     "/content---docs-getting-started-302-242.7f010cf3d9c1df742053.js"
