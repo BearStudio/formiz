@@ -67,7 +67,7 @@ export const useField = ({
   const errorMessages = (field.errors || []).filter(x => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
-  const [localValue, setLocalValue] = useState(field.value || defaultValue);
+  const [localValue, setLocalValue] = useState(defaultValue);
 
   const debounceRef = useRef(debounce);
   debounceRef.current = debounce;
@@ -75,19 +75,15 @@ export const useField = ({
   const defaultValueRef = useRef();
   defaultValueRef.current = defaultValue;
 
-  const valueRef = useRef();
-  valueRef.current = field.value;
+  const localValueRef = useRef();
+  localValueRef.current = localValue;
 
   const keepValueRef = useRef();
   keepValueRef.current = keepValue;
 
   // Reset value if resetKey change
-  const isFirstMountRef = useRef(true);
   useEffect(() => {
-    if (!isFirstMountRef.current) {
-      setLocalValue(defaultValueRef.current);
-    }
-    isFirstMountRef.current = false;
+    setLocalValue(defaultValueRef.current);
   }, [state.resetKey]);
 
   // Update state value from local value
@@ -113,7 +109,7 @@ export const useField = ({
   // Mount & Unmount field
   useEffect(() => {
     dispatch(fieldRegister(name, {
-      value: defaultValueRef.current,
+      value: localValueRef.current || defaultValueRef.current,
       step: stepName,
     }));
 
