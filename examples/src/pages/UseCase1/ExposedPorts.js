@@ -48,7 +48,15 @@ export const ExposedPorts = () => {
               label="Port number"
               isRequired="Required"
               placeholder="e.g. 8080"
+              type="number"
               m="0"
+              validations={[
+                {
+                  rule: (val, values) => (values.ports || [])
+                    .filter(x => x.number === val).length <= 1,
+                  message: 'Must be unique'
+                }
+              ]}
             />
           </Box>
           <Box flex="1">

@@ -4,7 +4,7 @@ import { isEmail } from '@formiz/validations';
 import { Button, Flex } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
-import { Debug } from '../components/Debug';
+import { PageLayout } from '../layout/PageLayout';
 
 export const AutoForm = () => {
   const form = useForm();
@@ -23,42 +23,42 @@ export const AutoForm = () => {
       onValidSubmit={handleSubmit}
       autoForm
     >
-      <PageHeader>
-        Auto form
-      </PageHeader>
-      <FieldInput
-        name="name"
-        label="Name"
-        isRequired="Required"
-      />
-      <FieldInput
-        name="email"
-        label="Email"
-        type="email"
-        isRequired="Required"
-        validations={[
-          {
-            rule: isEmail(),
-            message: 'Not a valid email',
-          },
-        ]}
-      />
-      <FieldInput
-        name="company"
-        label="Company"
-      />
-      <Flex>
-        <Button
-          type="submit"
-          ml="auto"
-          variantColor="brand"
-          isDisabled={!form.isValid && form.isSubmitted}
-        >
-          Submit
-        </Button>
-      </Flex>
-
-      <Debug />
+      <PageLayout>
+        <PageHeader>
+          Auto form
+        </PageHeader>
+        <FieldInput
+          name="name"
+          label="Name"
+          isRequired="Required"
+        />
+        <FieldInput
+          name="email"
+          label="Email"
+          type="email"
+          isRequired="Required"
+          validations={[
+            {
+              rule: isEmail(),
+              message: 'Not a valid email',
+            },
+          ]}
+        />
+        <FieldInput
+          name="company"
+          label="Company"
+        />
+        <Flex>
+          <Button
+            type="submit"
+            ml="auto"
+            variantColor="brand"
+            isDisabled={!form.isValid && form.isSubmitted}
+          >
+            Submit
+          </Button>
+        </Flex>
+      </PageLayout>
     </Formiz>
   );
 };

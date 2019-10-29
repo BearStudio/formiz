@@ -4,7 +4,7 @@ import { isEmail } from '@formiz/validations';
 import { Button, Grid, Box } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
-import { Debug } from '../components/Debug';
+import { PageLayout } from '../layout/PageLayout';
 
 export const LotOfFields = () => {
   const form = useForm();
@@ -24,79 +24,80 @@ export const LotOfFields = () => {
       connect={form}
       onValidSubmit={handleSubmit}
     >
-      <form
-        noValidate
-        onSubmit={form.submitStep}
-      >
-        <PageHeader>
-          Lot of fields
-        </PageHeader>
-        <FormizStep name="step1">
-          {[...Array(10)].map((_x, index) => (
-            <FieldInput
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              name={`user[${index}].name`}
-              label={`Name ${index}`}
-              defaultValue="John"
-              isRequired="Required"
-            />
-          ))}
-        </FormizStep>
-        <FormizStep name="step2">
-          {[...Array(10)].map((_x, index) => (
-            <FieldInput
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              name={`user[${index}].email`}
-              label={`Email ${index}`}
-              defaultValue="john@doe.com"
-              isRequired="Required"
-              validations={[
-                {
-                  rule: isEmail(),
-                  message: 'Not a valid email',
-                },
-              ]}
-            />
-          ))}
-        </FormizStep>
-        {!!form.steps.length && (
-          <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
-            {!form.isFirstStep && (
-              <Button
-                gridColumn="1"
-                onClick={form.prevStep}
+      <PageLayout>
+        <form
+          noValidate
+          onSubmit={form.submitStep}
+        >
+          <PageHeader>
+            Lot of fields
+          </PageHeader>
+          <FormizStep name="step1">
+            {[...Array(10)].map((_x, index) => (
+              <FieldInput
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                name={`user[${index}].name`}
+                label={`Name ${index}`}
+                defaultValue="John"
+                isRequired="Required"
+              />
+            ))}
+          </FormizStep>
+          <FormizStep name="step2">
+            {[...Array(10)].map((_x, index) => (
+              <FieldInput
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                name={`user[${index}].email`}
+                label={`Email ${index}`}
+                defaultValue="john@doe.com"
+                isRequired="Required"
+                validations={[
+                  {
+                    rule: isEmail(),
+                    message: 'Not a valid email',
+                  },
+                ]}
+              />
+            ))}
+          </FormizStep>
+          {!!form.steps.length && (
+            <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
+              {!form.isFirstStep && (
+                <Button
+                  gridColumn="1"
+                  onClick={form.prevStep}
+                >
+                  Previous
+                </Button>
+              )}
+              <Box
+                gridColumn="2"
+                textAlign="center"
+                fontSize="sm"
+                color="gray.500"
               >
-                Previous
+                Step
+                {' '}
+                {form.currentStep.index + 1}
+                {' '}
+  /
+                {' '}
+                {form.steps.length}
+              </Box>
+              <Button
+                type="submit"
+                gridColumn="3"
+                variantColor="brand"
+                isDisabled={!form.isValid && form.isSubmitted}
+              >
+                {form.isLastStep ? 'Submit' : 'Next'}
               </Button>
-            )}
-            <Box
-              gridColumn="2"
-              textAlign="center"
-              fontSize="sm"
-              color="gray.500"
-            >
-              Step
-              {' '}
-              {form.currentStep.index + 1}
-              {' '}
-/
-              {' '}
-              {form.steps.length}
-            </Box>
-            <Button
-              type="submit"
-              gridColumn="3"
-              variantColor="brand"
-              isDisabled={!form.isValid && form.isSubmitted}
-            >
-              {form.isLastStep ? 'Submit' : 'Next'}
-            </Button>
-          </Grid>
-        )}
-      </form>
-      <Debug />
+            </Grid>
+          )}
+        </form>
+      </PageLayout>
     </Formiz>
   );
 };

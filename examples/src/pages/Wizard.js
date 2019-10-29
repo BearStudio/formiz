@@ -4,7 +4,7 @@ import { isEmail } from '@formiz/validations';
 import { Button, Grid, Box } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
-import { Debug } from '../components/Debug';
+import { PageLayout } from '../layout/PageLayout';
 
 export const Wizard = () => {
   const form = useForm();
@@ -24,76 +24,77 @@ export const Wizard = () => {
       connect={form}
       onValidSubmit={handleSubmit}
     >
-      <form
-        noValidate
-        onSubmit={form.submitStep}
-      >
-        <PageHeader>
-          Wizard
-        </PageHeader>
-        <FormizStep name="step1">
-          <FieldInput
-            name="name"
-            label="Name"
-            isRequired="Required"
-          />
-        </FormizStep>
-        <FormizStep name="step2">
-          <FieldInput
-            name="email"
-            label="Email"
-            type="email"
-            isRequired="Required"
-            validations={[
-              {
-                rule: isEmail(),
-                message: 'Not a valid email',
-              },
-            ]}
-          />
-        </FormizStep>
-        <FormizStep name="step3">
-          <FieldInput
-            name="company"
-            label="Company"
-          />
-        </FormizStep>
-        {!!form.steps.length && (
-          <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
-            {!form.isFirstStep && (
-              <Button
-                gridColumn="1"
-                onClick={form.prevStep}
+      <PageLayout>
+        <form
+          noValidate
+          onSubmit={form.submitStep}
+        >
+          <PageHeader>
+            Wizard
+          </PageHeader>
+          <FormizStep name="step1">
+            <FieldInput
+              name="name"
+              label="Name"
+              isRequired="Required"
+            />
+          </FormizStep>
+          <FormizStep name="step2">
+            <FieldInput
+              name="email"
+              label="Email"
+              type="email"
+              isRequired="Required"
+              validations={[
+                {
+                  rule: isEmail(),
+                  message: 'Not a valid email',
+                },
+              ]}
+            />
+          </FormizStep>
+          <FormizStep name="step3">
+            <FieldInput
+              name="company"
+              label="Company"
+            />
+          </FormizStep>
+          {!!form.steps.length && (
+            <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
+              {!form.isFirstStep && (
+                <Button
+                  gridColumn="1"
+                  onClick={form.prevStep}
+                >
+                  Previous
+                </Button>
+              )}
+              <Box
+                gridColumn="2"
+                textAlign="center"
+                fontSize="sm"
+                color="gray.500"
               >
-                Previous
+                Step
+                {' '}
+                {form.currentStep.index + 1}
+                {' '}
+                /
+                {' '}
+                {form.steps.length}
+              </Box>
+              <Button
+                type="submit"
+                gridColumn="3"
+                variantColor="brand"
+                isDisabled={!form.isValid && form.isSubmitted}
+              >
+                {form.isLastStep ? 'Submit' : 'Next'}
               </Button>
-            )}
-            <Box
-              gridColumn="2"
-              textAlign="center"
-              fontSize="sm"
-              color="gray.500"
-            >
-              Step
-              {' '}
-              {form.currentStep.index + 1}
-              {' '}
-              /
-              {' '}
-              {form.steps.length}
-            </Box>
-            <Button
-              type="submit"
-              gridColumn="3"
-              variantColor="brand"
-              isDisabled={!form.isValid && form.isSubmitted}
-            >
-              {form.isLastStep ? 'Submit' : 'Next'}
-            </Button>
-          </Grid>
-        )}
-      </form>
-      <Debug />
+            </Grid>
+          )}
+        </form>
+      </PageLayout>
     </Formiz>
   );
 };

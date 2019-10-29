@@ -13,9 +13,8 @@ export const Debug = () => {
       as="pre"
       backgroundColor="gray.800"
       color="gray.100"
-      rounded="md"
-      p="4"
-      mt="8"
+      fontSize="xs"
+      flex="1"
     >
       <Box fontSize="sm" color="gray.400">
         # Debug - Form values

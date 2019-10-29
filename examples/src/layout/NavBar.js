@@ -29,7 +29,6 @@ export const NavBar = () => {
       borderColor="gray.200"
       flexDir={{ md: 'column' }}
       minW="15rem"
-      w={{ md: '30vw' }}
       maxH="100vh"
       overflowY="auto"
       overflowX="hidden"
@@ -38,15 +37,17 @@ export const NavBar = () => {
       shadow={{ base: 'md', md: 'none' }}
     >
       <Flex
-        as="a"
-        href="https://formiz-react.com"
         textAlign="right"
         px="6"
         flexDir="column"
         align="flex-end"
         mb={{ md: 6 }}
       >
-        <Image src={logo} w={{ base: '8rem', md: '10rem' }} />
+        <Image
+          src={logo}
+          alt="Formiz"
+          w={{ base: '8rem', md: '10rem' }}
+        />
         <Box
           fontWeight="bold"
           textTransform="uppercase"

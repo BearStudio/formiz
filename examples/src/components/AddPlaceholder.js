@@ -33,6 +33,7 @@ export const AddPlaceholder = ({ label, ...props }) => (
       leftIcon="add"
       size="sm"
       variant="outline"
+      backgroundColor="white"
       _groupHover={{ backgroundColor: 'gray.100' }}
     >
       {label}
