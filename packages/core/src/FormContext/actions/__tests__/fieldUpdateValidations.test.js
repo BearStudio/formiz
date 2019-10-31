@@ -8,9 +8,10 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
       },
     ];
 
-    const { fields } = fieldUpdateValidations('myField', validations)({
+    const { fields } = fieldUpdateValidations(1, validations)({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
@@ -36,13 +37,14 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
 
     const prevFields = [
       {
+        id: 1,
         name: 'myField',
         value: 'my value',
         isEnabled: true,
       },
     ];
 
-    const { fields } = fieldUpdateValidations('myFieldNotExist', validations)({
+    const { fields } = fieldUpdateValidations(2, validations)({
       fields: prevFields,
     });
 

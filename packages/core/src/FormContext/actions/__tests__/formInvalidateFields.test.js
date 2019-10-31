@@ -2,8 +2,8 @@ import { fieldRegister, formInvalidateFields } from '../index';
 
 describe('[FormContext:Action] formInvalidateFields()', () => {
   it('Should invalid the given field', () => {
-    let state = fieldRegister('fieldA')({ fields: [] });
-    state = fieldRegister('fieldB')(state);
+    let state = fieldRegister(1, 'fieldA')({ fields: [] });
+    state = fieldRegister(2, 'fieldB')(state);
     const { fields } = formInvalidateFields({
       fieldA: 'Error',
     })(state);

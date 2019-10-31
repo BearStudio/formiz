@@ -1,7 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import {
+  useEffect, useState, useRef, useMemo,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from '../FormContext';
-import { getStep } from '../FormContext/helpers';
+import { getStep, getUniqueId } from '../FormContext/helpers';
 import {
   fieldRegister, fieldUnregister, fieldUpdateValidations, fieldSetValue,
 } from '../FormContext/actions';
@@ -51,6 +53,8 @@ export const useField = ({
   onChange,
   validations = [],
 }) => {
+  const fieldId = useMemo(() => getUniqueId('field'), []);
+
   if (!name) {
     throw ErrorFieldWithoutName;
   }
@@ -67,7 +71,7 @@ export const useField = ({
   const errorMessages = (field.errors || []).filter(x => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
-  const [localValue, setLocalValue] = useState(defaultValue);
+  const [localValue, setLocalValue] = useState(field.value || defaultValue);
 
   const debounceRef = useRef(debounce);
   debounceRef.current = debounce;
@@ -83,7 +87,9 @@ export const useField = ({
 
   // Reset value if resetKey change
   useEffect(() => {
-    setLocalValue(defaultValueRef.current);
+    if (!keepValueRef.current) {
+      setLocalValue(defaultValueRef.current);
+    }
   }, [state.resetKey]);
 
   // Update state value from local value
@@ -93,30 +99,35 @@ export const useField = ({
     }
 
     if (!debounceRef.current) {
-      dispatch(fieldSetValue(name, localValue));
+      dispatch(fieldSetValue(fieldId, localValue));
       return () => {};
     }
 
     const timer = setTimeout(() => {
-      dispatch(fieldSetValue(name, localValue));
+      dispatch(fieldSetValue(fieldId, localValue));
     }, debounceRef.current);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [localValue, name]);
+  }, [localValue, fieldId]);
 
   // Mount & Unmount field
   useEffect(() => {
-    dispatch(fieldRegister(name, {
-      value: localValueRef.current || defaultValueRef.current,
-      step: stepName,
-    }));
+    dispatch(fieldRegister(
+      fieldId,
+      name,
+      {
+        value: localValueRef.current || defaultValueRef.current,
+        step: stepName,
+      }
+    ));
 
     return () => {
-      dispatch(fieldUnregister(name, keepValueRef.current));
+      dispatch(fieldUnregister(fieldId, keepValueRef.current));
     };
   }, [
+    fieldId,
     name,
     stepName,
   ]);
@@ -127,18 +138,18 @@ export const useField = ({
       getIsRequiredValidation(isRequired),
     ];
 
-    dispatch(fieldUpdateValidations(name, [
+    dispatch(fieldUpdateValidations(fieldId, [
       ...extraRules,
       ...validations,
     ]));
   }, [
-    name,
+    fieldId,
     JSON.stringify(validations),
     JSON.stringify(isRequired),
   ]);
 
   return {
-    id: `${field.id || state.id}-${name}`,
+    id: fieldId,
     resetKey: state.resetKey,
     value: localValue || '',
     errorMessages,

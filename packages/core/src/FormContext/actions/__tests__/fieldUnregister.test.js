@@ -2,9 +2,10 @@ import { fieldUnregister } from '../index';
 
 describe('[FormContext:Action] fieldUnregister()', () => {
   it('Should remove the field from the state', () => {
-    const { fields } = fieldUnregister('myField')({
+    const { fields } = fieldUnregister(1)({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
@@ -16,9 +17,10 @@ describe('[FormContext:Action] fieldUnregister()', () => {
   });
 
   it('Should not create the field if name does not exist', () => {
-    const { fields } = fieldUnregister('myField2')({
+    const { fields } = fieldUnregister(2)({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
@@ -30,9 +32,10 @@ describe('[FormContext:Action] fieldUnregister()', () => {
   });
 
   it('Should keep the field in the state if isKeepValue is true', () => {
-    const { fields } = fieldUnregister('myField', true)({
+    const { fields } = fieldUnregister(1, true)({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,

@@ -2,7 +2,7 @@ import { fieldRegister } from '../index';
 
 describe('[FormContext:Action] fieldRegister()', () => {
   it('Should register the field without value if no defaultValue', () => {
-    const { fields } = fieldRegister('myField')({
+    const { fields } = fieldRegister(1, 'myField')({
       fields: [],
     });
 
@@ -17,7 +17,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
   });
 
   it('Should register the field with value if defaultValue provided', () => {
-    const { fields } = fieldRegister('myField', { value: 'myValue' })({
+    const { fields } = fieldRegister(1, 'myField', { value: 'myValue' })({
       fields: [],
     });
 
@@ -32,9 +32,10 @@ describe('[FormContext:Action] fieldRegister()', () => {
   });
 
   it('Should not replace the value with defaultValue if registred again', () => {
-    const { fields } = fieldRegister('myField', { value: 'default value' })({
+    const { fields } = fieldRegister(1, 'myField', { value: 'default value' })({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: false,
@@ -51,7 +52,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
   });
 
   it('Should register with the step name if one is provided', () => {
-    const { fields } = fieldRegister('myField', { step: 'myStep' })({
+    const { fields } = fieldRegister(1, 'myField', { step: 'myStep' })({
       fields: [],
     });
 
@@ -64,7 +65,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
   });
 
   it('Should not register with the step name if none is provided', () => {
-    const { fields } = fieldRegister('myField')({
+    const { fields } = fieldRegister(1, 'myField')({
       fields: [],
     });
 
@@ -77,7 +78,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
   });
 
   it('Should register validations in the field state', () => {
-    const { fields } = fieldRegister('myField', {
+    const { fields } = fieldRegister(1, 'myField', {
       validations: [
         {
           rule: x => !!x,
@@ -86,6 +87,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
     })({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: false,

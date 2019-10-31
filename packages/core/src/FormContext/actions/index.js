@@ -5,7 +5,6 @@ import {
   getStepsOrdered,
   getStepPosition,
   getFormValues,
-  getUniqueId,
   getEnabledSteps,
 } from '../helpers';
 
@@ -289,6 +288,7 @@ export const stepSubmit = (
 */
 
 export const fieldRegister = (
+  id,
   name,
   {
     value = null,
@@ -302,7 +302,7 @@ export const fieldRegister = (
     ...otherFields,
     {
       ...field,
-      id: getUniqueId(),
+      id,
       name,
       value: field.value || value,
       defaultValue: value,
@@ -324,14 +324,14 @@ export const fieldRegister = (
   return newState;
 };
 
-export const fieldUnregister = (name, isKeepValue) => (state) => {
-  const field = state.fields.find(x => x.name === name);
+export const fieldUnregister = (id, isKeepValue) => (state) => {
+  const field = state.fields.find(x => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.name !== name);
+  const otherFields = state.fields.filter(x => x.id !== id);
 
   const fields = !isKeepValue ? otherFields : [
     ...otherFields,
@@ -352,16 +352,16 @@ export const fieldUnregister = (name, isKeepValue) => (state) => {
 };
 
 export const fieldUpdateValidations = (
-  name,
+  id,
   validations
 ) => (state) => {
-  const field = state.fields.find(x => x.name === name);
+  const field = state.fields.find(x => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.name !== name);
+  const otherFields = state.fields.filter(x => x.id !== id);
   const fields = [
     ...otherFields,
     {
@@ -380,14 +380,14 @@ export const fieldUpdateValidations = (
   return newState;
 };
 
-export const fieldSetValue = (name, value) => (state) => {
-  const field = state.fields.find(x => x.name === name);
+export const fieldSetValue = (id, value) => (state) => {
+  const field = state.fields.find(x => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.name !== name);
+  const otherFields = state.fields.filter(x => x.id !== id);
   const { externalError, ...fieldWithoutExternalError } = field;
 
   const fields = [

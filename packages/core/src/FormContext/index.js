@@ -16,7 +16,7 @@ export const FormContextProvider = ({
   onValidSubmit,
   onInvalidSubmit,
 }) => {
-  const formId = useMemo(() => getUniqueId(), []);
+  const formId = useMemo(() => getUniqueId('form'), []);
   const [state, setState] = useState(getInitialState(formId));
 
   const dispatch = useCallback((action) => {

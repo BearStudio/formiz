@@ -2,9 +2,10 @@ import { fieldSetValue } from '../index';
 
 describe('[FormContext:Action] fieldSetValue()', () => {
   it('Should update the value', () => {
-    const { fields } = fieldSetValue('myField', 'new value')({
+    const { fields } = fieldSetValue(1, 'new value')({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
@@ -18,9 +19,10 @@ describe('[FormContext:Action] fieldSetValue()', () => {
   });
 
   it('Should not create the field if name does not exist', () => {
-    const { fields } = fieldSetValue('myField2', 'new value')({
+    const { fields } = fieldSetValue(2, 'new value')({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
@@ -32,15 +34,17 @@ describe('[FormContext:Action] fieldSetValue()', () => {
   });
 
   it('fieldSetValue should remove the external error on the given field', () => {
-    const { fields } = fieldSetValue('myField2', 'new value')({
+    const { fields } = fieldSetValue(2, 'new value')({
       fields: [
         {
+          id: 1,
           name: 'myField',
           value: 'my value',
           isEnabled: true,
           externalError: 'External error',
         },
         {
+          id: 2,
           name: 'myField2',
           value: 'my value',
           isEnabled: true,

@@ -1,6 +1,6 @@
 export const getInitialState = id => ({
   id,
-  resetKey: 0,
+  resetKey: 1,
   isValid: true,
   isSubmitted: false,
   initialStepName: null,

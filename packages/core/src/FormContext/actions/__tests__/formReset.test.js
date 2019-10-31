@@ -9,12 +9,12 @@ describe('[FormContext:Action] formReset()', () => {
     state = stepRegister('step2')(state);
     state = stepRegister('step3')(state);
 
-    state = fieldRegister('fieldA', { step: 'step1' })(state);
-    state = fieldRegister('fieldB', { step: 'step2', value: 'Default value' })(state);
-    state = fieldRegister('fieldC', { step: 'step3' })(state);
+    state = fieldRegister(1, 'fieldA', { step: 'step1' })(state);
+    state = fieldRegister(2, 'fieldB', { step: 'step2', value: 'Default value' })(state);
+    state = fieldRegister(3, 'fieldC', { step: 'step3' })(state);
 
-    state = fieldSetValue('fieldA', 'Value A')(state);
-    state = fieldSetValue('fieldB', 'Value B')(state);
+    state = fieldSetValue(1, 'Value A')(state);
+    state = fieldSetValue(2, 'Value B')(state);
 
     state = stepSetVisited('step1')(state);
     state = stepGoTo('step2')(state);
@@ -26,7 +26,7 @@ describe('[FormContext:Action] formReset()', () => {
 
     expect(state.isSubmitted).toBe(true);
     expect(state.navigatedStepName).toBe('step2');
-    expect(state.resetKey).toBe(0);
+    expect(state.resetKey).toBe(1);
 
     let fieldA = state.fields.find(x => x.name === 'fieldA');
     let fieldB = state.fields.find(x => x.name === 'fieldB');
@@ -58,7 +58,7 @@ describe('[FormContext:Action] formReset()', () => {
 
     expect(state.isSubmitted).toBe(false);
     expect(state.navigatedStepName).toBe('step1');
-    expect(state.resetKey).toBe(1);
+    expect(state.resetKey).toBe(2);
 
     fieldA = state.fields.find(x => x.name === 'fieldA');
     fieldB = state.fields.find(x => x.name === 'fieldB');
