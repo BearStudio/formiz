@@ -74,44 +74,44 @@ export const Repeater = () => {
 
           <Box>
             {collection.map(({ id, name }, index) => (
-              <React.Fragment key={id}>
-                <Stack isInline spacing="4" mb="6">
-                  <Box flex="1">
-                    <FieldInput
-                      name={`collection[${index}].name`}
-                      defaultValue={name}
-                      label="Name"
-                      isRequired="Required"
-                      m="0"
-                    />
-                  </Box>
-                  <Box flex="1">
-                    <FieldInput
-                      name={`collection[${index}].company`}
-                      label="Company"
-                      m="0"
-                    />
-                  </Box>
-                  <Box pt="1.75rem">
+              <Stack key={id} isInline spacing="4" mb="6">
+                  <Box transform="translateY(4rem)">
                     <IconButton
-                      icon="delete"
-                      onClick={() => removeItem(id)}
+                      aria-label="Add"
+                      icon="add"
+                      size="sm"
+                      onClick={() => addItemAtIndex(index)}
                       variant="ghost"
+                      isDisabled={collection.length > 20}
+                      pointerEvents={index + 1 >= collection.length ? 'none' : null}
+                      opacity={index + 1 >= collection.length ? 0 : null}
                     />
                   </Box>
-                </Stack>
-                <Button
-                  onClick={() => addItemAtIndex(index)}
-                  leftIcon="add"
-                  size="sm"
-                  variant="outline"
-                  _last={{ d: 'none' }}
-                  _hover={{ backgroundColor: 'gray.100' }}
-                  mb="4"
-                >
-                  Add member
-                </Button>
-              </React.Fragment>
+                <Box flex="1">
+                  <FieldInput
+                    name={`collection[${index}].name`}
+                    defaultValue={name}
+                    label="Name"
+                    isRequired="Required"
+                    m="0"
+                  />
+                </Box>
+                <Box flex="1">
+                  <FieldInput
+                    name={`collection[${index}].company`}
+                    label="Company"
+                    m="0"
+                  />
+                </Box>
+                <Box pt="1.75rem">
+                  <IconButton
+                    aria-label="Delete"
+                    icon="delete"
+                    onClick={() => removeItem(id)}
+                    variant="ghost"
+                  />
+                </Box>
+              </Stack>
             ))}
           </Box>
 
