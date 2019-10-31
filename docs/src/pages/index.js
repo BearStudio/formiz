@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import withBaseUrl from '@docusaurus/withBaseUrl';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 import { Alpha } from '../messages';
 
@@ -76,7 +76,7 @@ function Home() {
                 'button button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={withBaseUrl('docs/getting-started')}
+              to={useBaseUrl('docs/getting-started')}
             >
               Get Started
             </Link>
@@ -85,7 +85,7 @@ function Home() {
                 'button button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={withBaseUrl('docs/demos/wizard')}
+              to={useBaseUrl('docs/demos/wizard')}
             >
               Demos
             </Link>
@@ -110,7 +110,7 @@ function Home() {
                       <div className="text--center">
                         <img
                           className={styles.featureImage}
-                          src={withBaseUrl(imageUrl)}
+                          src={useBaseUrl(imageUrl)}
                           alt={title}
                         />
                       </div>

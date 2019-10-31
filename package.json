@@ -14,7 +14,7 @@
     "lint": "lerna run lint",
     "deploy": "lerna publish --ignore-changes {docs,example}",
     "postdeploy": "yarn docs:deploy",
-    "docs:deploy": "lerna run build --parallel --scope @formiz/* && lerna run deploy --scope docs"
+    "docs:deploy": "lerna run build --parallel --scope @formiz/* && lerna run deploy --stream --scope docs"
   },
   "devDependencies": {
     "eslint": "^6.3.0",

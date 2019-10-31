@@ -14,8 +14,8 @@
     "deploy": "GIT_USER=ivan-dalmet CURRENT_BRANCH=master USE_SSH=true docusaurus deploy"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.25",
-    "@docusaurus/preset-classic": "2.0.0-alpha.25",
+    "@docusaurus/core": "2.0.0-alpha.31",
+    "@docusaurus/preset-classic": "2.0.0-alpha.31",
     "@formiz/core": "^1.0.0-alpha.21",
     "@formiz/validations": "^1.0.0-alpha.13",
     "classnames": "2.2.6",

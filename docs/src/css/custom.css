@@ -21,53 +21,6 @@
   border-style: solid;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#__docusaurus {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-#__docusaurus > main {
-  flex-grow: 1;
-}
-
-/* Sidebar Category */
-.menu__link[href="#!"] {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: bold;
-  pointer-events: none;
-  margin-top: 2em;
-  opacity: 0.6;
-}
-
-.navbar .navbar__brand {
-  align-items: flex-end;
-}
-
-.navbar .navbar__brand > strong {
-  background: var(--color-warning);
-  color: var(--color-warning-dark);
-  font-size: 0.45rem;
-  margin-left: -1.8rem;
-  margin-bottom: -0.3rem;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.05rem 0.2rem;
-  border-radius: 0.2rem;
-}
-
-.footer {
-  margin-top: auto;
-}
-
 .callout {
   padding: 1rem;
   border-radius: 0.2rem;
