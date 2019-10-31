@@ -9,12 +9,12 @@
   "scripts": {
     "bs": "lerna bootstrap",
     "start": "lerna run start --parallel",
-    "test": "lerna run test --parallel --ignore @formiz/{docs,example}",
-    "test:dev": "lerna run test:dev --parallel --ignore @formiz/{docs,example}",
+    "test": "lerna run test --parallel --scope @formiz/*",
+    "test:dev": "lerna run test:dev --parallel --scope @formiz/*",
     "lint": "lerna run lint",
-    "deploy": "lerna publish --ignore-changes @formiz/{docs,example}",
+    "deploy": "lerna publish --ignore-changes {docs,example}",
     "postdeploy": "yarn docs:deploy",
-    "docs:deploy": "lerna run build --parallel --ignore @formiz/{docs,example} && lerna run deploy --scope @formiz/docs"
+    "docs:deploy": "lerna run build --parallel --scope @formiz/* && lerna run deploy --scope docs"
   },
   "devDependencies": {
     "eslint": "^6.3.0",
