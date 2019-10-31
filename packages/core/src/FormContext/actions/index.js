@@ -60,7 +60,7 @@ export const formInvalidateFields = fieldsErrors => (state) => {
 export const formSubmit = (
   callback = () => {},
   callbackOnValid = () => {},
-  callbackOnInvalid = () => {}
+  callbackOnInvalid = () => {},
 ) => (state) => {
   const steps = (state.steps || []).map(step => ({
     ...step,
@@ -251,7 +251,7 @@ export const stepSubmit = (
   name,
   callback = () => {},
   callbackOnValid = () => {},
-  callbackOnInvalid = () => {}
+  callbackOnInvalid = () => {},
 ) => (state) => {
   const step = state.steps.find(x => x.name === name) || {};
   const otherSteps = state.steps.filter(x => x.name !== name);
@@ -294,7 +294,7 @@ export const fieldRegister = (
     value = null,
     step = null,
     validations = [],
-  } = {}
+  } = {},
 ) => (state) => {
   const field = state.fields.find(x => x.name === name) || {};
   const otherFields = state.fields.filter(x => x.name !== name);
@@ -353,7 +353,7 @@ export const fieldUnregister = (id, isKeepValue) => (state) => {
 
 export const fieldUpdateValidations = (
   id,
-  validations
+  validations,
 ) => (state) => {
   const field = state.fields.find(x => x.id === id);
 

@@ -3,7 +3,7 @@ const isObject = x => x && typeof x === 'object' && x.constructor === Object;
 const parseValues = values => Object.keys(values)
   .reduce(
     (acc, key) => parseValuesName(key, acc), // eslint-disable-line no-use-before-define
-    values
+    values,
   );
 
 // TODO: refactoring
@@ -121,4 +121,4 @@ export const getFieldStepName = (fieldName, fields) => {
   return field.step;
 };
 
-export const getUniqueId = (key) => `formiz-${key}-id-${Math.random().toString(36).substr(2, 9)}`;
+export const getUniqueId = key => `formiz-${key}-id-${Math.random().toString(36).substr(2, 9)}`;

@@ -120,7 +120,7 @@ export const useField = ({
       {
         value: localValueRef.current || defaultValueRef.current,
         step: stepName,
-      }
+      },
     ));
 
     return () => {
