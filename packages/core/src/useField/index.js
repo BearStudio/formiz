@@ -85,6 +85,8 @@ export const useField = ({
   const keepValueRef = useRef();
   keepValueRef.current = keepValue;
 
+  const isFirstRenderRef = useRef(true);
+
   // Reset value if resetKey change
   useEffect(() => {
     if (!keepValueRef.current) {
@@ -94,7 +96,7 @@ export const useField = ({
 
   // Update state value from local value
   useEffect(() => {
-    if (localValue === defaultValueRef.current) {
+    if (isFirstRenderRef.current) {
       return () => {};
     }
 
@@ -147,6 +149,10 @@ export const useField = ({
     JSON.stringify(validations),
     JSON.stringify(isRequired),
   ]);
+
+  useEffect(() => {
+    isFirstRenderRef.current = false;
+  }, []);
 
   return {
     id: fieldId,
