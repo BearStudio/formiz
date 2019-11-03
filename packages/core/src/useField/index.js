@@ -2,6 +2,7 @@ import {
   useEffect, useState, useRef, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
+import memoized from 'fast-memoize';
 import { useFormContext } from '../FormContext';
 import { getStep, getUniqueId } from '../FormContext/helpers';
 import {
@@ -52,7 +53,9 @@ const getValidations = (isRequired, validations) => {
   return [
     ...extraRules,
     ...validations,
-  ];
+  ]
+    .filter(x => x.rule)
+    .map(x => ({ ...x, rule: memoized(x.rule) }));
 };
 
 export const useField = ({
