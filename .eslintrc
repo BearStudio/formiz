@@ -4,6 +4,7 @@
     "browser": true,
     "jest": true
   },
+  "parser": "babel-eslint",
   "plugins": [
     "react-hooks"
   ],

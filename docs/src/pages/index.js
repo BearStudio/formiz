@@ -101,20 +101,11 @@ function Home() {
                 Why Formiz?
               </h2>
               <div className="row" style={{ justifyContent: 'center' }}>
-                {features.map(({ imageUrl, title, description }, idx) => (
+                {features.map(({ title, description }, idx) => (
                   <div
                     key={idx} // eslint-disable-line react/no-array-index-key
                     className={classnames('col col--4', styles.feature)}
                   >
-                    {imageUrl && (
-                      <div className="text--center">
-                        <img
-                          className={styles.featureImage}
-                          src={useBaseUrl(imageUrl)}
-                          alt={title}
-                        />
-                      </div>
-                    )}
                     <h3>{title}</h3>
                     <p>{description}</p>
                   </div>

@@ -17,6 +17,7 @@
     "docs:deploy": "lerna run build --parallel --scope @formiz/* && lerna run deploy --stream --scope docs"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.2",

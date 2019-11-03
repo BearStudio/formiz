@@ -50,7 +50,7 @@ export const Repeater = () => {
       {
         id: uuidv4(),
       },
-      ...c.slice(index + 1)
+      ...c.slice(index + 1),
     ]);
   };
 
@@ -75,18 +75,18 @@ export const Repeater = () => {
           <Box>
             {collection.map(({ id, name }, index) => (
               <Stack key={id} isInline spacing="4" mb="6">
-                  <Box transform="translateY(4rem)">
-                    <IconButton
-                      aria-label="Add"
-                      icon="add"
-                      size="sm"
-                      onClick={() => addItemAtIndex(index)}
-                      variant="ghost"
-                      isDisabled={collection.length > 20}
-                      pointerEvents={index + 1 >= collection.length ? 'none' : null}
-                      opacity={index + 1 >= collection.length ? 0 : null}
-                    />
-                  </Box>
+                <Box transform="translateY(4rem)">
+                  <IconButton
+                    aria-label="Add"
+                    icon="add"
+                    size="sm"
+                    onClick={() => addItemAtIndex(index)}
+                    variant="ghost"
+                    isDisabled={collection.length > 20}
+                    pointerEvents={index + 1 >= collection.length ? 'none' : null}
+                    opacity={index + 1 >= collection.length ? 0 : null}
+                  />
+                </Box>
                 <Box flex="1">
                   <FieldInput
                     name={`collection[${index}].name`}
