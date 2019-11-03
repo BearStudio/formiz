@@ -12,7 +12,7 @@ import {
   DrawerCloseButton,
   useDisclosure,
 } from '@chakra-ui/core';
-import { FaBars } from "react-icons/fa";
+import { FaBars } from 'react-icons/fa';
 import logo from './logo.svg';
 import { Menu } from './Menu';
 

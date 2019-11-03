@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Stack, Box, Flex } from '@chakra-ui/core';
 import { Debug } from '../components/Debug';
 
 const propTypes = {
-   children: PropTypes.node,
+  children: PropTypes.node,
 };
 const defaultProps = {
-   children: '',
+  children: '',
 };
 
-export const PageLayout = ({ children }) => {
+const useDebugTime = () => {
+  const initTimeRef = useRef(new Date());
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('--- Time from 1st render ---');
+  }, []);
+
+  useEffect(() => {
+    const currentTime = new Date();
+    // eslint-disable-next-line no-console
+    console.log(Math.abs(currentTime - initTimeRef.current) / 1000);
+  });
+};
+
+export const PageLayout = ({ children }) => {
+  useDebugTime();
+
   return (
     <Stack
       flex="1"

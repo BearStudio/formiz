@@ -54,8 +54,8 @@ export const ExposedPorts = () => {
                 {
                   rule: (val, values) => (values.ports || [])
                     .filter(x => x.number === val).length <= 1,
-                  message: 'Must be unique'
-                }
+                  message: 'Must be unique',
+                },
               ]}
             />
           </Box>

@@ -44,6 +44,17 @@ const getIsRequiredValidation = (isRequired) => {
   };
 };
 
+const getValidations = (isRequired, validations) => {
+  const extraRules = [
+    getIsRequiredValidation(isRequired),
+  ];
+
+  return [
+    ...extraRules,
+    ...validations,
+  ];
+};
+
 export const useField = ({
   debounce = DEFAULT_FIELD_DEBOUNCE,
   defaultValue,
@@ -87,6 +98,27 @@ export const useField = ({
 
   const isFirstRenderRef = useRef(true);
 
+  // Mount & Unmount field
+  useEffect(() => {
+    dispatch(fieldRegister(
+      fieldId,
+      name,
+      {
+        value: localValueRef.current || defaultValueRef.current,
+        step: stepName,
+        validations: getValidations(isRequired, validations),
+      },
+    ));
+
+    return () => {
+      dispatch(fieldUnregister(fieldId, keepValueRef.current));
+    };
+  }, [
+    fieldId,
+    name,
+    stepName,
+  ]);
+
   // Reset value if resetKey change
   useEffect(() => {
     if (!keepValueRef.current) {
@@ -114,36 +146,11 @@ export const useField = ({
     };
   }, [localValue, fieldId]);
 
-  // Mount & Unmount field
-  useEffect(() => {
-    dispatch(fieldRegister(
-      fieldId,
-      name,
-      {
-        value: localValueRef.current || defaultValueRef.current,
-        step: stepName,
-      },
-    ));
-
-    return () => {
-      dispatch(fieldUnregister(fieldId, keepValueRef.current));
-    };
-  }, [
-    fieldId,
-    name,
-    stepName,
-  ]);
-
   // Update Validations
   useEffect(() => {
-    const extraRules = [
-      getIsRequiredValidation(isRequired),
-    ];
-
-    dispatch(fieldUpdateValidations(fieldId, [
-      ...extraRules,
-      ...validations,
-    ]));
+    if (!isFirstRenderRef.current) {
+      dispatch(fieldUpdateValidations(fieldId, getValidations(isRequired, validations)));
+    }
   }, [
     fieldId,
     JSON.stringify(validations),
