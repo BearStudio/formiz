@@ -17,7 +17,7 @@ import { FormizStep } from '@formiz/core'
 
 **Required**
 
-> The name is required to register the step in the form.
+The name is required to register the step in the form.
 
 ```jsx
 <Formiz>
@@ -32,7 +32,7 @@ import { FormizStep } from '@formiz/core'
 
 ### `as`
 
-> You can pass the tag for the step container. Default is `'div'`.
+You can pass the tag for the step container. Default is `'div'`.
 
 ```jsx
 <Formiz>
@@ -47,7 +47,7 @@ import { FormizStep } from '@formiz/core'
 
 ### `label`
 
-> A label can be passed to the step and then used for display when getting the steps with the `useForm()` hook.
+A label can be passed to the step and then used for display when getting the steps with the `useForm()` hook.
 
 ```jsx
 <Formiz>
@@ -62,7 +62,7 @@ import { FormizStep } from '@formiz/core'
 
 ### `isEnabled`
 
-> Set if the step should be enabled or not (default is `true`)
+Set if the step should be enabled or not (default is `true`)
 
 ```jsx
 {/* Display: `step1` > `step3`. */}
@@ -81,9 +81,8 @@ import { FormizStep } from '@formiz/core'
 
 ### `order`
 
-> Order is a number to display the steps in the correct order. (default is `0`)
-<br />
-> If you use order, all steps should get an order property to prevent unexpected behavior.
+Order is a number to display the steps in the correct order. (default is `0`)<br />
+If you use order, all steps should get an order property to prevent unexpected behavior.
 
 ```jsx
 {/* Display order: `step2` > `step3` > `step1`. */}

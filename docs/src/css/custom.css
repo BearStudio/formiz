@@ -21,6 +21,12 @@
   border-style: solid;
 }
 
+.markdown > pre,
+.markdown > ul,
+.markdown > p {
+  font-size: 1rem;
+}
+
 .navbar .navbar__brand {
   align-items: flex-end;
 }

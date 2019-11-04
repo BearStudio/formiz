@@ -37,15 +37,15 @@ The `useField` return an object with the following properties:
 
 ### `value`
 
-> Get the current value of the field.
+Get the current value of the field.
 
 ### `setValue()`
 
-> Set the value of the field.
+Set the value of the field.
 
 ### `id`
 
-> Return a unique id.
+Return a unique id.
 
 ```jsx
 <label htmlFor={id}>...</label>
@@ -54,28 +54,28 @@ The `useField` return an object with the following properties:
 
 ### `isValid`
 
-> Returns `true` if the field is valid.
+Returns `true` if the field is valid.
 
 ### `isPristine`
 
-> Returns `true` if the field has not been changed.
+Returns `true` if the field has not been changed.
 
 ### `isSubmitted`
 
-> Returns `true` either if the current step or the form is submitted.
+Returns `true` either if the current step or the form is submitted.
 
 ### `errorMessage`
 
-> Returns the first error message.
+Returns the first error message.
 
 ### `errorMessages`
 
-> Returns all error messages.
+Returns all error messages.
 
 ### `resetKey`
 
-> Allows you to put a key on elements that you want to be reinitialize when the from is reset.<br />
-> Can be useful for element like `<input>` or `<select>`.
+Allows you to put a key on elements that you want to be reinitialize when the from is reset.<br />
+Can be useful for element like `<input>` or `<select>`.
 
 ```jsx
 <input key={resetKey} />
@@ -91,7 +91,7 @@ you can pass the following props to the component.
 ### `name` *
 **Required**
 
-> The name is required to register the field in the form.
+The name is required to register the field in the form.
 
 ```jsx
 <Field name="myFieldName" />
@@ -145,7 +145,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `debounce`
 
-> Number of milliseconds for debouncing validations. (default is `100`).
+Number of milliseconds for debouncing validations. (default is `100`).
 
 ```jsx
 <Field name="myFieldName" debounce={200} />
@@ -153,7 +153,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `defaultValue`
 
-> Pass an initial value to the field.
+Pass an initial value to the field.
 
 ```jsx
 <Field name="myFieldName" defaultValue="My initial value" />
@@ -161,7 +161,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `isRequired`
 
-> Shortcut for isRequired() validation
+Shortcut for isRequired() validation
 
 ```jsx
 <Field name="myFieldName" isRequired />
@@ -170,11 +170,11 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `keepValue`
 
-> Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
+Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
 
 ### `onChange(fieldValue)`
 
-> Triggered everytime that setValue() is called inside the field.
+Triggered everytime that setValue() is called inside the field.
 
 ```jsx
 <Field name="myFieldName" onChange={val => console.log(val)} />
@@ -182,10 +182,10 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### `validations`
 
-> An array of object with:
-> - `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
-> - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
-> - `message`: The message if the rule is invalid.
+An array of object with:
+- `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
+- `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
+- `message`: The message if the rule is invalid.
 
 ```jsx
 <Field
@@ -204,9 +204,9 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
       message: 'Field can\'t be john',
     },
     {
-      rule: (value) => value.toLowerCase() !== externalValue,
+      rule: (value) => value !== externalValue,
       deps: [externalValue],
-      message: 'Field can\'t be john',
+      message: 'Field can\'t be the same as external value',
     },
   ]}
 />

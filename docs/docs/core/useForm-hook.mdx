@@ -83,7 +83,7 @@ The `useForm` return an object with the following properties:
 
 ### `submit()`
 
-> Allow you to submit the form
+Allow you to submit the form
 
 ```jsx
 <Formiz connect={myForm}>
@@ -98,20 +98,20 @@ The `useForm` return an object with the following properties:
 
 ### `isValid`
 
-> Returns true if the form is valid.
+Returns true if the form is valid.
 
 ### `isSubmitted`
 
-> Returns true if the form is submitted.
+Returns true if the form is submitted.
 
 ### `values`
 
-> Returns an object with all the values of the form.
+Returns an object with all the values of the form.
 
 ### `invalidateFields()`
 
-> Allow you to invalidate one or many fields.<br />
-> Useful for API errors or other external errors.
+Allow you to invalidate one or many fields.<br />
+Useful for API errors or other external errors.
 
 ```js
 invalidateFields([
@@ -122,11 +122,11 @@ invalidateFields([
 
 ### `reset()`
 
-> Allows to reset the form with all fields values to their defaultValue.
+Allows to reset the form with all fields values to their defaultValue.
 
 ### `resetKey`
 
-> Allows you to reset some internal state when the form is reset.
+Allows you to reset some internal state when the form is reset.
 
 ```js
 useEffect(() => {
@@ -136,36 +136,36 @@ useEffect(() => {
 
 ### `getFieldStepName(fieldName)`
 
-> Allows you to get the step name of a field.
+Allows you to get the step name of a field.
 
 ### `currentStep`
 
-> Returns the current step name.
+Returns the current step name.
 
 ### `steps`
 
-> Returns an array with all the steps of the form.
+Returns an array with all the steps of the form.
 
 ### `isStepValid`
 
-> Returns true if the current step is valid.
-> Returns an array with all the steps of the form.
+Returns true if the current step is valid.
+Returns an array with all the steps of the form.
 
 ### `isStepSubmitted`
 
-> Returns true if the current step is submitted.
+Returns true if the current step is submitted.
 
 ### `isFirstStep`
 
-> Returns true if the current step is the first step.
+Returns true if the current step is the first step.
 
 ### `isLastStep`
 
-> Returns true if the current step is the last step.
+Returns true if the current step is the last step.
 
 ### `submitStep()`
 
-> Allows you to submit the current step.
+Allows you to submit the current step.
 
 ```jsx
 <Formiz connect={myForm}>
@@ -185,12 +185,12 @@ useEffect(() => {
 
 ### `nextStep()`
 
-> Move to the next step.
+Move to the next step.
 
 ### `prevStep()`
 
-> Move to the previous step.
+Move to the previous step.
 
 ### `goToStep(name)`
 
-> Go to a specific step.
+Go to a specific step.
