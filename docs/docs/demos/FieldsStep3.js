@@ -10,7 +10,8 @@ export const FieldsStep3 = () => `
               type="password"
               validations={[
                 {
-                  rule: (value, values) => values.password === value,
+                  rule: (value) => myForm.values.password === value,
+                  deps: [myForm.values.password],
                   message: 'Passwords do not match',
                 }
               ]}

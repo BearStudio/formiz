@@ -147,7 +147,7 @@ export const useField = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [localValue, fieldId]);
+  }, [JSON.stringify(localValue), fieldId]);
 
   // Update Validations
   useEffect(() => {
@@ -158,6 +158,7 @@ export const useField = ({
     fieldId,
     JSON.stringify(validations),
     JSON.stringify(isRequired),
+    ...validations.reduce((acc, cur) => [...acc, ...(cur.deps || [])], []),
   ]);
 
   useEffect(() => {

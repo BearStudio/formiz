@@ -184,6 +184,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 > An array of object with:
 > - `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
+> - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 > - `message`: The message if the rule is invalid.
 
 ```jsx
@@ -199,7 +200,12 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
       message: 'Field can\'t be empty',
     },
     {
-      rule: (value, values) => value.toLowerCase() !== 'john',
+      rule: (value) => value.toLowerCase() !== 'john',
+      message: 'Field can\'t be john',
+    },
+    {
+      rule: (value) => value.toLowerCase() !== externalValue,
+      deps: [externalValue],
       message: 'Field can\'t be john',
     },
   ]}

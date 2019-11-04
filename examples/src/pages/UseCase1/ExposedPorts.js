@@ -52,8 +52,9 @@ export const ExposedPorts = () => {
               m="0"
               validations={[
                 {
-                  rule: (val, values) => (values.ports || [])
+                  rule: val => (form.values.ports || [])
                     .filter(x => x.number === val).length <= 1,
+                  deps: [JSON.stringify(form.values.ports)],
                   message: 'Must be unique',
                 },
               ]}

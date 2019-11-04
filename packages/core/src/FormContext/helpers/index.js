@@ -78,7 +78,7 @@ export const getFieldErrors = (fieldName, fields) => {
   }
 
   const errorMessages = (field.validations || [])
-    .map(x => (x.rule && !x.rule(field.value, getFormValues(fields)) ? x.message : '___FIELD_IS_VALID___'))
+    .map(x => (x.rule && !x.rule(field.value) ? x.message : '___FIELD_IS_VALID___'))
     .filter(x => x !== '___FIELD_IS_VALID___');
 
   if (field.externalError) {

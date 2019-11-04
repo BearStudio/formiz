@@ -121,29 +121,6 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
     expect(errors[1]).toBe('Field should be "my value"');
   });
 
-  it('Should get form values in rule validation', () => {
-    let formValues = null;
-
-    const rule = (value, values) => {
-      formValues = values;
-    };
-
-    const field = {
-      name: 'myField',
-      value: '',
-      isEnabled: true,
-      validations: [
-        {
-          rule,
-        },
-      ],
-    };
-
-    getFieldErrors(field.name, [field]);
-
-    expect(formValues).toHaveProperty('myField', '');
-  });
-
   it('Should return an error if one field has an external error', () => {
     const field = {
       name: 'myField',
