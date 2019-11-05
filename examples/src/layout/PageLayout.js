@@ -33,7 +33,7 @@ export const PageLayout = ({ children }) => {
       flex="1"
       minH="100vh"
       flexWrap="nowrap"
-      direction={{ base: 'column', lg: 'row' }}
+      flexDirection={{ base: 'column', lg: 'row' }}
     >
       <Box
         flex="1"

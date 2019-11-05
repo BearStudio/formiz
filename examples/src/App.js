@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CSSReset />
-        <Stack minH="100vh" m="auto" overflow="hidden" direction={{ base: 'column', md: 'row' }}>
+        <Stack minH="100vh" m="auto" overflow="hidden" flexDirection={{ base: 'column', md: 'row' }}>
           <NavBar />
           <Box flex="1" w="100%" position="relative">
             <Route path="/" exact>
