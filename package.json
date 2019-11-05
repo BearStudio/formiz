@@ -12,9 +12,11 @@
     "test": "lerna run test --parallel --scope @formiz/*",
     "test:dev": "lerna run test:dev --parallel --scope @formiz/*",
     "lint": "lerna run lint",
-    "deploy": "lerna publish --ignore-changes {docs,example}",
+    "deploy": "lerna publish --ignore-changes {docs,examples}",
     "postdeploy": "yarn docs:deploy",
-    "docs:deploy": "lerna run build --parallel --scope @formiz/* && lerna run deploy --stream --scope docs"
+    "packages:build": "lerna run build --parallel --scope @formiz/*",
+    "docs:deploy": "yarn packages:build && lerna run deploy --stream --scope docs",
+    "examples:build": "yarn packages:build && lerna run build --parallel --scope examples"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
