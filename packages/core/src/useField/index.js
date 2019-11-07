@@ -16,6 +16,7 @@ const DEFAULT_FIELD_DEBOUNCE = 100;
 export const fieldPropTypes = {
   debounce: PropTypes.number,
   defaultValue: PropTypes.any,
+  formatValue: PropTypes.func,
   isRequired: PropTypes.string,
   keepValue: PropTypes.bool,
   name: PropTypes.string,
@@ -29,6 +30,7 @@ export const fieldPropTypes = {
 export const fieldDefaultProps = {
   debounce: DEFAULT_FIELD_DEBOUNCE,
   defaultValue: null,
+  formatValue: val => val,
   isRequired: false,
   keepValue: false,
   onChange: () => {},
@@ -61,6 +63,7 @@ const getValidations = (isRequired, validations) => {
 export const useField = ({
   debounce = DEFAULT_FIELD_DEBOUNCE,
   defaultValue,
+  formatValue = val => val,
   isRequired,
   keepValue,
   name,
@@ -99,6 +102,9 @@ export const useField = ({
   const keepValueRef = useRef();
   keepValueRef.current = keepValue;
 
+  const formatValueRef = useRef();
+  formatValueRef.current = formatValue;
+
   const isFirstRenderRef = useRef(true);
 
   // Mount & Unmount field
@@ -135,13 +141,15 @@ export const useField = ({
       return () => {};
     }
 
+    const formattedValue = formatValueRef.current(localValue);
+
     if (!debounceRef.current) {
-      dispatch(fieldSetValue(fieldId, localValue));
+      dispatch(fieldSetValue(fieldId, formattedValue));
       return () => {};
     }
 
     const timer = setTimeout(() => {
-      dispatch(fieldSetValue(fieldId, localValue));
+      dispatch(fieldSetValue(fieldId, formattedValue));
     }, debounceRef.current);
 
     return () => {
@@ -177,7 +185,7 @@ export const useField = ({
     setValue: (value) => {
       setLocalValue(value);
       if (onChange) {
-        onChange(value);
+        onChange(formatValueRef.current(value));
       }
     },
   };
