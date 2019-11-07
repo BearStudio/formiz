@@ -14,8 +14,8 @@ const features = [
     title: <>🧙‍ Multi steps forms</>,
     description: (
       <>
-        Multi steps forms logic available out of the box!
-        No more pain to build perfect UX for complexe forms.
+        Multi steps form logic available out of the box!
+        No more pain to build perfect UX for complex forms.
       </>
     ),
   },
@@ -41,9 +41,8 @@ const features = [
     title: <>💅 Forms with your own UX</>,
     description: (
       <>
-        Choose how to render validations, form buttons
-        and navigation between setps (wizard, tabs, other).
-        It&apos;s your choice!
+        Choose how to render validations, form buttons, and navigation
+        between steps (wizard, tabs, other). It&apos;s your choice!
       </>
     ),
   },
@@ -52,7 +51,7 @@ const features = [
     description: (
       <>
         Use hooks &amp; cut the complexity to create custom fields :)
-        Use complexe logic without even thinking of it.
+        Use complex logic without even thinking of it.
       </>
     ),
   },
@@ -64,7 +63,7 @@ function Home() {
   return (
     <Layout
       title={`${siteConfig.title} | React multi steps forms`}
-      description="Create custom multi steps forms with full validations without the pain."
+      description="Create custom multi steps forms with full validation without the pain."
     >
       <header className={classnames('hero hero--primary', styles.heroBanner)}>
         <div className="container">

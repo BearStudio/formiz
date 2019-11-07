@@ -23,11 +23,33 @@ npm install @formiz/core @formiz/validations
 
 ## Concept
 
-The idea behind **Formiz** is to allow you to build advanced forms with **multiple steps, complex validations** and a **good UX** without pain.
+The idea behind **Formiz** is to allow you to build advanced forms with
+**multiple steps, complex validations** and a **good UX** without pain.
 
-The main idea is to build fields as independent reusable components. **Fields can be anything**, not just inputs. Once you have built your fields, you can use them everywhere.
+The main idea is to build fields as independent reusable components.
+**Fields can be anything**, not just inputs. Once you have built your fields,
+you can use them everywhere.
 
-**Formiz** core does not provide styles, so you can **use it with any UI library and style you want**. Use it with Bootstrap, ReactStrap, Material UI or your own styles.
+When you use a field built with Formiz, you can apply validations rules on it.
+**Only the mounted fields will apply their validation** to the current step and to the form.
+
+```jsx
+// Example
+<MyField
+  name="email"
+  type="email"
+  isRequired="Email is required"
+  validations={[
+    {
+      rule: isEmail(),
+      message: 'Not a valid email',
+    }
+  ]}
+/>
+```
+
+**Formiz core** does not provide any styles, so you can **use it with any UI library and style you want**.
+Use it with [Chakra UI](https://chakra-ui.com/), [ReactStrap](https://reactstrap.github.io/), [Material UI](https://material-ui.com/) or your own styles.
 
 ---
 
@@ -56,7 +78,7 @@ export const MyField = () => {
 
 Get the props from the MyField component and pass it to the hook.
 
-```jsx
+```jsx {5}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -70,7 +92,7 @@ export const MyField = (props) => {
 
 Create the `<input>` and make it interactive like this:
 
-```jsx
+```jsx {5,7-13}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -91,7 +113,7 @@ export const MyField = (props) => {
 
 Display the `errorMessage` below the `<input>`.
 
-```jsx
+```jsx {5,8,14-18}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -123,7 +145,7 @@ export const MyField = (props) => {
 - Don't apply the `is-error` class if the input is focused.
 - Add `id`, `for` and aria attributes for accessibility.
 
-```jsx
+```jsx {7,9,10,15-17,20-27,31,33,35-39,41-45}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -193,9 +215,9 @@ export const MyForm = () => {
 
 #### 2. Connect the form with the `useForm` hook
 
-```jsx
+```jsx {2,5,9}
 import React from 'react'
-import { Formiz, useForm } from '@formiz/core'
+import { Formiz, useForm } from '@formiz/core' // Import useForm
 
 export const MyForm = () => {
   const myForm = useForm() // Call useForm
@@ -212,7 +234,7 @@ export const MyForm = () => {
 
 #### 3. Handle submit
 
-```jsx
+```jsx {7-9,14,16-18,21-27}
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
 
@@ -250,7 +272,7 @@ export const MyForm = () => {
 **Each field need a property "name"** which will be the key in the object of values.<br />
 So, be sure this key is **unique by form**.
 
-```jsx
+```jsx {22-41}
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
 import { isEmail } from '@formiz/validations' // Import some validations
@@ -315,7 +337,7 @@ You already have your fields so we just need to update the form to use steps.
 
 **Each FormizStep need a property "name"**, be sure this key is unique by form.
 
-```jsx
+```jsx {4,24,27-29,40,42-44,55,57-71}
 import React from 'react'
 import {
   Formiz,

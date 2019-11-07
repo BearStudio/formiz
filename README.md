@@ -1,39 +1,88 @@
-# Formiz
+# Welcome to 🐜 Formiz
+React **forms with easy validation and multi steps**
+
+⚠️ This is an **early and alpha release** of Formiz. API is subject to change. **Do not use in production**.
 
 ![Tests Badge](https://github.com/ivan-dalmet/formiz/workflows/Formiz%20Test/badge.svg)
 
-React multi steps forms with full validations
+#### 🧙‍ **Multi steps forms**
+Multi steps form logic available out of the box! No more pain to build perfect UX for complex forms.
 
-👩‍🔬 This is an early and alpha release of Formiz. API is subject to change. Do not use in production.
+#### ✅ **Easy form validation**
+Create forms in React with full validation without the pain. Turn everything into a custom field with full validation!
 
-## 📚 Full documentation
+#### 🐛 **No more logic duplication**
+Don't duplicate your logic between display and validation. Validation is enabled only if the field is displayed.
 
-Full documentation & demos: [formiz-react.com](https://formiz-react.com)
+#### 💅 **Forms with your own UX**
+Choose how to render validations, form buttons, and navigation between steps (wizard, tabs, other). It's your choice!
 
-## 📋 TODO
+#### ⚛️ **Built with hooks**
+Use hooks & cut the complexity to create custom fields :) Use complex logic without even thinking of it.
 
-- [x] Write Proof of Concept 📚 documentation
-- [x] Develop a Proof of Concept for `<Formiz>` component and a custom field with `useFormiz()` hook.
-- [x] Develop a Proof of Concept for `<FormizStep>` for multi steps forms.
-- [x] Publish `@formiz/core` package with `<Formiz>`, `<FormizStep>`, `useField()` and `useForm()`.
-- [x] Publish `@formiz/validations` package.
-- [ ] Publish `@formiz/fields` package.
+[Getting started](https://formiz-react.com/docs/getting-started)
 
-## Development
+## Looking for the documentation?
 
-This project use [Yarn](https://yarnpkg.com) and [Lerna](https://lerna.js.org/).
+Visit [formiz-react.com](https://formiz-react.com) for [full documentation](https://formiz-react.com/docs/getting-started) and [live demos](https://formiz-react.com/docs/demos/wizard).
+
+## Looking for examples?
+
+Visit documentation for [live demos](https://formiz-react.com/docs/demos/wizard).
+
+Visit [formiz-examples.netlify.com](https://formiz-examples.netlify.com) for examples with [Chakra UI](https://chakra-ui.com/).
+
+## Concept
+
+The idea behind **Formiz** is to allow you to build advanced forms with
+**multiple steps, complex validations** and a **good UX** without pain.
+
+The main idea is to build fields as independent reusable components.
+**Fields can be anything**, not just inputs. Once you have built your fields,
+you can use them everywhere.
+
+When you use a field built with Formiz, you can apply validations rules on it.
+**Only the mounted fields will apply their validation** to the current step and to the form.
+
+```jsx
+// Example
+<MyField
+  name="email"
+  type="email"
+  isRequired="Email is required"
+  validations={[
+    {
+      rule: isEmail(),
+      message: 'Not a valid email',
+    }
+  ]}
+/>
+```
+
+**Formiz core** does not provide any styles, so you can **use it with any UI library and style you want**.
+Use it with [Chakra UI](https://chakra-ui.com/), [ReactStrap](https://reactstrap.github.io/), [Material UI](https://material-ui.com/) or your own styles.
+
+
+# Contributing
+
+Feel like contributing? That's awesome!
+
+Follow the flowing guide to run the project locally.
+
 
 ### Install dependencies
 
-This is needed the **first time** you get the projet to install all dependencies.
+This project use [Yarn](https://yarnpkg.com) and [Lerna](https://lerna.js.org/).
+
+This is needed the ** the first time** you get the project to install all dependencies.
 
 ```
 yarn
 ```
 
-### Bootstrap the repo with lerna
+### Bootstrap the repo with Lerna
 
-This is needed the **first time** you get the projet to link local packages together.
+This is needed the ** the first time** you get the project to link local packages together.
 
 ```
 yarn bs
@@ -53,7 +102,7 @@ yarn test:dev
 
 This can be a little hard to see test results with this command.
 
-So instead you can go in each packages folders and run test from here.
+So instead you can go in each packages folders and run tests from here.
 
 ```
 cd packages/core
