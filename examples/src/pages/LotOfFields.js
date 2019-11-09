@@ -40,7 +40,7 @@ export const LotOfFields = () => {
                 name={`user[${index}].name`}
                 label={`Name ${index}`}
                 defaultValue="John"
-                isRequired="Required"
+                required="Required"
               />
             ))}
           </FormizStep>
@@ -52,7 +52,7 @@ export const LotOfFields = () => {
                 name={`user[${index}].email`}
                 label={`Email ${index}`}
                 defaultValue="john@doe.com"
-                isRequired="Required"
+                required="Required"
                 validations={[
                   {
                     rule: isEmail(),

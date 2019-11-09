@@ -2,7 +2,7 @@ export const FieldsStep1 = withValues => `
             <MyField
               name="name"
               label="Name"
-              isRequired="Name is required"
+              required="Name is required"
               ${withValues ? 'defaultValue="Hailey Terry"' : ''}
             />
 

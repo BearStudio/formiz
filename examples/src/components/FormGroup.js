@@ -12,7 +12,7 @@ const propTypes = {
   errorMessage: PropTypes.node,
   helper: PropTypes.node,
   id: PropTypes.string.isRequired,
-  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  isRequired: PropTypes.bool,
   label: PropTypes.node,
   showError: PropTypes.bool,
 };
@@ -35,7 +35,7 @@ export const FormGroup = ({
   showError,
   ...props
 }) => (
-  <FormControl mb="6" isInvalid={showError} isRequired={!!isRequired} {...props}>
+  <FormControl mb="6" isInvalid={showError} isRequired={isRequired} {...props}>
     <FormLabel htmlFor={id}>
       {label}
     </FormLabel>

@@ -36,7 +36,7 @@ export const Wizard = () => {
             <FieldInput
               name="name"
               label="Name"
-              isRequired="Required"
+              required="Required"
             />
           </FormizStep>
           <FormizStep name="step2">
@@ -44,7 +44,7 @@ export const Wizard = () => {
               name="email"
               label="Email"
               type="email"
-              isRequired="Required"
+              required="Required"
               validations={[
                 {
                   rule: isEmail(),

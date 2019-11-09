@@ -12,7 +12,7 @@ describe('<Formiz />', () => {
     mount(
       <Formiz autoForm>
         My Form
-      </Formiz>
+      </Formiz>,
     );
   });
 
@@ -21,7 +21,7 @@ describe('<Formiz />', () => {
       <Formiz autoForm>
         <Input name="field" />
         <Input name="field2" />
-      </Formiz>
+      </Formiz>,
     );
   });
 
@@ -36,7 +36,7 @@ describe('<Formiz />', () => {
           <Input name="field" />
           <Input name="field2" />
         </Formiz>
-      </div>
+      </div>,
     );
   });
 
@@ -56,7 +56,7 @@ describe('<Formiz />', () => {
           ]}
         />
         <Input name="field2" />
-      </Formiz>
+      </Formiz>,
     );
 
     await wait();
@@ -87,7 +87,7 @@ describe('<Formiz />', () => {
           ]}
         />
         <Input name="field2" />
-      </Formiz>
+      </Formiz>,
     );
 
     await wait();
@@ -105,7 +105,7 @@ describe('<Formiz />', () => {
           name="field"
         />
         <Input name="field2" defaultValue="Value 2" />
-      </Formiz>
+      </Formiz>,
     );
 
     await wait();
@@ -125,7 +125,7 @@ describe('<Formiz />', () => {
           name="field"
         />
         <Input name="field2" defaultValue="Value 2" />
-      </Formiz>
+      </Formiz>,
     );
 
     const input = form.find('input').first();

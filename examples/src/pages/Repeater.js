@@ -92,7 +92,7 @@ export const Repeater = () => {
                     name={`collection[${index}].name`}
                     defaultValue={name}
                     label="Name"
-                    isRequired="Required"
+                    required="Required"
                     m="0"
                   />
                 </Box>

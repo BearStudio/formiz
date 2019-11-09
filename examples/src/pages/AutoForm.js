@@ -30,7 +30,7 @@ export const AutoForm = () => {
         <FieldInput
           name="name"
           label="Name"
-          isRequired="Required"
+          required="Required"
           formatValue={val => (val || '').trim()}
         />
         <FieldInput
@@ -38,7 +38,7 @@ export const AutoForm = () => {
           label="Email"
           type="email"
           formatValue={val => (val || '').trim()}
-          isRequired="Required"
+          required="Required"
           validations={[
             {
               rule: isEmail(),

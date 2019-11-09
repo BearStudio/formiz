@@ -15,7 +15,7 @@ describe('<FormizStep />', () => {
         <FormizStep name="step1">
           Form Step 1
         </FormizStep>
-      </Formiz>
+      </Formiz>,
     );
   });
 
@@ -30,7 +30,7 @@ describe('<FormizStep />', () => {
             <FormizStep>
               Form Step
             </FormizStep>
-          </Formiz>
+          </Formiz>,
         );
       }).toThrow(ErrorStepWithoutName);
     });
@@ -43,7 +43,7 @@ describe('<FormizStep />', () => {
           <Input name="field" />
           <Input name="field2" />
         </FormizStep>
-      </Formiz>
+      </Formiz>,
     );
   });
 
@@ -60,7 +60,7 @@ describe('<FormizStep />', () => {
             <Input name="field4" />
           </FormizStep>
         </Formiz>
-      </div>
+      </div>,
     );
   });
 
@@ -78,7 +78,7 @@ describe('<FormizStep />', () => {
           <Input name="field3" />
           <Input name="field4" />
         </FormizStep>
-      </Formiz>
+      </Formiz>,
     );
 
     await wait();

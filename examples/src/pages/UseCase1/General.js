@@ -8,7 +8,7 @@ export const General = () => (
     <FieldInput
       name="name"
       label="App Name"
-      isRequired="Required"
+      required="Required"
     />
     <FieldTextarea
       name="description"

@@ -3,7 +3,7 @@ export const FieldsStep2 = withValues => `
               name="email"
               label="Email"
               type="email"
-              isRequired="Email is required"
+              required="Email is required"
               validations={[
                 {
                   rule: validations.isEmail(),

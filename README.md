@@ -49,7 +49,7 @@ When you use a field built with Formiz, you can apply validations rules on it.
 <MyField
   name="email"
   type="email"
-  isRequired="Email is required"
+  required="Email is required"
   validations={[
     {
       rule: isEmail(),

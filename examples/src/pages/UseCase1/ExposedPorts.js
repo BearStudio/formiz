@@ -46,7 +46,7 @@ export const ExposedPorts = () => {
             <FieldInput
               name={`ports[${index}].number`}
               label="Port number"
-              isRequired="Required"
+              required="Required"
               placeholder="e.g. 8080"
               type="number"
               m="0"

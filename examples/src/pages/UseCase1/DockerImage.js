@@ -19,7 +19,7 @@ export const DockerImage = () => {
       <FieldInput
         name="docker.image"
         label="Docker Image"
-        isRequired="Required"
+        required="Required"
         helper={(
           <>
             Use
@@ -54,7 +54,7 @@ export const DockerImage = () => {
           name="docker.user"
           label="Docker User Credentials"
           placeholder="Select user..."
-          isRequired="Required"
+          required="Required"
           keepValue
           options={[
             { value: 'admin', label: 'Admin' },

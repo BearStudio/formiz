@@ -32,7 +32,7 @@ export const FieldTextarea = (props) => {
     value,
   } = useField(props);
   const {
-    label, isRequired, placeholder, helper, ...otherProps
+    label, required, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -45,7 +45,7 @@ export const FieldTextarea = (props) => {
     errorMessage,
     helper,
     id,
-    isRequired,
+    isRequired: !!required,
     label,
     showError,
     ...otherProps,

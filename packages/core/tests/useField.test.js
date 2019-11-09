@@ -11,7 +11,7 @@ describe('Fields using `useField()`', () => {
     silent(() => {
       expect(() => {
         mount(
-          <Input name="field" />
+          <Input name="field" />,
         );
       }).toThrow(ErrorFieldWithoutForm);
     });
@@ -23,7 +23,7 @@ describe('Fields using `useField()`', () => {
         mount(
           <Formiz>
             <Input />
-          </Formiz>
+          </Formiz>,
         );
       }).toThrow(ErrorFieldWithoutName);
     });
@@ -40,7 +40,7 @@ describe('Fields using `useField()`', () => {
       <FormContextProvider onStateChange={onStateChange}>
         <Input name="field1" />
         <Input name="field2" />
-      </FormContextProvider>
+      </FormContextProvider>,
     );
 
     expect(fields).toHaveLength(2);
@@ -64,7 +64,7 @@ describe('Fields using `useField()`', () => {
         {false && (
           <Input name="field1" />
         )}
-      </FormContextProvider>
+      </FormContextProvider>,
     );
 
     expect(fields).toHaveLength(0);
@@ -80,7 +80,7 @@ describe('Fields using `useField()`', () => {
     mount(
       <FormContextProvider onStateChange={onStateChange}>
         <Input name="field1" defaultValue="Default value" />
-      </FormContextProvider>
+      </FormContextProvider>,
     );
 
     expect(fields).toHaveLength(1);
@@ -97,7 +97,7 @@ describe('Fields using `useField()`', () => {
     const component = mount(
       <FormContextProvider onStateChange={onStateChange}>
         <Input name="field1" defaultValue="Default value" debounce={0} />
-      </FormContextProvider>
+      </FormContextProvider>,
     );
 
     const input = component.find('input').first();

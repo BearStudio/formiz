@@ -159,15 +159,6 @@ Pass an initial value to the field.
 <Field name="myFieldName" defaultValue="My initial value" />
 ```
 
-### `isRequired`
-
-Shortcut for isRequired() validation
-
-```jsx
-<Field name="myFieldName" isRequired />
-<Field name="myFieldName" isRequired="Field is required" />
-```
-
 ### `keepValue`
 
 Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
@@ -183,6 +174,15 @@ Triggered everytime that setValue() is called inside the field.
 
 ```jsx
 <Field name="myFieldName" onChange={val => console.log(val)} />
+```
+
+### `required`
+
+Shortcut for isRequired() validation
+
+```jsx
+<Field name="myFieldName" required />
+<Field name="myFieldName" required="Field is required" />
 ```
 
 ### `validations`

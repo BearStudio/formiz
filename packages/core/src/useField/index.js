@@ -17,7 +17,7 @@ export const fieldPropTypes = {
   debounce: PropTypes.number,
   defaultValue: PropTypes.any,
   formatValue: PropTypes.func,
-  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   keepValue: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
@@ -31,25 +31,25 @@ export const fieldDefaultProps = {
   debounce: DEFAULT_FIELD_DEBOUNCE,
   defaultValue: null,
   formatValue: val => val,
-  isRequired: false,
+  required: false,
   keepValue: false,
   onChange: () => {},
   validations: [],
 };
 
-const getIsRequiredValidation = (isRequired) => {
-  if (!isRequired && isRequired !== '') {
+const getIsRequiredValidation = (required) => {
+  if (!required && required !== '') {
     return {};
   }
   return {
     rule: x => !!x || x === 0,
-    message: isRequired !== true ? isRequired : '',
+    message: required !== true ? required : '',
   };
 };
 
-const getValidations = (isRequired, validations) => {
+const getValidations = (required, validations) => {
   const extraRules = [
-    getIsRequiredValidation(isRequired),
+    getIsRequiredValidation(required),
   ];
 
   return [
@@ -64,7 +64,7 @@ export const useField = ({
   debounce = DEFAULT_FIELD_DEBOUNCE,
   defaultValue,
   formatValue = val => val,
-  isRequired,
+  required,
   keepValue,
   name,
   onChange,
@@ -115,7 +115,7 @@ export const useField = ({
       {
         value: localValueRef.current || defaultValueRef.current,
         step: stepName,
-        validations: getValidations(isRequired, validations),
+        validations: getValidations(required, validations),
       },
     ));
 
@@ -160,11 +160,11 @@ export const useField = ({
   // Update Validations
   useEffect(() => {
     if (!isFirstRenderRef.current) {
-      dispatch(fieldUpdateValidations(fieldId, getValidations(isRequired, validations)));
+      dispatch(fieldUpdateValidations(fieldId, getValidations(required, validations)));
     }
   }, [
     fieldId,
-    isRequired,
+    required,
     ...validations.reduce(
       // use deps array and message as dependencies for updating validations
       (acc, cur) => [...acc, ...(cur.deps || []), cur.message],

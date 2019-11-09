@@ -11,7 +11,7 @@ const MyField = (props) => {
     setValue,
     value,
   } = useField(props)
-  const { label, type, isRequired } = props
+  const { label, type, required } = props
   const [isFocused, setIsFocused] = React.useState(false);
   const showError = !isValid && (!isPristine || isSubmitted)
 
@@ -22,7 +22,7 @@ const MyField = (props) => {
         htmlFor={id}
       >
         { label }
-        {isRequired && ' *'}
+        {required && ' *'}
       </label>
       <input
         key={resetKey}
