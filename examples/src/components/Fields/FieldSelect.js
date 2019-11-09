@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import {
   Select,
 } from '@chakra-ui/core';
-import { useField } from '@formiz/core';
+import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 
 const propTypes = {
   label: PropTypes.node,
-  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeholder: PropTypes.string,
   helper: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types
   options: PropTypes.array,
+  ...fieldPropTypes,
 };
 const defaultProps = {
   label: '',
-  isRequired: false,
   placeholder: '',
   helper: '',
   options: [],
+  ...fieldDefaultProps,
 };
 
 export const FieldSelect = (props) => {

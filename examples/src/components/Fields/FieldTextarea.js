@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import {
   Textarea,
 } from '@chakra-ui/core';
-import { useField } from '@formiz/core';
+import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 
 const propTypes = {
   label: PropTypes.node,
   type: PropTypes.string,
-  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeholder: PropTypes.string,
   helper: PropTypes.node,
+  ...fieldPropTypes,
 };
 const defaultProps = {
   label: '',
   type: 'text',
-  isRequired: false,
   placeholder: '',
   helper: '',
+  ...fieldDefaultProps,
 };
 
 export const FieldTextarea = (props) => {

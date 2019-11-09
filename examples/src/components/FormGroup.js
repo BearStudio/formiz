@@ -12,7 +12,7 @@ const propTypes = {
   errorMessage: PropTypes.node,
   helper: PropTypes.node,
   id: PropTypes.string.isRequired,
-  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   label: PropTypes.node,
   showError: PropTypes.bool,
 };
