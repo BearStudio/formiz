@@ -17,13 +17,13 @@ export const fieldPropTypes = {
   debounce: PropTypes.number,
   defaultValue: PropTypes.any,
   formatValue: PropTypes.func,
-  isRequired: PropTypes.string,
+  isRequired: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
   keepValue: PropTypes.bool,
   name: PropTypes.string,
   onChange: PropTypes.func,
   validations: PropTypes.arrayOf(PropTypes.shape({
     rule: PropTypes.func,
-    message: PropTypes.string,
+    message: PropTypes.node,
   })),
 };
 
@@ -164,9 +164,12 @@ export const useField = ({
     }
   }, [
     fieldId,
-    JSON.stringify(validations),
-    JSON.stringify(isRequired),
-    ...validations.reduce((acc, cur) => [...acc, ...(cur.deps || [])], []),
+    isRequired,
+    ...validations.reduce(
+      // use deps array and message as dependencies for updating validations
+      (acc, cur) => [...acc, ...(cur.deps || []), cur.message],
+      [],
+    ),
   ]);
 
   useEffect(() => {
