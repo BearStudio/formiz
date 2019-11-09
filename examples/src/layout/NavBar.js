@@ -22,36 +22,36 @@ export const NavBar = () => {
 
   return (
     <Flex
-      py={{ base: 2, md: 4 }}
-      px={{ base: 4, md: 0 }}
-      borderRightWidth={{ base: 0, md: 1 }}
-      borderBottomWidth={{ base: 1, md: 0 }}
+      py={{ base: 2, lg: 4 }}
+      px={{ base: 4, lg: 0 }}
+      borderRightWidth={{ base: 0, lg: 1 }}
+      borderBottomWidth={{ base: 1, lg: 0 }}
       borderColor="gray.200"
-      flexDir={{ md: 'column' }}
+      flexDir={{ lg: 'column' }}
       minW="15rem"
       maxH="100vh"
       overflowY="auto"
       overflowX="hidden"
-      align={{ base: 'center', md: 'flex-end' }}
-      backgroundColor={{ base: 'white', md: 'gray.50' }}
-      shadow={{ base: 'md', md: 'none' }}
+      align={{ base: 'center', lg: 'flex-end' }}
+      backgroundColor={{ base: 'white', lg: 'gray.50' }}
+      shadow={{ base: 'md', lg: 'none' }}
     >
       <Flex
         textAlign="right"
         px="6"
         flexDir="column"
         align="flex-end"
-        mb={{ md: 6 }}
+        mb={{ lg: 6 }}
       >
         <Image
           src={logo}
           alt="Formiz"
-          w={{ base: '8rem', md: '10rem' }}
+          w={{ base: '8rem', lg: '10rem' }}
         />
         <Box
           fontWeight="bold"
           textTransform="uppercase"
-          fontSize={{ base: '0.6rem', md: 'xs' }}
+          fontSize={{ base: '0.6rem', lg: 'xs' }}
           color="brand.500"
           mt={-2}
         >
@@ -59,11 +59,11 @@ export const NavBar = () => {
         </Box>
       </Flex>
 
-      <Box d={{ base: 'none', md: 'block' }}>
+      <Box d={{ base: 'none', lg: 'block' }}>
         <Menu direction="right" />
       </Box>
 
-      <Box d={{ md: 'none' }} ml="auto">
+      <Box d={{ lg: 'none' }} ml="auto">
         <Button ref={btnRef} onClick={onOpen} variant="ghost">
           <Box as={FaBars} size="1rem" mb="1px" mr="2" />
           Menu

@@ -33,7 +33,7 @@ export const LotOfFields = () => {
             Lot of fields
           </PageHeader>
           <FormizStep name="step1">
-            {[...Array(20)].map((_x, index) => (
+            {[...Array(30)].map((_x, index) => (
               <FieldInput
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
@@ -45,7 +45,7 @@ export const LotOfFields = () => {
             ))}
           </FormizStep>
           <FormizStep name="step2">
-            {[...Array(20)].map((_x, index) => (
+            {[...Array(30)].map((_x, index) => (
               <FieldInput
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
