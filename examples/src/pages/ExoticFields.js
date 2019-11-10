@@ -21,7 +21,7 @@ export const ExoticFields = () => {
     >
       <PageLayout>
         <PageHeader>
-          Auto form
+          Exotic Fields
         </PageHeader>
 
         <FieldPickIdenticalImages
