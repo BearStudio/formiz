@@ -36,9 +36,11 @@ export const FormGroup = ({
   ...props
 }) => (
   <FormControl mb="6" isInvalid={showError} isRequired={isRequired} {...props}>
-    <FormLabel htmlFor={id}>
-      {label}
-    </FormLabel>
+    {!!label && (
+      <FormLabel htmlFor={id}>
+        {label}
+      </FormLabel>
+    )}
     {!!helper && (
       <FormHelperText mt="0" mb="3">
         {helper}

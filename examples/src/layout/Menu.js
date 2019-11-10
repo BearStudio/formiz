@@ -34,6 +34,12 @@ export const Menu = ({ direction }) => (
     </MenuItem>
     <MenuItem
       direction={direction}
+      to="/exotic-fields"
+    >
+      Exotic Fields
+    </MenuItem>
+    <MenuItem
+      direction={direction}
       to="/lot-of-fields"
     >
       Lot of fields

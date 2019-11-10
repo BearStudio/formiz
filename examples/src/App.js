@@ -11,6 +11,7 @@ import { Wizard } from './pages/Wizard';
 import { Repeater } from './pages/Repeater';
 import { LotOfFields } from './pages/LotOfFields';
 import { UseCase1 } from './pages/UseCase1/index';
+import { ExoticFields } from './pages/ExoticFields';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route path="/repeater" exact>
               <Repeater />
+            </Route>
+            <Route path="/exotic-fields" exact>
+              <ExoticFields />
             </Route>
             <Route path="/lot-of-fields" exact>
               <LotOfFields />

@@ -30,9 +30,6 @@ export const Repeater = () => {
   const handleSubmit = (values) => {
     // eslint-disable-next-line no-alert
     alert(JSON.stringify(values, null, 2));
-    form.invalidateFields({
-      name: 'You can display an error after an API call',
-    });
   };
 
   const addItem = () => {
