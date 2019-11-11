@@ -180,6 +180,7 @@ export const useField = ({
     id: fieldId,
     resetKey: state.resetKey,
     value: localValue || '',
+    valueDebounced: field.value || defaultValue || '',
     errorMessages,
     errorMessage: errorMessages[0],
     isValid: field.errors ? !field.errors.length : true,
