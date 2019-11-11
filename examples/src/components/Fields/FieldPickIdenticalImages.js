@@ -19,7 +19,6 @@ const defaultProps = {
   helper: '',
   options: [],
   ...fieldDefaultProps,
-  debounce: 0,
 };
 
 export const FieldPickIdenticalImages = (props) => {
@@ -30,12 +29,15 @@ export const FieldPickIdenticalImages = (props) => {
     isSubmitted,
     setValue,
     value,
+    valueDebounced,
   } = useField(props);
   const {
     label, required, options, placeholder, helper, ...otherProps
   } = props;
+  const { selectedImages: selectedImagesDebounced } = valueDebounced || { selectedImages: [] };
+  const showError = !isValid && (selectedImagesDebounced.length >= 2 || isSubmitted);
+
   const { selectedImages } = value || { selectedImages: [] };
-  const showError = !isValid && (selectedImages.length === 2 || isSubmitted);
 
   const formGroupProps = {
     errorMessage,
@@ -49,7 +51,9 @@ export const FieldPickIdenticalImages = (props) => {
 
   const displayItems = useMemo(() => [...options, ...options]
     .sort(() => Math.random() - 0.5),
+  // eslint-disable-next-line
   [JSON.stringify(options)]);
+
 
   const changeValue = (itemValue, itemIndex) => {
     const nextValues = (selectedImages.find(x => x.index === itemIndex)
@@ -96,6 +100,11 @@ export const FieldPickIdenticalImages = (props) => {
               color="brand.500"
               p={0}
               overflow="hidden"
+              opacity={
+                selectedImages.length >= 2
+                && !selectedImages.find(x => x.index === index)
+                  ? 0.6 : 1
+              }
             >
               <Image
                 ignoreFallback
