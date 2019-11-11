@@ -30,6 +30,7 @@ export const ExoticFields = () => {
           name="twoPictures"
           label="Same images field"
           helper="Select two identical images"
+          validMessage="Perfect, the two images are identical!"
           required="You need to select 2 images"
           validations={[
             {

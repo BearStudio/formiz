@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
-  SimpleGrid, Button, AspectRatioBox, Image,
+  SimpleGrid, Button, AspectRatioBox, Image, Alert, AlertIcon,
 } from '@chakra-ui/core';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
@@ -10,12 +10,14 @@ const propTypes = {
   label: PropTypes.node,
   helper: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.string),
+  validMessage: PropTypes.node,
   ...fieldPropTypes,
 };
 const defaultProps = {
   label: '',
   helper: '',
   options: [],
+  validMessage: '',
   ...fieldDefaultProps,
 };
 
@@ -30,7 +32,12 @@ export const FieldPickIdenticalImages = (props) => {
     valueDebounced,
   } = useField(props);
   const {
-    label, required, options, helper, ...otherProps
+    label,
+    required,
+    options,
+    helper,
+    validMessage,
+    ...otherProps
   } = props;
   const { selectedImages: selectedImagesDebounced } = valueDebounced || { selectedImages: [] };
   const showError = !isValid && (selectedImagesDebounced.length >= 2 || isSubmitted);
@@ -114,6 +121,12 @@ export const FieldPickIdenticalImages = (props) => {
           </AspectRatioBox>
         ))}
       </SimpleGrid>
+      {isValid && !!validMessage && (
+        <Alert status="success" variant="solid" rounded="md">
+          <AlertIcon />
+          {validMessage}
+        </Alert>
+      )}
     </FormGroup>
   );
 };
