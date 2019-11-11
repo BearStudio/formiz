@@ -8,14 +8,12 @@ import { FormGroup } from '../FormGroup';
 
 const propTypes = {
   label: PropTypes.node,
-  placeholder: PropTypes.string,
   helper: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.string),
   ...fieldPropTypes,
 };
 const defaultProps = {
   label: '',
-  placeholder: '',
   helper: '',
   options: [],
   ...fieldDefaultProps,
@@ -32,7 +30,7 @@ export const FieldPickIdenticalImages = (props) => {
     valueDebounced,
   } = useField(props);
   const {
-    label, required, options, placeholder, helper, ...otherProps
+    label, required, options, helper, ...otherProps
   } = props;
   const { selectedImages: selectedImagesDebounced } = valueDebounced || { selectedImages: [] };
   const showError = !isValid && (selectedImagesDebounced.length >= 2 || isSubmitted);

@@ -26,7 +26,7 @@ export const UseCase1 = () => {
       onValidSubmit={handleSubmit}
       submitLabel="Create app"
     >
-      <PageHeader>
+      <PageHeader githubPath="UseCase1/index.js">
         Real life #1
       </PageHeader>
 

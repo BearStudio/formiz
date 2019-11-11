@@ -1,36 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Heading } from '@chakra-ui/core';
+import {
+  Button, Heading, Link, Box, Icon,
+} from '@chakra-ui/core';
 import { useForm } from '@formiz/core';
 
 
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
+  githubPath: PropTypes.string,
 };
 const defaultProps = {
   children: '',
   onReset: () => {},
+  githubPath: null,
 };
 
 
-export const PageHeader = ({ children, onReset }) => {
+export const PageHeader = ({ children, onReset, githubPath }) => {
   const form = useForm();
 
   return (
-    <Heading mb="6" d="flex" alignItems="center">
-      {children}
-      <Button
-        onClick={() => {
-          form.reset();
-          onReset();
-        }}
-        ml="auto"
-        size="sm"
-      >
-        Reset form
-      </Button>
-    </Heading>
+    <Box mb="6">
+      <Heading d="flex" alignItems="center">
+        {children}
+        <Button
+          onClick={() => {
+            form.reset();
+            onReset();
+          }}
+          ml="auto"
+          size="sm"
+        >
+          Reset form
+        </Button>
+      </Heading>
+      {!!githubPath && (
+        <Link
+          isExternal
+          fontSize="sm"
+          href={`https://github.com/ivan-dalmet/formiz/tree/master/examples/src/pages/${githubPath}`}
+        >
+          View code on GitHub
+          <Icon name="external-link" ml="1" mb="1" />
+        </Link>
+      )}
+    </Box>
   );
 };
 

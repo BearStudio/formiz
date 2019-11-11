@@ -4,6 +4,7 @@ import { Button, Flex } from '@chakra-ui/core';
 import { FieldPickIdenticalImages } from '../components/Fields/FieldPickIdenticalImages';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
+import { FieldSlider } from '../components/Fields/FieldSlider';
 
 export const ExoticFields = () => {
   const form = useForm();
@@ -20,11 +21,12 @@ export const ExoticFields = () => {
       autoForm
     >
       <PageLayout>
-        <PageHeader>
+        <PageHeader githubPath="ExoticFields.js">
           Exotic Fields
         </PageHeader>
 
         <FieldPickIdenticalImages
+          mb="12"
           name="twoPictures"
           label="Same images field"
           helper="Select two identical images"
@@ -49,6 +51,27 @@ export const ExoticFields = () => {
             'https://source.unsplash.com/MQ4eKnHtOUg/200x200',
             'https://source.unsplash.com/pzMP-RGJ7mY/200x200',
             'https://source.unsplash.com/httxBNGKapo/200x200',
+          ]}
+        />
+
+        <FieldSlider
+          name="slider"
+          label="Slider field"
+          required="Need some number here"
+          helper={(<>Try <strong>7</strong> or <strong>66</strong> to see some errors </>)}
+          validations={[
+            {
+              rule: val => val !== 0,
+              message: 'Need some real number here',
+            },
+            {
+              rule: val => val !== 7,
+              message: '7 is a lucky number but please try another one',
+            },
+            {
+              rule: val => val !== 66,
+              message: '66 is not a valid number',
+            },
           ]}
         />
 

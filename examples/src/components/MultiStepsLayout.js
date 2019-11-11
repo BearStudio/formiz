@@ -51,13 +51,7 @@ export const MultiStepsLayout = ({
                 fontSize="sm"
                 color="gray.500"
               >
-                Step
-                {' '}
-                {form.currentStep.index + 1}
-                {' '}
-                /
-                {' '}
-                {form.steps.length}
+                Step {form.currentStep.index + 1} / {form.steps.length}
               </Box>
               <Button
                 type="submit"

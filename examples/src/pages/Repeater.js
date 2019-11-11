@@ -65,7 +65,7 @@ export const Repeater = () => {
           noValidate
           onSubmit={form.submit}
         >
-          <PageHeader>
+          <PageHeader githubPath="Repeater.js">
             Repeater
           </PageHeader>
 

@@ -29,7 +29,7 @@ export const Wizard = () => {
           noValidate
           onSubmit={form.submitStep}
         >
-          <PageHeader>
+          <PageHeader githubPath="Wizard.js">
             Wizard
           </PageHeader>
           <FormizStep name="step1">
@@ -75,13 +75,7 @@ export const Wizard = () => {
                 fontSize="sm"
                 color="gray.500"
               >
-                Step
-                {' '}
-                {form.currentStep.index + 1}
-                {' '}
-                /
-                {' '}
-                {form.steps.length}
+                Step {form.currentStep.index + 1} / {form.steps.length}
               </Box>
               <Button
                 type="submit"

@@ -29,7 +29,7 @@ export const LotOfFields = () => {
           noValidate
           onSubmit={form.submitStep}
         >
-          <PageHeader>
+          <PageHeader githubPath="LotOfFields.js">
             Lot of fields
           </PageHeader>
           <FormizStep name="step1">
@@ -78,13 +78,7 @@ export const LotOfFields = () => {
                 fontSize="sm"
                 color="gray.500"
               >
-                Step
-                {' '}
-                {form.currentStep.index + 1}
-                {' '}
-  /
-                {' '}
-                {form.steps.length}
+                Step {form.currentStep.index + 1} / {form.steps.length}
               </Box>
               <Button
                 type="submit"
