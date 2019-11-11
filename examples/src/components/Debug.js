@@ -11,8 +11,6 @@ export const Debug = () => {
   return (
     <Box
       as="pre"
-      backgroundColor="gray.800"
-      color="gray.100"
       fontSize="xs"
       flex="1"
     >

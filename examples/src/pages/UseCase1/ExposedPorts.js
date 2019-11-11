@@ -6,9 +6,11 @@ import {
 import uuidv4 from 'uuid/v4';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
+import { useDarkTheme } from '../../hooks/isDarkTheme';
 
 export const ExposedPorts = () => {
   const form = useForm();
+  const isDarkTheme = useDarkTheme();
   const [exposedPorts, setExposedPorts] = useState([]);
 
   useEffect(() => {
@@ -36,10 +38,10 @@ export const ExposedPorts = () => {
           isInline
           spacing="4"
           mb="6"
-          backgroundColor="gray.50"
+          backgroundColor={isDarkTheme ? 'gray.700' : 'gray.50'}
           rounded="md"
           borderWidth="1px"
-          borderColor="gray.200"
+          borderColor={isDarkTheme ? 'gray.900' : 'gray.200'}
           p="4"
         >
           <Box flex="1">

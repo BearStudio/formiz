@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Stack, Box, Flex } from '@chakra-ui/core';
 import { Debug } from '../components/Debug';
+import { useDarkTheme } from '../hooks/isDarkTheme';
 
 const propTypes = {
   children: PropTypes.node,
@@ -33,6 +34,7 @@ const useDebugTime = () => {
 
 export const PageLayout = ({ children }) => {
   useDebugTime();
+  const isDarkTheme = useDarkTheme();
 
   return (
     <Stack
@@ -66,7 +68,8 @@ export const PageLayout = ({ children }) => {
         w={{ lg: '30vw' }}
         maxH={{ lg: '100vh' }}
         overflow="auto"
-        backgroundColor="gray.800"
+        backgroundColor={isDarkTheme ? 'gray.900' : 'gray.800'}
+        color="gray.100"
         p={{ base: 4, lg: 8 }}
       >
         <Debug />

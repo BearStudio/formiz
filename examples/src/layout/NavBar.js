@@ -15,8 +15,10 @@ import {
 import { FaBars } from 'react-icons/fa';
 import logo from './logo.svg';
 import { Menu } from './Menu';
+import { useDarkTheme } from '../hooks/isDarkTheme';
 
 export const NavBar = () => {
+  const isDarkTheme = useDarkTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -26,14 +28,17 @@ export const NavBar = () => {
       px={{ base: 4, lg: 0 }}
       borderRightWidth={{ base: 0, lg: 1 }}
       borderBottomWidth={{ base: 1, lg: 0 }}
-      borderColor="gray.200"
+      borderColor={isDarkTheme ? 'gray.900' : 'gray.200'}
       flexDir={{ lg: 'column' }}
       minW="15rem"
       maxH="100vh"
       overflowY="auto"
       overflowX="hidden"
       align={{ base: 'center', lg: 'flex-end' }}
-      backgroundColor={{ base: 'white', lg: 'gray.50' }}
+      backgroundColor={{
+        base: isDarkTheme ? 'gray.900' : 'white',
+        lg: isDarkTheme ? 'gray.700' : 'gray.50',
+      }}
       shadow={{ base: 'md', lg: 'none' }}
     >
       <Flex
