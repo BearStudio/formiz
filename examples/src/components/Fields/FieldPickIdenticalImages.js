@@ -102,7 +102,7 @@ export const FieldPickIdenticalImages = (props) => {
               _focus={{
                 shadow: selectedImages.find(x => x.index === index) ? '0 0 0 0.3rem' : 'outline',
               }}
-              color="brand.500"
+              color={selectedImages.length < 2 || isValid ? 'brand.500' : 'red.500'}
               p={0}
               overflow="hidden"
               opacity={
