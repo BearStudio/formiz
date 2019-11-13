@@ -84,7 +84,11 @@ export const LotOfFields = () => {
                 type="submit"
                 gridColumn="3"
                 variantColor="brand"
-                isDisabled={!form.isValid && form.isSubmitted}
+                isDisabled={
+                  form.isLastStep
+                    ? (!form.isValid && form.isSubmitted)
+                    : (!form.isStepValid && form.isStepSubmitted)
+                }
               >
                 {form.isLastStep ? 'Submit' : 'Next'}
               </Button>
