@@ -32,6 +32,15 @@ export const isEmail = () => (value) => {
 
 export const isNumber = () => value => testIsNumber(value);
 
+export const isMinNumber = min => value => testIsNumber(value) && parseFloat(value) >= min;
+
 export const isMaxNumber = max => value => testIsNumber(value) && parseFloat(value) <= max;
 
-export const isMinNumber = min => value => testIsNumber(value) && parseFloat(value) >= min;
+export const isLength = length => value => (testIsString(value) || Array.isArray(value))
+  && value.length === length;
+
+export const isMinLength = min => value => (testIsString(value) || Array.isArray(value))
+  && value.length >= min;
+
+export const isMaxLength = max => value => (testIsString(value) || Array.isArray(value))
+  && value.length <= max;
