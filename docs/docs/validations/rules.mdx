@@ -77,7 +77,6 @@ import { isEmail } from '@formiz/validations'
 >
 ```
 
-
 ### isNumber()
 
 Test if the value is a number.
@@ -91,6 +90,42 @@ import { isNumber } from '@formiz/validations'
     {
       rule: isNumber(),
       message: 'This is not a number',
+    },
+  ]}
+>
+```
+
+### isMinNumber()
+
+Test if the value is a number and under a max value.
+
+```jsx
+import { isMinNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMinNumber(10),
+      message: 'Should be a number over 10',
+    },
+  ]}
+>
+```
+
+### isMaxNumber()
+
+Test if the value is a number and under a max value.
+
+```jsx
+import { isMaxNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMaxNumber(10),
+      message: 'Should be a number under 10',
     },
   ]}
 >

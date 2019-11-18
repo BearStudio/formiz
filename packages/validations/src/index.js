@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-globals */
 const testIsString = x => typeof x === 'string' || x instanceof String;
-const testIsNumber = x => typeof x === 'number';
+const testIsNumber = x => typeof parseFloat(x) === 'number'
+  && !isNaN(parseFloat(x))
+  && !isNaN(x);
 // const testIsObject = x => x && typeof x === 'object' && x.constructor === Object;
 const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
@@ -28,6 +30,8 @@ export const isEmail = () => (value) => {
   return !value || emailRegex.test(value);
 };
 
-export const isNumber = () => value => testIsNumber(parseFloat(value))
-  && !isNaN(parseFloat(value))
-  && !isNaN(value);
+export const isNumber = () => value => testIsNumber(value);
+
+export const isMaxNumber = max => value => testIsNumber(value) && parseFloat(value) <= max;
+
+export const isMinNumber = min => value => testIsNumber(value) && parseFloat(value) >= min;
