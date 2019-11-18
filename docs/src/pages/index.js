@@ -7,7 +7,6 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
-import { Alpha } from '../messages';
 
 const features = [
   {
@@ -55,6 +54,21 @@ const features = [
       </>
     ),
   },
+  {
+    title: <>📱 React Native compatible</>,
+    description: (
+      <>
+        You can use it with <a href="https://facebook.github.io/react-native/">React Native</a>.
+        Just use the <code>as=&#123;View&#125;</code> property on
+        {' '}
+        <code>&lt;FormizStep&gt;</code>
+        {' '}
+        component to replace the
+        {' '}
+        <code>div</code>.
+      </>
+    ),
+  },
 ];
 
 function Home() {
@@ -95,7 +109,6 @@ function Home() {
         {features && features.length && (
           <section className={styles.features}>
             <div className="container" style={{ maxWidth: '60rem' }}>
-              <Alpha />
               <h2 style={{ margin: '1em 0 2em 0', textAlign: 'center' }}>
                 Why Formiz?
               </h2>

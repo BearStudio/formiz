@@ -9,7 +9,6 @@ module.exports = {
   themeConfig: {
     image: 'img/social.jpg',
     navbar: {
-      title: 'alpha',
       logo: {
         alt: 'Formiz',
         src: 'img/logo.svg',
