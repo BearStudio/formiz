@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{160:function(t){t.exports=JSON.parse('{"id":"getting-started","title":"Getting Started","description":"import { Alpha } from \'../src/messages\'","source":"@site/docs/getting-started.mdx","permalink":"/docs/getting-started","sidebar":"docs","next":{"title":"Wizard Form","permalink":"/docs/demos/wizard"}}')}}]);
