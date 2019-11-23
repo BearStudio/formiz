@@ -36,6 +36,14 @@ export const isMinNumber = min => value => testIsNumber(value) && parseFloat(val
 
 export const isMaxNumber = max => value => testIsNumber(value) && parseFloat(value) <= max;
 
+export const isInRangeNumber = (min, max) => value => testIsNumber(value)
+  && parseFloat(value) >= min
+  && parseFloat(value) <= max;
+
+export const isPercentage = () => value => testIsNumber(value)
+  && parseFloat(value) >= 0
+  && parseFloat(value) <= 100;
+
 export const isLength = length => value => (testIsString(value) || Array.isArray(value))
   && value.length === length;
 

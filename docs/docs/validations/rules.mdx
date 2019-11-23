@@ -131,6 +131,42 @@ import { isMaxNumber } from '@formiz/validations'
 >
 ```
 
+### isInRangeNumber(min, max)
+
+Test if the value is a number and in a range between a min and a max.
+
+```jsx
+import { isInRangeNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isInRangeNumber(1, 5),
+      message: 'Should be a number between 1 and 5',
+    },
+  ]}
+>
+```
+
+### isPercentage()
+
+Test if the value is a number between 0 and 100.
+
+```jsx
+import { isInRangeNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isPercentage(),
+      message: 'This is not a valid percentage',
+    },
+  ]}
+>
+```
+
 ### isLength(length)
 
 Test if a string or an array has a specific length.
