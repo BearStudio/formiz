@@ -82,9 +82,8 @@ export const Wizard = () => {
                 gridColumn="3"
                 variantColor="brand"
                 isDisabled={
-                  form.isLastStep
-                    ? (!form.isValid && form.isSubmitted)
-                    : (!form.isStepValid && form.isStepSubmitted)
+                  (form.isLastStep ? !form.isValid : !form.isStepValid)
+                  && form.isStepSubmitted
                 }
               >
                 {form.isLastStep ? 'Submit' : 'Next'}
