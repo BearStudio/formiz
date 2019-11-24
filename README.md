@@ -18,6 +18,10 @@ Choose how to render validations, form buttons, and navigation between steps (wi
 #### ⚛️ **Built with hooks**
 Use hooks & cut the complexity to create custom fields :) Use complex logic without even thinking of it.
 
+#### 📱 **React Native compatible**
+You can use it with React Native. Just use the `as={View}` property on `<FormizStep>` component to replace the `div`.
+
+
 [Getting started](https://formiz-react.com/docs/getting-started)
 
 ## Looking for the documentation?
