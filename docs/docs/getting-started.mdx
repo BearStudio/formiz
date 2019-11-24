@@ -247,6 +247,7 @@ export const MyForm = () => {
       onValidSubmit={handleSubmit} // Handle submit only if the form is valid
     >
       <form // create an html form
+        noValidate // Disable native html validation
         onSubmit={myForm.submit} // Pass the Formiz submit to the onSubmit
       >
         {/* Your fields here */}
@@ -287,6 +288,7 @@ export const MyForm = () => {
       onValidSubmit={handleSubmit}
     >
       <form
+        noValidate
         onSubmit={myForm.submit}
       >
 
@@ -356,6 +358,7 @@ export const MyForm = () => {
       onValidSubmit={handleSubmit}
     >
       <form
+        noValidate
         // Change the myForm.submit to myForm.submitStep
         onSubmit={myForm.submitStep}
       >
