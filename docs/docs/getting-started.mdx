@@ -67,7 +67,7 @@ import { useField } from '@formiz/core'
 
 export const MyField = () => {
   // ...
-};
+}
 ```
 
 #### 2. Pass props to the hook
@@ -79,9 +79,9 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const {} = useField(props); // Pass the props to the hook
+  const {} = useField(props) // Pass the props to the hook
   // ...
-};
+}
 ```
 
 #### 3. Make it works
@@ -93,16 +93,15 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const { resetKey, setValue, value } = useField(props);
+  const { setValue, value } = useField(props)
 
   return (
     <input
-      key={resetKey} // Allow to recreate the field if the form is reset
       value={value || ''} // Pass the value for the input
       onChange={e => setValue(e.target.value)} // Update the value onChange
     />
-  );
-};
+  )
+}
 ```
 
 #### 3. Display error
@@ -114,12 +113,11 @@ import React from 'react'
 import { useField } from '@formiz/core'
 
 export const MyField = (props) => {
-  const { errorMessage, isValid, resetKey, setValue, value } = useField(props);
+  const { errorMessage, isValid, setValue, value } = useField(props)
 
   return (
     <div>
       <input
-        key={resetKey}
         value={value || ''}
         onChange={e => setValue(e.target.value)}
       />
@@ -128,8 +126,8 @@ export const MyField = (props) => {
         && errorMessage // Display error message
       }
     </div>
-  );
-};
+  )
+}
 ```
 
 #### 4. Improve UX and accessibility
@@ -137,7 +135,7 @@ export const MyField = (props) => {
 - Add a custom label and add `*` if the field is required.
 - Allow to change the input type.
 - Add css classes for style.
-- Display error only if the field changed or the form/step is submitted.
+- Display error only if the field is blured or the form/step is submitted.
 - Don't apply the `is-error` class if the input is focused.
 - Add `id`, `for` and aria attributes for accessibility.
 
@@ -150,37 +148,33 @@ export const MyField = (props) => {
     errorMessage,
     id,
     isValid,
-    isPristine,
     isSubmitted,
-    resetKey,
     setValue,
     value,
   } = useField(props)
-  const { label, type, isRequired } = props
-  const [isFocused, setIsFocused] = React.useState(false);
-  const showError = !isValid && (!isPristine || isSubmitted)
+  const { label, type, required } = props
+  const [isTouched, setIsTouched] = React.useState(false)
+  const showError = !isValid && (isTouched || isSubmitted)
 
   return (
-    <div className={`demo-form-group ${(showError && !isFocused) ? 'is-error' : ''}`}>
+    <div className={`demo-form-group ${(showError) ? 'is-error' : ''}`}>
       <label
         className="demo-label"
         htmlFor={id}
       >
         { label }
-        {isRequired && ' *'}
+        {!!required && ' *'}
       </label>
       <input
-        key={resetKey}
         id={id}
         type={type || 'text'}
         value={value || ''}
         className="demo-input"
         onChange={e => setValue(e.target.value)}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        aria-invalid={!isValid}
+        onBlur={() => setIsTouched(false)}
+        aria-invalid={showError}
         aria-required={!!required}
-        aria-describedby={!isValid ? `${id}-error` : null}
+        aria-describedby={showError ? `${id}-error` : null}
       />
       {showError && (
         <div id={`${id}-error`} className="demo-form-feedback">
