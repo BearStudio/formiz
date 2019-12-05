@@ -20,14 +20,15 @@
   "scripts": {
     "prepare": "yarn build",
     "start": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "rollup -c & yarn types",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:coverage": "jest --coverage",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "types": "tsc --declaration --emitDeclarationOnly --allowJs --outDir dist src/index.js"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "files": [
     "dist"
   ],
@@ -60,6 +61,7 @@
     "rollup-plugin-visualizer": "2.7.2"
   },
   "dependencies": {
-    "fast-memoize": "2.5.1"
+    "fast-memoize": "2.5.1",
+    "typescript": "^3.7.3"
   }
 }
