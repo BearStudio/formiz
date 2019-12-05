@@ -20,7 +20,7 @@
   "scripts": {
     "prepare": "yarn build",
     "start": "rollup -c -w",
-    "build": "rollup -c && yarn types",
+    "build": "rollup -c & yarn types",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -48,6 +48,6 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "5.1.2",
     "rollup-plugin-visualizer": "2.7.2",
-    "typescript": "3.7.2"
+    "typescript": "3.7.3"
   }
 }
