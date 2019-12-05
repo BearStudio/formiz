@@ -171,7 +171,7 @@ export const MyField = (props) => {
         value={value || ''}
         className="demo-input"
         onChange={e => setValue(e.target.value)}
-        onBlur={() => setIsTouched(false)}
+        onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-required={!!required}
         aria-describedby={showError ? `${id}-error` : null}
