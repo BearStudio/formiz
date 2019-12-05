@@ -38,9 +38,9 @@ Formiz.defaultProps = {
   onInvalidSubmit: () => {},
 };
 
-export const FormizStep = ({ name, order, ...props }) => (
+export const FormizStep = ({ name, ...props }) => (
   <FormStepContextProvider name={name}>
-    <FormStep {...props} name={name} order={order} />
+    <FormStep {...props} name={name} />
   </FormStepContextProvider>
 );
 
