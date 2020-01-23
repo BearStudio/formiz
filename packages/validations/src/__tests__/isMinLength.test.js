@@ -6,11 +6,11 @@ describe('isMinLength', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isMinLength(2)(null)).toBe(false);
+    expect(isMinLength(2)(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isMinLength(2)(undefined)).toBe(false);
+    expect(isMinLength(2)(undefined)).toBe(true);
   });
 
   // Strings
@@ -28,7 +28,7 @@ describe('isMinLength', () => {
   });
 
   it('Test if value is an empty string', () => {
-    expect(isMinLength(2)('')).toBe(false);
+    expect(isMinLength(2)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

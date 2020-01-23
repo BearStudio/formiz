@@ -6,11 +6,11 @@ describe('isNotEmptyArray', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isNotEmptyArray()(null)).toBe(false);
+    expect(isNotEmptyArray()(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isNotEmptyArray()(undefined)).toBe(false);
+    expect(isNotEmptyArray()(undefined)).toBe(true);
   });
 
   // Strings
@@ -20,7 +20,7 @@ describe('isNotEmptyArray', () => {
   });
 
   it('Test if value is an empty string', () => {
-    expect(isNotEmptyArray()('')).toBe(false);
+    expect(isNotEmptyArray()('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

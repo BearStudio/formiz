@@ -6,11 +6,11 @@ describe('isNotEmptyString', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isNotEmptyString()(null)).toBe(false);
+    expect(isNotEmptyString()(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isNotEmptyString()(undefined)).toBe(false);
+    expect(isNotEmptyString()(undefined)).toBe(true);
   });
 
   // Strings

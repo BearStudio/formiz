@@ -6,11 +6,11 @@ describe('isMaxLength', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isMaxLength(2)(null)).toBe(false);
+    expect(isMaxLength(2)(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isMaxLength(2)(undefined)).toBe(false);
+    expect(isMaxLength(2)(undefined)).toBe(true);
   });
 
   // Strings
