@@ -6,11 +6,11 @@ describe('isInRangeNumber', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isInRangeNumber(1, 5)(null)).toBe(false);
+    expect(isInRangeNumber(1, 5)(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isInRangeNumber(1, 5)(undefined)).toBe(false);
+    expect(isInRangeNumber(1, 5)(undefined)).toBe(true);
   });
 
   // Strings
@@ -20,7 +20,7 @@ describe('isInRangeNumber', () => {
   });
 
   it('Test if value is an empty string', () => {
-    expect(isInRangeNumber(1, 5)('')).toBe(false);
+    expect(isInRangeNumber(1, 5)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

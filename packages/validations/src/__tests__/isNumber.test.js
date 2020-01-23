@@ -6,11 +6,11 @@ describe('isNumber', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isNumber()(null)).toBe(false);
+    expect(isNumber()(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isNumber()(undefined)).toBe(false);
+    expect(isNumber()(undefined)).toBe(true);
   });
 
   // Strings
@@ -20,7 +20,7 @@ describe('isNumber', () => {
   });
 
   it('Test if value is an empty string', () => {
-    expect(isNumber()('')).toBe(false);
+    expect(isNumber()('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

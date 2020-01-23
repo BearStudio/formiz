@@ -6,11 +6,11 @@ describe('isMaxNumber', () => {
   // Empty
 
   it('Test if value is null', () => {
-    expect(isMaxNumber(1)(null)).toBe(false);
+    expect(isMaxNumber(1)(null)).toBe(true);
   });
 
   it('Test if value is undefined', () => {
-    expect(isMaxNumber(1)(undefined)).toBe(false);
+    expect(isMaxNumber(1)(undefined)).toBe(true);
   });
 
   // Strings
@@ -20,7 +20,7 @@ describe('isMaxNumber', () => {
   });
 
   it('Test if value is an empty string', () => {
-    expect(isMaxNumber(1)('')).toBe(false);
+    expect(isMaxNumber(1)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {
