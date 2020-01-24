@@ -13,14 +13,14 @@ describe('isInRangeNumber', () => {
     expect(isInRangeNumber(1, 5)(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isInRangeNumber(1, 5)('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
     expect(isInRangeNumber(1, 5)('value')).toBe(false);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isInRangeNumber(1, 5)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

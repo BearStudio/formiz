@@ -13,14 +13,14 @@ describe('isMaxNumber', () => {
     expect(isMaxNumber(1)(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isMaxNumber(1)('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
     expect(isMaxNumber(1)('value')).toBe(false);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isMaxNumber(1)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

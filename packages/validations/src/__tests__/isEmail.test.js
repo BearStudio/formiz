@@ -13,6 +13,10 @@ describe('isEmail', () => {
     expect(isEmail()(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isEmail()('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
@@ -29,10 +33,6 @@ describe('isEmail', () => {
 
   it('Test if value is a string', () => {
     expect(isEmail()('email@domain.fr')).toBe(true);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isEmail()('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

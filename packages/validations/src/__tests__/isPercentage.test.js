@@ -13,14 +13,14 @@ describe('isPercentage', () => {
     expect(isPercentage()(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isPercentage()('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
     expect(isPercentage()('value')).toBe(false);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isPercentage()('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

@@ -13,6 +13,10 @@ describe('isMaxLength', () => {
     expect(isMaxLength(2)(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isMaxLength(2)('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
@@ -25,10 +29,6 @@ describe('isMaxLength', () => {
 
   it('Test if value is a string with 2 characters', () => {
     expect(isMaxLength(2)('ab')).toBe(true);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isMaxLength(2)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

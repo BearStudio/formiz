@@ -13,14 +13,14 @@ describe('isNotEmptyArray', () => {
     expect(isNotEmptyArray()(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isNotEmptyArray()('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
     expect(isNotEmptyArray()('value')).toBe(false);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isNotEmptyArray()('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {
