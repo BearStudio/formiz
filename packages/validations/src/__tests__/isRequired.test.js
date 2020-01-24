@@ -13,14 +13,14 @@ describe('isRequired', () => {
     expect(isRequired()(undefined)).toBe(false);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isRequired()('')).toBe(false);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
     expect(isRequired()('value')).toBe(true);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isRequired()('')).toBe(false);
   });
 
   it('Test if value is a string with only spaces', () => {

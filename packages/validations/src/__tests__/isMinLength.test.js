@@ -13,6 +13,10 @@ describe('isMinLength', () => {
     expect(isMinLength(2)(undefined)).toBe(true);
   });
 
+  it('Test if value is an empty string', () => {
+    expect(isMinLength(2)('')).toBe(true);
+  });
+
   // Strings
 
   it('Test if value is a string', () => {
@@ -25,10 +29,6 @@ describe('isMinLength', () => {
 
   it('Test if value is a string with 2 characters', () => {
     expect(isMinLength(2)('ab')).toBe(true);
-  });
-
-  it('Test if value is an empty string', () => {
-    expect(isMinLength(2)('')).toBe(true);
   });
 
   it('Test if value is a string with only spaces', () => {

@@ -45,7 +45,7 @@ export const isRequired = () => value => !!value || value === 0;
  * return true if the value is a string and is not empty, false instead.
  */
 export const isNotEmptyString = () => (value) => {
-  if (testIsNullOrUndefined(value)) return true;
+  if (testIsEmpty(value)) return true;
   if (!testIsString(value)) return false;
 
   return !!(value || '').match(/^(?!\s*$).+/);
@@ -70,10 +70,7 @@ export const isNotEmptyArray = () => (value) => {
  * false instead
  */
 export const isEmail = () => (value) => {
-  if (value === null || value === undefined) {
-    return true;
-  }
-
+  if (testIsEmpty(value)) return true;
   if (!testIsString(value)) return false;
 
   return !value || emailRegex.test(value);
@@ -131,7 +128,7 @@ export const isPercentage = () => value => testIsEmpty(value) || (testIsNumber(v
  * return true if the value is a string or an array and match the length, false instead.
  */
 export const isLength = length => (value) => {
-  if (testIsNullOrUndefined(value)) return true;
+  if (testIsEmpty(value)) return true;
 
   return (testIsString(value) || Array.isArray(value))
     && value.length === length;
