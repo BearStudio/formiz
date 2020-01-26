@@ -28,9 +28,9 @@ describe('[FormContext:Action] formReset()', () => {
     expect(state.navigatedStepName).toBe('step2');
     expect(state.resetKey).toBe(1);
 
-    let fieldA = state.fields.find(x => x.name === 'fieldA');
-    let fieldB = state.fields.find(x => x.name === 'fieldB');
-    let fieldC = state.fields.find(x => x.name === 'fieldC');
+    let fieldA = state.fields.find((x) => x.name === 'fieldA');
+    let fieldB = state.fields.find((x) => x.name === 'fieldB');
+    let fieldC = state.fields.find((x) => x.name === 'fieldC');
 
     expect(fieldA).toHaveProperty('isPristine', false);
     expect(fieldA).toHaveProperty('value', 'Value A');
@@ -60,9 +60,9 @@ describe('[FormContext:Action] formReset()', () => {
     expect(state.navigatedStepName).toBe('step1');
     expect(state.resetKey).toBe(2);
 
-    fieldA = state.fields.find(x => x.name === 'fieldA');
-    fieldB = state.fields.find(x => x.name === 'fieldB');
-    fieldC = state.fields.find(x => x.name === 'fieldC');
+    fieldA = state.fields.find((x) => x.name === 'fieldA');
+    fieldB = state.fields.find((x) => x.name === 'fieldB');
+    fieldC = state.fields.find((x) => x.name === 'fieldC');
 
     expect(fieldA).toHaveProperty('isPristine', true);
     expect(fieldA).toHaveProperty('value', null);

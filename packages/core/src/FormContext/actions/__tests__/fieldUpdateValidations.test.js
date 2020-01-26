@@ -4,7 +4,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
   it('Should update the field with new validations', () => {
     const validations = [
       {
-        rule: x => !!x,
+        rule: (x) => !!x,
       },
     ];
 
@@ -21,7 +21,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
@@ -31,7 +31,7 @@ describe('[FormContext:Action] fieldUpdateValidations()', () => {
   it('Should not modify the state if the field does not exist', () => {
     const validations = [
       {
-        rule: x => !!x,
+        rule: (x) => !!x,
       },
     ];
 

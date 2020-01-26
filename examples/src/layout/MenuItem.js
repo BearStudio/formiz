@@ -35,12 +35,10 @@ export const MenuItem = ({
       borderRight={direction === 'right' ? '3px solid transparent' : null}
       borderColor={isActive
         ? (isDarkTheme ? 'gray.200' : 'gray.700')
-        : null
-      }
+        : null}
       color={isActive
         ? (isDarkTheme ? 'gray.200' : 'gray.700')
-        : (isDarkTheme ? 'gray.400' : 'gray.500')
-      }
+        : (isDarkTheme ? 'gray.400' : 'gray.500')}
       transition="0.2s"
       textAlign={direction === 'left' ? 'left' : 'right'}
       _hover={{

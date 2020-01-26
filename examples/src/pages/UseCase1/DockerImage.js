@@ -44,7 +44,7 @@ export const DockerImage = () => {
         mb={6}
         variantColor="brand"
         isChecked={isPrivate}
-        onChange={() => setIsPrivate(x => !x)}
+        onChange={() => setIsPrivate((x) => !x)}
       >
         Private image
       </Checkbox>

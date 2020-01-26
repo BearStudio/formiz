@@ -1,7 +1,7 @@
 import { getFieldErrors } from '../index';
 
-const isRequired = () => x => !!x;
-const isEqual = match => x => x === match;
+const isRequired = () => (x) => !!x;
+const isEqual = (match) => (x) => x === match;
 
 describe('[FormContext:Helper] getFieldErrors()', () => {
   it('Should not return errors if no validations', () => {
@@ -61,7 +61,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       isEnabled: true,
       validations: [
         {
-          rule: x => !!x,
+          rule: (x) => !!x,
         },
         {
           rule: isEqual('my value'),

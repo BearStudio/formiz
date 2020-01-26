@@ -63,10 +63,10 @@ export const FieldSelect = (props) => {
         placeholder={placeholder}
         selectProps={{
           key: resetKey,
-          onChange: e => setValue(e.target.value),
+          onChange: (e) => setValue(e.target.value),
         }}
       >
-        {(options || []).map(item => (
+        {(options || []).map((item) => (
           <option key={item.value} value={item.value}>
             {item.label || item.value}
           </option>

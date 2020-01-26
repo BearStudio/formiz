@@ -20,7 +20,7 @@ export const FormContextProvider = ({
   const [state, setState] = useState(getInitialState(formId));
 
   const dispatch = useCallback((action) => {
-    setState(s => action(s));
+    setState((s) => action(s));
   }, []);
 
   useEffect(() => {

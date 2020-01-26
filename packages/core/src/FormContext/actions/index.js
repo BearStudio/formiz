@@ -14,15 +14,15 @@ import {
 
 export const formValidate = () => (state) => {
   const fields = (state.fields || [])
-    .map(x => ({
+    .map((x) => ({
       ...x,
       errors: getFieldErrors(x.name, state.fields),
     }));
 
-  const isValid = fields.filter(x => x.isEnabled).every(x => !x.errors.length);
-  const steps = (state.steps || []).map(s => ({
+  const isValid = fields.filter((x) => x.isEnabled).every((x) => !x.errors.length);
+  const steps = (state.steps || []).map((s) => ({
     ...s,
-    isValid: getEnabledFieldsByStep(s.name, fields).every(x => !x.errors.length),
+    isValid: getEnabledFieldsByStep(s.name, fields).every((x) => !x.errors.length),
   }));
 
   return {
@@ -33,7 +33,7 @@ export const formValidate = () => (state) => {
   };
 };
 
-export const formInvalidateFields = fieldsErrors => (state) => {
+export const formInvalidateFields = (fieldsErrors) => (state) => {
   const fields = state.fields.map((field) => {
     const errorMessage = fieldsErrors[field.name];
 
@@ -62,7 +62,7 @@ export const formSubmit = (
   callbackOnValid = () => {},
   callbackOnInvalid = () => {},
 ) => (state) => {
-  const steps = (state.steps || []).map(step => ({
+  const steps = (state.steps || []).map((step) => ({
     ...step,
     isSubmitted: true,
   }));
@@ -95,7 +95,7 @@ export const formReset = () => (state) => {
     value: field.defaultValue,
   }));
 
-  const steps = (state.steps || []).map(step => ({
+  const steps = (state.steps || []).map((step) => ({
     ...step,
     isSubmitted: false,
     isVisited: false,
@@ -120,8 +120,8 @@ export const formReset = () => (state) => {
 */
 
 export const stepRegister = (name, { order = 0, label = '', isEnabled = true } = {}) => (state) => {
-  const step = state.steps.find(x => x.name === name) || {};
-  const otherSteps = state.steps.filter(x => x.name !== name);
+  const step = state.steps.find((x) => x.name === name) || {};
+  const otherSteps = state.steps.filter((x) => x.name !== name);
   const steps = getStepsOrdered([
     ...otherSteps,
     {
@@ -147,8 +147,8 @@ export const stepRegister = (name, { order = 0, label = '', isEnabled = true } =
   return newState;
 };
 
-export const stepUnregister = name => (state) => {
-  const otherSteps = state.steps.filter(x => x.name !== name);
+export const stepUnregister = (name) => (state) => {
+  const otherSteps = state.steps.filter((x) => x.name !== name);
   const steps = getStepsOrdered(otherSteps);
 
   let newState = {
@@ -162,8 +162,8 @@ export const stepUnregister = name => (state) => {
 };
 
 export const stepUpdate = (name, { label, isEnabled } = {}) => (state) => {
-  const step = state.steps.find(x => x.name === name) || {};
-  const otherSteps = state.steps.filter(x => x.name !== name);
+  const step = state.steps.find((x) => x.name === name) || {};
+  const otherSteps = state.steps.filter((x) => x.name !== name);
   const steps = getStepsOrdered([
     ...otherSteps,
     {
@@ -179,9 +179,9 @@ export const stepUpdate = (name, { label, isEnabled } = {}) => (state) => {
   };
 };
 
-export const stepSetVisited = name => (state) => {
-  const step = state.steps.find(x => x.name === name) || {};
-  const otherSteps = state.steps.filter(x => x.name !== name);
+export const stepSetVisited = (name) => (state) => {
+  const step = state.steps.find((x) => x.name === name) || {};
+  const otherSteps = state.steps.filter((x) => x.name !== name);
   const steps = getStepsOrdered([
     ...otherSteps,
     {
@@ -196,10 +196,10 @@ export const stepSetVisited = name => (state) => {
   };
 };
 
-export const stepGoTo = name => (state) => {
+export const stepGoTo = (name) => (state) => {
   const { steps } = state;
 
-  const newStep = getEnabledSteps(steps).find(x => x.name === name);
+  const newStep = getEnabledSteps(steps).find((x) => x.name === name);
 
   if (!newStep || !newStep.name) {
     return state;
@@ -215,7 +215,7 @@ export const stepGoTo = name => (state) => {
   return newState;
 };
 
-export const stepGoToPosition = position => (state) => {
+export const stepGoToPosition = (position) => (state) => {
   const { steps } = state;
 
   const newStep = getEnabledSteps(steps)[position] || {};
@@ -253,8 +253,8 @@ export const stepSubmit = (
   callbackOnValid = () => {},
   callbackOnInvalid = () => {},
 ) => (state) => {
-  const step = state.steps.find(x => x.name === name) || {};
-  const otherSteps = state.steps.filter(x => x.name !== name);
+  const step = state.steps.find((x) => x.name === name) || {};
+  const otherSteps = state.steps.filter((x) => x.name !== name);
   const steps = getStepsOrdered([
     ...otherSteps,
     {
@@ -296,8 +296,8 @@ export const fieldRegister = (
     validations = [],
   } = {},
 ) => (state) => {
-  const field = state.fields.find(x => x.name === name) || {};
-  const otherFields = state.fields.filter(x => x.name !== name);
+  const field = state.fields.find((x) => x.name === name) || {};
+  const otherFields = state.fields.filter((x) => x.name !== name);
   const fields = [
     ...otherFields,
     {
@@ -325,13 +325,13 @@ export const fieldRegister = (
 };
 
 export const fieldUnregister = (id, isKeepValue) => (state) => {
-  const field = state.fields.find(x => x.id === id);
+  const field = state.fields.find((x) => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.id !== id);
+  const otherFields = state.fields.filter((x) => x.id !== id);
 
   const fields = !isKeepValue ? otherFields : [
     ...otherFields,
@@ -355,13 +355,13 @@ export const fieldUpdateValidations = (
   id,
   validations,
 ) => (state) => {
-  const field = state.fields.find(x => x.id === id);
+  const field = state.fields.find((x) => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.id !== id);
+  const otherFields = state.fields.filter((x) => x.id !== id);
   const fields = [
     ...otherFields,
     {
@@ -381,13 +381,13 @@ export const fieldUpdateValidations = (
 };
 
 export const fieldSetValue = (id, value) => (state) => {
-  const field = state.fields.find(x => x.id === id);
+  const field = state.fields.find((x) => x.id === id);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter(x => x.id !== id);
+  const otherFields = state.fields.filter((x) => x.id !== id);
   const { externalError, ...fieldWithoutExternalError } = field;
 
   const fields = [

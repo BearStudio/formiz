@@ -13,7 +13,7 @@ describe('[FormContext:Action] fieldSetValue()', () => {
       ],
     });
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('value', 'new value');
   });

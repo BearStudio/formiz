@@ -33,7 +33,7 @@ export const Repeater = () => {
   };
 
   const addItem = () => {
-    setCollection(c => [
+    setCollection((c) => [
       ...c,
       {
         id: uuidv4(),
@@ -42,7 +42,7 @@ export const Repeater = () => {
   };
 
   const addItemAtIndex = (index) => {
-    setCollection(c => [
+    setCollection((c) => [
       ...c.slice(0, index + 1),
       {
         id: uuidv4(),
@@ -52,7 +52,7 @@ export const Repeater = () => {
   };
 
   const removeItem = (id) => {
-    setCollection(c => c.filter(x => x.id !== id));
+    setCollection((c) => c.filter((x) => x.id !== id));
   };
 
   return (

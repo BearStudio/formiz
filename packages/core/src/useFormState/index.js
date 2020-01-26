@@ -110,7 +110,7 @@ export const useFormState = () => {
     isFirstStep: currentStepPosition === 0,
     isLastStep: currentStepPosition === stepsCount - 1,
     submitStep: handleStepSubmit,
-    getFieldStepName: fieldName => getFieldStepName(fieldName, fields),
+    getFieldStepName: (fieldName) => getFieldStepName(fieldName, fields),
     nextStep: () => { dispatch(stepGoNext()); },
     prevStep: () => { dispatch(stepGoPrev()); },
     goToStep: (name) => { dispatch(stepGoTo(name)); },

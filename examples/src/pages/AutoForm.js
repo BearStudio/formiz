@@ -31,13 +31,13 @@ export const AutoForm = () => {
           name="name"
           label="Name"
           required="Required"
-          formatValue={val => (val || '').trim()}
+          formatValue={(val) => (val || '').trim()}
         />
         <FieldInput
           name="email"
           label="Email"
           type="email"
-          formatValue={val => (val || '').trim()}
+          formatValue={(val) => (val || '').trim()}
           required="Required"
           validations={[
             {
@@ -49,7 +49,7 @@ export const AutoForm = () => {
         <FieldInput
           name="company"
           label="Company"
-          formatValue={val => (val || '').trim()}
+          formatValue={(val) => (val || '').trim()}
         />
         <Flex>
           <Button

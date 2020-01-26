@@ -34,11 +34,11 @@ export const ExoticFields = () => {
           required="You need to select 2 images"
           validations={[
             {
-              rule: val => (val || {}).selectedCount === 2,
+              rule: (val) => (val || {}).selectedCount === 2,
               message: 'You need to select a second image',
             },
             {
-              rule: val => (val || {}).isIdentical,
+              rule: (val) => (val || {}).isIdentical,
               message: 'Image are not identical',
             },
           ]}
@@ -62,15 +62,15 @@ export const ExoticFields = () => {
           helper={(<>Try <strong>7</strong> or <strong>66</strong> to see some errors </>)}
           validations={[
             {
-              rule: val => val !== 0,
+              rule: (val) => val !== 0,
               message: 'Need some real number here',
             },
             {
-              rule: val => val !== 7,
+              rule: (val) => val !== 7,
               message: '7 is a lucky number but please try another one',
             },
             {
-              rule: val => val !== 66,
+              rule: (val) => val !== 66,
               message: '66 is not a valid number',
             },
           ]}

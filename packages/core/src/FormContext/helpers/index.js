@@ -1,6 +1,6 @@
-const isObject = x => x && typeof x === 'object' && x.constructor === Object;
+const isObject = (x) => x && typeof x === 'object' && x.constructor === Object;
 
-const parseValues = values => Object.keys(values)
+const parseValues = (values) => Object.keys(values)
   .reduce(
     (acc, key) => parseValuesName(key, acc), // eslint-disable-line no-use-before-define
     values,
@@ -54,7 +54,7 @@ const parseValuesName = (name, values) => {
 
 export const getFormValues = (fields) => {
   const values = (fields || [])
-    .filter(field => field.isEnabled)
+    .filter((field) => field.isEnabled)
     .reduce((obj, field) => ({
       ...obj,
       [field.name]: field.value,
@@ -64,11 +64,11 @@ export const getFormValues = (fields) => {
 };
 
 export const getField = (fieldName, fields) => (fields || [])
-  .find(x => x.name === fieldName);
+  .find((x) => x.name === fieldName);
 
 export const getEnabledFieldsByStep = (stepName, fields) => (fields || [])
-  .filter(x => x.isEnabled)
-  .filter(x => x.step === stepName);
+  .filter((x) => x.isEnabled)
+  .filter((x) => x.step === stepName);
 
 export const getFieldErrors = (fieldName, fields) => {
   const field = getField(fieldName, fields);
@@ -78,8 +78,8 @@ export const getFieldErrors = (fieldName, fields) => {
   }
 
   const errorMessages = (field.validations || [])
-    .map(x => (x.rule && !x.rule(field.value) ? x.message : '___FIELD_IS_VALID___'))
-    .filter(x => x !== '___FIELD_IS_VALID___');
+    .map((x) => (x.rule && !x.rule(field.value) ? x.message : '___FIELD_IS_VALID___'))
+    .filter((x) => x !== '___FIELD_IS_VALID___');
 
   if (field.externalError) {
     return [field.externalError, ...errorMessages];
@@ -88,31 +88,31 @@ export const getFieldErrors = (fieldName, fields) => {
   return errorMessages;
 };
 
-export const getEnabledSteps = steps => (steps || [])
-  .filter(x => x.isEnabled);
+export const getEnabledSteps = (steps) => (steps || [])
+  .filter((x) => x.isEnabled);
 
-export const getStepsOrdered = steps => (steps || [])
+export const getStepsOrdered = (steps) => (steps || [])
   .sort((a, b) => a.index - b.index)
   .sort((a, b) => a.order - b.order)
   .map((x, index) => ({ ...x, index }));
 
-export const getCurrentStepNameFromState = state => (
+export const getCurrentStepNameFromState = (state) => (
   state.navigatedStepName
   || state.initialStepName
 );
 
 export const getStepPosition = (stepName, steps) => (steps || [])
-  .filter(x => x.isEnabled)
-  .findIndex(x => x.name === stepName) || 0;
+  .filter((x) => x.isEnabled)
+  .findIndex((x) => x.name === stepName) || 0;
 
 export const getStep = (stepName, steps) => {
   const enabledSteps = getEnabledSteps(steps);
   return getStepsOrdered(enabledSteps)
-    .find(x => x.name === stepName) || {};
+    .find((x) => x.name === stepName) || {};
 };
 
 export const getFieldStepName = (fieldName, fields) => {
-  const field = fields.find(x => x.name === fieldName);
+  const field = fields.find((x) => x.name === fieldName);
 
   if (!field || !field.isEnabled) {
     return undefined;
@@ -121,4 +121,4 @@ export const getFieldStepName = (fieldName, fields) => {
   return field.step;
 };
 
-export const getUniqueId = key => `formiz-${key}-id-${Math.random().toString(36).substr(2, 9)}`;
+export const getUniqueId = (key) => `formiz-${key}-id-${Math.random().toString(36).substr(2, 9)}`;

@@ -61,8 +61,8 @@ export const FieldPickIdenticalImages = (props) => {
 
 
   const changeValue = (itemValue, itemIndex) => {
-    const nextValues = (selectedImages.find(x => x.index === itemIndex)
-      ? selectedImages.filter(x => x.index !== itemIndex)
+    const nextValues = (selectedImages.find((x) => x.index === itemIndex)
+      ? selectedImages.filter((x) => x.index !== itemIndex)
       : [
         (selectedImages[1] || selectedImages[0]),
         {
@@ -70,7 +70,7 @@ export const FieldPickIdenticalImages = (props) => {
           index: itemIndex,
         },
       ])
-      .filter(x => !!x);
+      .filter((x) => !!x);
 
     const isIdentical = !!nextValues[0] && !!nextValues[1]
       && nextValues[0].value === nextValues[1].value;
@@ -98,16 +98,16 @@ export const FieldPickIdenticalImages = (props) => {
           >
             <Button
               onClick={() => changeValue(item, index)}
-              shadow={selectedImages.find(x => x.index === index) ? '0 0 0 0.3rem' : null}
+              shadow={selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : null}
               _focus={{
-                shadow: selectedImages.find(x => x.index === index) ? '0 0 0 0.3rem' : 'outline',
+                shadow: selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : 'outline',
               }}
               color={selectedImages.length < 2 || isValid ? 'brand.500' : 'red.500'}
               p={0}
               overflow="hidden"
               opacity={
                 selectedImages.length >= 2
-                && !selectedImages.find(x => x.index === index)
+                && !selectedImages.find((x) => x.index === index)
                   ? 0.6 : 1
               }
             >

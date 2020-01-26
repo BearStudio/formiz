@@ -57,7 +57,7 @@ export const FieldTextarea = (props) => {
         key={resetKey}
         id={id}
         value={value || ''}
-        onChange={e => setValue(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}

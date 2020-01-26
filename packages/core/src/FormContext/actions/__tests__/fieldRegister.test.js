@@ -8,7 +8,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', null);
@@ -23,7 +23,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'myValue');
@@ -45,7 +45,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
@@ -58,7 +58,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('step', 'myStep');
@@ -71,7 +71,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('step', null);
@@ -81,7 +81,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
     const { fields } = fieldRegister(1, 'myField', {
       validations: [
         {
-          rule: x => !!x,
+          rule: (x) => !!x,
         },
       ],
     })({
@@ -97,7 +97,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');

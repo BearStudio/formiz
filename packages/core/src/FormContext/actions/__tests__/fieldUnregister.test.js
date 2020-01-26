@@ -45,7 +45,7 @@ describe('[FormContext:Action] fieldUnregister()', () => {
 
     expect(fields).toHaveLength(1);
 
-    const field = fields.find(x => x.name === 'myField');
+    const field = fields.find((x) => x.name === 'myField');
     expect(field).toHaveProperty('isEnabled', false);
     expect(field).toHaveProperty('value', 'my value');
   });

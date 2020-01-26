@@ -18,7 +18,7 @@ export const ExposedPorts = () => {
   }, [form.resetKey]);
 
   const addItem = () => {
-    setExposedPorts(s => [
+    setExposedPorts((s) => [
       ...s,
       {
         id: uuidv4(),
@@ -27,7 +27,7 @@ export const ExposedPorts = () => {
   };
 
   const removeItem = (id) => {
-    setExposedPorts(s => s.filter(x => x.id !== id));
+    setExposedPorts((s) => s.filter((x) => x.id !== id));
   };
 
   return (
@@ -54,8 +54,8 @@ export const ExposedPorts = () => {
               m="0"
               validations={[
                 {
-                  rule: val => (form.values.ports || [])
-                    .filter(x => x.number === val).length <= 1,
+                  rule: (val) => (form.values.ports || [])
+                    .filter((x) => x.number === val).length <= 1,
                   deps: [JSON.stringify(form.values.ports)],
                   message: 'Must be unique',
                 },

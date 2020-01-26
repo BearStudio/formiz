@@ -4,14 +4,14 @@
  * @param x The value to check.
  * @returns {boolean} true if the value is a string, false instead.
  */
-const testIsString = x => typeof x === 'string' || x instanceof String;
+const testIsString = (x) => typeof x === 'string' || x instanceof String;
 
 /**
  * Check if the value is a number.
  * @param x The value to check.
  * @returns {boolean} true if the value is a number, false instead.
  */
-const testIsNumber = x => typeof parseFloat(x) === 'number'
+const testIsNumber = (x) => typeof parseFloat(x) === 'number'
   && !isNaN(parseFloat(x))
   && !isNaN(x);
 
@@ -20,14 +20,14 @@ const testIsNumber = x => typeof parseFloat(x) === 'number'
  * @param {*} x The value to check.
  * @returns {boolean} true if the value is null or undefined.
  */
-const testIsNullOrUndefined = x => x === null || x === undefined;
+const testIsNullOrUndefined = (x) => x === null || x === undefined;
 
 /**
  * Check if the value is empty.
  * @param {(string|null)} x The value to check.
  * @returns {boolean} true if the value is an empty string, null or undefined.
  */
-const testIsEmpty = x => x === '' || testIsNullOrUndefined(x);
+const testIsEmpty = (x) => x === '' || testIsNullOrUndefined(x);
 
 // const testIsObject = x => x && typeof x === 'object' && x.constructor === Object;
 const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -37,7 +37,7 @@ const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^
  * @returns {function} function that accept a value and
  * return true if the value exists, false instead.
  */
-export const isRequired = () => value => !!value || value === 0;
+export const isRequired = () => (value) => !!value || value === 0;
 
 /**
  * Check if the value is a string and is not empty.
@@ -81,7 +81,7 @@ export const isEmail = () => (value) => {
  * @returns {function} function that accept a value and
  * return true if the value is a number, false instead.
  */
-export const isNumber = () => value => testIsEmpty(value) || testIsNumber(value);
+export const isNumber = () => (value) => testIsEmpty(value) || testIsNumber(value);
 
 /**
  * Check if the value is greater than the given minimum.
@@ -89,7 +89,7 @@ export const isNumber = () => value => testIsEmpty(value) || testIsNumber(value)
  * @returns {function} function that accept a value and
  * return true if the value is a number and is greater than the minimum, false instead.
  */
-export const isMinNumber = min => value => testIsEmpty(value)
+export const isMinNumber = (min) => (value) => testIsEmpty(value)
   || (testIsNumber(value) && parseFloat(value) >= min);
 
 /**
@@ -98,7 +98,7 @@ export const isMinNumber = min => value => testIsEmpty(value)
  * @returns {function} function that accept a value and
  * return true if the value is a number and is lower than the maximum, false instead.
  */
-export const isMaxNumber = max => value => testIsEmpty(value)
+export const isMaxNumber = (max) => (value) => testIsEmpty(value)
   || (testIsNumber(value) && parseFloat(value) <= max);
 
 /**
@@ -108,7 +108,7 @@ export const isMaxNumber = max => value => testIsEmpty(value)
  * @returns {function} function that accept a value and
  * return true if the value is a number and is between the min and max, false instead.
  */
-export const isInRangeNumber = (min, max) => value => testIsEmpty(value) || (testIsNumber(value)
+export const isInRangeNumber = (min, max) => (value) => testIsEmpty(value) || (testIsNumber(value)
   && parseFloat(value) >= min
   && parseFloat(value) <= max);
 
@@ -117,7 +117,7 @@ export const isInRangeNumber = (min, max) => value => testIsEmpty(value) || (tes
  * @returns {function} function that accept a value and
  * return true if the value is a number and is between 0 and 100, false instead.
  */
-export const isPercentage = () => value => testIsEmpty(value) || (testIsNumber(value)
+export const isPercentage = () => (value) => testIsEmpty(value) || (testIsNumber(value)
   && parseFloat(value) >= 0
   && parseFloat(value) <= 100);
 
@@ -127,7 +127,7 @@ export const isPercentage = () => value => testIsEmpty(value) || (testIsNumber(v
  * @returns {function} function that accept a value and
  * return true if the value is a string or an array and match the length, false instead.
  */
-export const isLength = length => (value) => {
+export const isLength = (length) => (value) => {
   if (testIsEmpty(value)) return true;
 
   return (testIsString(value) || Array.isArray(value))
@@ -141,7 +141,7 @@ export const isLength = length => (value) => {
  * return true if the value is a string or an array with a length greater than the
  * given minimum, false instead.
  */
-export const isMinLength = min => (value) => {
+export const isMinLength = (min) => (value) => {
   if (testIsEmpty(value)) return true;
 
   return (testIsString(value) || Array.isArray(value)) && value.length >= min;
@@ -154,6 +154,6 @@ export const isMinLength = min => (value) => {
  * return true if the value is a string or an array with a length lower than the
  * given maximum, false instead.
  */
-export const isMaxLength = max => value => testIsEmpty(value) || ((
+export const isMaxLength = (max) => (value) => testIsEmpty(value) || ((
   testIsString(value) || Array.isArray(value)
 ) && value.length <= max);

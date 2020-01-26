@@ -1,7 +1,7 @@
 import { formValidate } from '../index';
 
-const isRequired = () => x => !!x;
-const isEqual = match => x => x === match;
+const isRequired = () => (x) => !!x;
+const isEqual = (match) => (x) => x === match;
 
 describe('[FormContext:Action] formValidate()', () => {
   it('isValid should be true if no fields are registred', () => {
@@ -17,7 +17,7 @@ describe('[FormContext:Action] formValidate()', () => {
           isEnabled: true,
           validations: [
             {
-              rule: x => !!x,
+              rule: (x) => !!x,
             },
           ],
         },

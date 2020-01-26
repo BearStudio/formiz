@@ -1,4 +1,4 @@
-export const getInitialState = id => ({
+export const getInitialState = (id) => ({
   id,
   resetKey: 1,
   isValid: true,

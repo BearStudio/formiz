@@ -30,7 +30,7 @@ export const fieldPropTypes = {
 export const fieldDefaultProps = {
   debounce: DEFAULT_FIELD_DEBOUNCE,
   defaultValue: null,
-  formatValue: val => val,
+  formatValue: (val) => val,
   required: false,
   keepValue: false,
   onChange: () => {},
@@ -42,7 +42,7 @@ const getIsRequiredValidation = (required) => {
     return {};
   }
   return {
-    rule: x => !!x || x === 0,
+    rule: (x) => !!x || x === 0,
     message: required !== true ? required : '',
   };
 };
@@ -56,14 +56,14 @@ const getValidations = (required, validations) => {
     ...extraRules,
     ...validations,
   ]
-    .filter(x => x.rule)
-    .map(x => ({ ...x, rule: memoized(x.rule) }));
+    .filter((x) => x.rule)
+    .map((x) => ({ ...x, rule: memoized(x.rule) }));
 };
 
 export const useField = ({
   debounce = DEFAULT_FIELD_DEBOUNCE,
   defaultValue,
-  formatValue = val => val,
+  formatValue = (val) => val,
   required,
   keepValue,
   name,
@@ -84,8 +84,8 @@ export const useField = ({
   }
 
   const { state, dispatch } = formContext;
-  const field = state.fields.find(f => f.name === name) || {};
-  const errorMessages = (field.errors || []).filter(x => !!x);
+  const field = state.fields.find((f) => f.name === name) || {};
+  const errorMessages = (field.errors || []).filter((x) => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
   const [localValue, setLocalValue] = useState(field.value || defaultValue);
