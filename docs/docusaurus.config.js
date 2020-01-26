@@ -63,6 +63,10 @@ module.exports = {
     googleAnalytics: {
       trackingID: 'UA-137797247-2',
     },
+    algolia: {
+      apiKey: '65e00a07bf4d341582d20602b7aa9f72',
+      indexName: 'formiz-react',
+    },
   },
   presets: [
     [
