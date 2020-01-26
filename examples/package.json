@@ -3,19 +3,19 @@
   "version": "1.0.0-rc.4",
   "private": true,
   "dependencies": {
-    "@chakra-ui/core": "^0.4.1",
-    "@emotion/core": "^10.0.22",
-    "@emotion/styled": "^10.0.23",
+    "@chakra-ui/core": "^0.5.2",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
     "@formiz/core": "^1.0.0-rc.4",
     "@formiz/validations": "^1.0.0-rc.4",
-    "emotion-theming": "^10.0.19",
+    "emotion-theming": "^10.0.27",
     "prop-types": "^15.7.2",
-    "react": "16.11.0",
-    "react-dom": "16.11.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
     "react-icons": "^3.8.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
-    "uuid": "^3.3.3"
+    "react-scripts": "3.3.0",
+    "uuid": "^3.4.0"
   },
   "scripts": {
     "start": "PORT=3010 react-scripts start",
