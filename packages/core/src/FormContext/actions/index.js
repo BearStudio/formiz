@@ -57,6 +57,30 @@ export const formInvalidateFields = (fieldsErrors) => (state) => {
   return newState;
 };
 
+export const formSetFieldsValues = (fieldsValues) => (state) => {
+  const fields = state.fields.map((field) => {
+    const newValue = fieldsValues[field.name];
+
+    if (newValue === undefined) {
+      return field;
+    }
+
+    return {
+      ...field,
+      value: newValue,
+    };
+  });
+
+  let newState = {
+    ...state,
+    fields,
+  };
+
+  newState = formValidate()(newState);
+
+  return newState;
+};
+
 export const formSubmit = (
   callback = () => {},
   callbackOnValid = () => {},

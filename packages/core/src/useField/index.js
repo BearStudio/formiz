@@ -135,6 +135,16 @@ export const useField = ({
     }
   }, [state.resetKey]);
 
+  // Update localValue if global value change
+  useEffect(() => {
+    if (
+      field.value !== undefined // Initial state
+      && field.value !== localValueRef.current
+    ) {
+      setLocalValue(field.value);
+    }
+  }, [field.value]);
+
   // Update state value from local value
   useEffect(() => {
     if (isFirstRenderRef.current) {

@@ -1,5 +1,12 @@
 import {
-  formInvalidateFields, stepGoNext, stepGoPrev, stepGoTo, formReset, formSubmit, stepSubmit,
+  formInvalidateFields,
+  stepGoNext,
+  stepGoPrev,
+  stepGoTo,
+  formReset,
+  formSubmit,
+  stepSubmit,
+  formSetFieldsValues,
 } from '../FormContext/actions';
 import {
   getFormValues,
@@ -18,6 +25,7 @@ export const initialFormState = {
   isSubmitted: false,
   values: {},
   invalidateFields: () => {},
+  setFieldsValues: () => {},
   reset: () => {},
   resetKey: 0,
   currentStep: {},
@@ -101,6 +109,7 @@ export const useFormState = () => {
     isSubmitted: isFormSubmitted,
     values,
     invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
+    setFieldsValues: (fieldsValues) => { dispatch(formSetFieldsValues(fieldsValues)); },
     reset: () => { dispatch(formReset()); },
     resetKey,
     currentStep: getStepProperties(currentStep),

@@ -108,7 +108,7 @@ Returns true if the form is submitted.
 
 Returns an object with all the values of the form.
 
-### `invalidateFields()`
+### `invalidateFields(objectOfErrors)`
 
 Allow you to invalidate one or many fields.<br />
 Useful for API errors or other external errors.
@@ -119,6 +119,21 @@ invalidateFields({
   'secondFieldName': 'Another error message',
 })
 ```
+
+### `setFieldsValues(objectOfValues)`
+
+Allow you to change the value of one or many fields imperatively.<br />
+Useful to change one or many values based on an external action.
+
+⚠️ Don't use `undefined` as new value, it will not trigger the update (use `null` instead).
+
+```js
+setFieldsValues({
+  'fieldName': 'New value',
+  'secondFieldName': 'Another new value',
+})
+```
+
 
 ### `reset()`
 
