@@ -3,8 +3,11 @@ import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
 import { Button, Grid, Box } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
+import { FieldSelect } from '../components/Fields/FieldSelect';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
+
+const FIELDS_BY_STEP = 20;
 
 export const LotOfFields = () => {
   const form = useForm();
@@ -33,7 +36,7 @@ export const LotOfFields = () => {
             Lot of fields
           </PageHeader>
           <FormizStep name="step1">
-            {[...Array(30)].map((_x, index) => (
+            {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
               <FieldInput
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
@@ -45,7 +48,7 @@ export const LotOfFields = () => {
             ))}
           </FormizStep>
           <FormizStep name="step2">
-            {[...Array(30)].map((_x, index) => (
+            {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
               <FieldInput
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
@@ -57,6 +60,41 @@ export const LotOfFields = () => {
                   {
                     rule: isEmail(),
                     message: 'Not a valid email',
+                  },
+                ]}
+              />
+            ))}
+          </FormizStep>
+          <FormizStep name="step3">
+            {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
+              <FieldInput
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                name={`user[${index}].company`}
+                label={`Company ${index}`}
+                defaultValue="Company co."
+                required="Required"
+              />
+            ))}
+          </FormizStep>
+          <FormizStep name="step4">
+            {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
+              <FieldSelect
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                name={`user[${index}].country`}
+                label={`Country ${index}`}
+                required="Required"
+                placeholder="Choose a country..."
+                defaultValue="us"
+                options={[
+                  {
+                    value: 'fr',
+                    label: 'France',
+                  },
+                  {
+                    value: 'us',
+                    label: 'United States',
                   },
                 ]}
               />
