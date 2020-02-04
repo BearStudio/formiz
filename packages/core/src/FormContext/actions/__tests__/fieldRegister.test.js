@@ -11,8 +11,8 @@ describe('[FormContext:Action] fieldRegister()', () => {
     const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
-    expect(field).toHaveProperty('value', null);
-    expect(field).toHaveProperty('step', null);
+    expect(field).toHaveProperty('value', undefined);
+    expect(field).toHaveProperty('step', undefined);
     expect(field).toHaveProperty('validations', []);
   });
 
@@ -27,7 +27,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'myValue');
-    expect(field).toHaveProperty('step', null);
+    expect(field).toHaveProperty('step', undefined);
     expect(field).toHaveProperty('validations', []);
   });
 
@@ -74,7 +74,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
     const field = fields.find((x) => x.name === 'myField');
 
     expect(field).toHaveProperty('isEnabled', true);
-    expect(field).toHaveProperty('step', null);
+    expect(field).toHaveProperty('step', undefined);
   });
 
   it('Should register validations in the field state', () => {
@@ -101,7 +101,7 @@ describe('[FormContext:Action] fieldRegister()', () => {
 
     expect(field).toHaveProperty('isEnabled', true);
     expect(field).toHaveProperty('value', 'my value');
-    expect(field).toHaveProperty('step', null);
+    expect(field).toHaveProperty('step', undefined);
     expect(field).toHaveProperty('validations');
     expect(field.validations).toHaveLength(1);
   });

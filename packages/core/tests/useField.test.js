@@ -46,10 +46,10 @@ describe('Fields using `useField()`', () => {
     expect(fields).toHaveLength(2);
 
     expect(fields[0].name).toBe('field1');
-    expect(fields[0].value).toBeNull();
+    expect(fields[0].value).toBeUndefined();
 
     expect(fields[1].name).toBe('field2');
-    expect(fields[1].value).toBeNull();
+    expect(fields[1].value).toBeUndefined();
   });
 
   it('Should not register not mounted fields', () => {
@@ -84,7 +84,7 @@ describe('Fields using `useField()`', () => {
     );
 
     expect(fields).toHaveLength(1);
-    expect(fields.find(x => x.name === 'field1').value).toBe('Default value');
+    expect(fields.find((x) => x.name === 'field1').value).toBe('Default value');
   });
 
   it('Should update the value if input change', () => {
@@ -105,7 +105,7 @@ describe('Fields using `useField()`', () => {
 
     component.setProps(); // Trigger update
 
-    const field = fields.find(x => x.name === 'field1');
+    const field = fields.find((x) => x.name === 'field1');
     expect(field).toHaveProperty('value', 'New value');
   });
 
@@ -136,7 +136,7 @@ describe('Fields using `useField()`', () => {
 
     expect(fields).toHaveLength(2);
 
-    const field1 = fields.find(x => x.name === 'field1');
+    const field1 = fields.find((x) => x.name === 'field1');
     expect(field1).toHaveProperty('value', 'New value');
   });
 });

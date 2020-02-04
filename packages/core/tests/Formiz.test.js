@@ -51,7 +51,7 @@ describe('<Formiz />', () => {
           name="field"
           validations={[
             {
-              rule: x => !!x,
+              rule: (x) => !!x,
             },
           ]}
         />
@@ -82,7 +82,7 @@ describe('<Formiz />', () => {
           name="field"
           validations={[
             {
-              rule: x => !!x,
+              rule: (x) => !!x,
             },
           ]}
         />
@@ -112,7 +112,7 @@ describe('<Formiz />', () => {
 
     form.simulate('submit');
     expect(mockSubmit.mock.calls.length).toBe(1);
-    expect(formValues).toHaveProperty('field', null);
+    expect(formValues).toHaveProperty('field', undefined);
     expect(formValues).toHaveProperty('field2', 'Value 2');
   });
 

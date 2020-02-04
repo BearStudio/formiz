@@ -9,6 +9,6 @@ describe('[FormContext:Action] formSetFieldsValues()', () => {
     })(state);
 
     expect(fields[0]).toHaveProperty('value', 'new value');
-    expect(fields[1]).toHaveProperty('value', null);
+    expect(fields[1]).toHaveProperty('value', undefined);
   });
 });

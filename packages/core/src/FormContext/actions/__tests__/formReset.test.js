@@ -39,7 +39,7 @@ describe('[FormContext:Action] formReset()', () => {
     expect(fieldB).toHaveProperty('value', 'Value B');
 
     expect(fieldC).toHaveProperty('isPristine', true);
-    expect(fieldC).toHaveProperty('value', null);
+    expect(fieldC).toHaveProperty('value', undefined);
 
     expect(state.steps[0]).toHaveProperty('isSubmitted', true);
     expect(state.steps[0]).toHaveProperty('isVisited', true);
@@ -65,13 +65,13 @@ describe('[FormContext:Action] formReset()', () => {
     fieldC = state.fields.find((x) => x.name === 'fieldC');
 
     expect(fieldA).toHaveProperty('isPristine', true);
-    expect(fieldA).toHaveProperty('value', null);
+    expect(fieldA).toHaveProperty('value', undefined);
 
     expect(fieldB).toHaveProperty('isPristine', true);
     expect(fieldB).toHaveProperty('value', 'Default value');
 
     expect(fieldC).toHaveProperty('isPristine', true);
-    expect(fieldC).toHaveProperty('value', null);
+    expect(fieldC).toHaveProperty('value', undefined);
 
     expect(state.steps[0]).toHaveProperty('isSubmitted', false);
     expect(state.steps[0]).toHaveProperty('isVisited', false);

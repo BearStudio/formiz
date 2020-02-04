@@ -1,4 +1,4 @@
-export const FieldsStep2 = withValues => `
+export const FieldsStep2 = (withValues) => `
             <MyField
               name="email"
               label="Email"

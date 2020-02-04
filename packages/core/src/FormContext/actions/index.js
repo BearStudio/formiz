@@ -315,8 +315,8 @@ export const fieldRegister = (
   id,
   name,
   {
-    value = null,
-    step = null,
+    value = undefined,
+    step = undefined,
     validations = [],
   } = {},
 ) => (state) => {
