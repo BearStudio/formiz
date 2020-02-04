@@ -1,6 +1,6 @@
 {
   "name": "@formiz/validations",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "repository": "https://github.com/ivan-dalmet/formiz/tree/master/packages/validations",
   "homepage": "https://formiz-react.com/",
   "author": "Ivan Dalmet <ivan@dalmet.fr> (https://ivan.dalmet.fr/)",
