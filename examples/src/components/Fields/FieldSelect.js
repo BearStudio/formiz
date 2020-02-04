@@ -56,15 +56,13 @@ export const FieldSelect = (props) => {
     <FormGroup {...formGroupProps}>
       <Select
         id={id}
+        key={resetKey}
         value={value || ''}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
-        selectProps={{
-          key: resetKey,
-          onChange: (e) => setValue(e.target.value),
-        }}
+        onChange={(e) => setValue(e.target.value)}
       >
         {(options || []).map((item) => (
           <option key={item.value} value={item.value}>
