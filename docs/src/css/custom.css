@@ -24,6 +24,10 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
+.container {
+  max-width: 1000px !important;
+}
+
 @import 'tailwind.min.css';
 
 * {
