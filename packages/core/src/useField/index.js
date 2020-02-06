@@ -139,11 +139,11 @@ export const useField = ({
   useEffect(() => {
     if (
       field.value !== undefined // Initial state
-      && field.value !== localValueRef.current
+      && JSON.stringify(field.value) !== JSON.stringify(localValueRef.current)
     ) {
       setLocalValue(field.value);
     }
-  }, [field.value]);
+  }, [JSON.stringify(field.value)]);
 
   // Update state value from local value
   useEffect(() => {
