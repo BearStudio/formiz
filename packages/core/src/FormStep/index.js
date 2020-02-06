@@ -78,12 +78,6 @@ export const FormStep = ({
     dispatch(stepUpdate(name, { label, isEnabled: !!isEnabled }));
   }, [isEnabled, label]);
 
-  if (typeof children === 'function') {
-    return children({
-      isActive,
-    });
-  }
-
   return (
     <Tag
       style={{
