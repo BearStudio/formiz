@@ -84,7 +84,7 @@ export const useField = ({
   }
 
   const { state, dispatch } = formContext;
-  const field = state.fields.find((f) => f.name === name) || {};
+  const field = state.fields.find((f) => f.id === fieldId) || {};
   const errorMessages = (field.errors || []).filter((x) => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
@@ -113,7 +113,7 @@ export const useField = ({
       fieldId,
       name,
       {
-        value: localValueRef.current || defaultValueRef.current,
+        value: localValueRef.current,
         step: stepName,
         validations: getValidations(required, validations),
       },

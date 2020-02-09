@@ -320,8 +320,8 @@ export const fieldRegister = (
     validations = [],
   } = {},
 ) => (state) => {
-  const field = state.fields.find((x) => x.name === name) || {};
-  const otherFields = state.fields.filter((x) => x.name !== name);
+  const field = state.fields.find((x) => x.id === id) || {};
+  const otherFields = state.fields.filter((x) => x.id !== id);
   const fields = [
     ...otherFields,
     {
