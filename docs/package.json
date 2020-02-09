@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.0.0-rc.8",
+  "version": "1.0.0-rc.9",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.40",
     "@docusaurus/preset-classic": "2.0.0-alpha.40",
-    "@formiz/core": "^1.0.0-rc.8",
+    "@formiz/core": "^1.0.0-rc.9",
     "@formiz/validations": "^1.0.0-rc.6",
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
