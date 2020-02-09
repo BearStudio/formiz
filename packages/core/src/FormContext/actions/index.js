@@ -318,10 +318,17 @@ export const fieldRegister = (
     value = undefined,
     step = undefined,
     validations = [],
+    isKeepValue = false,
   } = {},
 ) => (state) => {
-  const field = state.fields.find((x) => x.id === id) || {};
-  const otherFields = state.fields.filter((x) => x.id !== id);
+  let field = state.fields.find((x) => x.id === id) || {};
+  let otherFields = state.fields.filter((x) => x.id !== id);
+
+  if (!field.id && isKeepValue) {
+    field = state.fields.find((x) => x.name === name) || {};
+    otherFields = state.fields.filter((x) => x.name !== name);
+  }
+
   const fields = [
     ...otherFields,
     {
@@ -360,7 +367,9 @@ export const fieldUnregister = (id, isKeepValue) => (state) => {
   const fields = !isKeepValue ? otherFields : [
     ...otherFields,
     {
-      ...field,
+      id,
+      name: field.name,
+      value: field.value,
       isEnabled: false,
     },
   ];

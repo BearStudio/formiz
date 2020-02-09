@@ -116,6 +116,7 @@ export const useField = ({
         value: localValueRef.current,
         step: stepName,
         validations: getValidations(required, validations),
+        isKeepValue: keepValueRef.current,
       },
     ));
 
