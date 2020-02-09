@@ -5,7 +5,7 @@ import {
   stepRegister, stepUnregister, stepSetVisited, stepUpdate, stepGoPrev,
 } from '../FormContext/actions';
 import { ErrorStepWithoutName } from './errors';
-import { useFormState } from '../useFormState';
+import { getExposedState } from '../useForm/getExposedState';
 
 export const propTypes = {
   as: PropTypes.oneOfType([
@@ -49,8 +49,9 @@ export const FormStep = ({
     throw ErrorStepWithoutName;
   }
 
-  const { dispatch } = useFormContext();
-  const { currentStep } = useFormState();
+  const formContext = useFormContext();
+  const { currentStep } = getExposedState(formContext);
+  const { dispatch } = formContext;
 
   const isActive = currentStep.name === name;
 

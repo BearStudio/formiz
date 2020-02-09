@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { initialFormState, useFormState } from '../useFormState';
+import { getExposedState } from './getExposedState';
+import { initialExposedState } from './initialExposedState';
+import { useFormContext } from '../FormContext';
 
 export const useForm = () => {
-  const [state, setState] = useState(initialFormState);
-  const formState = useFormState();
+  const [state, setState] = useState(initialExposedState);
+  const formContext = useFormContext();
 
   // Use form context to retrieve the state
-  if (formState) {
-    return formState;
+  if (formContext) {
+    return getExposedState(formContext);
   }
 
   // Use the connect property to retrieve the state

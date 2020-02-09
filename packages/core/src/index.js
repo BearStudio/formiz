@@ -18,9 +18,11 @@ import { FormStepContextProvider } from './FormStepContext';
 export { useForm } from './useForm';
 export { useField, fieldPropTypes, fieldDefaultProps } from './useField';
 
-export const Formiz = (props) => (
+export const Formiz = ({ children, autoForm, ...props }) => (
   <FormContextProvider {...props}>
-    <Form {...props} />
+    <Form autoForm={autoForm}>
+      {children}
+    </Form>
   </FormContextProvider>
 );
 

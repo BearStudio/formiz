@@ -1,55 +1,34 @@
 import {
-  formInvalidateFields,
-  stepGoNext,
-  stepGoPrev,
-  stepGoTo,
-  formReset,
-  formSubmit,
-  stepSubmit,
-  formSetFieldsValues,
-} from '../FormContext/actions';
-import {
   getFormValues,
+  getEnabledSteps,
   getCurrentStepNameFromState,
   getStep,
   getStepPosition,
   getFieldStepName,
-  getEnabledSteps,
 } from '../FormContext/helpers';
-import { useFormContext } from '../FormContext';
+import {
+  formSubmit,
+  stepSubmit,
+  formInvalidateFields,
+  formSetFieldsValues,
+  formReset,
+  stepGoNext,
+  stepGoPrev,
+  stepGoTo,
+} from '../FormContext/actions';
+import { initialExposedState } from './initialExposedState';
 
-export const initialFormState = {
-  id: null,
-  submit: () => {},
-  isValid: true,
-  isSubmitted: false,
-  values: {},
-  invalidateFields: () => {},
-  setFieldsValues: () => {},
-  reset: () => {},
-  resetKey: 0,
-  currentStep: {},
-  steps: [],
-  isStepValid: true,
-  isStepSubmitted: false,
-  isFirstStep: true,
-  isLastStep: true,
-  submitStep: () => {},
-  getFieldStepName: () => {},
-  nextStep: () => {},
-  prevStep: () => {},
-  goToStep: () => {},
-};
-
-export const useFormState = () => {
-  const formContext = useFormContext();
-
+export const getExposedState = (formContext) => {
   if (!formContext) {
-    return null;
+    return initialExposedState;
   }
 
   const {
-    state, dispatch, onSubmit, onValidSubmit, onInvalidSubmit,
+    state,
+    dispatch,
+    onSubmit,
+    onValidSubmit,
+    onInvalidSubmit,
   } = formContext;
 
   const {
@@ -103,14 +82,11 @@ export const useFormState = () => {
   };
 
   return {
+    // State
     id,
-    submit: handleSubmit,
     isValid: isFormValid,
     isSubmitted: isFormSubmitted,
     values,
-    invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
-    setFieldsValues: (fieldsValues) => { dispatch(formSetFieldsValues(fieldsValues)); },
-    reset: () => { dispatch(formReset()); },
     resetKey,
     currentStep: getStepProperties(currentStep),
     steps: enabledSteps.map(getStepProperties),
@@ -118,6 +94,12 @@ export const useFormState = () => {
     isStepSubmitted: currentStep.isSubmitted,
     isFirstStep: currentStepPosition === 0,
     isLastStep: currentStepPosition === stepsCount - 1,
+
+    // Actions
+    submit: handleSubmit,
+    invalidateFields: (fieldsErrors) => { dispatch(formInvalidateFields(fieldsErrors)); },
+    setFieldsValues: (fieldsValues) => { dispatch(formSetFieldsValues(fieldsValues)); },
+    reset: () => { dispatch(formReset()); },
     submitStep: handleStepSubmit,
     getFieldStepName: (fieldName) => getFieldStepName(fieldName, fields),
     nextStep: () => { dispatch(stepGoNext()); },
