@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Input, silent, wait } from './utils';
 import { Formiz, FormizStep } from '../src';
-import { ErrorStepWithoutName } from '../src/FormStep/errors';
+import { ErrorStepWithoutName } from '../src/FormStepContext/errors';
 
 beforeEach(() => {
   jest.resetModules();
