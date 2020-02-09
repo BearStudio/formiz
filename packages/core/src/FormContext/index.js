@@ -7,7 +7,8 @@ import { getUniqueId } from './helpers';
 import { getExposedState } from '../useForm/getExposedState';
 
 export const propTypes = {
-  children: PropTypes.node.isRequired,
+  autoForm: PropTypes.bool,
+  children: PropTypes.node,
   connect: PropTypes.shape({
     __connect__: PropTypes.func,
   }),
@@ -21,6 +22,8 @@ export const propTypes = {
 };
 
 export const defaultProps = {
+  autoForm: false,
+  children: '',
   connect: {
     __connect__: () => {},
   },
@@ -38,6 +41,7 @@ export const FormContext = React.createContext();
 export const useFormContext = () => useContext(FormContext);
 
 export const FormContextProvider = ({
+  autoForm,
   children,
   connect,
   onChange,
@@ -95,7 +99,11 @@ export const FormContextProvider = ({
         onInvalidSubmit,
       }}
     >
-      {children}
+      {!autoForm ? children : (
+        <form noValidate onSubmit={exposedState.submit}>
+          { children }
+        </form>
+      )}
     </FormContext.Provider>
   );
 };

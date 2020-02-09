@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
-  Form,
+  FormContextProvider,
   propTypes as propTypesForm,
   defaultProps as defaultPropsForm,
-} from './Form';
-import { FormContextProvider } from './FormContext';
+} from './FormContext';
 
 import {
   FormStep,
@@ -18,27 +16,9 @@ import { FormStepContextProvider } from './FormStepContext';
 export { useForm } from './useForm';
 export { useField, fieldPropTypes, fieldDefaultProps } from './useField';
 
-export const Formiz = ({ children, autoForm, ...props }) => (
-  <FormContextProvider {...props}>
-    <Form autoForm={autoForm}>
-      {children}
-    </Form>
-  </FormContextProvider>
-);
-
-Formiz.propTypes = {
-  ...propTypesForm,
-  onSubmit: PropTypes.func,
-  onValidSubmit: PropTypes.func,
-  onInvalidSubmit: PropTypes.func,
-};
-
-Formiz.defaultProps = {
-  ...defaultPropsForm,
-  onSubmit: () => {},
-  onValidSubmit: () => {},
-  onInvalidSubmit: () => {},
-};
+export const Formiz = FormContextProvider;
+Formiz.propTypes = propTypesForm;
+Formiz.defaultProps = defaultPropsForm;
 
 export const FormizStep = ({ name, ...props }) => (
   <FormStepContextProvider name={name}>
