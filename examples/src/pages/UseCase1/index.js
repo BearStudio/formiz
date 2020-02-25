@@ -6,13 +6,14 @@ import { MultiStepsLayout } from '../../components/MultiStepsLayout';
 import { General } from './General';
 import { DockerImage } from './DockerImage';
 import { ExposedPorts } from './ExposedPorts';
+import { useToastValues } from '../../hooks/useToastValues';
 
 export const UseCase1 = () => {
   const form = useForm();
+  const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
+    toastValues(values);
     form.invalidateFields({
       'docker.image': 'You can display an error after an API call',
     });

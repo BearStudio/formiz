@@ -8,6 +8,7 @@ import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { AddPlaceholder } from '../components/AddPlaceholder';
 import { PageLayout } from '../layout/PageLayout';
+import { useToastValues } from '../hooks/useToastValues';
 
 const defaultCollection = [
   {
@@ -21,6 +22,7 @@ const defaultCollection = [
 
 export const Repeater = () => {
   const form = useForm();
+  const toastValues = useToastValues();
   const [collection, setCollection] = useState(defaultCollection);
 
   useEffect(() => {
@@ -28,8 +30,7 @@ export const Repeater = () => {
   }, [form.resetKey]);
 
   const handleSubmit = (values) => {
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
+    toastValues(values);
   };
 
   const addItem = () => {

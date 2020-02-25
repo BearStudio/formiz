@@ -5,16 +5,18 @@ import { Button, Grid, Box } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { FieldSelect } from '../components/Fields/FieldSelect';
 import { PageHeader } from '../components/PageHeader';
+import { useToastValues } from '../hooks/useToastValues';
 import { PageLayout } from '../layout/PageLayout';
 
 const FIELDS_BY_STEP = 20;
 
 export const LotOfFields = () => {
   const form = useForm();
+  const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
+    toastValues(values);
+
     form.invalidateFields({
       'name-0': 'You can display an error after an API call',
     });

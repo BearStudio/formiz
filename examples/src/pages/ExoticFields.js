@@ -5,13 +5,14 @@ import { FieldPickIdenticalImages } from '../components/Fields/FieldPickIdentica
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
 import { FieldSlider } from '../components/Fields/FieldSlider';
+import { useToastValues } from '../hooks/useToastValues';
 
 export const ExoticFields = () => {
   const form = useForm();
+  const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values, null, 2));
+    toastValues(values);
   };
 
   return (

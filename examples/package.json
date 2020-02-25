@@ -17,10 +17,16 @@
     "react-scripts": "3.3.1",
     "uuid": "3.4.0"
   },
+  "devDependencies": {
+    "codeceptjs": "2.5.0",
+    "testcafe": "1.8.2",
+    "eslint-plugin-codeceptjs": "1.2.0"
+  },
   "scripts": {
     "start": "PORT=3010 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "codeceptjs run --steps",
     "eject": "react-scripts eject",
     "lint": "eslint ./src"
   },
