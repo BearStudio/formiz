@@ -14,16 +14,16 @@
     "deploy": "GIT_USER=ivan-dalmet CURRENT_BRANCH=master USE_SSH=true docusaurus deploy"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.40",
-    "@docusaurus/preset-classic": "2.0.0-alpha.40",
+    "@docusaurus/core": "2.0.0-alpha.48",
+    "@docusaurus/preset-classic": "2.0.0-alpha.48",
     "@formiz/core": "^1.0.0-rc.9",
     "@formiz/validations": "^1.0.0-rc.6",
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-live": "2.2.2",
-    "tailwindcss": "1.1.4"
+    "tailwindcss": "1.2.0"
   },
   "browserslist": {
     "production": [
@@ -39,8 +39,8 @@
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
-    "@fullhuman/postcss-purgecss": "2.0.5",
-    "autoprefixer": "9.7.4",
+    "@fullhuman/postcss-purgecss": "2.1.0",
+    "autoprefixer": "9.7.5",
     "cssnano": "4.1.10",
     "postcss-cli": "7.1.0",
     "postcss-nested": "4.2.1"
