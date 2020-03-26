@@ -10,6 +10,7 @@ export const Debug = () => {
 
   return (
     <Box
+      data-test="debug"
       as="pre"
       fontSize="xs"
       flex="1"

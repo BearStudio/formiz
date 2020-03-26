@@ -22,7 +22,7 @@ export const PageHeader = ({ children, onReset, githubPath }) => {
   const form = useForm();
 
   return (
-    <Box mb="6">
+    <Box mb="6" data-test="header">
       <Heading d="flex" alignItems="center">
         {children}
         <Button
