@@ -2,39 +2,33 @@ Feature('auto-form');
 
 Scenario('Simple Case', (I) => {
   I.amOnPage('/');
-  I.see('Auto form', '[data-test="header"]');
+  I.seePageTitle('Auto form');
 
-  I.fillField('[name="name"]', 'John');
-  I.see('"name": "John"', '[data-test="debug"]');
+  I.fill('name', 'John');
+  I.fill('email', 'john@company.com');
 
-  I.fillField('[name="email"]', 'john@company.com');
-  I.see('"email": "john@company.com"', '[data-test="debug"]');
+  I.submitForm();
 
-  I.click('[type="submit"]');
-
-  I.see('Values submitted');
+  I.seeFormSuccess();
 });
 
 Scenario('Error Email', (I) => {
   I.amOnPage('/');
-  I.see('Auto form', '[data-test="header"]');
+  I.seePageTitle('Auto form');
 
-  I.fillField('[name="email"]', 'john@company');
-  I.see('"email": "john@company"', '[data-test="debug"]');
+  I.fill('email', 'john@company');
 
-  I.click('[type="submit"]');
+  I.submitForm();
 
-  I.see('Not a valid email', '[role="group"][name="email"]');
+  I.seeFieldError('email', 'Not a valid email');
 });
 
 Scenario('Show errors', (I) => {
   I.amOnPage('/');
-  I.see('Auto form', '[data-test="header"]');
+  I.seePageTitle('Auto form');
 
-  I.click('[type="submit"]');
+  I.submitForm();
 
-  I.see('Required');
-  I.see('Required', '[role="group"][name="name"]');
-  I.see('Required', '[role="group"][name="email"]');
-  I.dontSee('Required', '[role="group"][name="company"]');
+  I.seeFieldError('name', 'Required');
+  I.seeFieldError('email', 'Required');
 });
