@@ -72,7 +72,7 @@ export const Repeater = () => {
 
           <Box>
             {collection.map(({ id, name }, index) => (
-              <Stack key={id} isInline spacing="4" mb="6">
+              <Stack key={id} isInline spacing="4" mb="6" data-test={`repeater-item[${index}]`}>
                 <Box transform="translateY(4rem)">
                   <IconButton
                     aria-label="Add"

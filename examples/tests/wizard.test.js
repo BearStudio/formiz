@@ -1,9 +1,11 @@
 Feature('wizard');
 
-Scenario('Simple Case', (I) => {
+Before((I) => {
   I.amOnPage('/wizard');
   I.seePageTitle('Wizard');
+});
 
+Scenario('Simple Case', (I) => {
   I.fill('name', 'John');
   I.goNextStep();
 
@@ -15,8 +17,6 @@ Scenario('Simple Case', (I) => {
 });
 
 Scenario('Error on each step', (I) => {
-  I.amOnPage('/wizard');
-
   I.goNextStep();
   I.seeFieldError('name', 'Required');
   I.fill('name', 'John');

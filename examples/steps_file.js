@@ -1,17 +1,19 @@
 /* eslint-disable func-names */
-// in this file you can append custom step methods to 'I' object
 
 module.exports = function () {
   return actor({
     fill(name, value) {
       this.fillField(`[name="${name}"]`, value);
-      this.see(`"${name}": ${JSON.stringify(value, null, 2)}`, '[data-test="debug"]');
+      this.see(`${JSON.stringify(value, null, 2)}`, '[data-test="debug"]');
     },
     seeFieldError(name, message) {
       this.see(message, `[role="group"][name="${name}"]`);
     },
     dontSeeFieldError(name, message) {
       this.dontSee(message, `[role="group"][name="${name}"]`);
+    },
+    seeFieldValue(name, value) {
+      this.seeInField(`[name="${name}"] input`, value);
     },
     seeFormSuccess() {
       this.see('Values submitted', '[role="alert"]');

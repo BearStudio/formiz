@@ -1,9 +1,11 @@
 Feature('auto-form');
 
-Scenario('Simple Case', (I) => {
+Before((I) => {
   I.amOnPage('/');
   I.seePageTitle('Auto form');
+});
 
+Scenario('Simple Case', (I) => {
   I.fill('name', 'John');
   I.fill('email', 'john@company.com');
 
@@ -13,9 +15,6 @@ Scenario('Simple Case', (I) => {
 });
 
 Scenario('Error Email', (I) => {
-  I.amOnPage('/');
-  I.seePageTitle('Auto form');
-
   I.fill('email', 'john@company');
 
   I.submitForm();
@@ -24,9 +23,6 @@ Scenario('Error Email', (I) => {
 });
 
 Scenario('Show errors', (I) => {
-  I.amOnPage('/');
-  I.seePageTitle('Auto form');
-
   I.submitForm();
 
   I.seeFieldError('name', 'Required');
