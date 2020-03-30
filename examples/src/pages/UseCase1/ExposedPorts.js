@@ -3,7 +3,7 @@ import { FormizStep, useForm } from '@formiz/core';
 import {
   IconButton, Box, Stack,
 } from '@chakra-ui/core';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
 import { useDarkTheme } from '../../hooks/isDarkTheme';
