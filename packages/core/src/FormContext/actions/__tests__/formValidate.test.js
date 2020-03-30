@@ -92,6 +92,7 @@ describe('[FormContext:Action] formValidate()', () => {
       steps: [{ name: 'step1' }, { name: 'step2' }],
       fields: [
         {
+          id: 1,
           name: 'a',
           isEnabled: true,
           step: 'step1',
@@ -102,6 +103,7 @@ describe('[FormContext:Action] formValidate()', () => {
           ],
         },
         {
+          id: 2,
           name: 'b',
           isEnabled: true,
           step: 'step2',
@@ -125,6 +127,7 @@ describe('[FormContext:Action] formValidate()', () => {
       steps: [{ name: 'step1' }, { name: 'step2' }],
       fields: [
         {
+          id: 1,
           name: 'a',
           isEnabled: true,
           step: 'step1',
@@ -135,6 +138,7 @@ describe('[FormContext:Action] formValidate()', () => {
           ],
         },
         {
+          id: 2,
           name: 'b',
           isEnabled: true,
           step: 'step2',
@@ -157,6 +161,7 @@ describe('[FormContext:Action] formValidate()', () => {
       steps: [{ name: 'step1' }, { name: 'step2' }],
       fields: [
         {
+          id: 1,
           name: 'a',
           isEnabled: true,
           step: 'step2',
@@ -167,6 +172,7 @@ describe('[FormContext:Action] formValidate()', () => {
           ],
         },
         {
+          id: 2,
           name: 'b',
           isEnabled: true,
           step: 'step2',

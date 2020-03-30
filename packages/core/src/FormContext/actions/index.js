@@ -1,11 +1,11 @@
 import {
-  getEnabledFieldsByStep,
   getFieldErrors,
   getCurrentStepNameFromState,
   getStepsOrdered,
   getStepPosition,
   getFormValues,
   getEnabledSteps,
+  getFieldAndOtherFieldsByKeyValue,
 } from '../helpers';
 
 /*
@@ -13,17 +13,30 @@ import {
 */
 
 export const formValidate = () => (state) => {
-  const fields = (state.fields || [])
-    .map((x) => ({
-      ...x,
-      errors: getFieldErrors(x.name, state.fields),
-    }));
+  // Reset the form to valid state
+  let isValid = true;
 
-  const isValid = fields.filter((x) => x.isEnabled).every((x) => !x.errors.length);
-  const steps = (state.steps || []).map((s) => ({
-    ...s,
-    isValid: getEnabledFieldsByStep(s.name, fields).every((x) => !x.errors.length),
-  }));
+  // Reset each steps to valid state
+  const steps = [...(state.steps || [])].map((x) => ({ ...x, isValid: true }));
+
+  const fields = (state.fields || [])
+    .map((field) => {
+      const errors = getFieldErrors(field);
+
+      if (field.isEnabled && errors.length) {
+        // Invalidate the form
+        isValid = false;
+
+        // Invalidate the step
+        const stepIndex = steps.findIndex((x) => x.name === field.step);
+        if (stepIndex > -1) { steps[stepIndex].isValid = false; }
+      }
+
+      return {
+        ...field,
+        errors,
+      };
+    });
 
   return {
     ...state,
@@ -321,12 +334,13 @@ export const fieldRegister = (
     isKeepValue = false,
   } = {},
 ) => (state) => {
-  let field = state.fields.find((x) => x.id === id) || {};
-  let otherFields = state.fields.filter((x) => x.id !== id);
+  let [field = {}, otherFields] = getFieldAndOtherFieldsByKeyValue('id', id, state.fields);
 
+  // If there is no previous field with the given id
+  // And if we want to keep the previous value
+  // Retrieve the previous field by name
   if (!field.id && isKeepValue) {
-    field = state.fields.find((x) => x.name === name) || {};
-    otherFields = state.fields.filter((x) => x.name !== name);
+    [field = {}, otherFields] = getFieldAndOtherFieldsByKeyValue('name', name, state.fields);
   }
 
   const fields = [
@@ -356,13 +370,11 @@ export const fieldRegister = (
 };
 
 export const fieldUnregister = (id, isKeepValue) => (state) => {
-  const field = state.fields.find((x) => x.id === id);
+  const [field, otherFields] = getFieldAndOtherFieldsByKeyValue('id', id, state.fields);
 
   if (!field) {
     return state;
   }
-
-  const otherFields = state.fields.filter((x) => x.id !== id);
 
   const fields = !isKeepValue ? otherFields : [
     ...otherFields,
@@ -388,13 +400,12 @@ export const fieldUpdateValidations = (
   id,
   validations,
 ) => (state) => {
-  const field = state.fields.find((x) => x.id === id);
+  const [field, otherFields] = getFieldAndOtherFieldsByKeyValue('id', id, state.fields);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter((x) => x.id !== id);
   const fields = [
     ...otherFields,
     {
@@ -414,13 +425,12 @@ export const fieldUpdateValidations = (
 };
 
 export const fieldSetValue = (id, value) => (state) => {
-  const field = state.fields.find((x) => x.id === id);
+  const [field, otherFields] = getFieldAndOtherFieldsByKeyValue('id', id, state.fields);
 
   if (!field) {
     return state;
   }
 
-  const otherFields = state.fields.filter((x) => x.id !== id);
   const { externalError, ...fieldWithoutExternalError } = field;
 
   const fields = [

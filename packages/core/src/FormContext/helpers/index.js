@@ -63,23 +63,45 @@ export const getFormValues = (fields) => {
   return parseValues(values);
 };
 
-export const getField = (fieldName, fields) => (fields || [])
-  .find((x) => x.name === fieldName);
+export const getFieldByKeyValue = (key, value, fields) => {
+  // Use for loop instead of find
+  // because of performance optimization
+  let field;
 
-export const getEnabledFieldsByStep = (stepName, fields) => (fields || [])
-  .filter((x) => x.isEnabled)
-  .filter((x) => x.step === stepName);
+  for (let i = 0; i < fields.length; i += 1) {
+    if (fields[i][key] === value) {
+      field = fields[i];
+      break;
+    }
+  }
 
-export const getFieldErrors = (fieldName, fields) => {
-  const field = getField(fieldName, fields);
+  return field;
+};
 
+export const getFieldAndOtherFieldsByKeyValue = (key, value, fields = []) => {
+  // Use for loop instead of find/filter or reduce
+  // because of performance optimization
+  let field;
+  const otherFields = [];
+
+  for (let i = 0; i < fields.length; i += 1) {
+    if (fields[i][key] === value) {
+      field = fields[i];
+    } else {
+      otherFields.push(fields[i]);
+    }
+  }
+
+  return [field, otherFields];
+};
+
+export const getFieldErrors = (field) => {
   if (!field) {
     return [];
   }
 
   const errorMessages = (field.validations || [])
-    .map((x) => (x.rule && !x.rule(field.value) ? x.message : '___FIELD_IS_VALID___'))
-    .filter((x) => x !== '___FIELD_IS_VALID___');
+    .reduce((acc, cur) => (cur.rule && !cur.rule(field.value) ? [...acc, cur.message] : acc), []);
 
   if (field.externalError) {
     return [field.externalError, ...errorMessages];
@@ -112,7 +134,7 @@ export const getStep = (stepName, steps) => {
 };
 
 export const getFieldStepName = (fieldName, fields) => {
-  const field = fields.find((x) => x.name === fieldName);
+  const field = getFieldByKeyValue('name', fieldName, fields);
 
   if (!field || !field.isEnabled) {
     return undefined;

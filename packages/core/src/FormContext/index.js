@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useState, useCallback, useMemo,
+  useContext, useEffect, useState, useCallback, useMemo, useRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import { getInitialState } from './initialState';
@@ -66,6 +66,8 @@ export const FormContextProvider = ({
     onValidSubmit,
     onInvalidSubmit,
   });
+  const connectRef = useRef();
+  connectRef.current = connect.__connect__;
 
   useEffect(() => {
     onStateChange(state);
@@ -81,13 +83,11 @@ export const FormContextProvider = ({
   }
   // ---- //
 
+  const exposedStateStringify = useMemo(() => JSON.stringify(exposedState), [state]);
+
   useEffect(() => {
-    connect.__connect__(exposedState);
-  }, [
-    dispatch,
-    JSON.stringify(connect.__connect__),
-    JSON.stringify(exposedState),
-  ]);
+    connectRef.current(exposedState);
+  }, [exposedStateStringify]);
 
   return (
     <FormContext.Provider

@@ -6,16 +6,18 @@ const isEqual = (match) => (x) => x === match;
 describe('[FormContext:Helper] getFieldErrors()', () => {
   it('Should not return errors if no validations', () => {
     const field = {
+      id: 1,
       name: 'myField',
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(0);
   });
 
   it('Should not return errors if all validation are true', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: 'my value',
       isEnabled: true,
@@ -29,13 +31,14 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       ],
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(0);
   });
 
   it('Should return an error if one validation is false', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: 'not my value',
       isEnabled: true,
@@ -49,13 +52,14 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       ],
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(1);
   });
 
   it('Should return multiple errors if multiple validations are false', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: '',
       isEnabled: true,
@@ -69,13 +73,14 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       ],
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(2);
   });
 
   it('Should return an error with message if one validation is false', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: 'not my value',
       isEnabled: true,
@@ -91,7 +96,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       ],
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(1);
     expect(errors[0]).toBe('Field should be "my value"');
@@ -99,6 +104,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
 
   it('Should return multiple errors if multiple validations are false', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: '',
       isEnabled: true,
@@ -114,7 +120,7 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
       ],
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(2);
     expect(errors[0]).toBe('Field is required');
@@ -123,13 +129,14 @@ describe('[FormContext:Helper] getFieldErrors()', () => {
 
   it('Should return an error if one field has an external error', () => {
     const field = {
+      id: 1,
       name: 'myField',
       value: 'not my value',
       isEnabled: true,
       externalError: 'External error',
     };
 
-    const errors = getFieldErrors(field.name, [field]);
+    const errors = getFieldErrors(field);
 
     expect(errors).toHaveLength(1);
   });
