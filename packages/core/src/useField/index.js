@@ -88,7 +88,7 @@ export const useField = ({
   const errorMessages = (field.errors || []).filter((x) => !!x);
   const currentStep = getStep(stepName, state.steps);
   const isSubmitted = currentStep.name ? currentStep.isSubmitted : state.isSubmitted;
-  const [localValue, setLocalValue] = useState(field.value || defaultValue);
+  const [localValue, setLocalValue] = useState(field.value ?? defaultValue);
 
   const debounceRef = useRef(debounce);
   debounceRef.current = debounce;
@@ -190,8 +190,8 @@ export const useField = ({
   return {
     id: fieldId,
     resetKey: state.resetKey,
-    value: localValue || '',
-    valueDebounced: field.value || defaultValue || '',
+    value: localValue,
+    valueDebounced: field.value ?? defaultValue,
     errorMessages,
     errorMessage: errorMessages[0],
     isValid: field.errors ? !field.errors.length : true,

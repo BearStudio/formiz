@@ -97,7 +97,7 @@ export const MyField = (props) => {
 
   return (
     <input
-      value={value || ''} // Pass the value for the input
+      value={value ?? ''} // Pass the value for the input
       onChange={e => setValue(e.target.value)} // Update the value onChange
     />
   )
@@ -118,7 +118,7 @@ export const MyField = (props) => {
   return (
     <div>
       <input
-        value={value || ''}
+        value={value ?? ''}
         onChange={e => setValue(e.target.value)}
       />
       {
@@ -168,7 +168,7 @@ export const MyField = (props) => {
       <input
         id={id}
         type={type || 'text'}
-        value={value || ''}
+        value={value ?? ''}
         className="demo-input"
         onChange={e => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}

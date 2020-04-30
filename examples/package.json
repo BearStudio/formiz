@@ -12,8 +12,7 @@
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-icons": "3.9.0",
-    "react-router-dom": "5.1.2",
+    "react-icons": "3.9.0",    "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
     "uuid": "7.0.2"
   },
@@ -27,6 +26,7 @@
     "start": "PORT=3010 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "codeceptjs run --steps",
     "e2e": "codecept-ui",
     "eject": "react-scripts eject",
     "lint": "eslint ./src"

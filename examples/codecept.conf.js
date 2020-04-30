@@ -5,7 +5,7 @@ exports.config = {
     TestCafe: {
       url: 'http://localhost:3010',
       browser: 'chrome',
-      show: true,
+      show: false,
     },
   },
   include: {
