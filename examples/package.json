@@ -1,18 +1,19 @@
 {
   "name": "examples",
-  "version": "1.0.0-rc.10",
+  "version": "1.0.0-rc.11",
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "0.6.1",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
-    "@formiz/core": "^1.0.0-rc.10",
+    "@formiz/core": "^1.0.0-rc.11",
     "@formiz/validations": "^1.0.0-rc.10",
     "emotion-theming": "10.0.27",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-icons": "3.9.0",    "react-router-dom": "5.1.2",
+    "react-icons": "3.9.0",
+    "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
     "uuid": "7.0.2"
   },
