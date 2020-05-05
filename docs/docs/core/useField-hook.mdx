@@ -173,6 +173,10 @@ Set to `true` to keep the value when the field is unmounted from the DOM. (defau
 
 Format the value before saving it into the internal state.
 
+```jsx
+<Field name="myFieldName" formatValue={val => (val || '').trim()} />
+```
+
 ### `onChange(fieldValue)`
 
 Triggered everytime that setValue() is called inside the field.
