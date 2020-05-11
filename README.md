@@ -32,7 +32,7 @@ Visit [formiz-react.com](https://formiz-react.com) for [full documentation](http
 
 Visit documentation for [live demos](https://formiz-react.com/docs/demos/wizard).
 
-Visit [formiz-examples.netlify.com](https://formiz-examples.netlify.com) for examples with [Chakra UI](https://chakra-ui.com/).
+Visit [formiz-examples.netlify.app](https://formiz-examples.netlify.app) for examples with [Chakra UI](https://chakra-ui.com/).
 
 ## Concept
 
