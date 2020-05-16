@@ -176,7 +176,7 @@ export const useField = ({
   }, [
     fieldId,
     required,
-    JSON.stringify(...validations.reduce(
+    JSON.stringify(validations.reduce(
       // use deps array and message as dependencies for updating validations
       (acc, cur) => [...acc, ...(cur.deps || []), cur.message],
       [],
