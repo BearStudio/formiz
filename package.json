@@ -12,6 +12,7 @@
     "test": "lerna run test --parallel --scope @formiz/*",
     "test:dev": "lerna run test:dev --parallel --scope @formiz/*",
     "lint": "lerna run lint -- --fix",
+    "predeploy": "yarn test",
     "deploy": "lerna publish --ignore-changes {docs,examples}",
     "postdeploy": "yarn docs:deploy",
     "packages:build": "lerna run build --parallel --scope @formiz/*",
