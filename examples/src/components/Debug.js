@@ -18,7 +18,7 @@ export const Debug = () => {
       <Box fontSize="sm" color="gray.400">
         # Debug - Form values
       </Box>
-      {JSON.stringify(form.values, null, 2)}
+      {JSON.stringify(form, null, 2)}
     </Box>
   );
 };

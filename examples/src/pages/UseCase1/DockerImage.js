@@ -8,7 +8,7 @@ import { FieldSelect } from '../../components/Fields/FieldSelect';
 
 export const DockerImage = () => {
   const [isPrivate, setIsPrivate] = useState(false);
-  const form = useForm();
+  const form = useForm({ stateLevel: 'form' });
 
   useEffect(() => {
     setIsPrivate(false);

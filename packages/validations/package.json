@@ -38,16 +38,16 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
+    "@babel/core": "7.9.6",
     "@babel/plugin-proposal-class-properties": "7.8.3",
-    "@babel/preset-env": "7.9.0",
-    "jest": "25.1.0",
-    "rollup": "2.1.0",
+    "@babel/preset-env": "7.9.6",
+    "jest": "25.5.4",
+    "rollup": "2.7.6",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "5.3.0",
-    "rollup-plugin-visualizer": "3.3.2",
+    "rollup-plugin-visualizer": "4.0.4",
     "typescript": "3.8.3"
   }
 }

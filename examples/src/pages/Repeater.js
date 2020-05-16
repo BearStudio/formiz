@@ -21,7 +21,7 @@ const defaultCollection = [
 ];
 
 export const Repeater = () => {
-  const form = useForm();
+  const form = useForm({ stateLevel: 'form' });
   const toastValues = useToastValues();
   const [collection, setCollection] = useState(defaultCollection);
 

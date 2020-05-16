@@ -9,7 +9,7 @@ import { AddPlaceholder } from '../../components/AddPlaceholder';
 import { useDarkTheme } from '../../hooks/isDarkTheme';
 
 export const ExposedPorts = () => {
-  const form = useForm();
+  const form = useForm({ stateLevel: 'fields' });
   const isDarkTheme = useDarkTheme();
   const [exposedPorts, setExposedPorts] = useState([]);
 

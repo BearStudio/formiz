@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from '@formiz/core';
+import { Formiz, useForm } from '@formiz/core';
 import { Heading, Icon } from '@chakra-ui/core';
 import { PageHeader } from '../../components/PageHeader';
 import { MultiStepsLayout } from '../../components/MultiStepsLayout';
@@ -22,23 +22,23 @@ export const UseCase1 = () => {
   };
 
   return (
-    <MultiStepsLayout
-      form={form}
-      onValidSubmit={handleSubmit}
-      submitLabel="Create app"
-    >
-      <PageHeader githubPath="UseCase1/index.js">
-        Real life #1
-      </PageHeader>
+    <Formiz connect={form} onValidSubmit={handleSubmit}>
+      <MultiStepsLayout
+        submitLabel="Create app"
+      >
+        <PageHeader githubPath="UseCase1/index.js">
+          Real life #1
+        </PageHeader>
 
-      <Heading fontSize="lg" mb={6} mt={12}>
-        <Icon name="add" size="0.8rem" mr={2} mb={1} />
-        Create a Docker Webapp
-      </Heading>
+        <Heading fontSize="lg" mb={6} mt={12}>
+          <Icon name="add" size="0.8rem" mr={2} mb={1} />
+          Create a Docker Webapp
+        </Heading>
 
-      <DockerImage />
-      <ExposedPorts />
-      <General />
-    </MultiStepsLayout>
+        <DockerImage />
+        <ExposedPorts />
+        <General />
+      </MultiStepsLayout>
+    </Formiz>
   );
 };
