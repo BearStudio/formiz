@@ -70,7 +70,6 @@ export interface FormizProps {
 
 export interface UseFormProps {
   stateLevel?: 'none' | 'form' | 'fields';
-  debounceValues?: number;
 }
 
 export interface UseFormValues {

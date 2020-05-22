@@ -28,7 +28,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
+    "start": "tsdx watch --name formiz-core",
     "build": "tsdx build --name formiz-core",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",

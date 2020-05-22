@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Observable } from 'rxjs';
 import { useRefValue } from './useRefValue';
 
@@ -12,13 +12,15 @@ export const useSubscription = ({
   isEnabled?: boolean;
 }) => {
   const actionRef = useRefValue(action ?? (() => {}));
+  const subscriptionRef = useRef<any>(null);
+
   useLayoutEffect(() => {
-    if (!subject || !isEnabled) {
+    if (subscriptionRef.current || !subject || !isEnabled) {
       return () => {};
     }
 
-    const subscription = subject
+    subscriptionRef.current = subject
       .subscribe(actionRef.current);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscriptionRef.current.unsubscribe();
+  }, [subject, isEnabled]);
 };

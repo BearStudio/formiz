@@ -1,7 +1,6 @@
 import {
   useCallback, useState, useRef,
 } from 'react';
-import { debounceTime } from 'rxjs/operators';
 import {
   defaultFormState,
   useFormContext,
@@ -15,7 +14,6 @@ import {
 
 export const useForm = ({
   stateLevel = 'fields',
-  debounceValues = 100,
 }: UseFormProps = {}): UseFormValues => {
   const { formMethods, subjects } = useFormContext();
   const [methods, setMethods] = useState(formMethods);
@@ -41,8 +39,7 @@ export const useForm = ({
 
   // Fields Update
   useSubscription({
-    subject: subjectRef.current?.onFieldsUpdate
-      .pipe(debounceTime(debounceValues)),
+    subject: subjectRef.current?.onFieldsUpdate,
     action: setFieldsState,
     isEnabled: ['fields'].includes(stateLevel),
   });
