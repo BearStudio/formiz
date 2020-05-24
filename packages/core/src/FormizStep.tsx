@@ -67,6 +67,10 @@ export const FormizStep = ({
     };
   }, [state, isEnabled]);
 
+  if (!isEnabled) {
+    return null;
+  }
+
   return (
     <StepContext.Provider value={{
       name,
