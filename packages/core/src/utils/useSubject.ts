@@ -12,7 +12,6 @@ export const useSubject = (valueRef: React.RefObject<any>, debounce = 0) => {
     const subsciption = subjectRef.current
       .pipe(debounceTime(debounce))
       .subscribe(action);
-    subjectRef.current.next(valueRef.current);
     return subsciption;
   };
 
