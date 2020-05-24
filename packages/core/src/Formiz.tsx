@@ -197,15 +197,6 @@ export const Formiz = ({
   const getFieldStepName = (fieldName: string) => fieldsRef.current
     .find((field: Field) => fieldName === field.name)?.stepName ?? null;
 
-  const updateStep = (step: Partial<StepState>): void => {
-    updateFormState(formActions.updateStep(formStateRef.current, step));
-  };
-
-  const unregisterStep = (name: string): void => {
-    formActions.unregisterStep(formStateRef.current, name);
-    updateFormState({ isValid: checkFormValidity() });
-  };
-
   const validateForm = () => {
     updateFormState({
       isValid: checkFormValidity(),
@@ -215,6 +206,17 @@ export const Formiz = ({
         isValid: checkStepValidity(step.name),
       })),
     });
+  };
+
+  const updateStep = (step: Partial<StepState>): void => {
+    updateFormState(formActions.updateStep(formStateRef.current, step));
+    validateForm();
+  };
+
+  const unregisterStep = (name: string): void => {
+    formActions.unregisterStep(formStateRef.current, name);
+    updateFormState({ isValid: checkFormValidity() });
+    validateForm();
   };
 
   const registerField = (field: Field): void => {
