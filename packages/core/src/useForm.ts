@@ -28,7 +28,6 @@ export const useForm = ({
   }) => {
     setMethods(_formMethods);
     subjectRef.current = _subjects;
-    console.log('connect');
   }, []);
 
   // Form Update

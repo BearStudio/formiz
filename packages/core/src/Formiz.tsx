@@ -29,6 +29,13 @@ export const defaultFormState: FormState = {
 export const FormContext = React.createContext<FormContextValue>({});
 export const useFormContext = () => useContext(FormContext);
 
+const getCurrentStep = (formState: FormState) => {
+  const currentStepName = formState.navigatedStepName
+    || formState.initialStepName;
+  return formState.steps
+    .find((x) => x.name === currentStepName);
+};
+
 export const Formiz = ({
   autoForm = false,
   children = '',
@@ -50,12 +57,6 @@ export const Formiz = ({
   const onInvalidSubmitRef = useRefValue(onInvalidSubmit);
   const onValidRef = useRefValue(onValid);
   const onInvalidRef = useRefValue(onInvalid);
-  const currentStepNameRef = useRefValue(
-    formStateRef.current.navigatedStepName
-    || formStateRef.current.initialStepName,
-  );
-  const currentStepRef: React.RefObject<StepState> = useRefValue(formStateRef.current.steps
-    .find((x) => x.name === currentStepNameRef.current));
 
   const onFormUpdate = useSubject(formStateRef);
   const onFieldsUpdate = useSubject(fieldsRef);
@@ -111,30 +112,28 @@ export const Formiz = ({
 
   const nextStep = () => {
     const enabledSteps = formStateRef.current.steps.filter((x) => x.isEnabled);
-    const stepIndex = enabledSteps.findIndex((step) => step.name === currentStepNameRef.current);
+    const stepIndex = enabledSteps
+      .findIndex((step) => step.name === getCurrentStep(formStateRef.current)?.name);
     const isLastStep = stepIndex === enabledSteps.length - 1;
 
     if (isLastStep) {
       return;
     }
 
-    updateFormState({
-      navigatedStepName: enabledSteps[stepIndex + 1].name,
-    });
+    goToStep(enabledSteps[stepIndex + 1].name);
   };
 
   const prevStep = () => {
     const enabledSteps = formStateRef.current.steps.filter((x) => x.isEnabled);
-    const stepIndex = enabledSteps.findIndex((step) => step.name === currentStepNameRef.current);
+    const stepIndex = enabledSteps
+      .findIndex((step) => step.name === getCurrentStep(formStateRef.current)?.name);
     const isFirstStep = stepIndex === 0;
 
     if (isFirstStep) {
       return;
     }
 
-    updateFormState({
-      navigatedStepName: enabledSteps[stepIndex - 1].name,
-    });
+    goToStep(enabledSteps[stepIndex - 1].name);
   };
 
   const submit = (e?: React.FormEvent<HTMLFormElement>) => {
@@ -163,16 +162,19 @@ export const Formiz = ({
     updateFormState({
       steps: formStateRef.current.steps.map((step) => ({
         ...step,
-        isSubmitted: step.name === currentStepNameRef.current ? true : step.isSubmitted,
+        isSubmitted: step.name === getCurrentStep(formStateRef.current)?.name
+          ? true
+          : step.isSubmitted,
       })),
     });
 
-    if (!currentStepRef.current?.isValid) {
+    if (!getCurrentStep(formStateRef.current)?.isValid) {
       return;
     }
 
     const enabledSteps = formStateRef.current.steps.filter((x) => x.isEnabled);
-    const isLastStep = enabledSteps[enabledSteps.length - 1]?.name === currentStepNameRef.current;
+    const currentStepName = getCurrentStep(formStateRef.current)?.name;
+    const isLastStep = enabledSteps[enabledSteps.length - 1]?.name === currentStepName;
 
     if (isLastStep) {
       submit();
