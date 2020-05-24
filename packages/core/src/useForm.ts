@@ -1,6 +1,7 @@
 import {
-  useCallback, useState, useRef, useLayoutEffect,
+  useCallback, useState, useRef, useLayoutEffect, useEffect,
 } from 'react';
+import { Subscription } from 'rxjs';
 import {
   defaultFormState,
   useFormContext,
@@ -19,7 +20,25 @@ export const useForm = ({
   const [methods, setMethods] = useState(formMethods);
   const [formState, setFormState] = useState(defaultFormState);
   const [fieldsState, setFieldsState] = useState<FormFields>([]);
-  const subjectRef = useRef<any>(subjects);
+  const subscriptionsRef = useRef<Array<Subscription>>([]);
+
+  const subscribeOnFormUpdate = (subject: any) => {
+    if (!subject || !['form', 'fields'].includes(stateLevel)) {
+      return;
+    }
+    const subscription = subject
+      .subscribe(setFormState);
+    subscriptionsRef.current.push(subscription);
+  };
+
+  const subscribeOnFieldsUpdate = (subject: any) => {
+    if (!subject || !['fields'].includes(stateLevel)) {
+      return;
+    }
+    const subscription = subject
+      .subscribe(setFieldsState, 100);
+    subscriptionsRef.current.push(subscription);
+  };
 
   // Use the connect property to retrieve the state
   const connect = useCallback(({
@@ -27,30 +46,20 @@ export const useForm = ({
     subjects: _subjects,
   }) => {
     setMethods(_formMethods);
-    subjectRef.current = _subjects;
+    subscribeOnFormUpdate(_subjects?.onFormUpdate);
+    subscribeOnFieldsUpdate(_subjects?.onFieldsUpdate);
   }, []);
 
-  // Form Update
+  // Subscribe (if not used with connect)
   useLayoutEffect(() => {
-    if (!subjectRef.current || !['form', 'fields'].includes(stateLevel)) {
-      return () => {};
-    }
+    subscribeOnFormUpdate(subjects?.onFormUpdate);
+    subscribeOnFieldsUpdate(subjects?.onFieldsUpdate);
+  }, []);
 
-    const subscription = subjectRef.current.onFormUpdate
-      .subscribe(setFormState);
-    return () => subscription.unsubscribe();
-  }, [subjectRef.current]);
-
-  // Fields Update
-  useLayoutEffect(() => {
-    if (!subjectRef.current || !['fields'].includes(stateLevel)) {
-      return () => {};
-    }
-
-    const subscription = subjectRef.current.onFieldsUpdate
-      .subscribe(setFieldsState, 100);
-    return () => subscription.unsubscribe();
-  }, [subjectRef.current]);
+  // Clear all subscriptions at unmount
+  useEffect(() => () => {
+    subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
+  }, []);
 
   const enabledSteps = formState.steps
     .filter((x) => x.isEnabled)

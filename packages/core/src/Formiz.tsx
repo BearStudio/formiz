@@ -261,38 +261,31 @@ export const Formiz = ({
     reset,
   };
 
+  const contextValue: FormContextValue = {
+    actions: {
+      updateStep,
+      unregisterStep,
+      registerField,
+      updateField,
+      unregisterField,
+    },
+    formMethods,
+    keepValuesRef,
+    subjects: {
+      onFormUpdate,
+      onFieldsUpdate,
+      onExternalFieldsUpdate,
+      onReset,
+    },
+  };
+
   // Connect
   useLayoutEffect(() => {
-    connectRef.current({
-      formMethods,
-      subjects: {
-        onFormUpdate,
-        onFieldsUpdate,
-        onExternalFieldsUpdate,
-        onReset,
-      },
-    });
+    connectRef.current(contextValue);
   }, []);
 
   return (
-    <FormContext.Provider value={{
-      actions: {
-        updateStep,
-        unregisterStep,
-        registerField,
-        updateField,
-        unregisterField,
-      },
-      formMethods,
-      keepValuesRef,
-      subjects: {
-        onFormUpdate,
-        onFieldsUpdate,
-        onExternalFieldsUpdate,
-        onReset,
-      },
-    }}
-    >
+    <FormContext.Provider value={contextValue}>
       {!autoForm
         ? children
         : (
