@@ -54,6 +54,7 @@ export const useField = ({
   }
 
   const {
+    formStateRef,
     actions,
     subjects,
     keepValuesRef,
@@ -67,7 +68,7 @@ export const useField = ({
   const stepContext = useStepContext();
   const stepName = stepContext?.name;
 
-  const [formState, setFormState] = useState(defaultFormState);
+  const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
   const initValue = keepValuesRef.current?.[name] ?? defaultValue;
   const [state, setState] = useState<FieldState>({
     id: getUniqueId('field'),

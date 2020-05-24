@@ -262,6 +262,8 @@ export const Formiz = ({
   };
 
   const contextValue: FormContextValue = {
+    formStateRef,
+    fieldsRef,
     actions: {
       updateStep,
       unregisterStep,

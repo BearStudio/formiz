@@ -21,6 +21,8 @@ export type KeepValues = {
 export type FormValues = any;
 
 export interface FormContextValue {
+  formStateRef?: React.RefObject<FormState>;
+  fieldsRef?: React.RefObject<FormFields>;
   actions?: {
     updateStep(stepState: Partial<StepState>): void;
     unregisterStep(stepName: string): void;

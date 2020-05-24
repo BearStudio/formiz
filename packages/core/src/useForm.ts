@@ -16,10 +16,12 @@ import {
 export const useForm = ({
   stateLevel = 'fields',
 }: UseFormProps = {}): UseFormValues => {
-  const { formMethods, subjects } = useFormContext();
+  const {
+    formStateRef, fieldsRef, formMethods, subjects,
+  } = useFormContext();
   const [methods, setMethods] = useState(formMethods);
-  const [formState, setFormState] = useState(defaultFormState);
-  const [fieldsState, setFieldsState] = useState<FormFields>([]);
+  const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
+  const [fieldsState, setFieldsState] = useState<FormFields>(fieldsRef?.current ?? []);
   const subscriptionsRef = useRef<Array<Subscription>>([]);
 
   const subscribeOnFormUpdate = (subject: any) => {

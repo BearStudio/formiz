@@ -24,6 +24,7 @@ export const FormizStep = ({
   }
 
   const {
+    formStateRef,
     actions,
     subjects,
   } = useFormContext();
@@ -32,7 +33,7 @@ export const FormizStep = ({
     throw ErrorStepWithoutForm;
   }
 
-  const [formState, setFormState] = useState(defaultFormState);
+  const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
   const [state, setState] = useState<Partial<StepState>>({
     name,
     isVisited: false,
