@@ -27,7 +27,9 @@ export const updateStep = (state: FormState, partialStepState: Partial<StepState
   const orderedSteps = newSteps
     .sort((a, b) => a.order - b.order);
 
-  const initialStepName = orderedSteps.length ? orderedSteps[0].name : null;
+  const enabledSteps = orderedSteps.filter(({ isEnabled }) => isEnabled);
+
+  const initialStepName = enabledSteps.length ? enabledSteps[0].name : null;
 
   const newState = {
     ...state,
