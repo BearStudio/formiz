@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {
-  useContext, useEffect, useState, useRef,
+  useContext, useEffect, useState, useLayoutEffect,
 } from 'react';
-import { useRefValue, useSubscription } from './utils';
+import { useRefValue } from './utils';
 import { FormizStepProps, StepState } from './types/step.types';
-import { FormState } from './types/form.types';
 import { ErrorStepWithoutName, ErrorStepWithoutForm } from './errors';
 import { useFormContext, defaultFormState } from './Formiz';
 
@@ -33,26 +32,26 @@ export const FormizStep = ({
     throw ErrorStepWithoutForm;
   }
 
-  const formStateRef = useRef(defaultFormState);
+  const [formState, setFormState] = useState(defaultFormState);
   const [state, setState] = useState<Partial<StepState>>({
     name,
     isVisited: false,
     order: order ?? 0,
   });
   const stateRef = useRefValue(state);
-  const isActive = formStateRef.current.navigatedStepName
-    ? formStateRef.current.navigatedStepName === name
-    : formStateRef.current.initialStepName === name;
+  const isActive = formState.navigatedStepName
+    ? formState.navigatedStepName === name
+    : formState.initialStepName === name;
 
-  useSubscription({
-    subject: subjects.onFormUpdate,
-    action: (x: FormState) => {
-      formStateRef.current = x;
-    },
-  });
+  // Subscribe to form state
+  useLayoutEffect(() => {
+    const subscription = subjects.onFormUpdate
+      .subscribe(setFormState);
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
-    if (formStateRef.current.navigatedStepName === name && !state.isVisited && isActive) {
+    if (formState.navigatedStepName === name && !state.isVisited && isActive) {
       setState((prevState) => ({ ...prevState, isVisited: true }));
     }
   });

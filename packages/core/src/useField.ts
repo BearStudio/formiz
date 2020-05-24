@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useRef,
+  useState, useEffect, useRef, useLayoutEffect,
 } from 'react';
 import {
   FieldValue, FieldValidationObject, UseFieldProps, UseFieldValues, FieldState,
@@ -7,7 +7,7 @@ import {
 import { FormFields } from './types/form.types';
 import { StepState } from './types/step.types';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
-import { getUniqueId, useRefValue, useSubscription } from './utils';
+import { getUniqueId, useRefValue } from './utils';
 import { useFormContext, defaultFormState } from './Formiz';
 import { useStepContext } from './FormizStep';
 
@@ -100,39 +100,42 @@ export const useField = ({
     onChangeRef.current(formatValueRef.current(value), value);
   };
 
-  // Subscribe to formState
-  useSubscription({
-    subject: subjects.onFormUpdate,
-    action: setFormState,
-  });
+  // Subscribe to form state
+  useLayoutEffect(() => {
+    const subscription = subjects.onFormUpdate
+      .subscribe(setFormState);
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Subscribe to external updates
-  useSubscription({
-    subject: subjects.onExternalFieldsUpdate,
-    action: (fields: FormFields) => {
-      const field = fields.find((x) => x.id === stateRef.current.id);
-      if (field && JSON.stringify(field) !== JSON.stringify(stateRef.current)) {
-        setState(field);
-      }
-    },
-  });
+  useLayoutEffect(() => {
+    const subscription = subjects.onExternalFieldsUpdate
+      .subscribe((fields: FormFields) => {
+        const field = fields.find((x) => x.id === stateRef.current.id);
+        if (field && JSON.stringify(field) !== JSON.stringify(stateRef.current)) {
+          setState(field);
+        }
+      });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Subscribe to reset
-  useSubscription({
-    subject: subjects.onReset,
-    action: () => {
-      setState((prevState) => ({
-        ...prevState,
-        resetKey: prevState.resetKey + 1,
-        isPristine: true,
-        value: defaultValueRef.current,
-      }));
-      onChangeRef.current(
-        formatValueRef.current(defaultValueRef.current),
-        defaultValueRef.current,
-      );
-    },
-  });
+  useLayoutEffect(() => {
+    const subscription = subjects.onReset
+      .subscribe(() => {
+        setState((prevState) => ({
+          ...prevState,
+          resetKey: prevState.resetKey + 1,
+          isPristine: true,
+          value: defaultValueRef.current,
+        }));
+        onChangeRef.current(
+          formatValueRef.current(defaultValueRef.current),
+          defaultValueRef.current,
+        );
+      });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Register / Unregister the field
   useEffect(() => {

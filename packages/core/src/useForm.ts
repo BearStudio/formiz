@@ -1,11 +1,11 @@
 import {
-  useCallback, useState, useRef,
+  useCallback, useState, useRef, useLayoutEffect,
 } from 'react';
 import {
   defaultFormState,
   useFormContext,
 } from './Formiz';
-import { getFormValues, useSubscription } from './utils';
+import { getFormValues } from './utils';
 import {
   FormFields,
   UseFormProps,
@@ -28,21 +28,30 @@ export const useForm = ({
   }) => {
     setMethods(_formMethods);
     subjectRef.current = _subjects;
+    console.log('connect');
   }, []);
 
   // Form Update
-  useSubscription({
-    subject: subjectRef.current?.onFormUpdate,
-    action: setFormState,
-    isEnabled: ['form', 'fields'].includes(stateLevel),
-  });
+  useLayoutEffect(() => {
+    if (!subjectRef.current || !['form', 'fields'].includes(stateLevel)) {
+      return () => {};
+    }
+
+    const subscription = subjectRef.current.onFormUpdate
+      .subscribe(setFormState);
+    return () => subscription.unsubscribe();
+  }, [subjectRef.current]);
 
   // Fields Update
-  useSubscription({
-    subject: subjectRef.current?.onFieldsUpdate,
-    action: setFieldsState,
-    isEnabled: ['fields'].includes(stateLevel),
-  });
+  useLayoutEffect(() => {
+    if (!subjectRef.current || !['fields'].includes(stateLevel)) {
+      return () => {};
+    }
+
+    const subscription = subjectRef.current.onFieldsUpdate
+      .subscribe(setFieldsState);
+    return () => subscription.unsubscribe();
+  }, [subjectRef.current]);
 
   const enabledSteps = formState.steps
     .filter((x) => x.isEnabled)

@@ -2,9 +2,8 @@ import * as React from 'react';
 import {
   useLayoutEffect, useRef, useContext,
 } from 'react';
-import { Subject } from 'rxjs';
 import { Field } from './types/field.types';
-import { useRefValue, getFormValues } from './utils';
+import { useRefValue, getFormValues, useSubject } from './utils';
 import {
   FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues,
 } from './types/form.types';
@@ -41,12 +40,6 @@ export const Formiz = ({
   onValid = () => {},
   onInvalid = () => {},
 }: FormizProps) => {
-  const subjectsRef = useRef({
-    onFormUpdate: new Subject(),
-    onFieldsUpdate: new Subject(),
-    onExternalFieldsUpdate: new Subject(),
-    onReset: new Subject(),
-  });
   const formStateRef = useRef(defaultFormState);
   const fieldsRef = useRef<FormFields>([]);
   const keepValuesRef = useRef<KeepValues>({});
@@ -63,6 +56,11 @@ export const Formiz = ({
   );
   const currentStepRef: React.RefObject<StepState> = useRefValue(formStateRef.current.steps
     .find((x) => x.name === currentStepNameRef.current));
+
+  const onFormUpdate = useSubject(formStateRef);
+  const onFieldsUpdate = useSubject(fieldsRef);
+  const onExternalFieldsUpdate = useSubject(fieldsRef);
+  const onReset = useSubject(formStateRef);
 
   const checkFormValidity = (): boolean => {
     const isValid = fieldsRef.current
@@ -93,7 +91,7 @@ export const Formiz = ({
       return;
     }
     formStateRef.current = newState;
-    subjectsRef.current.onFormUpdate.next(newState);
+    onFormUpdate.push();
   };
 
   const goToStep = (stepName: string) => {
@@ -186,12 +184,12 @@ export const Formiz = ({
 
   const setFieldsValues = (objectOfValues = {}) => {
     fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues);
-    subjectsRef.current.onExternalFieldsUpdate.next([...fieldsRef.current]);
+    onExternalFieldsUpdate.push();
   };
 
   const invalidateFields = (objectOfErrors = {}) => {
     fieldsRef.current = fieldsActions.setFieldsExternalErrors(fieldsRef.current, objectOfErrors);
-    subjectsRef.current.onExternalFieldsUpdate.next([...fieldsRef.current]);
+    onExternalFieldsUpdate.push();
   };
 
   const getFieldStepName = (fieldName: string) => fieldsRef.current
@@ -222,14 +220,14 @@ export const Formiz = ({
   const registerField = (field: Field): void => {
     delete keepValuesRef.current[field.name];
     fieldsRef.current = fieldsActions.registerField(fieldsRef.current, field);
-    subjectsRef.current.onFieldsUpdate.next([...fieldsRef.current]);
+    onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
     validateForm();
   };
 
   const updateField = (field: Field): void => {
     fieldsRef.current = fieldsActions.updateField(fieldsRef.current, field);
-    subjectsRef.current.onFieldsUpdate.next([...fieldsRef.current]);
+    onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
     validateForm();
   };
@@ -239,14 +237,14 @@ export const Formiz = ({
       keepValuesRef.current[field.name] = field.value;
     }
     fieldsRef.current = fieldsActions.unregisterField(fieldsRef.current, field.id);
-    subjectsRef.current.onFieldsUpdate.next([...fieldsRef.current]);
+    onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
     validateForm();
   };
 
   const reset = (): void => {
     updateFormState(formActions.resetForm(formStateRef.current));
-    subjectsRef.current.onReset.next({ ...formStateRef.current });
+    onReset.push();
   };
 
   const formMethods: FormMethods = {
@@ -265,7 +263,12 @@ export const Formiz = ({
   useLayoutEffect(() => {
     connectRef.current({
       formMethods,
-      subjects: subjectsRef.current,
+      subjects: {
+        onFormUpdate,
+        onFieldsUpdate,
+        onExternalFieldsUpdate,
+        onReset,
+      },
     });
   }, []);
 
@@ -280,7 +283,12 @@ export const Formiz = ({
       },
       formMethods,
       keepValuesRef,
-      subjects: subjectsRef.current,
+      subjects: {
+        onFormUpdate,
+        onFieldsUpdate,
+        onExternalFieldsUpdate,
+        onReset,
+      },
     }}
     >
       {!autoForm

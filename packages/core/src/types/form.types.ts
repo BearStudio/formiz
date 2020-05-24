@@ -1,5 +1,4 @@
 import { RefObject } from 'react';
-import { Subject } from 'rxjs';
 import { FieldValue, Field } from './field.types';
 import { Step, StepState } from './step.types';
 
@@ -32,10 +31,10 @@ export interface FormContextValue {
   formMethods?: FormMethods;
   keepValuesRef?: RefObject<KeepValues>;
   subjects?: {
-    onFormUpdate: Subject<any>;
-    onFieldsUpdate: Subject<any>;
-    onExternalFieldsUpdate: Subject<any>;
-    onReset: Subject<any>;
+    onFormUpdate: any;
+    onFieldsUpdate: any;
+    onExternalFieldsUpdate: any;
+    onReset: any;
   };
 }
 
