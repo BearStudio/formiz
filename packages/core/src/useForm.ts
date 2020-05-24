@@ -48,7 +48,7 @@ export const useForm = ({
     }
 
     const subscription = subjectRef.current.onFieldsUpdate
-      .subscribe(setFieldsState);
+      .subscribe(setFieldsState, 100);
     return () => subscription.unsubscribe();
   }, [subjectRef.current]);
 
