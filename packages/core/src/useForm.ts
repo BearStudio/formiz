@@ -27,7 +27,7 @@ export const useForm = ({
       return;
     }
     const subscription = subject
-      .subscribe(setFormState);
+      .subscribe(setFormState, 100);
     subscriptionsRef.current.push(subscription);
   };
 

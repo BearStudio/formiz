@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { throttleTime } from 'rxjs/operators';
 
 export const useSubject = (valueRef: React.RefObject<any>, debounce = 0) => {
   const subjectRef = useRef(new Subject());
@@ -10,7 +10,7 @@ export const useSubject = (valueRef: React.RefObject<any>, debounce = 0) => {
 
   const subscribe = (action: any) => {
     const subsciption = subjectRef.current
-      .pipe(debounceTime(debounce))
+      .pipe(throttleTime(debounce, undefined, { leading: true, trailing: true }))
       .subscribe(action);
     return subsciption;
   };
