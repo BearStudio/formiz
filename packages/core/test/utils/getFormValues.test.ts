@@ -5,8 +5,10 @@ const defautlField = {
   id: 'id',
   errors: [],
   value: 'Value',
+  valueDebounced: 'Value',
   isPristine: true,
   isEnabled: true,
+  resetKey: 0,
 };
 
 describe('Utils: getFormValues()', () => {
