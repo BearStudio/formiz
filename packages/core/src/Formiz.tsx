@@ -65,7 +65,7 @@ export const Formiz = ({
 
   const checkFormValidity = (): boolean => {
     const isValid = fieldsRef.current
-      .every((field: any) => !field?.errors?.length);
+      .every((field: any) => !field?.errors?.length && !field?.externalErrors?.length);
 
     if (isValid) {
       onValidRef.current();
@@ -78,7 +78,7 @@ export const Formiz = ({
 
   const checkStepValidity = (stepName: string): boolean => fieldsRef.current
     .filter((field) => field.stepName === stepName)
-    .every((field: any) => !field?.errors?.length);
+    .every((field: any) => !field?.errors?.length && !field?.externalErrors?.length);
 
   const checkFormPristine = (): boolean => {
     const isPristine = fieldsRef.current
