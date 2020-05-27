@@ -76,6 +76,7 @@ export const useField = ({
     value: initValue,
     valueDebounced: initValue,
     errors: [],
+    externalErrors: [],
     isPristine: true,
     isEnabled: true,
   });
@@ -95,6 +96,7 @@ export const useField = ({
   const setValue = (value: FieldValue) => {
     setState((prevState: FieldState) => ({
       ...prevState,
+      externalErrors: [],
       value,
       isPristine: false,
     }));
@@ -126,6 +128,8 @@ export const useField = ({
       .subscribe(() => {
         setState((prevState) => ({
           ...prevState,
+          error: [],
+          externalErrors: [],
           resetKey: prevState.resetKey + 1,
           isPristine: true,
           value: defaultValueRef.current,
@@ -219,13 +223,15 @@ export const useField = ({
     ? currentStep.isSubmitted
     : formState.isSubmitted;
 
+  const allErrors = [...state.externalErrors, ...state.errors];
+
   return {
-    errorMessage: state.errors[0],
-    errorMessages: state.errors,
+    errorMessage: allErrors[0],
+    errorMessages: allErrors,
     id: state.id,
     isPristine: state.isPristine,
     isSubmitted,
-    isValid: !state.errors.length,
+    isValid: !allErrors.length,
     setValue,
     value: state.value,
     valueDebounced: state.valueDebounced,

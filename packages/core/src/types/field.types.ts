@@ -23,6 +23,7 @@ export interface Field {
   resetKey: number;
   name: string;
   errors: (string | undefined)[];
+  externalErrors: string[];
   value: FieldValue;
   valueDebounced: FieldValue;
   isPristine: boolean;
@@ -34,6 +35,7 @@ export interface FieldState {
   id: string;
   resetKey: number;
   errors: (string | undefined)[];
+  externalErrors: string[];
   value: FieldValue;
   valueDebounced: FieldValue;
   isPristine: boolean;

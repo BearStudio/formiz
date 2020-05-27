@@ -73,9 +73,9 @@ export const setFieldsExternalErrors = (
 
   const newFields = fields.map((field: Field) => ({
     ...field,
-    errors: objectOfErrors[field.name]
-      ? [objectOfErrors[field.name], field.errors]
-      : field.errors,
+    externalErrors: objectOfErrors[field.name]
+      ? [objectOfErrors[field.name], field.externalErrors]
+      : field.externalErrors,
   }));
 
   return [...newFields];
