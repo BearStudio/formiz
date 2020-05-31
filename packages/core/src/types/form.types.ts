@@ -7,12 +7,12 @@ export interface FormState {
   isSubmitted: boolean;
   isValid: boolean;
   isPristine: boolean;
-  steps: Array<StepState>;
+  steps: StepState[];
   initialStepName: null | string;
   navigatedStepName: null | string;
 }
 
-export type FormFields = Array<Field>;
+export type FormFields = Field[];
 
 export type KeepValues = {
   [key: string]: FieldValue;
@@ -85,7 +85,7 @@ export interface UseFormValues {
   isValid?: boolean;
   isPristine?: boolean;
 
-  steps?: Array<Step>;
+  steps?: Step[];
   currentStep?: {} | Step;
   isStepValid?: boolean;
   isStepSubmitted?: boolean;
