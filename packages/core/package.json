@@ -17,7 +17,7 @@
     "form-validation-react",
     "form-fields"
   ],
-  "main": "dist/index.js",
+  "main": "dist/formiz-core.umd.js",
   "module": "dist/formiz-core.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -28,8 +28,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch --name formiz-core",
-    "build": "tsdx build --name formiz-core",
+    "start": "tsdx watch --name formiz-core --format cjs,esm,umd",
+    "build": "tsdx build --name formiz-core --format cjs,esm,umd",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "prepare": "tsdx build"
