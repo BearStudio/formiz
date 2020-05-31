@@ -19,7 +19,7 @@ const defaultProps = {
 
 
 export const PageHeader = ({ children, onReset, githubPath }) => {
-  const form = useForm({ stateLevel: 'none' });
+  const form = useForm({ withState: false });
 
   return (
     <Box mb="6" data-test="header">

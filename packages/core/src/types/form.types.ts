@@ -69,8 +69,12 @@ export interface FormizProps {
   onInvalid?(): void;
 }
 
+interface WithStateObject {
+  form?: boolean | string[];
+  fields?: boolean | string[];
+}
 export interface UseFormProps {
-  stateLevel?: 'none' | 'form' | 'fields';
+  withState?: boolean | 'form' | 'fields' | WithStateObject;
 }
 
 export interface UseFormValues {

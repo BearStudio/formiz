@@ -13,8 +13,28 @@ import {
   UseFormValues,
 } from './types/form.types';
 
+const isStateEnabled = (withState: UseFormProps['withState'], key: 'form' | 'fields') => {
+  if (withState === true) {
+    return true;
+  }
+
+  if (withState === key) {
+    return true;
+  }
+
+  if (typeof withState !== 'object') {
+    return false;
+  }
+
+  if (!withState[key]) {
+    return false;
+  }
+
+  return true;
+};
+
 export const useForm = ({
-  stateLevel = 'fields',
+  withState = true,
 }: UseFormProps = {}): UseFormValues => {
   const {
     formStateRef, fieldsRef, formMethods, subjects,
@@ -25,7 +45,7 @@ export const useForm = ({
   const subscriptionsRef = useRef<Array<Subscription>>([]);
 
   const subscribeOnFormUpdate = (subject: any) => {
-    if (!subject || !['form', 'fields'].includes(stateLevel)) {
+    if (!subject || !isStateEnabled(withState, 'form')) {
       return;
     }
     const subscription = subject
@@ -34,7 +54,7 @@ export const useForm = ({
   };
 
   const subscribeOnFieldsUpdate = (subject: any) => {
-    if (!subject || !['fields'].includes(stateLevel)) {
+    if (!subject || !isStateEnabled(withState, 'fields')) {
       return;
     }
     const subscription = subject
@@ -84,7 +104,7 @@ export const useForm = ({
 
   return {
     ...methods,
-    ...(['form', 'fields'].includes(stateLevel) ? {
+    ...(isStateEnabled(withState, 'form') ? {
       resetKey: formState.resetKey,
       isSubmitted: formState.isSubmitted,
       isValid: formState.isValid,
@@ -96,7 +116,7 @@ export const useForm = ({
       isFirstStep: enabledSteps[0]?.name === currentStep?.name,
       isLastStep: enabledSteps[enabledSteps.length - 1]?.name === currentStep?.name,
     } : {}),
-    ...(['fields'].includes(stateLevel) ? {
+    ...(isStateEnabled(withState, 'fields') ? {
       values: getFormValues(fieldsState),
     } : {}),
     __connect__: connect,

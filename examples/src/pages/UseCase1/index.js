@@ -9,7 +9,7 @@ import { ExposedPorts } from './ExposedPorts';
 import { useToastValues } from '../../hooks/useToastValues';
 
 export const UseCase1 = () => {
-  const form = useForm({ stateLevel: 'none' });
+  const form = useForm({ withState: false });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {

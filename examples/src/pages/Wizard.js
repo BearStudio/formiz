@@ -8,7 +8,7 @@ import { PageLayout } from '../layout/PageLayout';
 import { useToastValues } from '../hooks/useToastValues';
 
 export const Wizard = () => {
-  const form = useForm({ stateLevel: 'form' });
+  const form = useForm({ withState: 'form' });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {

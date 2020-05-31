@@ -8,7 +8,7 @@ import { FieldSlider } from '../components/Fields/FieldSlider';
 import { useToastValues } from '../hooks/useToastValues';
 
 export const ExoticFields = () => {
-  const form = useForm({ stateLevel: 'form' });
+  const form = useForm({ withState: 'form' });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
