@@ -70,7 +70,7 @@ export interface FormizProps {
 }
 
 interface WithStateObject {
-  form?: boolean | string[];
+  form?: boolean;
   fields?: boolean | string[];
 }
 export interface UseFormProps {

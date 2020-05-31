@@ -6,7 +6,7 @@ import {
   defaultFormState,
   useFormContext,
 } from './Formiz';
-import { getFormValues } from './utils';
+import { getFormValues, useRefValue } from './utils';
 import {
   FormFields,
   UseFormProps,
@@ -40,8 +40,9 @@ export const useForm = ({
     formStateRef, fieldsRef, formMethods, subjects,
   } = useFormContext();
   const [methods, setMethods] = useState(formMethods);
-  const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
-  const [fieldsState, setFieldsState] = useState<FormFields>(fieldsRef?.current ?? []);
+  const [localFormState, setLocalFormState] = useState(formStateRef?.current ?? defaultFormState);
+  const [localFields, setLocalFields] = useState<FormFields>(fieldsRef?.current ?? []);
+  const localFieldsRef = useRefValue(localFields);
   const subscriptionsRef = useRef<Array<Subscription>>([]);
 
   const subscribeOnFormUpdate = (subject: any) => {
@@ -49,7 +50,7 @@ export const useForm = ({
       return;
     }
     const subscription = subject
-      .subscribe(setFormState, 100);
+      .subscribe(setLocalFormState, 100);
     subscriptionsRef.current.push(subscription);
   };
 
@@ -57,8 +58,20 @@ export const useForm = ({
     if (!subject || !isStateEnabled(withState, 'fields')) {
       return;
     }
+
+    const withStateFields = typeof withState === 'object' && typeof withState.fields === 'object' ? withState.fields : null;
     const subscription = subject
-      .subscribe(setFieldsState, 100);
+      .subscribe((nextFields: FormFields) => {
+        const nextState = withStateFields
+          ? nextFields.filter((x) => withStateFields.includes(x.name))
+          : nextFields;
+
+        if (JSON.stringify(localFieldsRef.current) === JSON.stringify(nextState)) {
+          return;
+        }
+
+        setLocalFields(nextState);
+      }, 100);
     subscriptionsRef.current.push(subscription);
   };
 
@@ -83,7 +96,7 @@ export const useForm = ({
     subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
   }, []);
 
-  const enabledSteps = formState.steps
+  const enabledSteps = localFormState.steps
     .filter((x) => x.isEnabled)
     .map(({
       name,
@@ -100,15 +113,16 @@ export const useForm = ({
     .map((x, index) => ({ ...x, index }));
 
   const currentStep = enabledSteps
-    .find((x) => x.name === (formState.navigatedStepName || formState.initialStepName)) || null;
+    .find((x) => x.name === (localFormState.navigatedStepName || localFormState.initialStepName))
+    || null;
 
   return {
     ...methods,
     ...(isStateEnabled(withState, 'form') ? {
-      resetKey: formState.resetKey,
-      isSubmitted: formState.isSubmitted,
-      isValid: formState.isValid,
-      isPristine: formState.isPristine,
+      resetKey: localFormState.resetKey,
+      isSubmitted: localFormState.isSubmitted,
+      isValid: localFormState.isValid,
+      isPristine: localFormState.isPristine,
       steps: enabledSteps,
       currentStep: currentStep || {},
       isStepValid: !!currentStep?.isValid,
@@ -117,7 +131,7 @@ export const useForm = ({
       isLastStep: enabledSteps[enabledSteps.length - 1]?.name === currentStep?.name,
     } : {}),
     ...(isStateEnabled(withState, 'fields') ? {
-      values: getFormValues(fieldsState),
+      values: getFormValues(localFields),
     } : {}),
     __connect__: connect,
   };
