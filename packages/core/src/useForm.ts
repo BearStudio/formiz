@@ -100,12 +100,14 @@ export const useForm = ({
     .filter((x) => x.isEnabled)
     .map(({
       name,
+      label,
       isSubmitted,
       isValid,
       isVisited,
     }, index) => ({
       index,
       name,
+      label,
       isSubmitted,
       isValid,
       isVisited,

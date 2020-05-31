@@ -14,6 +14,7 @@ export const FormizStep = ({
   as: Tag = 'div',
   children,
   name,
+  label,
   order,
   isEnabled = true,
   style = {},
@@ -36,6 +37,7 @@ export const FormizStep = ({
   const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
   const [state, setState] = useState<Partial<StepState>>({
     name,
+    label,
     isVisited: false,
     order: order ?? 0,
   });

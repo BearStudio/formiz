@@ -20,6 +20,7 @@ export interface Step {
 export interface FormizStepProps {
   as?: any;
   name: string;
+  label?: string;
   children?: React.ReactNode;
   isEnabled?: boolean;
   order?: number;
