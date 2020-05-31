@@ -1,6 +1,6 @@
 import {
   isEmail,
-} from '../index';
+} from '../src/index';
 
 describe('isEmail', () => {
   // Empty

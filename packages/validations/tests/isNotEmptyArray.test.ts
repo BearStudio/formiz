@@ -1,6 +1,6 @@
 import {
   isNotEmptyArray,
-} from '../index';
+} from '../src/index';
 
 describe('isNotEmptyArray', () => {
   // Empty

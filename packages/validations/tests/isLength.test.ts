@@ -1,6 +1,6 @@
 import {
   isLength,
-} from '../index';
+} from '../src/index';
 
 describe('isLength', () => {
   // Empty

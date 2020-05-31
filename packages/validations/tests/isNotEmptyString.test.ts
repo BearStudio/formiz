@@ -1,6 +1,6 @@
 import {
   isNotEmptyString,
-} from '../index';
+} from '../src/index';
 
 describe('isNotEmptyString', () => {
   // Empty

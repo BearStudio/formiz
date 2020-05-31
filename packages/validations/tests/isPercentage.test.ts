@@ -1,6 +1,6 @@
 import {
   isPercentage,
-} from '../index';
+} from '../src/index';
 
 describe('isPercentage', () => {
   // Empty

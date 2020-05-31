@@ -1,6 +1,6 @@
 import {
   isRequired,
-} from '../index';
+} from '../src/index';
 
 describe('isRequired', () => {
   // Empty

@@ -32,7 +32,7 @@
     "build": "tsdx build --name formiz-core --format cjs,esm,umd",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "yarn build"
   },
   "peerDependencies": {
     "react": ">=16.8"

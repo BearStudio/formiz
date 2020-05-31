@@ -1,6 +1,6 @@
 import {
   isMaxNumber,
-} from '../index';
+} from '../src/index';
 
 describe('isMaxNumber', () => {
   // Empty

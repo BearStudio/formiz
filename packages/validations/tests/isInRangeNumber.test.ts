@@ -1,6 +1,6 @@
 import {
   isInRangeNumber,
-} from '../index';
+} from '../src/index';
 
 describe('isInRangeNumber', () => {
   // Empty

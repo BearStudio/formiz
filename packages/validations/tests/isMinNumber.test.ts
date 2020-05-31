@@ -1,6 +1,6 @@
 import {
   isMinNumber,
-} from '../index';
+} from '../src/index';
 
 describe('isMinNumber', () => {
   // Empty
