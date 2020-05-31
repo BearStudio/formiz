@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 export type FieldValue = any; // eslint-disable-line
 
@@ -8,15 +9,40 @@ export interface FieldValidationObject {
 }
 
 export interface UseFieldProps {
+  name: string;
   debounce?: number;
   defaultValue?: FieldValue;
   formatValue?(value: FieldValue): FieldValue;
-  name: string;
   onChange?(value: FieldValue, rawValue: FieldValue): void;
   required?: boolean;
   validations?: FieldValidationObject[];
   keepValue?: boolean;
 }
+
+export const fieldPropTypes = {
+  name: PropTypes.string.isRequired,
+  debounce: PropTypes.number,
+  defaultValue: PropTypes.any,
+  formatValue: PropTypes.func,
+  onChange: PropTypes.func,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
+  validations: PropTypes.arrayOf(PropTypes.shape({
+    rule: PropTypes.func,
+    message: PropTypes.node,
+    deps: PropTypes.arrayOf(PropTypes.any),
+  })),
+  keepValue: PropTypes.bool,
+};
+
+export const fieldDefaultProps: Omit<UseFieldProps, 'name'> = {
+  debounce: 100,
+  defaultValue: null,
+  formatValue: (val: FieldValue) => val,
+  onChange: () => {},
+  required: false,
+  validations: [],
+  keepValue: false,
+};
 
 export interface Field {
   id: string;
