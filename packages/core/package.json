@@ -28,7 +28,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch --name formiz-core --format cjs,esm,umd",
+    "start": "tsdx watch --name formiz-core --format cjs,esm,umd --noClean",
     "build": "tsdx build --name formiz-core --format cjs,esm,umd",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
