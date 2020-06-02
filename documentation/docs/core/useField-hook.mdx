@@ -33,20 +33,20 @@ const MyField = (props) => {
 
 The `useField` return an object with the following properties:
 
-### `value`
+### value
 
 Get the current value of the field.
 
-### `valueDebounced`
+### valueDebounced
 
 Get the current value of the field, but sync with the debouncing.
 It can be useful to determinate when to show error messages.
 
-### `setValue()`
+### setValue()
 
 Set the value of the field.
 
-### `id`
+### id
 
 Return a unique id.
 
@@ -55,27 +55,27 @@ Return a unique id.
 <input id={id} />
 ```
 
-### `isValid`
+### isValid
 
 Returns `true` if the field is valid.
 
-### `isPristine`
+### isPristine
 
 Returns `true` if the field has not been changed.
 
-### `isSubmitted`
+### isSubmitted
 
 Returns `true` either if the current step or the form is submitted.
 
-### `errorMessage`
+### errorMessage
 
 Returns the first error message.
 
-### `errorMessages`
+### errorMessages
 
 Returns all error messages.
 
-### `resetKey`
+### resetKey
 
 Allows you to put a key on elements that you want to be reinitialize when the from is reset.<br />
 Can be useful for element like `<input>` or `<select>`.
@@ -91,7 +91,7 @@ Can be useful for element like `<input>` or `<select>`.
 When a component is created with the `useField()` hook,
 you can pass the following props to the component.
 
-### `name` *
+### name *
 **Required**
 
 The name is required to register the field in the form.
@@ -146,7 +146,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 */
 ```
 
-### `debounce`
+### debounce
 
 Number of milliseconds for debouncing validations. (default is `100`).
 
@@ -154,7 +154,7 @@ Number of milliseconds for debouncing validations. (default is `100`).
 <Field name="myFieldName" debounce={200} />
 ```
 
-### `defaultValue`
+### defaultValue
 
 Pass an initial value to the field.
 
@@ -162,12 +162,12 @@ Pass an initial value to the field.
 <Field name="myFieldName" defaultValue="My initial value" />
 ```
 
-### `keepValue`
+### keepValue
 
 Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
 
 
-### `formatValue(fieldValue)`
+### formatValue(fieldValue)
 
 Format the value before saving it into the internal state.
 
@@ -175,7 +175,7 @@ Format the value before saving it into the internal state.
 <Field name="myFieldName" formatValue={val => (val || '').trim()} />
 ```
 
-### `onChange(fieldValue)`
+### onChange(fieldValue)
 
 Triggered everytime that setValue() is called inside the field.
 
@@ -183,7 +183,7 @@ Triggered everytime that setValue() is called inside the field.
 <Field name="myFieldName" onChange={val => console.log(val)} />
 ```
 
-### `required`
+### required
 
 Shortcut for isRequired() validation
 
@@ -192,7 +192,7 @@ Shortcut for isRequired() validation
 <Field name="myFieldName" required="Field is required" />
 ```
 
-### `validations`
+### validations
 
 An array of object with:
 - `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
