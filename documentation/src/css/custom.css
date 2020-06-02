@@ -14,7 +14,7 @@
   --ifm-color-primary-light: #5bc286;
   --ifm-color-primary-lighter: #64c68d;
   --ifm-color-primary-lightest: #81d0a2;
-  --ifm-code-font-size: 95%;
+  --ifm-code-font-size: 85%;
 
   --ifm-container-width: 60rem;
 
@@ -22,11 +22,13 @@
   --color-warning-dark: #744210;
 
   --ifm-hr-margin-vertical: 4rem;
-  --ifm-hr-border-color: #EDF2F7;
+  --ifm-hr-border-color: #edf2f7;
+
+  --ifm-font-family-base: 'Barlow', sans-serif;
 }
 
 .docusaurus-highlight-code-line {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(72, 187, 120, 0.05);
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
@@ -36,4 +38,5 @@
   max-width: 1000px !important;
 }
 
+@import 'fonts/barlow.css';
 @import 'tailwind.min.css';
