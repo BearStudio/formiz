@@ -93,7 +93,7 @@
   }
 
   &__tab {
-    @apply cursor-pointer bg-transparent border-b-2 border-transparent text-gray-500 text-base font-bold py-4 px-5 outline-none;
+    @apply cursor-pointer bg-transparent border-b-2 border-transparent text-gray-500 text-base font-bold pt-4 pb-2 px-5 outline-none;
 
     &.is-active {
       @apply border-blue-500 text-blue-500;

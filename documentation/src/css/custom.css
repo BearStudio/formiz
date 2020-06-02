@@ -1,3 +1,6 @@
+@import 'fonts/barlow.css';
+@import 'tailwind.min.css';
+
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
@@ -14,7 +17,8 @@
   --ifm-color-primary-light: #5bc286;
   --ifm-color-primary-lighter: #64c68d;
   --ifm-color-primary-lightest: #81d0a2;
-  --ifm-code-font-size: 85%;
+  --ifm-font-size-base: 110%;
+  --ifm-code-font-size: 80%;
 
   --ifm-container-width: 60rem;
 
@@ -38,5 +42,22 @@
   max-width: 1000px !important;
 }
 
-@import 'fonts/barlow.css';
-@import 'tailwind.min.css';
+[class^="docTitle"] {
+  font-size: 2.2rem !important;
+}
+
+.markdown > h1 {
+  --ifm-h2-font-size: 2.2rem;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.6rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.4rem;
+}
+
+.markdown > h4 {
+  --ifm-h4-font-size: 1.2rem;
+}
