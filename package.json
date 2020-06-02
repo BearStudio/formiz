@@ -13,10 +13,10 @@
     "test:dev": "lerna run test:dev --parallel --scope @formiz/*",
     "lint": "lerna run lint -- --fix",
     "predeploy": "yarn test",
-    "deploy": "lerna publish --ignore-changes {docs,examples}",
+    "deploy": "lerna publish --ignore-changes {documentation,examples}",
     "postdeploy": "yarn docs:deploy",
     "packages:build": "lerna run build --parallel --scope @formiz/*",
-    "docs:deploy": "yarn packages:build && lerna run deploy --stream --scope docs",
+    "docs:deploy": "yarn packages:build && lerna run deploy --stream --scope documentation",
     "examples:build": "yarn packages:build && lerna run build --parallel --scope examples"
   },
   "devDependencies": {
@@ -33,7 +33,6 @@
   },
   "workspaces": [
     "examples",
-    "docs",
     "documentation",
     "./packages/*"
   ]
