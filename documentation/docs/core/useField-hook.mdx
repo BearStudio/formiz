@@ -37,43 +37,89 @@ The `useField` return an object with the following properties:
 
 Get the current value of the field.
 
+```jsx
+const MyField = (props) => {
+  const { value } = useField(props)
+
+  return <input value={value ?? ''} />
+}
+```
+
 ### valueDebounced
 
 Get the current value of the field, but sync with the debouncing.
 It can be useful to determinate when to show error messages.
 
+```jsx
+const { valueDebounced } = useField(props)
+```
+
 ### setValue()
 
 Set the value of the field.
+
+```jsx
+const MyField = (props) => {
+  const { setValue } = useField(props)
+
+  return <input onChange={(e) => setValue(e.target.value)} />
+}
+```
 
 ### id
 
 Return a unique id.
 
 ```jsx
-<label htmlFor={id}>...</label>
-<input id={id} />
+const MyField = (props) => {
+  const { id } = useField(props)
+
+  return (
+    <label htmlFor={id}>...</label>
+    <input id={id} />
+  )
+}
 ```
 
 ### isValid
 
 Returns `true` if the field is valid.
 
+```jsx
+const { isValid } = useField(props)
+```
+
 ### isPristine
 
 Returns `true` if the field has not been changed.
+
+```jsx
+const { isPristine } = useField(props)
+```
 
 ### isSubmitted
 
 Returns `true` either if the current step or the form is submitted.
 
+```jsx
+const { isSubmitted } = useField(props)
+```
+
 ### errorMessage
 
 Returns the first error message.
 
+```jsx
+const { errorMessage } = useField(props)
+```
+
 ### errorMessages
 
 Returns all error messages.
+
+```jsx
+const { errorMessages } = useField(props)
+```
 
 ### resetKey
 
@@ -81,7 +127,15 @@ Allows you to put a key on elements that you want to be reinitialize when the fr
 Can be useful for element like `<input>` or `<select>`.
 
 ```jsx
-<input key={resetKey} />
+const MyField = (props) => {
+  const { resetKey } = useField(props)
+
+  useEffect(() => {
+    /* Do something on reset */
+  }, [resetKey])
+
+  return <input key={resetKey} />
+}
 ```
 
 ---
@@ -166,6 +220,9 @@ Pass an initial value to the field.
 
 Set to `true` to keep the value when the field is unmounted from the DOM. (default is `false`).
 
+```jsx
+<Field name="myFieldName" keepValue />
+```
 
 ### formatValue(fieldValue)
 
@@ -180,7 +237,7 @@ Format the value before saving it into the internal state.
 Triggered everytime that setValue() is called inside the field.
 
 ```jsx
-<Field name="myFieldName" onChange={val => console.log(val)} />
+<Field name="myFieldName" onChange={(val) => console.log(val)} />
 ```
 
 ### required
@@ -188,7 +245,6 @@ Triggered everytime that setValue() is called inside the field.
 Shortcut for isRequired() validation
 
 ```jsx
-<Field name="myFieldName" required />
 <Field name="myFieldName" required="Field is required" />
 ```
 

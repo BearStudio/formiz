@@ -100,13 +100,29 @@ Allow you to submit the form
 
 Returns true if the form is valid.
 
+```jsx
+const myForm = useForm()
+myForm.isValid // true or false
+```
+
 ### isSubmitted
 
 Returns true if the form is submitted.
 
+```jsx
+const myForm = useForm()
+myForm.isSubmitted // true or false
+```
+
 ### values
 
-Returns an object with all the values of the form.
+Returns an object with all the values of the form.<br />
+See [the `name` props for fields](/docs/core/use-field#name-) for nested objects and array values.
+
+```jsx
+const myForm = useForm()
+myForm.values // { fieldA: 'field A value', fieldB: 'field B value' }
+```
 
 ### invalidateFields(objectOfErrors)
 
@@ -134,49 +150,125 @@ setFieldsValues({
 })
 ```
 
-
 ### reset()
 
 Allows to reset the form with all fields values to their defaultValue.
+
+```jsx
+const myForm = useForm()
+myForm.reset() // Trigger the form reset
+```
 
 ### resetKey
 
 Allows you to reset some internal state when the form is reset.
 
-```js
+```jsx
+const myForm = useForm()
+
 useEffect(() => {
-  // Reset stuff here
-}, [myForm.resetKey]);
+  /* Do a side effect on reset */
+}, [form.resetKey])
 ```
 
 ### getFieldStepName(fieldName)
 
 Allows you to get the step name of a field.
 
+```jsx
+const myForm = useForm()
+const stepNameOfEmail = myForm.getFieldStepName('email')
+myForm.goToStep(stepNameOfEmail) // Navigate to the email field step
+```
+
 ### currentStep
 
-Returns the current step name.
+Returns the current step object.
+
+```js
+// currentStep properties
+{
+  index: number;
+  name: string;
+  label?: React.ReactNode;
+  isValid: boolean;
+  isVisited: boolean;
+  isSubmitted: boolean;
+}
+```
+
+```jsx
+const myForm = useForm()
+myForm.currentStep?.name // step-name
+```
 
 ### steps
 
 Returns an array with all the steps of the form.
 
+```js
+// Properties for each steps
+{
+  index: number;
+  name: string;
+  label?: React.ReactNode;
+  isValid: boolean;
+  isVisited: boolean;
+  isSubmitted: boolean;
+}
+```
+
+```jsx
+const myForm = useForm()
+
+return (
+  <ul>
+    {myForm.steps?.map((step) => (
+      <li key={step.name}>
+        {step.isValid ? '✅' : '❌'}
+        {' '}
+        {step.label || step.name}
+      </li>
+    ))}
+  </ul>
+)
+```
+
 ### isStepValid
 
 Returns true if the current step is valid.
-Returns an array with all the steps of the form.
+
+```jsx
+const myForm = useForm()
+myForm.isStepValid // true or false
+```
 
 ### isStepSubmitted
 
 Returns true if the current step is submitted.
 
+```jsx
+const myForm = useForm()
+myForm.isStepSubmitted // true or false
+```
+
 ### isFirstStep
 
 Returns true if the current step is the first step.
 
+```jsx
+const myForm = useForm()
+myForm.isFirstStep // true or false
+```
+
 ### isLastStep
 
 Returns true if the current step is the last step.
+
+```jsx
+const myForm = useForm()
+myForm.isLastStep // true or false
+```
 
 ### submitStep()
 
@@ -202,10 +294,25 @@ Allows you to submit the current step.
 
 Move to the next step.
 
+```jsx
+const myForm = useForm()
+myForm.nextStep() // Go to the next step
+```
+
 ### prevStep()
 
 Move to the previous step.
 
+```jsx
+const myForm = useForm()
+myForm.prevStep() // Go to the previous step
+```
+
 ### goToStep(name)
 
 Go to a specific step.
+
+```jsx
+const myForm = useForm()
+myForm.goToStep('my-step') // Go to the step with the name 'my-step'
+```
