@@ -30,8 +30,12 @@ module.exports = {
       //     title: 'Docs',
       //     items: [
       //       {
-      //         label: 'Docs',
-      //         to: 'docs/getting-started',
+      //         label: 'Style Guide',
+      //         to: 'docs/',
+      //       },
+      //       {
+      //         label: 'Second Doc',
+      //         to: 'docs/doc2/',
       //       },
       //     ],
       //   },
@@ -39,25 +43,33 @@ module.exports = {
       //     title: 'Community',
       //     items: [
       //       {
+      //         label: 'Stack Overflow',
+      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+      //       },
+      //       {
       //         label: 'Discord',
       //         href: 'https://discordapp.com/invite/docusaurus',
+      //       },
+      //       {
+      //         label: 'Twitter',
+      //         href: 'https://twitter.com/docusaurus',
       //       },
       //     ],
       //   },
       //   {
-      //     title: 'Social',
+      //     title: 'More',
       //     items: [
       //       {
       //         label: 'Blog',
       //         to: 'blog',
       //       },
+      //       {
+      //         label: 'GitHub',
+      //         href: 'https://github.com/facebook/docusaurus',
+      //       },
       //     ],
       //   },
       // ],
-      // logo: {
-      //   alt: 'Facebook Open Source Logo',
-      //   src: 'https://docusaurus.io/img/oss_logo.png',
-      // },
       copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
     },
     googleAnalytics: {
@@ -73,8 +85,17 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          // It is recommended to set document id as docs home page (`docs/` path).
+          homePageId: 'getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
+          editUrl:
+            'https://github.com/ivan-dalmet/formiz/edit/master/documentation/',
         },
+        // blog: {
+        //   showReadingTime: true,
+        //   editUrl:
+        //     'https://github.com/facebook/docusaurus/edit/master/documentation/blog/',
+        // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },

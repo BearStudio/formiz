@@ -3,6 +3,7 @@
   "packages": [
     "./packages/*",
     "!./docs",
+    "!./documentation",
     "!./examples"
   ],
   "npmClientArgs": [

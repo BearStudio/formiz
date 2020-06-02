@@ -46,7 +46,7 @@
 
 .buttons > * {
   margin: 0.5rem;
-  width: 10rem;
+  min-width: 10rem;
   max-width: 100%;
 }
 
@@ -55,9 +55,4 @@
   align-items: center;
   padding: 2rem 0;
   width: 100%;
-}
-
-.featureImage {
-  height: 200px;
-  width: 200px;
 }

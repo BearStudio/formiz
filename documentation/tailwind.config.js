@@ -9,6 +9,4 @@ module.exports = {
       xxl: '1600px',
     },
   },
-  variants: {},
-  plugins: [],
 };

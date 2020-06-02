@@ -1,6 +1,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  border-width: 0;
+  border-style: solid;
+}
 
 /* Button */
 .demo-button {

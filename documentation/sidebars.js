@@ -19,7 +19,5 @@ module.exports = {
     Validations: [
       'validations/rules',
     ],
-    // 'Built-in Fields (coming soon)': [],
-    // 'Plugins (coming soon)': [],
   },
 };

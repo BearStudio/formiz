@@ -77,7 +77,7 @@ const MyForm = () => {
           <div className="text-sm text-gray-500 p-2 text-center w-full xs:w-auto order-first xs:order-none">
             Step
             {' '}
-            {myForm.currentStep && myForm.currentStep.index + 1}
+            {myForm.currentStep && myForm.currentStep.index + 1 || 0}
             {' '}
             of
             {' '}
