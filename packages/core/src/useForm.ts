@@ -108,9 +108,9 @@ export const useForm = ({
       index,
       name,
       label,
-      isSubmitted,
-      isValid,
-      isVisited,
+      isSubmitted: isSubmitted ?? false,
+      isValid: isValid ?? false,
+      isVisited: isVisited ?? false,
     }))
     .map((x, index) => ({ ...x, index }));
 
