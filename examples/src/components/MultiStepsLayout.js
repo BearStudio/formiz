@@ -21,13 +21,7 @@ export const MultiStepsLayout = ({
   submitLabel = 'Submit',
   ...props
 }) => {
-  const form = useForm({ withState: 'form' });
-  // const form = useForm({ withState: false });
-  // const form = useForm({ withState: 'fields' });
-  // const form = useForm({ withState: 'form' });
-  // const form = useForm({ withState: true });
-  // const form = useForm({ withState: { form: true, fields: true } });
-  // const form = useForm({ withState: { fields: ['name', 'email'] } });
+  const form = useForm({ subscribe: 'form' });
   const hasSteps = !!form.steps.length;
 
   return (

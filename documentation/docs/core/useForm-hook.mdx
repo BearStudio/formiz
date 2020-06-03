@@ -77,7 +77,50 @@ export const MyForm = () => {
 
 ---
 
-## Hook values
+## Hook options
+
+### subscribe
+
+**TL;DR Use this option for performance optimization only**
+
+The `subscribe` option allows you to tell which part of the internal state you want to subscribe to.
+By default, you subscribe to the complete internal state. But for performance optimizations, you can choose exactly what you want.
+
+Each time the internal state is updated, the component with the `useForm()` is updated.
+With this you can avoid many unecessary rerender and optimize your application by choosing only what you want to subscribe to.
+
+##### Available values
+
+```js
+// Subscribe to form & fields state (default)
+useForm()
+/* same as */ useForm({ subscribe: true })
+/* same as */ useForm({ subscribe: { form: true, fields: true } })
+
+// Subscribe to nothing (only access to form actions)
+useForm({ subscribe: false })
+/* same as */ useForm({ subscribe: { form: false, fields: false } })
+
+// Subscribe to form state
+useForm({ subscribe: 'form' })
+/* same as */ useForm({ subscribe: { form: true } })
+/* same as */ useForm({ subscribe: { form: true, fields: false } })
+
+// Subscribe to fields state
+useForm({ subscribe: 'fields' })
+/* same as */ useForm({ subscribe: { fields: true } })
+/* same as */ useForm({ subscribe: { form: false, fields: true } })
+
+// Subscribe to form state & only to some fields
+useForm({ subscribe: { form: true, fields: ['email', 'password'] } })
+
+// Subscribe only to some fields
+useForm({ subscribe: { fields: ['email', 'password'] } })
+```
+
+---
+
+## Form actions
 
 The `useForm` return an object with the following properties:
 
@@ -96,32 +139,24 @@ Allow you to submit the form
 </Formiz>
 ```
 
-### isValid
+### submitStep()
 
-Returns true if the form is valid.
-
-```jsx
-const myForm = useForm()
-myForm.isValid // true or false
-```
-
-### isSubmitted
-
-Returns true if the form is submitted.
+Allows you to submit the current step.
 
 ```jsx
-const myForm = useForm()
-myForm.isSubmitted // true or false
-```
-
-### values
-
-Returns an object with all the values of the form.<br />
-See [the `name` props for fields](/docs/core/use-field#name-) for nested objects and array values.
-
-```jsx
-const myForm = useForm()
-myForm.values // { fieldA: 'field A value', fieldB: 'field B value' }
+<Formiz connect={myForm}>
+  <form onSubmit={myForm.submitStep}>
+    <FormizStep name="step1">
+      {/* Your fields here */}
+    </FormizStep>
+    <FormizStep name="step2">
+      {/* Your fields here */}
+    </FormizStep>
+    <button type="submit">
+      Submit
+    </button>
+  </form>
+</Formiz>
 ```
 
 ### invalidateFields(objectOfErrors)
@@ -159,6 +194,65 @@ const myForm = useForm()
 myForm.reset() // Trigger the form reset
 ```
 
+### getFieldStepName(fieldName)
+
+Allows you to get the step name of a field.
+
+```jsx
+const myForm = useForm()
+const stepNameOfEmail = myForm.getFieldStepName('email')
+myForm.goToStep(stepNameOfEmail) // Navigate to the email field step
+```
+
+
+### nextStep()
+
+Move to the next step.
+
+```jsx
+const myForm = useForm()
+myForm.nextStep() // Go to the next step
+```
+
+### prevStep()
+
+Move to the previous step.
+
+```jsx
+const myForm = useForm()
+myForm.prevStep() // Go to the previous step
+```
+
+### goToStep(name)
+
+Go to a specific step.
+
+```jsx
+const myForm = useForm()
+myForm.goToStep('my-step') // Go to the step with the name 'my-step'
+```
+
+
+## Form state
+
+### isValid
+
+Returns true if the form is valid.
+
+```jsx
+const myForm = useForm()
+myForm.isValid // true or false
+```
+
+### isSubmitted
+
+Returns true if the form is submitted.
+
+```jsx
+const myForm = useForm()
+myForm.isSubmitted // true or false
+```
+
 ### resetKey
 
 Allows you to reset some internal state when the form is reset.
@@ -169,16 +263,6 @@ const myForm = useForm()
 useEffect(() => {
   /* Do a side effect on reset */
 }, [form.resetKey])
-```
-
-### getFieldStepName(fieldName)
-
-Allows you to get the step name of a field.
-
-```jsx
-const myForm = useForm()
-const stepNameOfEmail = myForm.getFieldStepName('email')
-myForm.goToStep(stepNameOfEmail) // Navigate to the email field step
 ```
 
 ### currentStep
@@ -270,49 +354,14 @@ const myForm = useForm()
 myForm.isLastStep // true or false
 ```
 
-### submitStep()
+## Fields state
 
-Allows you to submit the current step.
+### values
 
-```jsx
-<Formiz connect={myForm}>
-  <form onSubmit={myForm.submitStep}>
-    <FormizStep name="step1">
-      {/* Your fields here */}
-    </FormizStep>
-    <FormizStep name="step2">
-      {/* Your fields here */}
-    </FormizStep>
-    <button type="submit">
-      Submit
-    </button>
-  </form>
-</Formiz>
-```
-
-### nextStep()
-
-Move to the next step.
+Returns an object with all the values of the form.<br />
+See [the `name` props for fields](/docs/core/use-field#name-) for nested objects and array values.
 
 ```jsx
 const myForm = useForm()
-myForm.nextStep() // Go to the next step
-```
-
-### prevStep()
-
-Move to the previous step.
-
-```jsx
-const myForm = useForm()
-myForm.prevStep() // Go to the previous step
-```
-
-### goToStep(name)
-
-Go to a specific step.
-
-```jsx
-const myForm = useForm()
-myForm.goToStep('my-step') // Go to the step with the name 'my-step'
+myForm.values // { fieldA: 'field A value', fieldB: 'field B value' }
 ```

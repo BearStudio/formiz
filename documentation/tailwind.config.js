@@ -1,4 +1,9 @@
+/* eslint-disable global-require */
+
 module.exports = {
+  plugins: [
+    require('@tailwindcss/ui'),
+  ],
   theme: {
     screens: {
       xs: '600px',

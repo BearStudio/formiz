@@ -69,12 +69,12 @@ export interface FormizProps {
   onInvalid?(): void;
 }
 
-interface WithStateObject {
+interface SubscribeObject {
   form?: boolean;
   fields?: boolean | string[];
 }
 export interface UseFormProps {
-  withState?: boolean | 'form' | 'fields' | WithStateObject;
+  subscribe?: boolean | 'form' | 'fields' | SubscribeObject;
 }
 
 export interface UseFormValues {

@@ -13,20 +13,20 @@ import {
   UseFormValues,
 } from './types/form.types';
 
-const isStateEnabled = (withState: UseFormProps['withState'], key: 'form' | 'fields') => {
-  if (withState === true) {
+const shouldSubscribe = (subscribe: UseFormProps['subscribe'], key: 'form' | 'fields') => {
+  if (subscribe === true) {
     return true;
   }
 
-  if (withState === key) {
+  if (subscribe === key) {
     return true;
   }
 
-  if (typeof withState !== 'object') {
+  if (typeof subscribe !== 'object') {
     return false;
   }
 
-  if (!withState[key]) {
+  if (!subscribe[key]) {
     return false;
   }
 
@@ -34,7 +34,7 @@ const isStateEnabled = (withState: UseFormProps['withState'], key: 'form' | 'fie
 };
 
 export const useForm = ({
-  withState = true,
+  subscribe = true,
 }: UseFormProps = {}): UseFormValues => {
   const {
     formStateRef, fieldsRef, formMethods, subjects,
@@ -46,7 +46,7 @@ export const useForm = ({
   const subscriptionsRef = useRef<Array<Subscription>>([]);
 
   const subscribeOnFormUpdate = (subject: any) => {
-    if (!subject || !isStateEnabled(withState, 'form')) {
+    if (!subject || !shouldSubscribe(subscribe, 'form')) {
       return;
     }
     const subscription = subject
@@ -55,15 +55,15 @@ export const useForm = ({
   };
 
   const subscribeOnFieldsUpdate = (subject: any) => {
-    if (!subject || !isStateEnabled(withState, 'fields')) {
+    if (!subject || !shouldSubscribe(subscribe, 'fields')) {
       return;
     }
 
-    const withStateFields = typeof withState === 'object' && typeof withState.fields === 'object' ? withState.fields : null;
+    const subscribeFields = typeof subscribe === 'object' && typeof subscribe.fields === 'object' ? subscribe.fields : null;
     const subscription = subject
       .subscribe((nextFields: FormFields) => {
-        const nextState = withStateFields
-          ? nextFields.filter((x) => withStateFields.includes(x.name))
+        const nextState = subscribeFields
+          ? nextFields.filter((x) => subscribeFields.includes(x.name))
           : nextFields;
 
         if (JSON.stringify(localFieldsRef.current) === JSON.stringify(nextState)) {
@@ -120,7 +120,7 @@ export const useForm = ({
 
   return {
     ...methods,
-    ...(isStateEnabled(withState, 'form') ? {
+    ...(shouldSubscribe(subscribe, 'form') ? {
       resetKey: localFormState.resetKey,
       isSubmitted: localFormState.isSubmitted,
       isValid: localFormState.isValid,
@@ -132,7 +132,7 @@ export const useForm = ({
       isFirstStep: enabledSteps[0]?.name === currentStep?.name,
       isLastStep: enabledSteps[enabledSteps.length - 1]?.name === currentStep?.name,
     } : {}),
-    ...(isStateEnabled(withState, 'fields') ? {
+    ...(shouldSubscribe(subscribe, 'fields') ? {
       values: getFormValues(localFields),
     } : {}),
     __connect__: connect,

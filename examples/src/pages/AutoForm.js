@@ -8,7 +8,7 @@ import { useToastValues } from '../hooks/useToastValues';
 import { PageLayout } from '../layout/PageLayout';
 
 export const AutoForm = () => {
-  const form = useForm({ withState: 'form' });
+  const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
