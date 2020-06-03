@@ -2,7 +2,7 @@ import {
   useState, useEffect, useRef, useLayoutEffect,
 } from 'react';
 import {
-  FieldValue, FieldValidationObject, UseFieldProps, UseFieldValues, FieldState,
+  FieldValue, FieldValidationObject, UseFieldProps, UseFieldValues, FieldState, fieldDefaultProps,
 } from './types/field.types';
 import { FormFields } from './types/form.types';
 import { StepState } from './types/step.types';
@@ -24,8 +24,8 @@ const getFieldErrors = async (
     []);
 };
 
-const getIsValidationsWithRequired = (
-  validations: Array<FieldValidationObject>,
+const getValidationsWithRequired = (
+  validations: FieldValidationObject[],
   required?: boolean | string,
 ) => {
   if (!required && required !== '') {
@@ -40,14 +40,14 @@ const getIsValidationsWithRequired = (
 };
 
 export const useField = ({
-  debounce = 100, // TODO rename to debounceValidations
-  defaultValue = null,
-  formatValue = (value: FieldValue): FieldValue => value,
   name,
-  onChange = () => {},
-  required,
-  validations = [],
-  keepValue = false,
+  debounce = fieldDefaultProps.debounce,
+  defaultValue = fieldDefaultProps.defaultValue,
+  formatValue = fieldDefaultProps.formatValue,
+  onChange = fieldDefaultProps.onChange,
+  required = fieldDefaultProps.required,
+  validations = fieldDefaultProps.validations,
+  keepValue = fieldDefaultProps.keepValue,
 }: UseFieldProps): UseFieldValues => {
   if (!name) {
     throw ErrorFieldWithoutName;
@@ -83,7 +83,8 @@ export const useField = ({
   const stateRef = useRefValue(state);
   const nameRef = useRefValue(name);
   const stepNameRef = useRefValue(stepName);
-  const validationsRef = useRefValue(getIsValidationsWithRequired(validations, required));
+  const validationsRef = useRefValue(getValidationsWithRequired(validations || [], required));
+  const debounceRef = useRefValue(debounce);
   const onChangeRef = useRefValue(onChange);
   const formatValueRef = useRefValue(formatValue);
   const defaultValueRef = useRefValue(defaultValue);
@@ -142,6 +143,41 @@ export const useField = ({
     return () => subscription.unsubscribe();
   }, []);
 
+
+  // Update validations
+  useEffect(() => {
+    const validateField = async () => {
+      const errors = await getFieldErrors(state.value, validationsRef.current);
+      if (isMountedRef.current) {
+        setState((prevState: FieldState) => ({
+          ...prevState,
+          errors,
+          valueDebounced: prevState.value,
+        }));
+      }
+    };
+
+    if (!debounceRef.current) {
+      validateField();
+      return () => {};
+    }
+
+    const timer = setTimeout(() => {
+      validateField();
+    }, debounceRef.current);
+    return () => clearTimeout(timer);
+  }, [
+    JSON.stringify(state.value),
+    JSON.stringify(validations?.reduce<any>(
+      (acc, cur) => [
+        ...acc,
+        ...(cur.deps || []),
+        cur.message,
+      ],
+      [],
+    )),
+  ]);
+
   // Register / Unregister the field
   useEffect(() => {
     actions.registerField({
@@ -163,47 +199,6 @@ export const useField = ({
       );
     };
   }, []);
-
-  // Update validations
-  useEffect(() => {
-    const validateField = async () => {
-      const errors = await getFieldErrors(state.value, validationsRef.current);
-      if (isMountedRef.current) {
-        setState((prevState: FieldState) => ((
-          JSON.stringify(prevState.errors) === JSON.stringify(errors)
-        )
-          ? {
-            ...prevState,
-            valueDebounced: prevState.value,
-          }
-          : {
-            ...prevState,
-            errors,
-            valueDebounced: prevState.value,
-          }));
-      }
-    };
-
-    if (!debounce) {
-      validateField();
-      return () => {};
-    }
-
-    const timer = setTimeout(() => {
-      validateField();
-    }, debounce);
-    return () => clearTimeout(timer);
-  }, [
-    JSON.stringify(state.value),
-    JSON.stringify(validations.reduce<any>(
-      (acc, cur) => [
-        ...acc,
-        ...(cur.deps || []),
-        cur.message,
-      ],
-      [],
-    )),
-  ]);
 
   // Update field at form level
   useEffect(() => {

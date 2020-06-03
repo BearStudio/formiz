@@ -37,7 +37,7 @@ export const fieldPropTypes = {
 export const fieldDefaultProps: Omit<UseFieldProps, 'name'> = {
   debounce: 100,
   defaultValue: null,
-  formatValue: (val: FieldValue) => val,
+  formatValue: (val: FieldValue): FieldValue => val,
   onChange: () => {},
   required: false,
   validations: [],
