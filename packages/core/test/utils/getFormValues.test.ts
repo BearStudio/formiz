@@ -4,9 +4,12 @@ import { getFormValues } from '../../src/utils';
 const defautlField = {
   id: 'id',
   errors: [],
+  asyncErrors: [],
+  externalErrors: [],
   value: 'Value',
   valueDebounced: 'Value',
   isPristine: true,
+  isValidating: false,
   isEnabled: true,
   resetKey: 0,
 };

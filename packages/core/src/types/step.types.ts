@@ -4,6 +4,8 @@ export interface StepState {
   order: number;
   isValid: boolean;
   isVisited: boolean;
+  isPristine: boolean;
+  isValidating: boolean;
   isSubmitted: boolean;
   isEnabled: boolean;
 }
@@ -14,6 +16,8 @@ export interface Step {
   label?: React.ReactNode;
   isValid: boolean;
   isVisited: boolean;
+  isPristine: boolean;
+  isValidating: boolean;
   isSubmitted: boolean;
 }
 

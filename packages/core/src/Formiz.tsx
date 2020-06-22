@@ -19,6 +19,7 @@ export const defaultFormActions: FormMethods = {
 export const defaultFormState: FormState = {
   resetKey: 0,
   isSubmitted: false,
+  isValidating: false,
   isValid: true,
   isPristine: true,
   steps: [],
@@ -65,7 +66,11 @@ export const Formiz = ({
 
   const checkFormValidity = (): boolean => {
     const isValid = fieldsRef.current
-      .every((field: any) => !field?.errors?.length && !field?.externalErrors?.length);
+      .every((field: any) => (
+        !field?.errors?.length
+        && !field?.asyncErrors?.length
+        && !field?.externalErrors?.length
+      ));
 
     if (isValid) {
       onValidRef.current();
@@ -78,13 +83,25 @@ export const Formiz = ({
 
   const checkStepValidity = (stepName: string): boolean => fieldsRef.current
     .filter((field) => field.stepName === stepName)
-    .every((field: any) => !field?.errors?.length && !field?.externalErrors?.length);
+    .every((field: any) => (
+      !field?.errors?.length
+      && !field?.asyncErrors?.length
+      && !field?.externalErrors?.length
+    ));
 
-  const checkFormPristine = (): boolean => {
-    const isPristine = fieldsRef.current
-      .every((field: any) => field?.isPristine);
-    return isPristine;
-  };
+  const checkFormPristine = (): boolean => fieldsRef.current
+    .every((field: any) => field?.isPristine);
+
+  const checkStepPristine = (stepName: string): boolean => fieldsRef.current
+    .filter((field) => field.stepName === stepName)
+    .every((field: any) => field?.isPristine);
+
+  const checkFormValidating = (): boolean => fieldsRef.current
+    .some((field: any) => field?.isValidating);
+
+  const checkStepValidating = (stepName: string): boolean => fieldsRef.current
+    .filter((field) => field.stepName === stepName)
+    .some((field: any) => field?.isValidating);
 
   const updateFormState = (stateToUpdate: Partial<FormState>): void => {
     const newState = { ...formStateRef.current, ...stateToUpdate };
@@ -139,24 +156,24 @@ export const Formiz = ({
   const submit = (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
 
+    const { steps } = formStateRef.current;
+    updateFormState({
+      isSubmitted: true,
+      steps: steps.map((step) => ({ ...step, isSubmitted: true })),
+    });
+
     const formatedValues = getFormValues(fieldsRef.current);
 
-    if (formStateRef.current.isValid) {
+    if (formStateRef.current.isValid && !formStateRef.current.isValidating) {
       onValidSubmitRef.current(formatedValues);
     } else {
       onInvalidSubmitRef.current(formatedValues);
     }
 
     onSubmitRef.current(formatedValues);
-
-    const { steps } = formStateRef.current;
-    updateFormState({
-      isSubmitted: true,
-      steps: steps.map((step) => ({ ...step, isSubmitted: true })),
-    });
   };
 
-  const stepSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+  const submitStep = (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
 
     updateFormState({
@@ -168,7 +185,9 @@ export const Formiz = ({
       })),
     });
 
-    if (!getCurrentStep(formStateRef.current)?.isValid) {
+    const currentStep = getCurrentStep(formStateRef.current);
+
+    if (!currentStep?.isValid || currentStep?.isValidating) {
       return;
     }
 
@@ -201,9 +220,12 @@ export const Formiz = ({
     updateFormState({
       isValid: checkFormValidity(),
       isPristine: checkFormPristine(),
+      isValidating: checkFormValidating(),
       steps: formStateRef.current.steps.map((step) => ({
         ...step,
         isValid: checkStepValidity(step.name),
+        isPristine: checkStepPristine(step.name),
+        isValidating: checkStepValidating(step.name),
       })),
     });
   };
@@ -251,7 +273,7 @@ export const Formiz = ({
 
   const formMethods: FormMethods = {
     submit,
-    submitStep: stepSubmit,
+    submitStep,
     setFieldsValues,
     invalidateFields,
     getFieldStepName,

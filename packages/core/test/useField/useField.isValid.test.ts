@@ -23,7 +23,7 @@ describe('useField: isValid', () => {
   it('Should be invalid if one async validation is false', async () => {
     const { result, wait } = renderUseField({
       name: 'field1',
-      validations: [
+      asyncValidations: [
         {
           rule: async (v) => !!v,
         },

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 export type FieldValue = any; // eslint-disable-line
 
 export interface FieldValidationObject {
-  rule(value: FieldValue): boolean | Promise<boolean>;
+  rule(value: FieldValue): boolean;
+  message?: string;
+  deps?: any[];
+}
+export interface FieldAsyncValidationObject {
+  rule(value: FieldValue): Promise<boolean>;
   message?: string;
   deps?: any[];
 }
@@ -16,6 +21,7 @@ export interface UseFieldProps {
   onChange?(value: FieldValue, rawValue: FieldValue): void;
   required?: boolean;
   validations?: FieldValidationObject[];
+  asyncValidations?: FieldAsyncValidationObject[];
   keepValue?: boolean;
 }
 
@@ -31,6 +37,11 @@ export const fieldPropTypes = {
     message: PropTypes.node,
     deps: PropTypes.arrayOf(PropTypes.any),
   })),
+  asyncValidations: PropTypes.arrayOf(PropTypes.shape({
+    rule: PropTypes.func,
+    message: PropTypes.node,
+    deps: PropTypes.arrayOf(PropTypes.any),
+  })),
   keepValue: PropTypes.bool,
 };
 
@@ -41,6 +52,7 @@ export const fieldDefaultProps: Omit<UseFieldProps, 'name'> = {
   onChange: () => {},
   required: false,
   validations: [],
+  asyncValidations: [],
   keepValue: false,
 };
 
@@ -49,9 +61,11 @@ export interface Field {
   resetKey: number;
   name: string;
   errors: (string | undefined)[];
+  asyncErrors: (string | undefined)[];
   externalErrors: string[];
   value: FieldValue;
   valueDebounced: FieldValue;
+  isValidating: boolean;
   isPristine: boolean;
   isEnabled: boolean;
   stepName?: string;
@@ -61,9 +75,11 @@ export interface FieldState {
   id: string;
   resetKey: number;
   errors: (string | undefined)[];
+  asyncErrors: (string | undefined)[];
   externalErrors: string[];
   value: FieldValue;
   valueDebounced: FieldValue;
+  isValidating: boolean;
   isPristine: boolean;
   isEnabled: boolean;
 }
@@ -75,6 +91,7 @@ export interface UseFieldValues {
   isPristine: boolean;
   isSubmitted: boolean;
   isValid: boolean;
+  isValidating: boolean;
   setValue(value: FieldValue): void;
   value: FieldValue;
   valueDebounced: FieldValue;

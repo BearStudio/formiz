@@ -6,6 +6,7 @@ export interface FormState {
   resetKey: number;
   isSubmitted: boolean;
   isValid: boolean;
+  isValidating: boolean;
   isPristine: boolean;
   steps: StepState[];
   initialStepName: null | string;
@@ -87,11 +88,14 @@ export interface UseFormValues {
   resetKey?: number;
   isSubmitted?: boolean;
   isValid?: boolean;
+  isValidating?: boolean;
   isPristine?: boolean;
 
   steps?: Step[];
   currentStep?: {} | Step;
+  isStepPristine?: boolean;
   isStepValid?: boolean;
+  isStepValidating?: boolean;
   isStepSubmitted?: boolean;
   isFirstStep?: boolean;
   isLastStep?: boolean;

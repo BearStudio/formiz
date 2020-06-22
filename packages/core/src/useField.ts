@@ -2,7 +2,13 @@ import {
   useState, useEffect, useRef, useLayoutEffect,
 } from 'react';
 import {
-  FieldValue, FieldValidationObject, UseFieldProps, UseFieldValues, FieldState, fieldDefaultProps,
+  FieldValue,
+  UseFieldProps,
+  UseFieldValues,
+  FieldState,
+  FieldValidationObject,
+  FieldAsyncValidationObject,
+  fieldDefaultProps,
 } from './types/field.types';
 import { FormFields } from './types/form.types';
 import { StepState } from './types/step.types';
@@ -10,19 +16,6 @@ import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 import { getUniqueId, useRefValue } from './utils';
 import { useFormContext, defaultFormState } from './Formiz';
 import { useStepContext } from './FormizStep';
-
-// TODO: don't use Promise.all()
-const getFieldErrors = async (
-  value: FieldValue,
-  validations: FieldValidationObject[],
-): Promise<(string | undefined)[]> => {
-  const rules = await Promise.all((validations || [])
-    .map(async (validation) => validation.rule(value)));
-  return rules
-    .reduce<(string | undefined)[]>(
-      (errors, isValid, index) => (!isValid ? [...errors, validations[index].message] : errors),
-    []);
-};
 
 const getValidationsWithRequired = (
   validations: FieldValidationObject[],
@@ -47,6 +40,7 @@ export const useField = ({
   onChange = fieldDefaultProps.onChange,
   required = fieldDefaultProps.required,
   validations = fieldDefaultProps.validations,
+  asyncValidations = fieldDefaultProps.asyncValidations,
   keepValue = fieldDefaultProps.keepValue,
 }: UseFieldProps): UseFieldValues => {
   if (!name) {
@@ -76,7 +70,9 @@ export const useField = ({
     value: initValue,
     valueDebounced: initValue,
     errors: [],
+    asyncErrors: [],
     externalErrors: [],
+    isValidating: false,
     isPristine: true,
     isEnabled: true,
   });
@@ -84,6 +80,7 @@ export const useField = ({
   const nameRef = useRefValue(name);
   const stepNameRef = useRefValue(stepName);
   const validationsRef = useRefValue(getValidationsWithRequired(validations || [], required));
+  const asyncValidationsRef = useRefValue(asyncValidations || []);
   const debounceRef = useRefValue(debounce);
   const onChangeRef = useRefValue(onChange);
   const formatValueRef = useRefValue(formatValue);
@@ -147,14 +144,68 @@ export const useField = ({
   // Update validations
   useEffect(() => {
     const validateField = async () => {
-      const errors = await getFieldErrors(state.value, validationsRef.current);
-      if (isMountedRef.current) {
-        setState((prevState: FieldState) => ({
-          ...prevState,
-          errors,
-          valueDebounced: prevState.value,
-        }));
+      /**
+       * Sync validations
+       */
+
+      const fieldErrors = (validationsRef.current || [])
+        .reduce(
+          (errors: any, validation: FieldValidationObject) => (!validation.rule(state.value)
+            ? [...errors, validation.message]
+            : errors),
+          [],
+        );
+
+      const shouldRunAsyncValidations = (
+        !fieldErrors.length
+        && !!(asyncValidationsRef.current || []).length
+      );
+
+      setState((prevState: FieldState) => ({
+        ...prevState,
+        errors: fieldErrors,
+        asyncErrors: [],
+        valueDebounced: prevState.value,
+        isValidating: shouldRunAsyncValidations,
+      }));
+
+      if (!shouldRunAsyncValidations) {
+        return;
       }
+
+      /**
+       * Async validations
+       */
+
+      const rules = await Promise.all((asyncValidationsRef.current || [])
+        .map(async (validation: FieldAsyncValidationObject) => {
+          const isValid = await validation.rule(state.value);
+          return {
+            ...validation,
+            isValid,
+          };
+        }));
+
+      if (
+        !isMountedRef.current
+        || state.value !== stateRef.current.value
+      ) {
+        return;
+      }
+
+      const fieldAsyncErrors: (string | undefined)[] = rules
+        .reduce(
+          (errors: (string | undefined)[], validation: any) => (!validation.isValid
+            ? [...errors, validation.message]
+            : errors),
+          [],
+        );
+
+      setState((prevState: FieldState) => ({
+        ...prevState,
+        asyncErrors: fieldAsyncErrors,
+        isValidating: false,
+      }));
     };
 
     if (!debounceRef.current) {
@@ -168,14 +219,19 @@ export const useField = ({
     return () => clearTimeout(timer);
   }, [
     JSON.stringify(state.value),
-    JSON.stringify(validations?.reduce<any>(
-      (acc, cur) => [
-        ...acc,
-        ...(cur.deps || []),
-        cur.message,
-      ],
-      [],
-    )),
+    JSON.stringify(
+      [
+        ...(validations || []),
+        ...(asyncValidations || []),
+      ]?.reduce<any>(
+        (acc, cur) => [
+          ...acc,
+          ...(cur.deps || []),
+          cur.message,
+        ],
+        [],
+      ),
+    ),
   ]);
 
   // Register / Unregister the field
@@ -218,7 +274,7 @@ export const useField = ({
     ? currentStep.isSubmitted
     : formState.isSubmitted;
 
-  const allErrors = [...state.externalErrors, ...state.errors];
+  const allErrors = [...state.externalErrors, ...state.asyncErrors, ...state.errors];
 
   return {
     errorMessage: allErrors[0],
@@ -227,6 +283,7 @@ export const useField = ({
     isPristine: state.isPristine,
     isSubmitted,
     isValid: !allErrors.length,
+    isValidating: state.isValidating,
     setValue,
     value: state.value,
     valueDebounced: state.valueDebounced,

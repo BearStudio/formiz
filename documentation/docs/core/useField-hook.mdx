@@ -89,6 +89,15 @@ Returns `true` if the field is valid.
 const { isValid } = useField(props)
 ```
 
+### isValidating
+
+Returns `true` if the field is running async validation.
+
+```jsx
+const { isValidating } = useField(props)
+```
+
+
 ### isPristine
 
 Returns `true` if the field has not been changed.
@@ -250,8 +259,8 @@ Shortcut for isRequired() validation
 
 ### validations
 
-An array of object with:
-- `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
+Accept an array of object with the following keys:
+- `rule(fieldValue, formValues)`: Built in validation rule or custom validation function (must returns `true` if the rule is valid).
 - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 - `message`: The message if the rule is invalid.
 
@@ -276,6 +285,31 @@ An array of object with:
       deps: [externalValue],
       message: 'Field can\'t be the same as external value',
     },
+  ]}
+/>
+```
+
+### asyncValidations
+
+Async validations allows you to run asynchronous code for validate a field, such as an API call.
+`asyncValidations` will only be triggered if all the other `validations` rules are valid.
+
+Accept an array of object with the following keys:
+- `rule(fieldValue, formValues)`: Must returns a **Promise** that returns `true` if the rule is valid.
+- `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
+- `message`: The message if the rule is invalid.
+
+```jsx
+<Field
+  name="myFieldName"
+  asyncValidations={[
+    {
+      rule: async(value) => {
+        const isAlreadyUsed = await validateUsername(value)
+        return isAlreadyUsed;
+      },
+      message: 'Username already used, please select another one.',
+    }
   ]}
 />
 ```

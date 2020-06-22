@@ -244,6 +244,15 @@ const myForm = useForm()
 myForm.isValid // true or false
 ```
 
+### isValidating
+
+Returns true if one field or more is running async validations.
+
+```jsx
+const myForm = useForm()
+myForm.isValidating // true or false
+```
+
 ### isSubmitted
 
 Returns true if the form is submitted.
@@ -275,7 +284,9 @@ Returns the current step object.
   index: number;
   name: string;
   label?: React.ReactNode;
+  isPristine: boolean;
   isValid: boolean;
+  isValidating: boolean;
   isVisited: boolean;
   isSubmitted: boolean;
 }
@@ -296,7 +307,9 @@ Returns an array with all the steps of the form.
   index: number;
   name: string;
   label?: React.ReactNode;
+  isPristine: boolean;
   isValid: boolean;
+  isValidating: boolean;
   isVisited: boolean;
   isSubmitted: boolean;
 }
@@ -318,9 +331,28 @@ return (
 )
 ```
 
+### isStepPristine
+
+Returns true if all the fields are pristine on the current step.
+
+```jsx
+const myForm = useForm()
+myForm.isStepValid // true or false
+```
+
+
 ### isStepValid
 
-Returns true if the current step is valid.
+Returns true if all the fields are valid on the current step.
+
+```jsx
+const myForm = useForm()
+myForm.isStepValid // true or false
+```
+
+### isStepValidating
+
+Returns true if one field or more is running async validations on the current step.
 
 ```jsx
 const myForm = useForm()
