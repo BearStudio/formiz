@@ -3,7 +3,9 @@ import {
   useLayoutEffect, useRef, useContext,
 } from 'react';
 import { Field } from './types/field.types';
-import { useRefValue, getFormValues, useSubject } from './utils';
+import {
+  useRefValue, getFormValues, useSubject, useBehaviorSubject,
+} from './utils';
 import {
   FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues,
 } from './types/form.types';
@@ -59,8 +61,8 @@ export const Formiz = ({
   const onValidRef = useRefValue(onValid);
   const onInvalidRef = useRefValue(onInvalid);
 
-  const onFormUpdate = useSubject(formStateRef);
-  const onFieldsUpdate = useSubject(fieldsRef);
+  const onFormUpdate = useBehaviorSubject(formStateRef);
+  const onFieldsUpdate = useBehaviorSubject(fieldsRef);
   const onExternalFieldsUpdate = useSubject(fieldsRef);
   const onReset = useSubject(formStateRef);
 
