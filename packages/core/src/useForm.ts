@@ -50,7 +50,8 @@ export const useForm = ({
       return;
     }
     const subscription = subject
-      .subscribe(setLocalFormState, 100);
+      .subscription
+      .subscribe(setLocalFormState);
     subscriptionsRef.current.push(subscription);
   };
 
@@ -61,6 +62,7 @@ export const useForm = ({
 
     const subscribeFields = typeof subscribe === 'object' && typeof subscribe.fields === 'object' ? subscribe.fields : null;
     const subscription = subject
+      .subscription
       .subscribe((nextFields: FormFields) => {
         const nextState = subscribeFields
           ? nextFields.filter((x) => subscribeFields.includes(x.name))
@@ -71,7 +73,7 @@ export const useForm = ({
         }
 
         setLocalFields(nextState);
-      }, 100);
+      });
     subscriptionsRef.current.push(subscription);
   };
 

@@ -49,6 +49,7 @@ export const FormizStep = ({
   // Subscribe to form state
   useLayoutEffect(() => {
     const subscription = subjects.onFormUpdate
+      .subscription
       .subscribe(setFormState);
     return () => subscription.unsubscribe();
   }, []);

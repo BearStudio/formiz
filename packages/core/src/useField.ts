@@ -104,6 +104,7 @@ export const useField = ({
   // Subscribe to form state
   useLayoutEffect(() => {
     const subscription = subjects.onFormUpdate
+      .subscription
       .subscribe(setFormState);
     return () => subscription.unsubscribe();
   }, []);
@@ -111,6 +112,7 @@ export const useField = ({
   // Subscribe to external updates
   useLayoutEffect(() => {
     const subscription = subjects.onExternalFieldsUpdate
+      .subscription
       .subscribe((fields: FormFields) => {
         const field = fields.find((x) => x.id === stateRef.current.id);
         if (field && JSON.stringify(field) !== JSON.stringify(stateRef.current)) {
@@ -123,6 +125,7 @@ export const useField = ({
   // Subscribe to reset
   useLayoutEffect(() => {
     const subscription = subjects.onReset
+      .subscription
       .subscribe(() => {
         setState((prevState) => ({
           ...prevState,
