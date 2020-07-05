@@ -1,6 +1,6 @@
 {
   "name": "@formiz/validations",
-  "version": "1.0.0-rc.10",
+  "version": "1.0.0-rc.13",
   "repository": "https://github.com/ivan-dalmet/formiz/tree/master/packages/validations",
   "homepage": "https://formiz-react.com/",
   "author": "Ivan Dalmet <ivan@dalmet.fr> (https://ivan.dalmet.fr/)",
@@ -46,12 +46,12 @@
     }
   },
   "devDependencies": {
-    "@types/react": "16.9.41",
-    "@types/react-dom": "16.9.8",
-    "@types/jest-in-case": "1.0.2",
     "@testing-library/react": "10.4.3",
     "@testing-library/react-hooks": "3.3.0",
     "@testing-library/user-event": "12.0.11",
+    "@types/jest-in-case": "1.0.2",
+    "@types/react": "16.9.41",
+    "@types/react-dom": "16.9.8",
     "husky": "4.2.5",
     "jest-environment-jsdom-sixteen": "1.0.3",
     "jest-in-case": "1.0.2",
