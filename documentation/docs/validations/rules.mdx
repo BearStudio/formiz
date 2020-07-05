@@ -1,0 +1,221 @@
+---
+id: rules
+title: Validation Rules
+---
+
+### isRequired()
+
+Test if there is value.
+
+```jsx
+import { isRequired } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isRequired(),
+      message: 'This field is required',
+    },
+  ]}
+>
+```
+
+### isNotEmptyString()
+
+Test if a string has not only spaces.
+
+```jsx
+import { isNotEmptyString } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isNotEmptyString(),
+      message: 'This field can\'t be empty',
+    },
+  ]}
+>
+```
+
+### isNotEmptyArray()
+
+Test if an array is not empty.
+
+```jsx
+import { isNotEmptyArray } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isNotEmptyArray(),
+      message: 'This array can\'t be empty',
+    },
+  ]}
+>
+```
+
+### isEmail()
+
+Test if a string is an valid email.
+
+```jsx
+import { isEmail } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isEmail(),
+      message: 'This is not a valid email',
+    },
+  ]}
+>
+```
+
+### isNumber()
+
+Test if the value is a number.
+
+```jsx
+import { isNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isNumber(),
+      message: 'This is not a number',
+    },
+  ]}
+>
+```
+
+### isMinNumber(min)
+
+Test if the value is a number and under a max value.
+
+```jsx
+import { isMinNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMinNumber(10),
+      message: 'Should be a number over 10',
+    },
+  ]}
+>
+```
+
+### isMaxNumber(max)
+
+Test if the value is a number and under a max value.
+
+```jsx
+import { isMaxNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMaxNumber(10),
+      message: 'Should be a number under 10',
+    },
+  ]}
+>
+```
+
+### isInRangeNumber(min, max)
+
+Test if the value is a number and in a range between a min and a max.
+
+```jsx
+import { isInRangeNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isInRangeNumber(1, 5),
+      message: 'Should be a number between 1 and 5',
+    },
+  ]}
+>
+```
+
+### isPercentage()
+
+Test if the value is a number between 0 and 100.
+
+```jsx
+import { isInRangeNumber } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isPercentage(),
+      message: 'This is not a valid percentage',
+    },
+  ]}
+>
+```
+
+### isLength(length)
+
+Test if a string or an array has a specific length.
+
+```jsx
+import { isLength } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isLength(4),
+      message: 'This has not a length of 4',
+    },
+  ]}
+>
+```
+
+### isMinLength(min)
+
+Test if a string or an array has a minimum length.
+
+```jsx
+import { isMinLength } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMinLength(4),
+      message: 'This should at least have a length of 4',
+    },
+  ]}
+>
+```
+
+
+### isMaxLength(max)
+
+Test if a string or an array has a maximum length.
+
+```jsx
+import { isMaxLength } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isMaxLength(4),
+      message: 'This should have a length of 4 or less',
+    },
+  ]}
+>
+```

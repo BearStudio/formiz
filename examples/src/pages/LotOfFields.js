@@ -11,7 +11,7 @@ import { PageLayout } from '../layout/PageLayout';
 const FIELDS_BY_STEP = 20;
 
 export const LotOfFields = () => {
-  const form = useForm();
+  const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {

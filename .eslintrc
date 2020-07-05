@@ -1,17 +1,24 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "env": {
     "browser": true,
     "jest": true
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "plugins": [
-    "react-hooks"
+    "react-hooks",
+    "@typescript-eslint"
   ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "import/no-unresolved": ["off"],
     "import/prefer-default-export": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
     "indent": ["warn", 2],
     "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
     "max-len": ["warn"],
@@ -22,9 +29,13 @@
     "react/forbid-prop-types": ["warn"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
+    "@typescript-eslint/no-explicit-any": "off",
     "jsx-a11y/label-has-for": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"]
   }

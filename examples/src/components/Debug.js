@@ -16,9 +16,9 @@ export const Debug = () => {
       flex="1"
     >
       <Box fontSize="sm" color="gray.400">
-        # Debug - Form values
+        # Debug useForm()
       </Box>
-      {JSON.stringify(form.values, null, 2)}
+      {JSON.stringify(form, null, 2)}
     </Box>
   );
 };

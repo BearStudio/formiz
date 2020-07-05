@@ -1,0 +1,136 @@
+---
+id: formiz
+title: <Formiz> component
+---
+
+## Import
+
+```jsx
+import { Formiz } from '@formiz/core'
+```
+
+---
+
+## Props
+
+### onSubmit(values)
+
+Triggered when the form is **submitted**.
+
+```jsx
+<Formiz onSubmit={(values) => console.log(values)}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### onValidSubmit(values)
+
+Triggered when the form is **valid** and **submitted**.
+
+```jsx
+<Formiz onValidSubmit={(values) => console.log(values)}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### onInvalidSubmit(values)
+
+Triggered when the form is **invalid** and **submitted**.
+
+```jsx
+<Formiz onInvalidSubmit={(values) => console.log(values)}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### onChange(values)
+
+Triggered every time the form changes.<br />
+⚠️ This is triggered when each field is mounted.<br />
+ℹ️ Instead you can get `values` of the form with the [useForm()](/docs/core/use-form#values) hook.
+
+```jsx
+<Formiz onChange={(values) => console.log(values)}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### onValid()
+
+Triggered when the form is **valid**.<br />
+ℹ️ Instead you can get `isValid` value with the [useForm()](/docs/core/use-form#isvalid) hook.
+
+```jsx
+<Formiz onValid={() => console.log('Form is valid')}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### onInvalid()
+
+Triggered when the form is **invalid**.<br />
+ℹ️ Instead you can get `isValid` value with the [useForm()](/docs/core/use-form#isvalid) hook.
+
+```jsx
+<Formiz onInvalid={() => console.log('Form is invalid')}>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### autoForm
+
+Set to `true` to auto add a `<form>` element with auto onSubmit.<br />
+ℹ️ Instead you can get the `submit()` method with the [useForm()](/docs/core/use-form#submit) hook and use it with your own `<form>` element.
+
+```jsx
+<Formiz autoForm>
+  {/* Your fields here */}
+</Formiz>
+```
+
+### id
+
+Allows you to pass a custom id will be used to create the ids of the fields. By default, it is generated automatically.
+But for SSR rendering like in NextJS, you may want to replace the automatically generated identifiers by a predictable id.
+
+```jsx
+<Formiz id="custom-id">
+  {/* Your fields here */}
+</Formiz>
+```
+
+### connect
+
+Allow you to connect your form with the [useForm()](/docs/core/use-form) hook.<br />
+See [useForm() documentation](/docs/core/use-form) for more details
+
+```jsx
+const MyForm = () => {
+  const form = useForm()
+  return (
+    <Formiz connect={form}>
+      {/* Your fields here */}
+    </Formiz>
+  )
+}
+```
+
+
+---
+
+## Handle API errors
+
+```jsx
+const myForm = useForm()
+
+<Formiz
+  connect={myForm}
+  onValidSubmit={(values) => {
+    myForm.invalidateFields({
+      fieldName: 'Error message',
+    })
+  }}
+/>
+  {/* Your fields here */}
+</Formiz>
+```

@@ -8,7 +8,7 @@ import { useToastValues } from '../hooks/useToastValues';
 import { PageLayout } from '../layout/PageLayout';
 
 export const AutoForm = () => {
-  const form = useForm();
+  const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
 
   const handleSubmit = (values) => {
@@ -47,6 +47,14 @@ export const AutoForm = () => {
               message: 'Not a valid email',
             },
           ]}
+          asyncValidations={[
+            {
+              rule: async (value) => new Promise((resolve) => setTimeout(() => {
+                resolve((value || '').toLowerCase() === 'john@company.com');
+              }, 1000)),
+              message: 'Email already used. Try john@company.com',
+            },
+          ]}
         />
         <FieldInput
           name="company"
@@ -58,7 +66,7 @@ export const AutoForm = () => {
             type="submit"
             ml="auto"
             variantColor="brand"
-            isDisabled={!form.isValid && form.isSubmitted}
+            isDisabled={(!form.isValid || form.isValidating) && form.isSubmitted}
           >
             Submit
           </Button>

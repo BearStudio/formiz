@@ -2,7 +2,7 @@
   "version": "1.0.0-rc.12",
   "packages": [
     "./packages/*",
-    "!./docs",
+    "!./documentation",
     "!./examples"
   ],
   "npmClientArgs": [

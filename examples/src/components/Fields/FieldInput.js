@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Input,
+  Input, InputGroup, InputRightElement, Spinner,
 } from '@chakra-ui/core';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
@@ -27,6 +27,7 @@ export const FieldInput = (props) => {
     id,
     isValid,
     isSubmitted,
+    isValidating,
     resetKey,
     setValue,
     value,
@@ -53,17 +54,24 @@ export const FieldInput = (props) => {
 
   return (
     <FormGroup {...formGroupProps}>
-      <Input
-        key={resetKey}
-        type={type || 'text'}
-        id={id}
-        value={value ?? ''}
-        onChange={(e) => setValue(e.target.value)}
-        onBlur={() => setIsTouched(true)}
-        aria-invalid={showError}
-        aria-describedby={!isValid ? `${id}-error` : null}
-        placeholder={placeholder}
-      />
+      <InputGroup>
+        <Input
+          key={resetKey}
+          type={type || 'text'}
+          id={id}
+          value={value ?? ''}
+          onChange={(e) => setValue(e.target.value)}
+          onBlur={() => setIsTouched(true)}
+          aria-invalid={showError}
+          aria-describedby={!isValid ? `${id}-error` : null}
+          placeholder={placeholder}
+        />
+        {(isTouched || isSubmitted) && isValidating && (
+          <InputRightElement>
+            <Spinner size="sm" />
+          </InputRightElement>
+        )}
+      </InputGroup>
     </FormGroup>
   );
 };

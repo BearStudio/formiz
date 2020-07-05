@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formiz, useForm } from '@formiz/core';
+import { useForm } from '@formiz/core';
 import { Box, Grid, Button } from '@chakra-ui/core';
 import { PageLayout } from '../layout/PageLayout';
 
@@ -17,58 +17,54 @@ const defaultProps = {
 };
 
 export const MultiStepsLayout = ({
-  form: externalForm,
   children,
   submitLabel = 'Submit',
   ...props
 }) => {
-  const internalForm = useForm();
-  const form = externalForm || internalForm;
+  const form = useForm({ subscribe: 'form' });
   const hasSteps = !!form.steps.length;
 
   return (
-    <Formiz connect={form} {...props}>
-      <PageLayout>
-        <form
-          noValidate
-          onSubmit={hasSteps ? form.submitStep : form.submit}
-        >
-          {children}
+    <PageLayout {...props}>
+      <form
+        noValidate
+        onSubmit={hasSteps ? form.submitStep : form.submit}
+      >
+        {children}
 
-          {hasSteps && (
-            <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
-              {!form.isFirstStep && (
-                <Button
-                  gridColumn="1"
-                  onClick={form.prevStep}
-                >
-                Previous
-                </Button>
-              )}
-              <Box
-                gridColumn="2"
-                textAlign="center"
-                fontSize="sm"
-                color="gray.500"
-              >
-                Step {form.currentStep.index + 1} / {form.steps.length}
-              </Box>
+        {hasSteps && (
+          <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
+            {!form.isFirstStep && (
               <Button
-                type="submit"
-                gridColumn="3"
-                variantColor="brand"
-                isDisabled={
-                  (form.isLastStep ? !form.isValid : !form.isStepValid)
-                  && form.isStepSubmitted
-                }
+                gridColumn="1"
+                onClick={form.prevStep}
               >
-                {form.isLastStep ? submitLabel : 'Next'}
+                Previous
               </Button>
-            </Grid>
-          )}
-        </form>
-      </PageLayout>
-    </Formiz>
+            )}
+            <Box
+              gridColumn="2"
+              textAlign="center"
+              fontSize="sm"
+              color="gray.500"
+            >
+              Step {form.currentStep.index + 1} / {form.steps.length}
+            </Box>
+            <Button
+              type="submit"
+              gridColumn="3"
+              variantColor="brand"
+              isDisabled={
+                (form.isLastStep ? !form.isValid : !form.isStepValid)
+                && form.isStepSubmitted
+              }
+            >
+              {form.isLastStep ? submitLabel : 'Next'}
+            </Button>
+          </Grid>
+        )}
+      </form>
+    </PageLayout>
   );
 };
 

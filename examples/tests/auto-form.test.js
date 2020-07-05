@@ -9,6 +9,7 @@ Scenario('Simple Case', (I) => {
   I.fill('name', 'John');
   I.fill('email', 'john@company.com');
 
+  I.wait(1);
   I.submitForm();
 
   I.seeFormSuccess();
@@ -27,4 +28,15 @@ Scenario('Show errors', (I) => {
 
   I.seeFieldError('name', 'Required');
   I.seeFieldError('email', 'Required');
+});
+
+Scenario('invalidateFields()', (I) => {
+  I.fill('name', 'John');
+  I.fill('email', 'john@company.com');
+
+  I.wait(1);
+  I.submitForm();
+
+  I.seeFieldError('name', 'You can display an error after an API call');
+  I.seeElement('button[type="submit"][disabled]');
 });

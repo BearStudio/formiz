@@ -3,7 +3,7 @@
   "version": "1.0.0-rc.12",
   "private": true,
   "dependencies": {
-    "@chakra-ui/core": "0.6.1",
+    "@chakra-ui/core": "0.7.0",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
     "@formiz/core": "^1.0.0-rc.12",
@@ -12,16 +12,16 @@
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-icons": "3.9.0",
+    "react-icons": "3.10.0",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
-    "uuid": "7.0.2"
+    "uuid": "8.0.0"
   },
   "devDependencies": {
     "@codeceptjs/ui": "0.2.5",
-    "codeceptjs": "2.5.0",
+    "codeceptjs": "2.6.2",
     "eslint-plugin-codeceptjs": "1.3.0",
-    "testcafe": "1.8.3"
+    "testcafe": "1.8.4"
   },
   "scripts": {
     "start": "PORT=3010 react-scripts start",
