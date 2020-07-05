@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { Field } from './types/field.types';
 import {
-  useRefValue, getFormValues, useSubject, useBehaviorSubject,
+  useRefValue, getFormValues, useSubject, useBehaviorSubject, getFormUniqueId,
 } from './utils';
 import {
   FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues,
@@ -19,6 +19,7 @@ export const defaultFormActions: FormMethods = {
 };
 
 export const defaultFormState: FormState = {
+  id: getFormUniqueId(),
   resetKey: 0,
   isSubmitted: false,
   isValidating: false,
@@ -43,6 +44,7 @@ export const Formiz = ({
   autoForm = false,
   children = '',
   connect = {},
+  id = getFormUniqueId(),
   onChange = () => {},
   onSubmit = () => {},
   onValidSubmit = () => {},
@@ -50,7 +52,10 @@ export const Formiz = ({
   onValid = () => {},
   onInvalid = () => {},
 }: FormizProps) => {
-  const formStateRef = useRef(defaultFormState);
+  const formStateRef = useRef<FormState>({
+    ...defaultFormState,
+    id,
+  });
   const fieldsRef = useRef<FormFields>([]);
   const keepValuesRef = useRef<KeepValues>({});
   const connectRef = useRefValue(connect.__connect__ || (() => {}));

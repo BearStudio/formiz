@@ -13,7 +13,7 @@ import {
 import { FormFields } from './types/form.types';
 import { StepState } from './types/step.types';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
-import { getUniqueId, useRefValue } from './utils';
+import { getFieldUniqueId, useRefValue, getFieldHtmlUniqueId } from './utils';
 import { useFormContext, defaultFormState } from './Formiz';
 import { useStepContext } from './FormizStep';
 
@@ -65,7 +65,7 @@ export const useField = ({
   const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
   const initValue = keepValuesRef.current?.[name] ?? defaultValue;
   const [state, setState] = useState<FieldState>({
-    id: getUniqueId('field'),
+    id: getFieldUniqueId(),
     resetKey: 0,
     value: initValue,
     valueDebounced: initValue,
@@ -282,7 +282,7 @@ export const useField = ({
   return {
     errorMessage: allErrors[0],
     errorMessages: allErrors,
-    id: state.id,
+    id: getFieldHtmlUniqueId(formStateRef?.current?.id || '', name),
     isPristine: state.isPristine,
     isSubmitted,
     isValid: !allErrors.length,

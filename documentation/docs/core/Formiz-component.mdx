@@ -88,6 +88,17 @@ Set to `true` to auto add a `<form>` element with auto onSubmit.<br />
 </Formiz>
 ```
 
+### id
+
+Allows you to pass a custom id will be used to create the ids of the fields. By default, it is generated automatically.
+But for SSR rendering like in NextJS, you may want to replace the automatically generated identifiers by a predictable id.
+
+```jsx
+<Formiz id="custom-id">
+  {/* Your fields here */}
+</Formiz>
+```
+
 ### connect
 
 Allow you to connect your form with the [useForm()](/docs/core/use-form) hook.<br />

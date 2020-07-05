@@ -3,6 +3,7 @@ import { FieldValue, Field } from './field.types';
 import { Step, StepState } from './step.types';
 
 export interface FormState {
+  id: string;
   resetKey: number;
   isSubmitted: boolean;
   isValid: boolean;
@@ -62,6 +63,7 @@ export interface FormizProps {
   autoForm?: boolean;
   children?: React.ReactNode;
   connect?: any;
+  id?: string;
   onChange?(values: object): void;
   onSubmit?(values: object): void;
   onValidSubmit?(values: object): void;
