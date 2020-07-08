@@ -1,5 +1,5 @@
 import {
-  useCallback, useState, useRef, useLayoutEffect, useEffect,
+  useCallback, useState, useRef, useEffect,
 } from 'react';
 import { Subscription } from 'rxjs';
 import {
@@ -88,7 +88,7 @@ export const useForm = ({
   }, []);
 
   // Subscribe (if not used with connect)
-  useLayoutEffect(() => {
+  useEffect(() => {
     subscribeOnFormUpdate(subjects?.onFormUpdate);
     subscribeOnFieldsUpdate(subjects?.onFieldsUpdate);
   }, []);

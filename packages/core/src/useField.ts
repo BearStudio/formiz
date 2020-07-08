@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useRef, useLayoutEffect,
+  useState, useEffect, useRef,
 } from 'react';
 import {
   FieldValue,
@@ -102,7 +102,7 @@ export const useField = ({
   };
 
   // Subscribe to form state
-  useLayoutEffect(() => {
+  useEffect(() => {
     const subscription = subjects.onFormUpdate
       .subscription
       .subscribe(setFormState);
@@ -110,7 +110,7 @@ export const useField = ({
   }, []);
 
   // Subscribe to external updates
-  useLayoutEffect(() => {
+  useEffect(() => {
     const subscription = subjects.onExternalFieldsUpdate
       .subscription
       .subscribe((fields: FormFields) => {
@@ -123,7 +123,7 @@ export const useField = ({
   }, []);
 
   // Subscribe to reset
-  useLayoutEffect(() => {
+  useEffect(() => {
     const subscription = subjects.onReset
       .subscription
       .subscribe(() => {

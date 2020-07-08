@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  useContext, useEffect, useState, useLayoutEffect,
+  useContext, useEffect, useState,
 } from 'react';
 import { useRefValue } from './utils';
 import { FormizStepProps, StepState } from './types/step.types';
@@ -47,7 +47,7 @@ export const FormizStep = ({
     : formState.initialStepName === name;
 
   // Subscribe to form state
-  useLayoutEffect(() => {
+  useEffect(() => {
     const subscription = subjects.onFormUpdate
       .subscription
       .subscribe(setFormState);

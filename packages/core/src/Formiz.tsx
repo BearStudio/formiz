@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  useLayoutEffect, useRef, useContext,
+  useEffect, useRef, useContext,
 } from 'react';
 import { Field } from './types/field.types';
 import {
@@ -311,7 +311,7 @@ export const Formiz = ({
   };
 
   // Connect
-  useLayoutEffect(() => {
+  useEffect(() => {
     connectRef.current(contextValue);
   }, []);
 
