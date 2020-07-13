@@ -275,6 +275,7 @@ export const Formiz = ({
 
   const reset = (): void => {
     updateFormState(formActions.resetForm(formStateRef.current));
+    keepValuesRef.current = {};
     onReset.push();
   };
 
