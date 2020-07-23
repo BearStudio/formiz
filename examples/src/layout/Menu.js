@@ -21,37 +21,43 @@ export const Menu = ({ direction }) => {
         direction={direction}
         to="/"
       >
-      AutoForm
+        AutoForm
       </MenuItem>
       <MenuItem
         direction={direction}
         to="/wizard"
       >
-      Wizard
+        Wizard
       </MenuItem>
       <MenuItem
         direction={direction}
         to="/repeater"
       >
-      Repeater
+        Repeater
       </MenuItem>
       <MenuItem
         direction={direction}
         to="/exotic-fields"
       >
-      Exotic Fields
+        Exotic Fields
       </MenuItem>
       <MenuItem
         direction={direction}
         to="/lot-of-fields"
       >
-      Lot of fields
+        Lot of fields
+      </MenuItem>
+      <MenuItem
+        direction={direction}
+        to="/dynamic-steps"
+      >
+        Dynamic Steps
       </MenuItem>
       <MenuItem
         direction={direction}
         to="/real-life-1"
       >
-      Real life #1
+        Real life #1
       </MenuItem>
 
       <MenuItem
