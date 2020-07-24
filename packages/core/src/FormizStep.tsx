@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   useContext, useEffect, useState,
 } from 'react';
-import { useRefValue } from './utils';
 import { FormizStepProps, StepState } from './types/step.types';
 import { ErrorStepWithoutName, ErrorStepWithoutForm } from './errors';
 import { useFormContext, defaultFormState } from './Formiz';
@@ -41,7 +40,6 @@ export const FormizStep = ({
     isVisited: false,
     order: order ?? 0,
   });
-  const stateRef = useRefValue(state);
   const isActive = formState.navigatedStepName
     ? formState.navigatedStepName === name
     : formState.initialStepName === name;
@@ -60,16 +58,18 @@ export const FormizStep = ({
     }
   });
 
+  // Register / Update the step
   useEffect(() => {
     actions.updateStep({
       ...state,
       isEnabled,
     });
-
-    return () => {
-      actions.unregisterStep(stateRef.current.name);
-    };
   }, [state, isEnabled]);
+
+  // Unregister the step
+  useEffect(() => () => {
+    actions.unregisterStep(name);
+  }, [name]);
 
   if (!isEnabled) {
     return null;
