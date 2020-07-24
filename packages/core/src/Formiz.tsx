@@ -243,8 +243,10 @@ export const Formiz = ({
   };
 
   const unregisterStep = (name: string): void => {
-    formActions.unregisterStep(formStateRef.current, name);
-    updateFormState({ isValid: checkFormValidity() });
+    updateFormState({
+      ...formActions.unregisterStep(formStateRef.current, name),
+      isValid: checkFormValidity(),
+    });
     validateForm();
   };
 
