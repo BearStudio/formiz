@@ -63,7 +63,7 @@ export const DynamicSteps = () => {
               order={2000 + index}
             >
               <FieldInput
-                name={`steps[${index}]name`}
+                name={`steps[${index}].name`}
                 label={`Dynamic Step ${index + 1} Name`}
               />
             </FormizStep>
