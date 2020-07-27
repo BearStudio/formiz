@@ -32,7 +32,7 @@ export const FieldTextarea = (props) => {
     value,
   } = useField(props);
   const {
-    label, required, placeholder, helper, ...otherProps
+    children, label, required, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -63,6 +63,7 @@ export const FieldTextarea = (props) => {
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
       />
+      {children}
     </FormGroup>
   );
 };

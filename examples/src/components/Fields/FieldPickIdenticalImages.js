@@ -32,6 +32,7 @@ export const FieldPickIdenticalImages = (props) => {
     valueDebounced,
   } = useField(props);
   const {
+    children,
     label,
     required,
     options,
@@ -127,6 +128,7 @@ export const FieldPickIdenticalImages = (props) => {
           {validMessage}
         </Alert>
       )}
+      {children}
     </FormGroup>
   );
 };
