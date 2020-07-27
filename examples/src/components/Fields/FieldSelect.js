@@ -33,7 +33,7 @@ export const FieldSelect = (props) => {
     value,
   } = useField(props);
   const {
-    label, options, required, placeholder, helper, ...otherProps
+    children, label, options, required, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -70,6 +70,7 @@ export const FieldSelect = (props) => {
           </option>
         ))}
       </Select>
+      {children}
     </FormGroup>
   );
 };

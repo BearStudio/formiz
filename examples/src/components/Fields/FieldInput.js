@@ -33,7 +33,7 @@ export const FieldInput = (props) => {
     value,
   } = useField(props);
   const {
-    label, type, required, placeholder, helper, ...otherProps
+    children, label, type, required, placeholder, helper, ...otherProps
   } = props;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -72,6 +72,7 @@ export const FieldInput = (props) => {
           </InputRightElement>
         )}
       </InputGroup>
+      {children}
     </FormGroup>
   );
 };

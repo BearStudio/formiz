@@ -55,7 +55,17 @@ export const AutoForm = () => {
               message: 'Email already used. Try john@company.com',
             },
           ]}
-        />
+        >
+          <Button
+            size="sm"
+            variant="link"
+            onClick={() => form.setFieldsValues({
+              email: 'john@company.com',
+            })}
+          >
+            Fill with john@company.com
+          </Button>
+        </FieldInput>
         <FieldInput
           name="company"
           label="Company"

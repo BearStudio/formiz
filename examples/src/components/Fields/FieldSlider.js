@@ -39,6 +39,7 @@ export const FieldSlider = (props) => {
     value,
   } = useField(props);
   const {
+    children,
     label,
     type,
     required,
@@ -103,6 +104,7 @@ export const FieldSlider = (props) => {
           <SliderThumb backgroundColor="brand.500" />
         </Slider>
       </Stack>
+      {children}
     </FormGroup>
   );
 };
