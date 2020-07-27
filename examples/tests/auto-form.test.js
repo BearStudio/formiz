@@ -40,3 +40,14 @@ Scenario('invalidateFields()', (I) => {
   I.seeFieldError('name', 'You can display an error after an API call');
   I.seeElement('button[type="submit"][disabled]');
 });
+
+Scenario('setFieldsValues()', (I) => {
+  I.fill('name', 'John');
+  I.fill('company', 'Formiz');
+  I.click('Fill with');
+
+  I.wait(1);
+  I.seeFieldValue('name', 'John');
+  I.seeFieldValue('email', 'john@company.com');
+  I.seeFieldValue('company', 'Formiz');
+});
