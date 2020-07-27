@@ -1,12 +1,12 @@
 {
   "name": "examples",
-  "version": "1.0.0-rc.15",
+  "version": "1.0.0-rc.16",
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "0.8.0",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
-    "@formiz/core": "^1.0.0-rc.15",
+    "@formiz/core": "^1.0.0-rc.16",
     "@formiz/validations": "^1.0.0-rc.14",
     "emotion-theming": "10.0.27",
     "prop-types": "15.7.2",
