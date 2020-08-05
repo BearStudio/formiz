@@ -39,7 +39,7 @@ export const NavBar = () => {
         base: isDarkTheme ? 'gray.900' : 'white',
         lg: isDarkTheme ? 'gray.700' : 'gray.50',
       }}
-      shadow={{ base: 'md', lg: 'none' }}
+      boxShadow={{ base: 'md', lg: 'none' }}
     >
       <Flex
         textAlign="right"

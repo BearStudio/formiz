@@ -6,6 +6,7 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from '@chakra-ui/core';
+import { WarningIcon } from '@chakra-ui/icons';
 
 const propTypes = {
   children: PropTypes.node,
@@ -48,6 +49,7 @@ export const FormGroup = ({
     )}
     {children}
     <FormErrorMessage id={`${id}-error`}>
+      <WarningIcon mr="2" />
       { errorMessage }
     </FormErrorMessage>
   </FormControl>

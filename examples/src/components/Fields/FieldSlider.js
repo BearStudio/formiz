@@ -7,6 +7,10 @@ import {
   SliderThumb,
   Stack,
   NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/core';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
@@ -73,7 +77,7 @@ export const FieldSlider = (props) => {
 
   return (
     <FormGroup {...formGroupProps}>
-      <Stack isInline spacing="8" mt="1">
+      <Stack direction="row" spacing="8" mt="1">
         <NumberInput
           size="sm"
           maxW="6rem"
@@ -86,7 +90,13 @@ export const FieldSlider = (props) => {
           min={min}
           max={max}
           step={step}
-        />
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
         <Slider
           id={`${id}-slider`}
           value={value || 0}
@@ -97,10 +107,11 @@ export const FieldSlider = (props) => {
           min={min}
           max={max}
           step={step}
-          color="brand"
+          colorScheme="brand"
         >
-          <SliderTrack />
-          <SliderFilledTrack />
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
           <SliderThumb backgroundColor="brand.500" />
         </Slider>
       </Stack>

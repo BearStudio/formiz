@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
-import { Heading, Icon } from '@chakra-ui/core';
+import { Heading } from '@chakra-ui/core';
+import { AddIcon } from '@chakra-ui/icons';
 import { PageHeader } from '../../components/PageHeader';
 import { MultiStepsLayout } from '../../components/MultiStepsLayout';
 import { General } from './General';
@@ -31,7 +32,7 @@ export const UseCase1 = () => {
         </PageHeader>
 
         <Heading fontSize="lg" mb={6} mt={12}>
-          <Icon name="add" size="0.8rem" mr={2} mb={1} />
+          <AddIcon size="0.8rem" mr={2} mb={1} />
           Create a Docker Webapp
         </Heading>
 

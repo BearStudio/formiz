@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Heading, Link, Box, Icon,
+  Button, Heading, Link, Box,
 } from '@chakra-ui/core';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { useForm } from '@formiz/core';
 
 
@@ -43,7 +44,7 @@ export const PageHeader = ({ children, onReset, githubPath }) => {
           href={`https://github.com/ivan-dalmet/formiz/tree/master/examples/src/pages/${githubPath}`}
         >
           View code on GitHub
-          <Icon name="external-link" ml="1" mb="1" />
+          <ExternalLinkIcon ml="1" mb="1" />
         </Link>
       )}
     </Box>

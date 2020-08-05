@@ -81,7 +81,7 @@ export const ExoticFields = () => {
           <Button
             type="submit"
             ml="auto"
-            variantColor="brand"
+            colorScheme="brand"
             isDisabled={!form.isValid && form.isSubmitted}
           >
             Submit

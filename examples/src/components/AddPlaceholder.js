@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@chakra-ui/core';
+import { AddIcon } from '@chakra-ui/icons';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 
 const propTypes = {
@@ -25,7 +26,7 @@ export const AddPlaceholder = ({ label, ...props }) => {
       backgroundColor={isDarkTheme ? 'gray.900' : 'gray.50'}
       border="1px dashed"
       borderColor={isDarkTheme ? 'gray.700' : 'gray.200'}
-      rounded="md"
+      borderRadius="md"
       transition="0.2s"
       _hover={{ borderColor: isDarkTheme ? 'gray.600' : 'gray.400' }}
       _focus={{ outline: 'none', boxShadow: 'outline' }}
@@ -34,7 +35,7 @@ export const AddPlaceholder = ({ label, ...props }) => {
     >
       <Button
         as="span"
-        leftIcon="add"
+        leftIcon={<AddIcon />}
         size="sm"
         variant="outline"
         backgroundColor={isDarkTheme ? 'gray.700' : 'gray.100'}

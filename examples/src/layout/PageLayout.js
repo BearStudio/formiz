@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Stack, Box, Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/core';
 import { Debug } from '../components/Debug';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 
@@ -37,7 +37,7 @@ export const PageLayout = ({ children }) => {
   const isDarkTheme = useDarkTheme();
 
   return (
-    <Stack
+    <Flex
       flex="1"
       minH="100vh"
       flexWrap="nowrap"
@@ -74,7 +74,7 @@ export const PageLayout = ({ children }) => {
       >
         <Debug />
       </Flex>
-    </Stack>
+    </Flex>
   );
 };
 

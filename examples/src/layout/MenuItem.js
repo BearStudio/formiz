@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { PseudoBox } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 
 const propTypes = {
@@ -24,7 +24,7 @@ export const MenuItem = ({
   const isActive = pathname === to;
 
   return (
-    <PseudoBox
+    <Box
       as={Link}
       to={to}
       px="5"
@@ -53,7 +53,7 @@ export const MenuItem = ({
       {...props}
     >
       {children}
-    </PseudoBox>
+    </Box>
   );
 };
 

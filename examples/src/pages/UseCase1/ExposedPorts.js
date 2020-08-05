@@ -3,6 +3,7 @@ import { FormizStep, useForm } from '@formiz/core';
 import {
   IconButton, Box, Stack,
 } from '@chakra-ui/core';
+import { DeleteIcon } from '@chakra-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
@@ -35,11 +36,11 @@ export const ExposedPorts = () => {
       {exposedPorts.map((port, index) => (
         <Stack
           key={port.id}
-          isInline
+          direction="row"
           spacing="4"
           mb="6"
           backgroundColor={isDarkTheme ? 'gray.700' : 'gray.50'}
-          rounded="md"
+          borderRadius="md"
           borderWidth="1px"
           borderColor={isDarkTheme ? 'gray.900' : 'gray.200'}
           p="4"
@@ -72,7 +73,7 @@ export const ExposedPorts = () => {
           </Box>
           <Box pt="1.75rem">
             <IconButton
-              icon="delete"
+              icon={<DeleteIcon />}
               onClick={() => removeItem(port.id)}
               variant="ghost"
             />

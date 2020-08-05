@@ -75,7 +75,7 @@ export const AutoForm = () => {
           <Button
             type="submit"
             ml="auto"
-            variantColor="brand"
+            colorScheme="brand"
             isDisabled={(!form.isValid || form.isValidating) && form.isSubmitted}
           >
             Submit
