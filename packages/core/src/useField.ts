@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useRef,
+  useState, useEffect, useRef, useCallback,
 } from 'react';
 import {
   FieldValue,
@@ -91,7 +91,7 @@ export const useField = ({
   const currentStep: (StepState | null) = formState.steps
     .find((x) => x.name === currentStepName) || null;
 
-  const setValue = (value: FieldValue) => {
+  const setValue = useCallback((value: FieldValue) => {
     setState((prevState: FieldState) => ({
       ...prevState,
       externalErrors: [],
@@ -99,7 +99,7 @@ export const useField = ({
       isPristine: false,
     }));
     onChangeRef.current(formatValueRef.current(value), value);
-  };
+  }, []);
 
   // Subscribe to form state
   useEffect(() => {
