@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
-  SimpleGrid, Button, AspectRatioBox, Image, Alert, AlertIcon,
+  SimpleGrid, Button, AspectRatio, Image, Alert, AlertIcon,
 } from '@chakra-ui/core';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
@@ -92,16 +92,21 @@ export const FieldPickIdenticalImages = (props) => {
     <FormGroup {...formGroupProps}>
       <SimpleGrid columns={{ base: 3, sm: 6 }} spacing="4" mb="4">
         {displayItems.map((item, index) => (
-          <AspectRatioBox
+          <AspectRatio
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             ratio="1"
           >
             <Button
+              position="absolute"
+              top="0"
+              left="0"
+              w="100%"
+              h="100%"
               onClick={() => changeValue(item, index)}
-              shadow={selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : null}
+              boxShadow={selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : null}
               _focus={{
-                shadow: selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : 'outline',
+                boxShadow: selectedImages.find((x) => x.index === index) ? '0 0 0 0.3rem' : 'outline',
               }}
               color={selectedImages.length < 2 || isValid ? 'brand.500' : 'red.500'}
               p={0}
@@ -119,11 +124,11 @@ export const FieldPickIdenticalImages = (props) => {
                 alt={`Image ${index}`}
               />
             </Button>
-          </AspectRatioBox>
+          </AspectRatio>
         ))}
       </SimpleGrid>
       {isValid && !!validMessage && (
-        <Alert status="success" variant="solid" rounded="md">
+        <Alert status="success" variant="solid" borderRadius="md">
           <AlertIcon />
           {validMessage}
         </Alert>

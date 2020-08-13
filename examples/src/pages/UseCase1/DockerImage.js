@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FormizStep, useForm } from '@formiz/core';
 import {
-  Checkbox, Link, Icon, Code,
+  Checkbox, Link, Code,
 } from '@chakra-ui/core';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { FieldSelect } from '../../components/Fields/FieldSelect';
 
@@ -26,23 +27,23 @@ export const DockerImage = () => {
             {' '}
             <Link href="https://hub.docker.com" color="brand.600" fontWeight="bold" isExternal>
               Docker hub
-              <Icon name="external-link" mx="1" mb="1" />
+              <ExternalLinkIcon mx="1" mb="1" />
             </Link>
             {' '}
             image like
             {' '}
-            <Code variantColor="brand">ubuntu</Code>
+            <Code colorScheme="brand">ubuntu</Code>
             {' '}
             or
             {' '}
-            <Code variantColor="brand">saagie/design-system</Code>
+            <Code colorScheme="brand">saagie/design-system</Code>
           </>
         )}
       />
 
       <Checkbox
         mb={6}
-        variantColor="brand"
+        colorScheme="brand"
         isChecked={isPrivate}
         onChange={() => setIsPrivate((x) => !x)}
       >

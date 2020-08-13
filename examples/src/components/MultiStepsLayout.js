@@ -53,7 +53,7 @@ export const MultiStepsLayout = ({
             <Button
               type="submit"
               gridColumn="3"
-              variantColor="brand"
+              colorScheme="brand"
               isDisabled={
                 (form.isLastStep ? !form.isValid : !form.isStepValid)
                 && form.isStepSubmitted

@@ -4,6 +4,7 @@ import { Formiz, useForm } from '@formiz/core';
 import {
   Button, Flex, Stack, IconButton, Box,
 } from '@chakra-ui/core';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { AddPlaceholder } from '../components/AddPlaceholder';
@@ -72,11 +73,11 @@ export const Repeater = () => {
 
           <Box>
             {collection.map(({ id, name }, index) => (
-              <Stack key={id} isInline spacing="4" mb="6" data-test={`repeater-item[${index}]`}>
+              <Stack key={id} direction="row" spacing="4" mb="6" data-test={`repeater-item[${index}]`}>
                 <Box transform="translateY(4rem)">
                   <IconButton
                     aria-label="Add"
-                    icon="add"
+                    icon={<AddIcon />}
                     size="sm"
                     onClick={() => addItemAtIndex(index)}
                     variant="ghost"
@@ -104,7 +105,7 @@ export const Repeater = () => {
                 <Box pt="1.75rem">
                   <IconButton
                     aria-label="Delete"
-                    icon="delete"
+                    icon={<DeleteIcon />}
                     onClick={() => removeItem(id)}
                     variant="ghost"
                   />
@@ -121,7 +122,7 @@ export const Repeater = () => {
             <Button
               type="submit"
               ml="auto"
-              variantColor="brand"
+              colorScheme="brand"
               isDisabled={!form.isValid && form.isSubmitted}
             >
               Submit

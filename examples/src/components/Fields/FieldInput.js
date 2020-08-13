@@ -68,7 +68,7 @@ export const FieldInput = (props) => {
         />
         {(isTouched || isSubmitted) && isValidating && (
           <InputRightElement>
-            <Spinner size="sm" />
+            <Spinner size="sm" flex="none" />
           </InputRightElement>
         )}
       </InputGroup>
