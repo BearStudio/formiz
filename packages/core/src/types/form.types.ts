@@ -103,4 +103,5 @@ export interface UseFormValues {
   isLastStep?: boolean;
 
   values?: FormValues;
+  flatValues?: FormValues;
 }
