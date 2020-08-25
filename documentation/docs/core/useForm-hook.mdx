@@ -390,10 +390,39 @@ myForm.isLastStep // true or false
 
 ### values
 
-Returns an object with all the values of the form.<br />
+Returns an object with all the values of the form **with nested values**.<br />
 See [the `name` props for fields](/docs/core/use-field#name-) for nested objects and array values.
 
 ```jsx
 const myForm = useForm()
-myForm.values // { fieldA: 'field A value', fieldB: 'field B value' }
+myForm.values
+/*
+{
+  fieldA: 'field A value',
+  nested: {
+    fieldB: 'field B value',
+  },
+  collection: [
+    { field: 'collection first value' },
+    { field: 'collection second value' },
+  ],
+}
+*/
+```
+
+### flatValues
+
+Returns an object with all the values of the form **without nested values**.
+
+```jsx
+const myForm = useForm()
+myForm.flatValues
+/*
+{
+  fieldA: 'field A value',
+  'nested.fieldB': 'field B value',
+  'collection[0].field': 'collection first value',
+  'collection[1].field': 'collection second value',
+}
+*/
 ```
