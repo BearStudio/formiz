@@ -6,7 +6,7 @@ import {
   defaultFormState,
   useFormContext,
 } from './Formiz';
-import { getFormValues, useRefValue } from './utils';
+import { getFormValues, getFormFlatValues, useRefValue } from './utils';
 import {
   FormFields,
   UseFormProps,
@@ -143,6 +143,7 @@ export const useForm = ({
     } : {}),
     ...(shouldSubscribe(subscribe, 'fields') ? {
       values: getFormValues(localFields),
+      flatValues: getFormFlatValues(localFields),
     } : {}),
     __connect__: connect,
   };

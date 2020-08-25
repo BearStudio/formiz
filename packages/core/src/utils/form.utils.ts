@@ -63,3 +63,10 @@ export const getFormValues = (fields: FormFields) => {
 
   return parseValues(values);
 };
+
+export const getFormFlatValues = (fields: FormFields) => (fields || [])
+  .filter((field) => field.isEnabled)
+  .reduce((obj, field) => ({
+    ...obj,
+    [field.name]: field.value,
+  }), {});
