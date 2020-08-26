@@ -109,7 +109,6 @@ describe('<Formiz />', () => {
       </Formiz>
     ));
 
-
     await user.click(getByText('Submit'));
     await waitFor(() => expect(formValues).toHaveProperty('field1', 'value 1'));
   });
@@ -129,11 +128,9 @@ describe('<Formiz />', () => {
       </Formiz>
     ));
 
-
     await user.click(getByText('Submit'));
     await waitFor(() => expect(formValues).toHaveProperty('field1', null));
   });
-
 
   it('Should get form values on submit after field updated', async () => {
     let formValues: any = null;

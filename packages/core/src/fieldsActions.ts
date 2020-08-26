@@ -20,7 +20,6 @@ export const registerField = (
   ];
 };
 
-
 export const updateField = (
   fields: FormFields,
   newField: Field,

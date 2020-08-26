@@ -54,7 +54,6 @@ export const FieldTextarea = (props) => {
   return (
     <FormGroup {...formGroupProps}>
       <Textarea
-        key={resetKey}
         id={id}
         value={value || ''}
         onChange={(e) => setValue(e.target.value)}

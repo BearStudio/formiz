@@ -1,6 +1,7 @@
 import {
   useState, useEffect, useRef, useCallback,
 } from 'react';
+import get from 'lodash/get';
 import {
   FieldValue,
   UseFieldProps,
@@ -52,6 +53,7 @@ export const useField = ({
     actions,
     subjects,
     keepValuesRef,
+    initialValuesRef,
   } = useFormContext();
 
   if (!subjects || !actions || !keepValuesRef) {
@@ -63,7 +65,9 @@ export const useField = ({
   const stepName = stepContext?.name;
 
   const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
-  const initValue = keepValuesRef.current?.[name] ?? defaultValue;
+  const initValue = keepValuesRef.current?.[name]
+    ?? get(initialValuesRef?.current, name)
+    ?? defaultValue;
   const [state, setState] = useState<FieldState>({
     id: getFieldUniqueId(),
     resetKey: 0,
@@ -127,22 +131,25 @@ export const useField = ({
     const subscription = subjects.onReset
       .subscription
       .subscribe(() => {
+        const value = initialValuesRef?.current?.[name] ?? defaultValueRef.current;
+        if (initialValuesRef?.current) {
+          delete initialValuesRef.current[nameRef.current];
+        }
         setState((prevState) => ({
           ...prevState,
           error: [],
           externalErrors: [],
           resetKey: prevState.resetKey + 1,
           isPristine: true,
-          value: defaultValueRef.current,
+          value,
         }));
         onChangeRef.current(
-          formatValueRef.current(defaultValueRef.current),
-          defaultValueRef.current,
+          formatValueRef.current(value),
+          value,
         );
       });
     return () => subscription.unsubscribe();
   }, []);
-
 
   // Update validations
   useEffect(() => {

@@ -56,7 +56,6 @@ export const FieldSelect = (props) => {
     <FormGroup {...formGroupProps}>
       <Select
         id={id}
-        key={resetKey}
         value={value || ''}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}

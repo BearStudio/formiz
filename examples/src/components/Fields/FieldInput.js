@@ -56,7 +56,6 @@ export const FieldInput = (props) => {
     <FormGroup {...formGroupProps}>
       <InputGroup>
         <Input
-          key={resetKey}
           type={type || 'text'}
           id={id}
           value={value ?? ''}

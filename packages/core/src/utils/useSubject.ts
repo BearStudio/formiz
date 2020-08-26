@@ -14,7 +14,6 @@ export const useSubject = (valueRef: React.RefObject<any>, throttle = 100) => {
   return { push, subscription };
 };
 
-
 export const useBehaviorSubject = (valueRef: React.RefObject<any>, throttle = 100) => {
   const subjectRef = useRef(new BehaviorSubject(valueRef.current));
   const push = (value?: any) => {

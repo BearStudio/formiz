@@ -59,8 +59,15 @@ export const Repeater = () => {
 
   return (
     <Formiz
+      key={form.resetKey}
       connect={form}
       onValidSubmit={handleSubmit}
+      initialValues={{
+        collection: [
+          { company: 'Initial Company (1)' },
+          { name: 'Initial Name (2)', company: 'Initial Company (2)' },
+        ],
+      }}
     >
       <PageLayout>
         <form

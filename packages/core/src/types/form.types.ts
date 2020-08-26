@@ -20,6 +20,10 @@ export type KeepValues = {
   [key: string]: FieldValue;
 }
 
+export type InitialValues = {
+  [key: string]: FieldValue;
+}
+
 export type FormValues = any;
 
 export interface FormContextValue {
@@ -34,6 +38,7 @@ export interface FormContextValue {
   };
   formMethods?: FormMethods;
   keepValuesRef?: RefObject<KeepValues>;
+  initialValuesRef?: RefObject<InitialValues>;
   subjects?: {
     onFormUpdate: any;
     onFieldsUpdate: any;
@@ -63,6 +68,7 @@ export interface FormizProps {
   autoForm?: boolean;
   children?: React.ReactNode;
   connect?: any;
+  initialValues?: object;
   id?: string;
   onChange?(values: object): void;
   onSubmit?(values: object): void;

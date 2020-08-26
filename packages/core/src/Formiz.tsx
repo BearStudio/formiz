@@ -1,4 +1,5 @@
 import * as React from 'react';
+import omit from 'lodash/omit';
 import {
   useEffect, useRef, useContext,
 } from 'react';
@@ -7,7 +8,7 @@ import {
   useRefValue, getFormValues, useSubject, useBehaviorSubject, getFormUniqueId,
 } from './utils';
 import {
-  FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues,
+  FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues, InitialValues,
 } from './types/form.types';
 import { StepState } from './types/step.types';
 import * as formActions from './formActions';
@@ -44,6 +45,7 @@ export const Formiz = ({
   autoForm = false,
   children = '',
   connect = {},
+  initialValues = {},
   id = getFormUniqueId(),
   onChange = () => {},
   onSubmit = () => {},
@@ -58,6 +60,7 @@ export const Formiz = ({
   });
   const fieldsRef = useRef<FormFields>([]);
   const keepValuesRef = useRef<KeepValues>({});
+  const initialValuesRef = useRef<InitialValues>({ ...initialValues });
   const connectRef = useRefValue(connect.__connect__ || (() => {}));
   const onChangeRef = useRefValue(onChange);
   const onSubmitRef = useRefValue(onSubmit);
@@ -252,6 +255,7 @@ export const Formiz = ({
 
   const registerField = (field: Field): void => {
     delete keepValuesRef.current[field.name];
+    omit(initialValuesRef.current, field.name);
     fieldsRef.current = fieldsActions.registerField(fieldsRef.current, field);
     onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
@@ -276,8 +280,9 @@ export const Formiz = ({
   };
 
   const reset = (): void => {
-    updateFormState(formActions.resetForm(formStateRef.current));
     keepValuesRef.current = {};
+    initialValuesRef.current = { ...initialValues };
+    updateFormState(formActions.resetForm(formStateRef.current));
     onReset.push();
   };
 
@@ -305,6 +310,7 @@ export const Formiz = ({
     },
     formMethods,
     keepValuesRef,
+    initialValuesRef,
     subjects: {
       onFormUpdate,
       onFieldsUpdate,
