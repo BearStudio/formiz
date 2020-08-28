@@ -80,13 +80,7 @@ export interface UseFormProps {
   subscribe?: boolean | 'form' | 'fields' | SubscribeObject;
 }
 
-export interface UseFormValues {
-  submit?(values: FormValues): void;
-  setFieldsValues?(objectOfValues: {
-    [key: string]: FieldValue;
-  }): void;
-  __connect__?(s: any): void;
-
+export interface UseFormValues extends FormMethods {
   resetKey?: number;
   isSubmitted?: boolean;
   isValid?: boolean;
