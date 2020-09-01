@@ -291,11 +291,11 @@ Accept an array of object with the following keys:
 
 ### asyncValidations
 
-Async validations allows you to run asynchronous code for validate a field, such as an API call.
-`asyncValidations` will only be triggered if all the other `validations` rules are valid.
+Async validations allows you to run asynchronous code to validate a field, such as an API call.
+`asyncValidations` will only be triggered if all the others `validations` rules are valid.
 
 Accept an array of object with the following keys:
-- `rule(fieldValue, formValues)`: Must returns a **Promise** that returns `true` if the rule is valid.
+- `rule(fieldValue)`: Must returns a **Promise** that returns `true` if the rule is valid.
 - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 - `message`: The message if the rule is invalid.
 
