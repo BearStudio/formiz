@@ -1,6 +1,6 @@
 {
   "name": "documentation",
-  "version": "1.0.0-rc.21",
+  "version": "1.0.0-rc.22",
   "private": true,
   "scripts": {
     "start": "yarn tailwind:dev | docusaurus start",
