@@ -99,5 +99,5 @@ export interface ExposedField {
 
 export interface UseFieldValues extends ExposedField {
   setValue(value: FieldValue): void;
-  otherProps: object;
+  otherProps: any;
 }
