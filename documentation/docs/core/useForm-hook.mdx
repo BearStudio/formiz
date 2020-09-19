@@ -426,3 +426,46 @@ myForm.flatValues
 }
 */
 ```
+
+### fields
+
+Returns an object with all the fields of the form with their hook values.<br />
+See the [`name` props for fields](/docs/core/use-field#name-) for nested objects and array syntaxe.<br />
+See the [useField() hook values](/docs/core/use-field#hook-values) for available values.
+
+```jsx
+const myForm = useForm()
+myForm.fields
+/*
+{
+  fieldA: {
+    errorMessage: 'Required',
+    isValid: false,
+    value: 'My value',
+    // ... All useField hook values
+  },
+  nested: {
+    fieldB: {
+      // All useField hook values
+    },
+  },
+  collection: [
+    {
+      field: {
+        // All useField hook values
+      },
+    },
+    {
+      field: {
+        // useField hook values
+      },
+    },
+  ],
+}
+*/
+
+// Examples
+myForm.fields?.fieldA?.isValid
+myForm.fields?.nested?.fieldB?.errorMessage
+myForm.fields?.collection?.[0]?.field?.isPristine
+```

@@ -29,9 +29,24 @@ const MyField = (props) => {
 
 ---
 
-## Hook values
+## Hooks methods
 
-The `useField` return an object with the following properties:
+### setValue()
+
+Set the value of the field.
+
+
+```jsx
+const MyField = (props) => {
+  const { setValue } = useField(props)
+
+  return <input onChange={(e) => setValue(e.target.value)} />
+}
+```
+
+---
+
+## Hook values
 
 ### value
 
@@ -52,18 +67,6 @@ It can be useful to determinate when to show error messages.
 
 ```jsx
 const { valueDebounced } = useField(props)
-```
-
-### setValue()
-
-Set the value of the field.
-
-```jsx
-const MyField = (props) => {
-  const { setValue } = useField(props)
-
-  return <input onChange={(e) => setValue(e.target.value)} />
-}
 ```
 
 ### id
@@ -146,6 +149,12 @@ const MyField = (props) => {
   return <input key={resetKey} />
 }
 ```
+
+---
+
+## Hook extra values
+
+This values are not available in the useForm() `fields` object.
 
 ### otherProps
 

@@ -104,4 +104,5 @@ export interface UseFormValues extends FormMethods {
 
   values?: FormValues;
   flatValues?: FormValues;
+  fields?: object;
 }

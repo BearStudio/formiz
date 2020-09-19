@@ -6,7 +6,9 @@ import {
   defaultFormState,
   useFormContext,
 } from './Formiz';
-import { getFormValues, getFormFlatValues, useRefValue } from './utils';
+import {
+  getFormFields, getFormValues, getFormFlatValues, useRefValue,
+} from './utils';
 import {
   FormFields,
   UseFormProps,
@@ -142,6 +144,7 @@ export const useForm = ({
       isLastStep: enabledSteps[enabledSteps.length - 1]?.name === currentStep?.name,
     } : {}),
     ...(shouldSubscribe(subscribe, 'fields') ? {
+      fields: getFormFields(localFields, localFormState),
       values: getFormValues(localFields),
       flatValues: getFormFlatValues(localFields),
     } : {}),

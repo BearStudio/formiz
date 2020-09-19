@@ -12,9 +12,10 @@ import {
   fieldDefaultProps,
 } from './types/field.types';
 import { FormFields } from './types/form.types';
-import { StepState } from './types/step.types';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
-import { getFieldUniqueId, useRefValue, getFieldHtmlUniqueId } from './utils';
+import {
+  getFieldUniqueId, useRefValue, getExposedField,
+} from './utils';
 import { useFormContext, defaultFormState } from './Formiz';
 import { useStepContext } from './FormizStep';
 
@@ -91,10 +92,6 @@ export const useField = ({
   const formatValueRef = useRefValue(formatValue);
   const defaultValueRef = useRefValue(defaultValue);
   const keepValueRef = useRefValue(keepValue);
-  const currentStepName = formState.navigatedStepName
-    || formState.initialStepName;
-  const currentStep: (StepState | null) = formState.steps
-    .find((x) => x.name === currentStepName) || null;
 
   const setValue = useCallback((value: FieldValue) => {
     setState((prevState: FieldState) => ({
@@ -281,24 +278,13 @@ export const useField = ({
     isMountedRef.current = false;
   }, []);
 
-  const isSubmitted = stepName && currentStep && currentStepName === stepName
-    ? currentStep.isSubmitted
-    : formState.isSubmitted;
-
-  const allErrors = [...state.externalErrors, ...state.asyncErrors, ...state.errors];
-
   return {
-    errorMessage: allErrors[0],
-    errorMessages: allErrors,
-    id: getFieldHtmlUniqueId(formStateRef?.current?.id || '', name),
-    isPristine: state.isPristine,
-    isSubmitted,
-    isValid: !allErrors.length,
-    isValidating: state.isValidating,
     setValue,
-    value: state.value,
-    valueDebounced: state.valueDebounced,
-    resetKey: state.resetKey,
     otherProps,
+    ...getExposedField({
+      ...state,
+      name,
+      stepName,
+    }, formState),
   };
 };
