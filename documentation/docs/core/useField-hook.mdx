@@ -147,6 +147,23 @@ const MyField = (props) => {
 }
 ```
 
+### otherProps
+
+Get the props passed to the component without the Formiz props.
+Allows you to keep composition by spreading this object in your component.
+
+```jsx
+const MyField = (props) => {
+  const { otherProps } = useField(props)
+
+  return (
+    <Box {...otherProps}>
+      {/* Field */}
+    </Box>
+  )
+}
+```
+
 ---
 
 ## Field props

@@ -41,18 +41,19 @@ export const FieldSlider = (props) => {
     resetKey,
     setValue,
     value,
+    otherProps,
   } = useField(props);
+  const { required, name } = props;
   const {
     children,
     label,
     type,
-    required,
     helper,
     min,
     max,
     step,
-    ...otherProps
-  } = props;
+    ...rest
+  } = otherProps;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
 
@@ -67,7 +68,8 @@ export const FieldSlider = (props) => {
     isRequired: !!required,
     label,
     showError,
-    ...otherProps,
+    name,
+    ...rest,
   };
 
   const changeValue = (val) => {

@@ -30,16 +30,17 @@ export const FieldPickIdenticalImages = (props) => {
     setValue,
     value,
     valueDebounced,
+    otherProps,
   } = useField(props);
+  const { required, name } = props;
   const {
     children,
     label,
-    required,
     options,
     helper,
     validMessage,
-    ...otherProps
-  } = props;
+    ...rest
+  } = otherProps;
   const { selectedImages: selectedImagesDebounced } = valueDebounced || { selectedImages: [] };
   const showError = !isValid && (selectedImagesDebounced.length >= 2 || isSubmitted);
 
@@ -52,14 +53,14 @@ export const FieldPickIdenticalImages = (props) => {
     isRequired: !!required,
     label,
     showError,
-    ...otherProps,
+    name,
+    ...rest,
   };
 
   const displayItems = useMemo(() => [...options, ...options]
     .sort(() => Math.random() - 0.5),
   // eslint-disable-next-line
   [JSON.stringify(options)]);
-
 
   const changeValue = (itemValue, itemIndex) => {
     const nextValues = (selectedImages.find((x) => x.index === itemIndex)

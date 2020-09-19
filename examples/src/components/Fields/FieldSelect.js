@@ -31,10 +31,12 @@ export const FieldSelect = (props) => {
     resetKey,
     setValue,
     value,
+    otherProps,
   } = useField(props);
+  const { required, name } = props;
   const {
-    children, label, options, required, placeholder, helper, ...otherProps
-  } = props;
+    children, label, options, placeholder, helper, ...rest
+  } = otherProps;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
 
@@ -49,7 +51,8 @@ export const FieldSelect = (props) => {
     isRequired: !!required,
     label,
     showError,
-    ...otherProps,
+    name,
+    ...rest,
   };
 
   return (

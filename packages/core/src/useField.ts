@@ -43,6 +43,7 @@ export const useField = ({
   validations = fieldDefaultProps.validations,
   asyncValidations = fieldDefaultProps.asyncValidations,
   keepValue = fieldDefaultProps.keepValue,
+  ...otherProps
 }: UseFieldProps): UseFieldValues => {
   if (!name) {
     throw ErrorFieldWithoutName;
@@ -298,5 +299,6 @@ export const useField = ({
     value: state.value,
     valueDebounced: state.valueDebounced,
     resetKey: state.resetKey,
+    otherProps,
   };
 };

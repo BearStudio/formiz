@@ -96,4 +96,5 @@ export interface UseFieldValues {
   value: FieldValue;
   valueDebounced: FieldValue;
   resetKey: number;
+  otherProps: object;
 }
