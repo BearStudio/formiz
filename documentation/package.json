@@ -12,14 +12,14 @@
     "deploy": "GIT_USER=ivan-dalmet CURRENT_BRANCH=master USE_SSH=true docusaurus deploy"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.56",
-    "@docusaurus/preset-classic": "2.0.0-alpha.56",
-    "@tailwindcss/ui": "0.3.0",
+    "@docusaurus/core": "2.0.0-alpha.64",
+    "@docusaurus/preset-classic": "2.0.0-alpha.64",
+    "@tailwindcss/ui": "0.6.2",
     "classnames": "2.2.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-live": "2.2.2",
-    "tailwindcss": "1.4.6"
+    "tailwindcss": "1.8.10"
   },
   "browserslist": {
     "production": [
@@ -34,10 +34,10 @@
     ]
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "2.2.0",
-    "autoprefixer": "9.8.0",
+    "@fullhuman/postcss-purgecss": "2.3.0",
+    "autoprefixer": "10.0.0",
     "cssnano": "4.1.10",
-    "postcss-cli": "7.1.1",
-    "postcss-nested": "4.2.1"
+    "postcss-cli": "7.1.2",
+    "postcss-nested": "5.0.0"
   }
 }

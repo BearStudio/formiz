@@ -13,7 +13,7 @@ module.exports = {
         alt: 'Formiz',
         src: 'img/logo.svg',
       },
-      links: [
+      items: [
         { to: 'docs/getting-started', label: 'Docs', position: 'left' },
         { to: 'docs/demos/wizard', label: 'Demos', position: 'left' },
         {
@@ -25,51 +25,6 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      // links: [
-      //   {
-      //     title: 'Docs',
-      //     items: [
-      //       {
-      //         label: 'Style Guide',
-      //         to: 'docs/',
-      //       },
-      //       {
-      //         label: 'Second Doc',
-      //         to: 'docs/doc2/',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'Community',
-      //     items: [
-      //       {
-      //         label: 'Stack Overflow',
-      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-      //       },
-      //       {
-      //         label: 'Discord',
-      //         href: 'https://discordapp.com/invite/docusaurus',
-      //       },
-      //       {
-      //         label: 'Twitter',
-      //         href: 'https://twitter.com/docusaurus',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'More',
-      //     items: [
-      //       {
-      //         label: 'Blog',
-      //         to: 'blog',
-      //       },
-      //       {
-      //         label: 'GitHub',
-      //         href: 'https://github.com/facebook/docusaurus',
-      //       },
-      //     ],
-      //   },
-      // ],
       copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
     },
     googleAnalytics: {
@@ -85,8 +40,6 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: 'getting-started',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/ivan-dalmet/formiz/edit/master/documentation/',
