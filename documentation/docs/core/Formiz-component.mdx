@@ -99,6 +99,39 @@ But for SSR rendering like in NextJS, you may want to replace the automatically 
 </Formiz>
 ```
 
+
+### initialValues
+
+Allows you to pass some initial values to the form.
+If a field is mounted, it will lookup into this object to set his initial value.
+
+This is usefull when you getting data from an API like an edit page.
+
+```jsx
+<Formiz initialValues={{ name: 'Lea', email: 'lea@company.com' }}>
+  <MyField name="name" /> {/* Will be prefilled with 'Lea' */}
+  <MyField name="email" /> {/* Will be prefilled with 'lea@company.com' */}
+</Formiz>
+```
+
+You can use nested objects and arrays.
+
+```jsx
+<Formiz
+  initialValues={{
+    collection: [
+      { name: 'Lea', email: 'lea@company.com' },
+      { name: 'John', email: 'john@company.com' },
+    ]
+  }}
+>
+  <MyField name="collection[0].name" /> {/* Will be prefilled with 'Lea' */}
+  <MyField name="collection[0].email" /> {/* Will be prefilled with 'lea@company.com' */}
+  <MyField name="collection[1].name" /> {/* Will be prefilled with 'John' */}
+  <MyField name="collection[1].email" /> {/* Will be prefilled with 'john@company.com' */}
+</Formiz>
+```
+
 ### connect
 
 Allow you to connect your form with the [useForm()](/docs/core/use-form) hook.<br />
