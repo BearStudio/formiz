@@ -8,6 +8,10 @@ module.exports = {
   projectName: 'formiz', // Usually your repo name.
   themeConfig: {
     image: 'img/social.jpg',
+    prism: {
+      // eslint-disable-next-line global-require
+      theme: require('prism-react-renderer/themes/nightOwl'),
+    },
     navbar: {
       logo: {
         alt: 'Formiz',
