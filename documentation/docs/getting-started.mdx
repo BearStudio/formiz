@@ -88,7 +88,7 @@ export const MyField = (props) => {
 
 Create the `<input>` and make it interactive like this:
 
-```jsx {5,7-13}
+```jsx {5,7-12}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -108,7 +108,7 @@ export const MyField = (props) => {
 
 Display the `errorMessage` below the `<input>`.
 
-```jsx {5,8,14-18}
+```jsx {5,8,13-17}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -139,7 +139,7 @@ export const MyField = (props) => {
 - Don't apply the `is-error` class if the input is focused.
 - Add `id`, `for` and aria attributes for accessibility.
 
-```jsx {7,9,10,15-17,20-27,31,33,35-39,41-45}
+```jsx {7,9,10,13-15,18-25,28,30,32-35,37-41}
 import React from 'react'
 import { useField } from '@formiz/core'
 
@@ -224,7 +224,7 @@ export const MyForm = () => {
 
 #### 3. Handle submit
 
-```jsx {7-9,14,16-18,21-27}
+```jsx {7-9,14,16-19,22-28}
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
 
@@ -263,7 +263,7 @@ export const MyForm = () => {
 **Each field need a property "name"** which will be the key in the object of values.<br />
 So, be sure this key is **unique by form**.
 
-```jsx {22-41}
+```jsx {23-42}
 import React from 'react'
 import { Formiz, useForm } from '@formiz/core'
 import { isEmail } from '@formiz/validations' // Import some validations
@@ -329,7 +329,7 @@ You already have your fields so we just need to update the form to use steps.
 
 **Each FormizStep need a property "name"**, be sure this key is unique by form.
 
-```jsx {4,24,27-29,40,42-44,55,57-71}
+```jsx {4,24-25,28-30,41,43-45,56,58-72}
 import React from 'react'
 import {
   Formiz,
