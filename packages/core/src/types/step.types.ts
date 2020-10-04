@@ -2,6 +2,7 @@ export interface StepState {
   name: string;
   label?: React.ReactNode;
   order: number;
+  isCurrent: boolean;
   isValid: boolean;
   isVisited: boolean;
   isPristine: boolean;
@@ -14,6 +15,7 @@ export interface Step {
   index: number;
   name: string;
   label?: React.ReactNode;
+  isCurrent: boolean;
   isValid: boolean;
   isVisited: boolean;
   isPristine: boolean;

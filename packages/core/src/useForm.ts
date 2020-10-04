@@ -100,6 +100,10 @@ export const useForm = ({
     subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
   }, []);
 
+  const checkIsCurrentStep = (name: string) => (
+    name === (localFormState.navigatedStepName || localFormState.initialStepName)
+  );
+
   const enabledSteps = localFormState.steps
     .filter((x) => x.isEnabled)
     .map(({
@@ -114,6 +118,7 @@ export const useForm = ({
       index,
       name,
       label,
+      isCurrent: checkIsCurrentStep(name),
       isPristine: isPristine ?? false,
       isSubmitted: isSubmitted ?? false,
       isValid: isValid ?? false,
@@ -123,7 +128,7 @@ export const useForm = ({
     .map((x, index) => ({ ...x, index }));
 
   const currentStep = enabledSteps
-    .find((x) => x.name === (localFormState.navigatedStepName || localFormState.initialStepName))
+    .find((x) => checkIsCurrentStep(x.name))
     || null;
 
   return {
