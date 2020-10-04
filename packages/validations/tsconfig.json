@@ -17,6 +17,8 @@
     "paths": {
       "*": ["src/*", "node_modules/*"]
     },
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
