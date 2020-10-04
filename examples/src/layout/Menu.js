@@ -57,6 +57,12 @@ export const Menu = ({ direction }) => {
         </MenuItem>
         <MenuItem
           direction={direction}
+          to="/steppers"
+        >
+          Steppers
+        </MenuItem>
+        <MenuItem
+          direction={direction}
           to="/real-life-1"
         >
           Real life #1

@@ -33,7 +33,7 @@ const useDebugTime = () => {
 };
 
 export const PageLayout = ({ children }) => {
-  useDebugTime();
+  // useDebugTime();
   const isDarkTheme = useDarkTheme();
 
   return (

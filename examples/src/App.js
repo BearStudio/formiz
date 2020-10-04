@@ -13,6 +13,7 @@ import { LotOfFields } from './pages/LotOfFields';
 import { UseCase1 } from './pages/UseCase1/index';
 import { ExoticFields } from './pages/ExoticFields';
 import { DynamicSteps } from './pages/DynamicSteps';
+import { Steppers } from './pages/Steppers';
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
             </Route>
             <Route path="/dynamic-steps" exact>
               <DynamicSteps />
+            </Route>
+            <Route path="/steppers" exact>
+              <Steppers />
             </Route>
             <Route path="/real-life-1" exact>
               <UseCase1 />
