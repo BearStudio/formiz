@@ -1,6 +1,6 @@
 {
   "name": "@formiz/validations",
-  "version": "1.0.0-rc.14",
+  "version": "1.0.0-rc.23",
   "repository": "https://github.com/ivan-dalmet/formiz/tree/master/packages/validations",
   "homepage": "https://formiz-react.com/",
   "author": "Ivan Dalmet <ivan@dalmet.fr> (https://ivan.dalmet.fr/)",
@@ -37,7 +37,6 @@
   "peerDependencies": {
     "react": ">=16.8"
   },
-  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
