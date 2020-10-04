@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Formiz',
-  tagline: 'React forms with easy validation and multi steps',
+  tagline: 'React forms with ease! Composable, headless & with built-in multi steps',
   url: 'https://formiz-react.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
