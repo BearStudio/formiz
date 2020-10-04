@@ -17,7 +17,7 @@
     "form-validation-react",
     "form-fields"
   ],
-  "main": "dist/formiz-core.umd.production.min.js",
+  "main": "dist/index.js",
   "module": "dist/formiz-core.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
