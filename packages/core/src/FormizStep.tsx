@@ -53,7 +53,7 @@ export const FormizStep = ({
   }, []);
 
   useEffect(() => {
-    if (formState.navigatedStepName === name && !state.isVisited && isActive) {
+    if (isActive && !state.isVisited) {
       setState((prevState) => ({ ...prevState, isVisited: true }));
     }
   });
