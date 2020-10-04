@@ -10,7 +10,7 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: <>🧙‍ Multi steps forms</>,
+    title: <>🧙‍ Built-in multi steps</>,
     description: (
       <>
         Multi steps form logic available out of the box!
@@ -19,16 +19,7 @@ const features = [
     ),
   },
   {
-    title: <>✅ Easy form validation</>,
-    description: (
-      <>
-        Create forms in React with full validation without the pain.
-        Turn everything into a custom field with full validation!
-      </>
-    ),
-  },
-  {
-    title: <>🐛 No more logic duplication</>,
+    title: <>✅ Composable validations</>,
     description: (
       <>
         Don&apos;t duplicate your logic between display and validation.
@@ -37,19 +28,30 @@ const features = [
     ),
   },
   {
-    title: <>💅 Forms with your own UX</>,
+    title: <>💅 Headless, build your own UX!</>,
     description: (
       <>
         Choose how to render validations, form buttons, and navigation
-        between steps (wizard, tabs, other). It&apos;s your choice!
+        between steps (wizard, tabs, other).
+        It&apos;s your choice!
       </>
     ),
   },
   {
-    title: <>⚛️ Built with hooks</>,
+    title: <>📋 Turn everything into fields</>,
     description: (
       <>
-        Use hooks &amp; cut the complexity to create custom fields :)
+        Turn everything into a custom field with full validation!
+        Create forms in React with full validations without the pain.
+      </>
+    ),
+  },
+  {
+    title: <>⚛️ Built with Typescript &amp; hooks</>,
+    description: (
+      <>
+        Typescript give you nice types out of the box.
+        Hooks cut the complexity to create custom fields.
         Use complex logic without even thinking of it.
       </>
     ),

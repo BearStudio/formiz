@@ -1,38 +1,47 @@
 # Welcome to 🐜 Formiz
-React **forms with easy validation and multi steps**
+## React forms with ease!
+
+**Composable, headless & with built-in multi steps**
+
+---
 
 ![Tests Badge](https://github.com/ivan-dalmet/formiz/workflows/Formiz%20Test/badge.svg)
 
-#### 🧙‍ **Multi steps forms**
+#### 🧙‍ **Built-in multi steps**
 Multi steps form logic available out of the box! No more pain to build perfect UX for complex forms.
 
-#### ✅ **Easy form validation**
-Create forms in React with full validation without the pain. Turn everything into a custom field with full validation!
-
-#### 🐛 **No more logic duplication**
+#### ✅ **Composable validations**
 Don't duplicate your logic between display and validation. Validation is enabled only if the field is displayed.
 
-#### 💅 **Forms with your own UX**
+#### 💅 **Headless, build your own UX!**
 Choose how to render validations, form buttons, and navigation between steps (wizard, tabs, other). It's your choice!
 
-#### ⚛️ **Built with hooks**
-Use hooks & cut the complexity to create custom fields :) Use complex logic without even thinking of it.
+#### 📋 **Turn everything into fields**
+Turn everything into a custom field with full validation! Create forms in React with full validations without the pain.
+
+#### ⚛️ **Built with Typescript & hooks**
+Typescript give you nice types out of the box. Hooks cut the complexity to create custom fields. Use complex logic without even thinking of it.
 
 #### 📱 **React Native compatible**
-You can use it with React Native. Just use the `as={View}` property on `<FormizStep>` component to replace the `div`.
-
+You can use it with React Native. Just use the as={View} property on <FormizStep> component to replace the div.
 
 [Getting started](https://formiz-react.com/docs/getting-started)
+
+---
 
 ## Looking for the documentation?
 
 Visit [formiz-react.com](https://formiz-react.com) for [full documentation](https://formiz-react.com/docs/getting-started) and [live demos](https://formiz-react.com/docs/demos/wizard).
+
+---
 
 ## Looking for examples?
 
 Visit documentation for [live demos](https://formiz-react.com/docs/demos/wizard).
 
 Visit [formiz-examples.netlify.app](https://formiz-examples.netlify.app) for examples with [Chakra UI](https://chakra-ui.com/).
+
+---
 
 ## Concept
 
@@ -47,7 +56,7 @@ When you use a field built with Formiz, you can apply validations rules on it.
 **Only the mounted fields will apply their validation** to the current step and to the form.
 
 ```jsx
-// Example
+// Field Example
 <MyField
   name="email"
   type="email"
@@ -64,6 +73,7 @@ When you use a field built with Formiz, you can apply validations rules on it.
 **Formiz core** does not provide any styles, so you can **use it with any UI library and style you want**.
 Use it with [Chakra UI](https://chakra-ui.com/), [ReactStrap](https://reactstrap.github.io/), [Material UI](https://material-ui.com/) or your own styles.
 
+---
 
 # Contributing
 
