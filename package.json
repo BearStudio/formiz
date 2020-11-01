@@ -1,6 +1,7 @@
 {
   "name": "formiz",
   "private": true,
+  "license": "MIT",
   "author": {
     "name": "Ivan Dalmet",
     "email": "ivan@dalmet.fr",
