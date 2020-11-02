@@ -3,7 +3,7 @@ import React from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
 import {
-  Button, Box, Heading, Stack, Wrap, AspectRatio, Grid,
+  Button, Box, Heading, Stack, AspectRatio, Grid,
 } from '@chakra-ui/core';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
