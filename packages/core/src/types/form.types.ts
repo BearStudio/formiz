@@ -48,7 +48,7 @@ export interface FormContextValue {
 }
 
 export interface FormMethods {
-  submit?(e?: React.FormEvent<HTMLFormElement>): void;
+  submit?(event?: React.FormEvent<HTMLFormElement>): void;
   setFieldsValues?(objectOfValues: {
     [key: string]: FieldValue;
   }): void;
@@ -56,7 +56,7 @@ export interface FormMethods {
     [key: string]: string;
   }): void;
   getFieldStepName?(fieldName: string): null | string;
-  submitStep?(e?: React.FormEvent<HTMLFormElement>): void;
+  submitStep?(event?: React.FormEvent<HTMLFormElement>): void;
   goToStep?(stepName: string): void;
   nextStep?(): void;
   prevStep?(): void;
