@@ -174,7 +174,11 @@ export const Formiz = ({
 
     const formattedValues = getFormValues(fieldsRef.current);
 
-    if (formStateRef.current.isValid && !formStateRef.current.isValidating) {
+    if (formStateRef.current.isValidating) {
+      return;
+    }
+
+    if (formStateRef.current.isValid) {
       onValidSubmitRef.current(formattedValues);
     } else {
       onInvalidSubmitRef.current(formattedValues);
