@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
 import { Button, Grid, Box } from '@chakra-ui/core';
@@ -7,11 +7,42 @@ import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
 import { useToastValues } from '../hooks/useToastValues';
 
+const fakeDelay = (delay = 500) => new Promise((r) => setTimeout(r, delay));
+
 export const Wizard = () => {
   const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
+  const [status, setStatus] = useState('idle');
+  const isLoading = status === 'loading' || form.isValidating;
 
-  const handleSubmit = (values) => {
+  /**
+   * Hook into the submitStep method to handle some actions before changing step
+   * If you don't need this you can just call the onSubmit={form.submitStep} on your <form>
+   */
+  const handleSubmitStep = async (event) => {
+    event.preventDefault();
+    if (!form.currentStep || !form.currentStep.isValid || !form.currentStep.name) {
+      form.submitStep();
+      return;
+    }
+
+    setStatus('loading');
+    console.log(`Submitting ${form.currentStep.name}...`); // eslint-disable-line no-console
+    await fakeDelay();
+
+    setStatus('success');
+    form.submitStep();
+  };
+
+  /**
+   * Handle the complete form submit
+   */
+  const handleSubmit = async (values) => {
+    setStatus('loading');
+    console.log('Submitting form...', values); // eslint-disable-line no-console
+    await fakeDelay();
+    setStatus('success');
+
     toastValues(values);
     form.invalidateFields({
       name: 'You can display an error after an API call',
@@ -28,7 +59,7 @@ export const Wizard = () => {
       <PageLayout>
         <form
           noValidate
-          onSubmit={form.submitStep}
+          onSubmit={handleSubmitStep}
         >
           <PageHeader githubPath="Wizard.js">
             Wizard
@@ -82,6 +113,7 @@ export const Wizard = () => {
                 type="submit"
                 gridColumn="3"
                 colorScheme="brand"
+                isLoading={isLoading}
                 isDisabled={
                   (form.isLastStep ? !form.isValid : !form.isStepValid)
                   && form.isStepSubmitted
