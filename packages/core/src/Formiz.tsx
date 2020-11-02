@@ -172,15 +172,15 @@ export const Formiz = ({
       steps: steps.map((step) => ({ ...step, isSubmitted: true })),
     });
 
-    const formatedValues = getFormValues(fieldsRef.current);
+    const formattedValues = getFormValues(fieldsRef.current);
 
     if (formStateRef.current.isValid && !formStateRef.current.isValidating) {
-      onValidSubmitRef.current(formatedValues);
+      onValidSubmitRef.current(formattedValues);
     } else {
-      onInvalidSubmitRef.current(formatedValues);
+      onInvalidSubmitRef.current(formattedValues);
     }
 
-    onSubmitRef.current(formatedValues);
+    onSubmitRef.current(formattedValues);
   };
 
   const submitStep = (e?: React.FormEvent<HTMLFormElement>) => {
