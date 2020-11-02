@@ -6,7 +6,6 @@ import {
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { useForm } from '@formiz/core';
 
-
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
@@ -17,7 +16,6 @@ const defaultProps = {
   onReset: () => {},
   githubPath: null,
 };
-
 
 export const PageHeader = ({ children, onReset, githubPath }) => {
   const form = useForm({ subscribe: false });

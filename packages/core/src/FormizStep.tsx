@@ -7,9 +7,9 @@ import { ErrorStepWithoutName, ErrorStepWithoutForm } from './errors';
 import { useFormContext, defaultFormState } from './Formiz';
 
 export const StepContext = React.createContext<any>({});
-export const useStepContext = () => useContext(StepContext);
+export const useStepContext = (): any => useContext(StepContext);
 
-export const FormizStep = ({
+export const FormizStep: React.FC<FormizStepProps> = ({
   as: Tag = 'div',
   children,
   name,

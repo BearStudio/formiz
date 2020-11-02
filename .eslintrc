@@ -27,16 +27,25 @@
     "no-underscore-dangle": ["off"],
     "no-unused-vars": ["warn"],
     "react/forbid-prop-types": ["warn"],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": ["error"],
+    "react-hooks/exhaustive-deps": ["off"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "jsx-a11y/label-has-for": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": ["warn"]
+      }
+    }
+  ]
 }

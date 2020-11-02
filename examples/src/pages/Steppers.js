@@ -90,7 +90,8 @@ const DotsStepper = (props) => {
   const spacing = 4;
 
   return (
-    <Wrap
+    <Stack
+      direction="row"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -158,7 +159,7 @@ const DotsStepper = (props) => {
           </AspectRatio>
         );
       })}
-    </Wrap>
+    </Stack>
   );
 };
 

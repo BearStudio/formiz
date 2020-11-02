@@ -32,7 +32,7 @@ export const defaultFormState: FormState = {
 };
 
 export const FormContext = React.createContext<FormContextValue>({});
-export const useFormContext = () => useContext(FormContext);
+export const useFormContext = (): FormContextValue => useContext(FormContext);
 
 const getCurrentStep = (formState: FormState) => {
   const currentStepName = formState.navigatedStepName
@@ -41,18 +41,18 @@ const getCurrentStep = (formState: FormState) => {
     .find((x) => x.name === currentStepName);
 };
 
-export const Formiz = ({
+export const Formiz: React.FC<FormizProps> = ({
   autoForm = false,
   children = '',
   connect = {},
   initialValues = {},
   id = getFormUniqueId(),
-  onChange = () => {},
-  onSubmit = () => {},
-  onValidSubmit = () => {},
-  onInvalidSubmit = () => {},
-  onValid = () => {},
-  onInvalid = () => {},
+  onChange = (): void => {},
+  onSubmit = (): void => {},
+  onValidSubmit = (): void => {},
+  onInvalidSubmit = (): void => {},
+  onValid = (): void => {},
+  onInvalid = (): void => {},
 }: FormizProps) => {
   const formStateRef = useRef<FormState>({
     ...defaultFormState,

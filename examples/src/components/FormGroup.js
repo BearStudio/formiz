@@ -4,7 +4,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
+  Text,
 } from '@chakra-ui/core';
 import { WarningIcon } from '@chakra-ui/icons';
 
@@ -43,9 +43,9 @@ export const FormGroup = ({
       </FormLabel>
     )}
     {!!helper && (
-      <FormHelperText mt="0" mb="3">
+      <Text color="gray.500" fontSize="sm" mt="0" mb="3">
         {helper}
-      </FormHelperText>
+      </Text>
     )}
     {children}
     <FormErrorMessage id={`${id}-error`}>
