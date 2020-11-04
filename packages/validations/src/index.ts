@@ -121,6 +121,14 @@ export const isMinLength = (min: number) => (value: Value): boolean => {
 /**
  * Check if the value has a length lower than the given maximum.
  */
-export const isMaxLength = (max: number) => (value: Value): boolean => testIsEmpty(value) || ((
-  testIsString(value) || Array.isArray(value)
-) && value.length <= max);
+export const isMaxLength = (max: number) => (value: Value): boolean => testIsEmpty(value)
+  || ((testIsString(value) || Array.isArray(value)) && value.length <= max);
+
+/**
+ * Check if the value has match a REGEX pattern.
+ */
+export const isPattern = (pattern: string | RegExp) => (value: Value): boolean => {
+  if (testIsEmpty(value)) return true;
+  const regex = new RegExp(pattern, 'g');
+  return (testIsString(value) && regex.test(value));
+};

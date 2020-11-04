@@ -5,7 +5,7 @@ title: Validation Rules
 
 ### isRequired()
 
-Test if there is value.
+Tests if there is a value.
 
 ```jsx
 import { isRequired } from '@formiz/validations'
@@ -23,7 +23,7 @@ import { isRequired } from '@formiz/validations'
 
 ### isNotEmptyString()
 
-Test if a string has not only spaces.
+Tests if a string has not only spaces.
 
 ```jsx
 import { isNotEmptyString } from '@formiz/validations'
@@ -41,7 +41,7 @@ import { isNotEmptyString } from '@formiz/validations'
 
 ### isNotEmptyArray()
 
-Test if an array is not empty.
+Tests if an array is not empty.
 
 ```jsx
 import { isNotEmptyArray } from '@formiz/validations'
@@ -59,7 +59,7 @@ import { isNotEmptyArray } from '@formiz/validations'
 
 ### isEmail()
 
-Test if a string is an valid email.
+Tests if a string is a valid email.
 
 ```jsx
 import { isEmail } from '@formiz/validations'
@@ -77,7 +77,7 @@ import { isEmail } from '@formiz/validations'
 
 ### isNumber()
 
-Test if the value is a number.
+Tests if the value is a number.
 
 ```jsx
 import { isNumber } from '@formiz/validations'
@@ -95,7 +95,7 @@ import { isNumber } from '@formiz/validations'
 
 ### isMinNumber(min)
 
-Test if the value is a number and under a max value.
+Tests if the value is a number and above a min value.
 
 ```jsx
 import { isMinNumber } from '@formiz/validations'
@@ -113,7 +113,7 @@ import { isMinNumber } from '@formiz/validations'
 
 ### isMaxNumber(max)
 
-Test if the value is a number and under a max value.
+Tests if the value is a number and under a max value.
 
 ```jsx
 import { isMaxNumber } from '@formiz/validations'
@@ -131,7 +131,7 @@ import { isMaxNumber } from '@formiz/validations'
 
 ### isInRangeNumber(min, max)
 
-Test if the value is a number and in a range between a min and a max.
+Tests if the value is a number and in a range between a min and a max.
 
 ```jsx
 import { isInRangeNumber } from '@formiz/validations'
@@ -149,7 +149,7 @@ import { isInRangeNumber } from '@formiz/validations'
 
 ### isPercentage()
 
-Test if the value is a number between 0 and 100.
+Tests if the value is a number between 0 and 100.
 
 ```jsx
 import { isInRangeNumber } from '@formiz/validations'
@@ -167,7 +167,7 @@ import { isInRangeNumber } from '@formiz/validations'
 
 ### isLength(length)
 
-Test if a string or an array has a specific length.
+Tests if a string or an array has a specific length.
 
 ```jsx
 import { isLength } from '@formiz/validations'
@@ -185,7 +185,7 @@ import { isLength } from '@formiz/validations'
 
 ### isMinLength(min)
 
-Test if a string or an array has a minimum length.
+Tests if a string or an array has a minimum length.
 
 ```jsx
 import { isMinLength } from '@formiz/validations'
@@ -201,10 +201,9 @@ import { isMinLength } from '@formiz/validations'
 >
 ```
 
-
 ### isMaxLength(max)
 
-Test if a string or an array has a maximum length.
+Tests if a string or an array has a maximum length.
 
 ```jsx
 import { isMaxLength } from '@formiz/validations'
@@ -215,6 +214,28 @@ import { isMaxLength } from '@formiz/validations'
     {
       rule: isMaxLength(4),
       message: 'This should have a length of 4 or less',
+    },
+  ]}
+>
+```
+
+### isPattern(pattern)
+
+Tests if a string matches a REGEX pattern.
+
+```jsx
+import { isMaxLength } from '@formiz/validations'
+
+<MyField
+  name="fieldName"
+  validations={[
+    {
+      rule: isPattern('hello'),
+      message: 'Must contain "hello"',
+    },
+    {
+      rule: isPattern('^[a-z]*$'),
+      message: 'Must only contain lowercase letters',
     },
   ]}
 >
