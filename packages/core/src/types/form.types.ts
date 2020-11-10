@@ -18,11 +18,11 @@ export type FormFields = Field[];
 
 export type KeepValues = {
   [key: string]: FieldValue;
-}
+};
 
 export type InitialValues = {
   [key: string]: FieldValue;
-}
+};
 
 export type FormValues = any;
 
@@ -49,12 +49,8 @@ export interface FormContextValue {
 
 export interface FormMethods {
   submit?(event?: React.FormEvent<HTMLFormElement>): void;
-  setFieldsValues?(objectOfValues: {
-    [key: string]: FieldValue;
-  }): void;
-  invalidateFields?(objectOfErrors: {
-    [key: string]: string;
-  }): void;
+  setFieldsValues?(objectOfValues: { [key: string]: FieldValue }): void;
+  invalidateFields?(objectOfErrors: { [key: string]: string }): void;
   getFieldStepName?(fieldName: string): null | string;
   submitStep?(event?: React.FormEvent<HTMLFormElement>): void;
   goToStep?(stepName: string): void;
@@ -70,10 +66,10 @@ export interface FormizProps {
   connect?: any;
   initialValues?: object;
   id?: string;
-  onChange?(values: object): void;
-  onSubmit?(values: object): void;
-  onValidSubmit?(values: object): void;
-  onInvalidSubmit?(values: object): void;
+  onChange?(values?: object): void;
+  onSubmit?(values?: object): void;
+  onValidSubmit?(values?: object): void;
+  onInvalidSubmit?(values?: object): void;
   onValid?(): void;
   onInvalid?(): void;
 }

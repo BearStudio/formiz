@@ -18,7 +18,7 @@ export interface UseFieldProps {
   debounce?: number;
   defaultValue?: FieldValue;
   formatValue?(value: FieldValue): FieldValue;
-  onChange?(value: FieldValue, rawValue: FieldValue): void;
+  onChange?(value?: FieldValue, rawValue?: FieldValue): void;
   required?: boolean | string;
   validations?: FieldValidationObject[];
   asyncValidations?: FieldAsyncValidationObject[];
