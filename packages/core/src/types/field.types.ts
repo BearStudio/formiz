@@ -19,7 +19,7 @@ export interface UseFieldProps {
   defaultValue?: FieldValue;
   formatValue?(value: FieldValue): FieldValue;
   onChange?(value: FieldValue, rawValue: FieldValue): void;
-  required?: boolean;
+  required?: boolean | string;
   validations?: FieldValidationObject[];
   asyncValidations?: FieldAsyncValidationObject[];
   keepValue?: boolean;
@@ -32,16 +32,20 @@ export const fieldPropTypes = {
   formatValue: PropTypes.func,
   onChange: PropTypes.func,
   required: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
-  validations: PropTypes.arrayOf(PropTypes.shape({
-    rule: PropTypes.func,
-    message: PropTypes.node,
-    deps: PropTypes.arrayOf(PropTypes.any),
-  })),
-  asyncValidations: PropTypes.arrayOf(PropTypes.shape({
-    rule: PropTypes.func,
-    message: PropTypes.node,
-    deps: PropTypes.arrayOf(PropTypes.any),
-  })),
+  validations: PropTypes.arrayOf(
+    PropTypes.shape({
+      rule: PropTypes.func,
+      message: PropTypes.node,
+      deps: PropTypes.arrayOf(PropTypes.any),
+    }),
+  ),
+  asyncValidations: PropTypes.arrayOf(
+    PropTypes.shape({
+      rule: PropTypes.func,
+      message: PropTypes.node,
+      deps: PropTypes.arrayOf(PropTypes.any),
+    }),
+  ),
   keepValue: PropTypes.bool,
 };
 
