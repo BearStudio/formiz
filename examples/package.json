@@ -1,12 +1,12 @@
 {
   "name": "examples",
-  "version": "1.0.0-rc.27",
+  "version": "1.0.0-rc.28",
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "1.0.0-rc.8",
     "@chakra-ui/icons": "1.0.0-rc.8",
     "@chakra-ui/theme": "1.0.0-rc.8",
-    "@formiz/core": "^1.0.0-rc.27",
+    "@formiz/core": "^1.0.0-rc.28",
     "@formiz/validations": "^1.0.0-rc.26",
     "framer-motion": "2.9.4",
     "prop-types": "15.7.2",
