@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Box } from '@chakra-ui/core';
 import { useDarkTheme } from '../hooks/isDarkTheme';
+import { useNavBarContext } from './NavBarContext';
 
 const propTypes = {
   children: PropTypes.node,
@@ -19,6 +20,7 @@ const defaultProps = {
 export const MenuItem = ({
   children, direction, to, ...props
 }) => {
+  const { onClose } = useNavBarContext();
   const isDarkTheme = useDarkTheme();
   const { pathname } = useLocation();
   const isActive = pathname === to;
@@ -27,6 +29,7 @@ export const MenuItem = ({
     <Box
       as={Link}
       to={to}
+      onClick={onClose}
       px="5"
       py="1"
       mr="-1px"
