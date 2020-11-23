@@ -3,6 +3,7 @@ import {
 } from 'react';
 import { Subscription } from 'rxjs';
 import {
+  defaultFormMethods,
   defaultFormState,
   useFormContext,
 } from './Formiz';
@@ -41,7 +42,7 @@ export const useForm = ({
   const {
     formStateRef, fieldsRef, formMethods, subjects,
   } = useFormContext();
-  const [methods, setMethods] = useState(formMethods);
+  const [methods, setMethods] = useState(formMethods || defaultFormMethods);
   const [localFormState, setLocalFormState] = useState(formStateRef?.current ?? defaultFormState);
   const [localFields, setLocalFields] = useState<FormFields>(fieldsRef?.current ?? []);
   const localFieldsRef = useRefValue(localFields);
@@ -145,7 +146,7 @@ export const useForm = ({
       isValidating: localFormState.isValidating,
       isPristine: localFormState.isPristine,
       steps: enabledSteps,
-      currentStep: currentStep || {},
+      currentStep: currentStep || null,
       isStepPristine: currentStep ? currentStep.isPristine : localFormState.isPristine,
       isStepValid: currentStep ? currentStep.isValid : localFormState.isValid,
       isStepValidating: currentStep ? currentStep.isValidating : localFormState.isValidating,

@@ -48,15 +48,15 @@ export interface FormContextValue {
 }
 
 export interface FormMethods {
-  submit?(event?: React.FormEvent<HTMLFormElement>): void;
-  setFieldsValues?(objectOfValues: { [key: string]: FieldValue }): void;
-  invalidateFields?(objectOfErrors: { [key: string]: string }): void;
-  getFieldStepName?(fieldName: string): null | string;
-  submitStep?(event?: React.FormEvent<HTMLFormElement>): void;
-  goToStep?(stepName: string): void;
-  nextStep?(): void;
-  prevStep?(): void;
-  reset?(): void;
+  submit(event?: React.FormEvent<HTMLFormElement>): void;
+  setFieldsValues(objectOfValues: { [key: string]: FieldValue }): void;
+  invalidateFields(objectOfErrors: { [key: string]: string }): void;
+  getFieldStepName(fieldName: string): null | string;
+  submitStep(event?: React.FormEvent<HTMLFormElement>): void;
+  goToStep(stepName: string): void;
+  nextStep(): void;
+  prevStep(): void;
+  reset(): void;
   __connect__?(s: any): void;
 }
 
@@ -90,7 +90,7 @@ export interface UseFormValues extends FormMethods {
   isPristine?: boolean;
 
   steps?: Step[];
-  currentStep?: {} | Step;
+  currentStep?: Step | null;
   isStepPristine?: boolean;
   isStepValid?: boolean;
   isStepValidating?: boolean;

@@ -14,9 +14,16 @@ import { StepState } from './types/step.types';
 import * as formActions from './formActions';
 import * as fieldsActions from './fieldsActions';
 
-export const defaultFormActions: FormMethods = {
+export const defaultFormMethods: FormMethods = {
   submit: () => {},
   setFieldsValues: () => {},
+  invalidateFields: () => {},
+  getFieldStepName: () => '',
+  submitStep: () => {},
+  goToStep: () => {},
+  nextStep: () => {},
+  prevStep: () => {},
+  reset: () => {},
 };
 
 export const defaultFormState: FormState = {
