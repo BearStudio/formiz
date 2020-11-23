@@ -323,10 +323,12 @@ export const Formiz: React.FC<FormizProps> = ({
     },
   };
 
+  const contextValueRef = useRefValue(contextValue);
+
   // Connect
   useEffect(() => {
-    connectRef.current(contextValue);
-  }, []);
+    connectRef.current(contextValueRef.current);
+  }, [connectRef, contextValueRef]);
 
   return (
     <FormContext.Provider value={contextValue}>

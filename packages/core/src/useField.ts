@@ -63,6 +63,8 @@ export const useField = ({
   }
 
   const isMountedRef = useRef(true);
+  const subjectsRef = useRefValue(subjects);
+  const actionsRef = useRefValue(actions);
   const stepContext = useStepContext();
   const stepName = stepContext?.name;
 
@@ -101,19 +103,19 @@ export const useField = ({
       isPristine: false,
     }));
     onChangeRef.current(formatValueRef.current(value), value);
-  }, []);
+  }, [onChangeRef, formatValueRef]);
 
   // Subscribe to form state
   useEffect(() => {
-    const subscription = subjects.onFormUpdate
+    const subscription = subjectsRef.current.onFormUpdate
       .subscription
       .subscribe(setFormState);
     return () => subscription.unsubscribe();
-  }, []);
+  }, [subjectsRef]);
 
   // Subscribe to external updates
   useEffect(() => {
-    const subscription = subjects.onExternalFieldsUpdate
+    const subscription = subjectsRef.current.onExternalFieldsUpdate
       .subscription
       .subscribe((fields: FormFields) => {
         const field = fields.find((x) => x.id === stateRef.current.id);
@@ -122,14 +124,14 @@ export const useField = ({
         }
       });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [subjectsRef, stateRef]);
 
   // Subscribe to reset
   useEffect(() => {
-    const subscription = subjects.onReset
+    const subscription = subjectsRef.current.onReset
       .subscription
       .subscribe(() => {
-        const value = initialValuesRef?.current?.[name] ?? defaultValueRef.current;
+        const value = initialValuesRef?.current?.[nameRef.current] ?? defaultValueRef.current;
         if (initialValuesRef?.current) {
           delete initialValuesRef.current[nameRef.current];
         }
@@ -147,7 +149,7 @@ export const useField = ({
         );
       });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [subjectsRef, initialValuesRef, defaultValueRef, nameRef, onChangeRef, formatValueRef]);
 
   // Update validations
   useEffect(() => {
@@ -225,7 +227,9 @@ export const useField = ({
       validateField();
     }, debounceRef.current);
     return () => clearTimeout(timer);
-  }, [
+  },
+  /* eslint-disable react-hooks/exhaustive-deps */
+  [
     JSON.stringify(state.value),
     JSON.stringify(
       [
@@ -240,11 +244,16 @@ export const useField = ({
         [],
       ),
     ),
+    asyncValidationsRef,
+    debounceRef,
+    stateRef,
+    validationsRef,
   ]);
+  /* eslint-enable */
 
   // Register / Unregister the field
   useEffect(() => {
-    actions.registerField({
+    actionsRef.current.registerField({
       ...stateRef.current,
       name: nameRef.current,
       stepName: stepNameRef.current,
@@ -252,7 +261,8 @@ export const useField = ({
     });
 
     return () => {
-      actions.unregisterField(
+      /* eslint-disable react-hooks/exhaustive-deps */
+      actionsRef.current.unregisterField(
         {
           ...stateRef.current,
           name: nameRef.current,
@@ -261,18 +271,28 @@ export const useField = ({
         },
         keepValueRef.current,
       );
+      /* eslint-enable */
     };
-  }, []);
+  }, [actionsRef, stateRef, nameRef, stepNameRef, formatValueRef, keepValueRef]);
 
   // Update field at form level
   useEffect(() => {
-    actions.updateField({
+    actionsRef.current.updateField({
       ...state,
       name,
       stepName,
       value: formatValueRef.current(state.value),
     });
-  }, [name, stepName, JSON.stringify(state)]);
+  },
+  /* eslint-disable react-hooks/exhaustive-deps */
+  [
+    name,
+    stepName,
+    JSON.stringify(state),
+    actionsRef,
+    formatValueRef,
+  ]);
+  /* eslint-enable */
 
   useEffect(() => () => {
     isMountedRef.current = false;

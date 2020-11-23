@@ -5,6 +5,7 @@ import {
 import { FormizStepProps, StepState } from './types/step.types';
 import { ErrorStepWithoutName, ErrorStepWithoutForm } from './errors';
 import { useFormContext, defaultFormState } from './Formiz';
+import { useRefValue } from './utils';
 
 export const StepContext = React.createContext<any>({});
 export const useStepContext = (): any => useContext(StepContext);
@@ -44,32 +45,35 @@ export const FormizStep: React.FC<FormizStepProps> = ({
     ? formState.navigatedStepName === name
     : formState.initialStepName === name;
 
+  const actionsRef = useRefValue(actions);
+  const subjectsRef = useRefValue(subjects);
+
   // Subscribe to form state
   useEffect(() => {
-    const subscription = subjects.onFormUpdate
+    const subscription = subjectsRef.current.onFormUpdate
       .subscription
       .subscribe(setFormState);
     return () => subscription.unsubscribe();
-  }, []);
+  }, [subjectsRef]);
 
   useEffect(() => {
     if (isActive && !state.isVisited) {
       setState((prevState) => ({ ...prevState, isVisited: true }));
     }
-  });
+  }, [isActive, state.isVisited]);
 
   // Register / Update the step
   useEffect(() => {
-    actions.updateStep({
+    actionsRef.current.updateStep({
       ...state,
       isEnabled,
     });
-  }, [state, isEnabled]);
+  }, [actionsRef, state, isEnabled]);
 
   // Unregister the step
   useEffect(() => () => {
-    actions.unregisterStep(name);
-  }, [name]);
+    actionsRef.current.unregisterStep(name);
+  }, [actionsRef, name]);
 
   if (!isEnabled) {
     return null;

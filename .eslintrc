@@ -28,7 +28,7 @@
     "no-unused-vars": ["warn"],
     "react/forbid-prop-types": ["warn"],
     "react-hooks/rules-of-hooks": ["error"],
-    "react-hooks/exhaustive-deps": ["off"],
+    "react-hooks/exhaustive-deps": ["warn"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".tsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",

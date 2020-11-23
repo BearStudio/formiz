@@ -45,9 +45,11 @@ export const useForm = ({
   const [localFormState, setLocalFormState] = useState(formStateRef?.current ?? defaultFormState);
   const [localFields, setLocalFields] = useState<FormFields>(fieldsRef?.current ?? []);
   const localFieldsRef = useRefValue(localFields);
+  const subjectsRef = useRefValue(subjects);
   const subscriptionsRef = useRef<Array<Subscription>>([]);
+  const subjectsFromConnectRef = useRef<any>();
 
-  const subscribeOnFormUpdate = (subject: any) => {
+  const subscribeOnFormUpdate = useCallback((subject: any) => {
     if (!subject || !shouldSubscribe(subscribe, 'form')) {
       return;
     }
@@ -55,9 +57,9 @@ export const useForm = ({
       .subscription
       .subscribe(setLocalFormState);
     subscriptionsRef.current.push(subscription);
-  };
+  }, [subscribe, setLocalFormState, subscriptionsRef]);
 
-  const subscribeOnFieldsUpdate = (subject: any) => {
+  const subscribeOnFieldsUpdate = useCallback((subject: any) => {
     if (!subject || !shouldSubscribe(subscribe, 'fields')) {
       return;
     }
@@ -77,7 +79,12 @@ export const useForm = ({
         setLocalFields(nextState);
       });
     subscriptionsRef.current.push(subscription);
-  };
+  }, [subscribe, subscriptionsRef, localFieldsRef]);
+
+  // Clear all subscriptions at unmount
+  useEffect(() => () => {
+    subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
+  }, [subscriptionsRef]);
 
   // Use the connect property to retrieve the state
   const connect = useCallback(({
@@ -85,20 +92,18 @@ export const useForm = ({
     subjects: _subjects,
   }) => {
     setMethods(_formMethods);
-    subscribeOnFormUpdate(_subjects?.onFormUpdate);
-    subscribeOnFieldsUpdate(_subjects?.onFieldsUpdate);
-  }, []);
+    subjectsFromConnectRef.current = _subjects;
+  }, [setMethods, subjectsFromConnectRef]);
 
   // Subscribe (if not used with connect)
   useEffect(() => {
-    subscribeOnFormUpdate(subjects?.onFormUpdate);
-    subscribeOnFieldsUpdate(subjects?.onFieldsUpdate);
-  }, []);
-
-  // Clear all subscriptions at unmount
-  useEffect(() => () => {
-    subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
-  }, []);
+    const onFormUpdate = subjectsFromConnectRef?.current?.onFormUpdate
+      || subjectsRef.current?.onFormUpdate;
+    const onFieldsUpdate = subjectsFromConnectRef?.current?.onFieldsUpdate
+      || subjectsRef.current?.onFieldsUpdate;
+    subscribeOnFormUpdate(onFormUpdate);
+    subscribeOnFieldsUpdate(onFieldsUpdate);
+  }, [subjectsRef, subscribeOnFormUpdate, subscribeOnFieldsUpdate, subjectsFromConnectRef]);
 
   const checkIsCurrentStep = (name: string) => (
     name === (localFormState.navigatedStepName || localFormState.initialStepName)
