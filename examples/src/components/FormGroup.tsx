@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   FormControl,
   FormLabel,
@@ -7,24 +6,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { WarningIcon } from '@chakra-ui/icons';
-
-const propTypes = {
-  children: PropTypes.node,
-  errorMessage: PropTypes.node,
-  helper: PropTypes.node,
-  id: PropTypes.string.isRequired,
-  isRequired: PropTypes.bool,
-  label: PropTypes.node,
-  showError: PropTypes.bool,
-};
-const defaultProps = {
-  children: '',
-  errorMessage: '',
-  helper: '',
-  isRequired: false,
-  label: '',
-  showError: false,
-};
 
 export const FormGroup = ({
   children,
@@ -50,6 +31,3 @@ export const FormGroup = ({
     </FormErrorMessage>
   </FormControl>
 );
-
-FormGroup.propTypes = propTypes;
-FormGroup.defaultProps = defaultProps;

@@ -47,7 +47,6 @@ const NextButton = (props) => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
 const StepperWrapper = ({ title, children, ...rest }) => (
   <Stack {...rest}>
     {title && <Heading fontSize="md">{title}</Heading>}
@@ -70,7 +69,7 @@ const SimpleStepper = (props) => {
 
   return (
     <Box flex="1" textAlign="center" fontSize="sm" color="gray.500" {...props}>
-      Step {form.currentStep.index + 1} / {form.steps.length}
+      Step {(form.currentStep?.index ?? 0) + 1} / {form.steps?.length}
     </Box>
   );
 };
@@ -88,7 +87,7 @@ const DotsStepper = (props) => {
       spacing={spacing}
       {...props}
     >
-      {form.steps.map((step) => {
+      {form.steps?.map((step) => {
         const inactiveProps = !step.isVisited
           ? {
             bg: 'gray.100',
@@ -96,7 +95,7 @@ const DotsStepper = (props) => {
           }
           : {};
 
-        const visitedProps = step.isVisited && !step.isCurrent
+        const visitedProps: any = step.isVisited && !step.isCurrent
           ? {
             bg: 'white',
             color: 'brand.500',
@@ -176,7 +175,9 @@ export const Steppers = () => {
       name: 'You can display an error after an API call',
     });
     const stepWithError = form.getFieldStepName('name');
-    form.goToStep(stepWithError);
+    if (stepWithError) {
+      form.goToStep(stepWithError);
+    }
   };
 
   return (

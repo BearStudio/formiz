@@ -91,9 +91,9 @@ export const Repeater = () => {
                     variant="ghost"
                     isDisabled={collection.length > 20}
                     pointerEvents={
-                      index + 1 >= collection.length ? 'none' : null
+                      index + 1 >= collection.length ? 'none' : undefined
                     }
-                    opacity={index + 1 >= collection.length ? 0 : null}
+                    opacity={index + 1 >= collection.length ? 0 : undefined}
                   />
                 </Box>
                 <Box flex="1">

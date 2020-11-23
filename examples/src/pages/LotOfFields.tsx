@@ -21,7 +21,9 @@ export const LotOfFields = () => {
       'name-0': 'You can display an error after an API call',
     });
     const stepWithError = form.getFieldStepName('name-0');
-    form.goToStep(stepWithError);
+    if (stepWithError) {
+      form.goToStep(stepWithError);
+    }
   };
 
   return (
@@ -94,7 +96,7 @@ export const LotOfFields = () => {
               />
             ))}
           </FormizStep>
-          {!!form.steps.length && (
+          {!!form.steps?.length && (
             <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
               {!form.isFirstStep && (
                 <Button gridColumn="1" onClick={form.prevStep}>
@@ -107,7 +109,7 @@ export const LotOfFields = () => {
                 fontSize="sm"
                 color="gray.500"
               >
-                Step {form.currentStep.index + 1} / {form.steps.length}
+                Step {(form.currentStep?.index ?? 0) + 1} / {form.steps.length}
               </Box>
               <Button
                 type="submit"

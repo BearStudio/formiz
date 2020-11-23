@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Flex,
   Image,
@@ -21,7 +21,6 @@ import { NavBarContext } from './NavBarContext';
 export const NavBar = () => {
   const isDarkTheme = useDarkTheme();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
 
   return (
     <NavBarContext.Provider value={{ isOpen, onOpen, onClose }}>
@@ -67,7 +66,7 @@ export const NavBar = () => {
         </Box>
 
         <Box d={{ lg: 'none' }} ml="auto">
-          <Button ref={btnRef} onClick={onOpen} variant="ghost">
+          <Button onClick={onOpen} variant="ghost">
             <Box as={FaBars} size="1rem" mb="1px" mr="2" />
             Menu
           </Button>
@@ -75,7 +74,6 @@ export const NavBar = () => {
             isOpen={isOpen}
             placement="right"
             onClose={onClose}
-            finalFocusRef={btnRef}
           >
             <DrawerOverlay />
             <DrawerContent>

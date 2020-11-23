@@ -2,9 +2,6 @@ import React from 'react';
 import { useForm } from '@formiz/core';
 import { Box } from '@chakra-ui/react';
 
-const propTypes = {};
-const defaultProps = {};
-
 export const Debug = () => {
   const form = useForm();
 
@@ -17,6 +14,3 @@ export const Debug = () => {
     </Box>
   );
 };
-
-Debug.propTypes = propTypes;
-Debug.defaultProps = defaultProps;

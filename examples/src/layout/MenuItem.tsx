@@ -1,34 +1,21 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 import { useNavBarContext } from './NavBarContext';
 
-const propTypes = {
-  children: PropTypes.node,
-  direction: PropTypes.oneOf(['left', 'right']),
-  to: PropTypes.string,
-};
-const defaultProps = {
-  children: '',
-  direction: 'left',
-  to: null,
-};
-
 export const MenuItem = ({
-  children, direction, to, ...props
-}) => {
+  children, direction, ...props
+}: any) => {
   const { onClose } = useNavBarContext();
   const isDarkTheme = useDarkTheme();
   const { pathname } = useLocation();
-  const isActive = pathname === to;
+  const isActive = pathname === props?.to;
 
   return (
     <Box
       as={Link}
-      to={to}
       onClick={onClose}
       px="5"
       py="1"
@@ -63,6 +50,3 @@ export const MenuItem = ({
     </Box>
   );
 };
-
-MenuItem.propTypes = propTypes;
-MenuItem.defaultProps = defaultProps;

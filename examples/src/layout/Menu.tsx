@@ -1,19 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  Stack, Link, useColorMode, Flex, Switch,
+  Stack, useColorMode, Flex, Switch,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { MenuItem } from './MenuItem';
 
-const propTypes = {
-  direction: PropTypes.oneOf(['left', 'right']),
-};
-const defaultProps = {
-  direction: 'left',
-};
-
-export const Menu = ({ direction }) => {
+export const Menu = ({ direction = 'left' }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -48,7 +40,7 @@ export const Menu = ({ direction }) => {
         <MenuItem
           direction={direction}
           mt="6"
-          as={Link}
+          as="a"
           href="https://formiz-react.com"
           target="_blank"
           fontSize="sm"
@@ -58,7 +50,7 @@ export const Menu = ({ direction }) => {
         </MenuItem>
         <MenuItem
           direction={direction}
-          as={Link}
+          as="a"
           href="https://github.com/ivan-dalmet/formiz"
           target="_blank"
           fontSize="sm"
@@ -73,19 +65,16 @@ export const Menu = ({ direction }) => {
         pt="8"
       >
         <Stack direction="row" align="center" mb="1">
-          <MoonIcon size="14px" opacity={colorMode !== 'dark' ? '0.3' : null} />
+          <MoonIcon size="14px" opacity={colorMode !== 'dark' ? '0.3' : undefined} />
           <Switch
             size="md"
             isChecked={colorMode === 'light'}
             onChange={toggleColorMode}
             colorScheme="none"
           />
-          <SunIcon size="14px" opacity={colorMode !== 'light' ? '0.3' : null} />
+          <SunIcon size="14px" opacity={colorMode !== 'light' ? '0.3' : undefined} />
         </Stack>
       </Flex>
     </Stack>
   );
 };
-
-Menu.propTypes = propTypes;
-Menu.defaultProps = defaultProps;

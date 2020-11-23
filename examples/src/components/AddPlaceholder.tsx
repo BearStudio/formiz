@@ -1,17 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 
-const propTypes = {
-  label: PropTypes.node,
-};
-const defaultProps = {
-  label: 'Add',
-};
-
-export const AddPlaceholder = ({ label, ...props }) => {
+export const AddPlaceholder = ({ label = 'Add', ...props }) => {
   const isDarkTheme = useDarkTheme();
 
   return (
@@ -47,6 +39,3 @@ export const AddPlaceholder = ({ label, ...props }) => {
     </Button>
   );
 };
-
-AddPlaceholder.propTypes = propTypes;
-AddPlaceholder.defaultProps = defaultProps;

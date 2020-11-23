@@ -1,23 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Button, Heading, Link, Box,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { useForm } from '@formiz/core';
 
-const propTypes = {
-  children: PropTypes.node,
-  onReset: PropTypes.func,
-  githubPath: PropTypes.string,
-};
-const defaultProps = {
-  children: '',
-  onReset: () => {},
-  githubPath: null,
-};
-
-export const PageHeader = ({ children, onReset, githubPath }) => {
+export const PageHeader = ({ children, onReset = () => {}, githubPath }) => {
   const form = useForm({ subscribe: false });
 
   return (
@@ -48,6 +36,3 @@ export const PageHeader = ({ children, onReset, githubPath }) => {
     </Box>
   );
 };
-
-PageHeader.propTypes = propTypes;
-PageHeader.defaultProps = defaultProps;

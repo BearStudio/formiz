@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import {
   SimpleGrid,
   Button,
@@ -8,23 +7,8 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
+import { useField } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
-
-const propTypes = {
-  label: PropTypes.node,
-  helper: PropTypes.node,
-  options: PropTypes.arrayOf(PropTypes.string),
-  validMessage: PropTypes.node,
-  ...fieldPropTypes,
-};
-const defaultProps = {
-  label: '',
-  helper: '',
-  options: [],
-  validMessage: '',
-  ...fieldDefaultProps,
-};
 
 export const FieldPickIdenticalImages = (props) => {
   const {
@@ -105,7 +89,7 @@ export const FieldPickIdenticalImages = (props) => {
           <AspectRatio
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            ratio="1"
+            ratio={1}
           >
             <Button
               position="absolute"
@@ -117,7 +101,7 @@ export const FieldPickIdenticalImages = (props) => {
               boxShadow={
                 selectedImages.find((x) => x.index === index)
                   ? '0 0 0 0.3rem'
-                  : null
+                  : undefined
               }
               _focus={{
                 boxShadow: selectedImages.find((x) => x.index === index)
@@ -156,6 +140,3 @@ export const FieldPickIdenticalImages = (props) => {
     </FormGroup>
   );
 };
-
-FieldPickIdenticalImages.propTypes = propTypes;
-FieldPickIdenticalImages.defaultProps = defaultProps;

@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Textarea } from '@chakra-ui/react';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
+import { Select } from '@chakra-ui/react';
+import { useField } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 
-const propTypes = {
-  label: PropTypes.node,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  helper: PropTypes.node,
-  ...fieldPropTypes,
-};
-const defaultProps = {
-  label: '',
-  type: 'text',
-  placeholder: '',
-  helper: '',
-  ...fieldDefaultProps,
-};
-
-export const FieldTextarea = (props) => {
+export const FieldSelect = (props) => {
   const {
     errorMessage,
     id,
@@ -32,7 +16,7 @@ export const FieldTextarea = (props) => {
   } = useField(props);
   const { required, name } = props;
   const {
-    children, label, placeholder, helper, ...rest
+    children, label, options = [], placeholder, helper, ...rest
   } = otherProps;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -54,19 +38,22 @@ export const FieldTextarea = (props) => {
 
   return (
     <FormGroup {...formGroupProps}>
-      <Textarea
+      <Select
         id={id}
         value={value || ''}
-        onChange={(e) => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
-        aria-describedby={!isValid ? `${id}-error` : null}
+        aria-describedby={!isValid ? `${id}-error` : undefined}
         placeholder={placeholder}
-      />
+        onChange={(e) => setValue(e.target.value)}
+      >
+        {(options || []).map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.label || item.value}
+          </option>
+        ))}
+      </Select>
       {children}
     </FormGroup>
   );
 };
-
-FieldTextarea.propTypes = propTypes;
-FieldTextarea.defaultProps = defaultProps;

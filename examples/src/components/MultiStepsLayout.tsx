@@ -1,20 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useForm } from '@formiz/core';
 import { Box, Grid, Button } from '@chakra-ui/react';
 import { PageLayout } from '../layout/PageLayout';
-
-const propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  form: PropTypes.object,
-  children: PropTypes.node,
-  submitLabel: PropTypes.node,
-};
-const defaultProps = {
-  form: null,
-  children: '',
-  submitLabel: '',
-};
 
 export const MultiStepsLayout = ({
   children,
@@ -22,7 +9,7 @@ export const MultiStepsLayout = ({
   ...props
 }) => {
   const form = useForm({ subscribe: 'form' });
-  const hasSteps = !!form.steps.length;
+  const hasSteps = !!form?.steps?.length;
 
   return (
     <PageLayout {...props}>
@@ -42,7 +29,7 @@ export const MultiStepsLayout = ({
               fontSize="sm"
               color="gray.500"
             >
-              Step {form.currentStep.index + 1} / {form.steps.length}
+              Step {(form.currentStep?.index ?? 0) + 1} / {form.steps?.length}
             </Box>
             <Button
               type="submit"
@@ -61,6 +48,3 @@ export const MultiStepsLayout = ({
     </PageLayout>
   );
 };
-
-MultiStepsLayout.propTypes = propTypes;
-MultiStepsLayout.defaultProps = defaultProps;

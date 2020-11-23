@@ -1,15 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Flex } from '@chakra-ui/react';
 import { Debug } from '../components/Debug';
 import { useDarkTheme } from '../hooks/isDarkTheme';
-
-const propTypes = {
-  children: PropTypes.node,
-};
-const defaultProps = {
-  children: '',
-};
 
 export const PageLayout = ({ children }) => {
   const isDarkTheme = useDarkTheme();
@@ -52,6 +44,3 @@ export const PageLayout = ({ children }) => {
     </Flex>
   );
 };
-
-PageLayout.propTypes = propTypes;
-PageLayout.defaultProps = defaultProps;

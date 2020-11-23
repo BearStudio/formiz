@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Input,
   InputGroup,
   InputRightElement,
   Spinner,
 } from '@chakra-ui/react';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
+import { useField } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
-
-const propTypes = {
-  label: PropTypes.node,
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  helper: PropTypes.node,
-  ...fieldPropTypes,
-};
-const defaultProps = {
-  label: '',
-  type: 'text',
-  placeholder: '',
-  helper: '',
-  ...fieldDefaultProps,
-};
 
 export const FieldInput = (props) => {
   const {
@@ -68,7 +52,7 @@ export const FieldInput = (props) => {
           onChange={(e) => setValue(e.target.value)}
           onBlur={() => setIsTouched(true)}
           aria-invalid={showError}
-          aria-describedby={!isValid ? `${id}-error` : null}
+          aria-describedby={!isValid ? `${id}-error` : undefined}
           placeholder={placeholder}
         />
         {(isTouched || isSubmitted) && isValidating && (
@@ -81,6 +65,3 @@ export const FieldInput = (props) => {
     </FormGroup>
   );
 };
-
-FieldInput.propTypes = propTypes;
-FieldInput.defaultProps = defaultProps;

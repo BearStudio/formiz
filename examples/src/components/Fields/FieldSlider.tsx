@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   Slider,
   SliderTrack,
@@ -12,25 +11,8 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from '@chakra-ui/react';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
+import { useField } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
-
-const propTypes = {
-  label: PropTypes.node,
-  helper: PropTypes.node,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  step: PropTypes.number,
-  ...fieldPropTypes,
-};
-const defaultProps = {
-  label: '',
-  helper: '',
-  min: 0,
-  max: 100,
-  step: 1,
-  ...fieldDefaultProps,
-};
 
 export const FieldSlider = (props) => {
   const {
@@ -45,7 +27,7 @@ export const FieldSlider = (props) => {
   } = useField(props);
   const { required, name } = props;
   const {
-    children, label, type, helper, min, max, step, ...rest
+    children, label, type, helper, min = 0, max = 100, step = 1, ...rest
   } = otherProps;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);
@@ -81,7 +63,7 @@ export const FieldSlider = (props) => {
           onChange={changeValue}
           onBlur={() => setIsTouched(true)}
           aria-invalid={showError}
-          aria-describedby={!isValid ? `${id}-error` : null}
+          aria-describedby={!isValid ? `${id}-error` : undefined}
           min={min}
           max={max}
           step={step}
@@ -98,7 +80,7 @@ export const FieldSlider = (props) => {
           onChange={changeValue}
           onBlur={() => setIsTouched(true)}
           aria-invalid={showError}
-          aria-describedby={!isValid ? `${id}-error` : null}
+          aria-describedby={!isValid ? `${id}-error` : undefined}
           min={min}
           max={max}
           step={step}
@@ -114,6 +96,3 @@ export const FieldSlider = (props) => {
     </FormGroup>
   );
 };
-
-FieldSlider.propTypes = propTypes;
-FieldSlider.defaultProps = defaultProps;

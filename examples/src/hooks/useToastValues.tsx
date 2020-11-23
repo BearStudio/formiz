@@ -16,6 +16,6 @@ export const useToastValues = () => {
       duration: null,
       isClosable: true,
       position: 'top',
-    });
+    } as any);
   };
 };
