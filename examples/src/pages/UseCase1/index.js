@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
-import { Heading } from '@chakra-ui/core';
+import { Heading } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { PageHeader } from '../../components/PageHeader';
 import { MultiStepsLayout } from '../../components/MultiStepsLayout';
@@ -24,12 +24,8 @@ export const UseCase1 = () => {
 
   return (
     <Formiz connect={form} onValidSubmit={handleSubmit}>
-      <MultiStepsLayout
-        submitLabel="Create app"
-      >
-        <PageHeader githubPath="UseCase1/index.js">
-          Real life #1
-        </PageHeader>
+      <MultiStepsLayout submitLabel="Create app">
+        <PageHeader githubPath="UseCase1/index.js">Real life #1</PageHeader>
 
         <Heading fontSize="lg" mb={6} mt={12}>
           <AddIcon size="0.8rem" mr={2} mb={1} />

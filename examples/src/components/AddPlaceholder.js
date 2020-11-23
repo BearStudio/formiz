@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 

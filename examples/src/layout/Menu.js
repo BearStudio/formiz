@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Stack, Link, useColorMode, Flex, Switch,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { ExternalLinkIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { MenuItem } from './MenuItem';
 
@@ -19,52 +19,28 @@ export const Menu = ({ direction }) => {
   return (
     <Stack spacing="1" w="100%">
       <Stack spacing="0">
-        <MenuItem
-          direction={direction}
-          to="/"
-        >
+        <MenuItem direction={direction} to="/">
           AutoForm
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/wizard"
-        >
+        <MenuItem direction={direction} to="/wizard">
           Wizard
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/repeater"
-        >
+        <MenuItem direction={direction} to="/repeater">
           Repeater
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/exotic-fields"
-        >
+        <MenuItem direction={direction} to="/exotic-fields">
           Exotic Fields
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/lot-of-fields"
-        >
+        <MenuItem direction={direction} to="/lot-of-fields">
           Lot of fields
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/dynamic-steps"
-        >
+        <MenuItem direction={direction} to="/dynamic-steps">
           Dynamic Steps
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/steppers"
-        >
+        <MenuItem direction={direction} to="/steppers">
           Steppers
         </MenuItem>
-        <MenuItem
-          direction={direction}
-          to="/real-life-1"
-        >
+        <MenuItem direction={direction} to="/real-life-1">
           Real life #1
         </MenuItem>
       </Stack>
@@ -91,7 +67,11 @@ export const Menu = ({ direction }) => {
           <ExternalLinkIcon ml="1" mb="1" />
         </MenuItem>
       </Stack>
-      <Flex justifyContent={direction === 'left' ? 'flex-start' : 'flex-end'} px="6" pt="8">
+      <Flex
+        justifyContent={direction === 'left' ? 'flex-start' : 'flex-end'}
+        px="6"
+        pt="8"
+      >
         <Stack direction="row" align="center" mb="1">
           <MoonIcon size="14px" opacity={colorMode !== 'dark' ? '0.3' : null} />
           <Switch

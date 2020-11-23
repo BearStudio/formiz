@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex } from '@chakra-ui/core';
+import { Box, Flex } from '@chakra-ui/react';
 import { Debug } from '../components/Debug';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 
@@ -21,10 +21,7 @@ export const PageLayout = ({ children }) => {
       flexWrap="nowrap"
       flexDirection={{ base: 'column', lg: 'row' }}
     >
-      <Box
-        flex="1"
-        position="relative"
-      >
+      <Box flex="1" position="relative">
         <Box
           position={{ lg: 'absolute' }}
           top={{ lg: 0 }}

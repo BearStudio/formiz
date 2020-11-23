@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isMinNumber, isMaxNumber } from '@formiz/validations';
-import { Button, Grid, Box } from '@chakra-ui/core';
+import { Button, Grid, Box } from '@chakra-ui/react';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
@@ -24,18 +24,10 @@ export const DynamicSteps = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
-        <form
-          noValidate
-          onSubmit={form.submitStep}
-        >
-          <PageHeader githubPath="DynamicSteps.js">
-            Dynamic Steps
-          </PageHeader>
+        <form noValidate onSubmit={form.submitStep}>
+          <PageHeader githubPath="DynamicSteps.js">Dynamic Steps</PageHeader>
           <FormizStep name="start" order={1000}>
             <FieldInput
               name="count"
@@ -69,19 +61,12 @@ export const DynamicSteps = () => {
             </FormizStep>
           ))}
           <FormizStep name="end" order={3000}>
-            <FieldInput
-              name="end"
-              label="End"
-              required="Required"
-            />
+            <FieldInput name="end" label="End" required="Required" />
           </FormizStep>
           {!!form.steps.length && (
             <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
               {!form.isFirstStep && (
-                <Button
-                  gridColumn="1"
-                  onClick={form.prevStep}
-                >
+                <Button gridColumn="1" onClick={form.prevStep}>
                   Previous
                 </Button>
               )}

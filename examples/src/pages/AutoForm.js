@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
-import { Button, Flex } from '@chakra-ui/core';
+import { Button, Flex } from '@chakra-ui/react';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { useToastValues } from '../hooks/useToastValues';
@@ -20,15 +20,9 @@ export const AutoForm = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-      autoForm
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm>
       <PageLayout>
-        <PageHeader githubPath="AutoForm.js">
-          Auto form
-        </PageHeader>
+        <PageHeader githubPath="AutoForm.js">Auto form</PageHeader>
         <FieldInput
           name="name"
           label="Name"
@@ -76,7 +70,9 @@ export const AutoForm = () => {
             type="submit"
             ml="auto"
             colorScheme="brand"
-            isDisabled={(!form.isValid || form.isValidating) && form.isSubmitted}
+            isDisabled={
+              (!form.isValid || form.isValidating) && form.isSubmitted
+            }
           >
             Submit
           </Button>

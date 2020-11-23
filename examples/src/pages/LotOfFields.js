@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
-import { Button, Grid, Box } from '@chakra-ui/core';
+import { Button, Grid, Box } from '@chakra-ui/react';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { FieldSelect } from '../components/Fields/FieldSelect';
 import { PageHeader } from '../components/PageHeader';
@@ -25,18 +25,10 @@ export const LotOfFields = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
-        <form
-          noValidate
-          onSubmit={form.submitStep}
-        >
-          <PageHeader githubPath="LotOfFields.js">
-            Lot of fields
-          </PageHeader>
+        <form noValidate onSubmit={form.submitStep}>
+          <PageHeader githubPath="LotOfFields.js">Lot of fields</PageHeader>
           <FormizStep name="step1">
             {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
               <FieldInput
@@ -105,10 +97,7 @@ export const LotOfFields = () => {
           {!!form.steps.length && (
             <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
               {!form.isFirstStep && (
-                <Button
-                  gridColumn="1"
-                  onClick={form.prevStep}
-                >
+                <Button gridColumn="1" onClick={form.prevStep}>
                   Previous
                 </Button>
               )}
@@ -126,8 +115,8 @@ export const LotOfFields = () => {
                 colorScheme="brand"
                 isDisabled={
                   form.isLastStep
-                    ? (!form.isValid && form.isSubmitted)
-                    : (!form.isStepValid && form.isStepSubmitted)
+                    ? !form.isValid && form.isSubmitted
+                    : !form.isStepValid && form.isStepSubmitted
                 }
               >
                 {form.isLastStep ? 'Submit' : 'Next'}

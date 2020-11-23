@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FormizStep, useForm } from '@formiz/core';
-import {
-  IconButton, Box, Stack,
-} from '@chakra-ui/core';
+import { IconButton, Box, Stack } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 import { FieldInput } from '../../components/Fields/FieldInput';
@@ -55,8 +53,8 @@ export const ExposedPorts = () => {
               m="0"
               validations={[
                 {
-                  rule: (val) => (form.values.ports || [])
-                    .filter((x) => x.number === val).length <= 1,
+                  rule: (val) => (form.values.ports || []).filter((x) => x.number === val)
+                    .length <= 1,
                   deps: [JSON.stringify(form.values.ports)],
                   message: 'Must be unique',
                 },

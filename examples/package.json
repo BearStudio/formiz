@@ -3,9 +3,10 @@
   "version": "1.0.0-rc.28",
   "private": true,
   "dependencies": {
-    "@chakra-ui/core": "1.0.0-rc.8",
-    "@chakra-ui/icons": "1.0.0-rc.8",
-    "@chakra-ui/theme": "1.0.0-rc.8",
+    "@chakra-ui/react": "1.0.1",
+    "@chakra-ui/icons": "1.0.1",
+    "@emotion/react": "11.1.1",
+    "@emotion/styled": "11.0.0",
     "@formiz/core": "^1.0.0-rc.28",
     "@formiz/validations": "^1.0.0-rc.26",
     "framer-motion": "2.9.4",
@@ -14,7 +15,7 @@
     "react-dom": "16.13.1",
     "react-icons": "3.11.0",
     "react-router-dom": "5.2.0",
-    "react-scripts": "4.0.0",
+    "react-scripts": "4.0.1",
     "uuid": "8.3.1"
   },
   "devDependencies": {

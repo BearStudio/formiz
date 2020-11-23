@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
-import { Button, Flex } from '@chakra-ui/core';
+import { Button, Flex } from '@chakra-ui/react';
 import { FieldPickIdenticalImages } from '../components/Fields/FieldPickIdenticalImages';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
@@ -16,15 +16,9 @@ export const ExoticFields = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-      autoForm
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm>
       <PageLayout>
-        <PageHeader githubPath="ExoticFields.js">
-          Exotic Fields
-        </PageHeader>
+        <PageHeader githubPath="ExoticFields.js">Exotic Fields</PageHeader>
 
         <FieldPickIdenticalImages
           mb="12"
@@ -60,7 +54,11 @@ export const ExoticFields = () => {
           name="slider"
           label="Slider field"
           required="Need some number here"
-          helper={(<>Try <strong>7</strong> or <strong>66</strong> to see some errors </>)}
+          helper={(
+            <>
+              Try <strong>7</strong> or <strong>66</strong> to see some errors{' '}
+            </>
+          )}
           validations={[
             {
               rule: (val) => val !== 0,

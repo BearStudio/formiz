@@ -11,7 +11,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 
@@ -45,14 +45,7 @@ export const FieldSlider = (props) => {
   } = useField(props);
   const { required, name } = props;
   const {
-    children,
-    label,
-    type,
-    helper,
-    min,
-    max,
-    step,
-    ...rest
+    children, label, type, helper, min, max, step, ...rest
   } = otherProps;
   const [isTouched, setIsTouched] = useState(false);
   const showError = !isValid && (isTouched || isSubmitted);

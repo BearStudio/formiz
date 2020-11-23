@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 import { useDarkTheme } from '../hooks/isDarkTheme';
 import { useNavBarContext } from './NavBarContext';
 
@@ -36,12 +36,16 @@ export const MenuItem = ({
       fontWeight="bold"
       borderLeft={direction === 'left' ? '3px solid transparent' : null}
       borderRight={direction === 'right' ? '3px solid transparent' : null}
-      borderColor={isActive
-        ? (isDarkTheme ? 'gray.200' : 'gray.700')
-        : null}
-      color={isActive
-        ? (isDarkTheme ? 'gray.200' : 'gray.700')
-        : (isDarkTheme ? 'gray.400' : 'gray.500')}
+      borderColor={isActive ? (isDarkTheme ? 'gray.200' : 'gray.700') : null}
+      color={
+        isActive
+          ? isDarkTheme
+            ? 'gray.200'
+            : 'gray.700'
+          : isDarkTheme
+            ? 'gray.400'
+            : 'gray.500'
+      }
       transition="0.2s"
       textAlign={direction === 'left' ? 'left' : 'right'}
       _hover={{

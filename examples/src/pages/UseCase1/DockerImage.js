@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FormizStep, useForm } from '@formiz/core';
-import {
-  Checkbox, Link, Code,
-} from '@chakra-ui/core';
+import { Checkbox, Link, Code } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { FieldSelect } from '../../components/Fields/FieldSelect';
@@ -23,19 +21,17 @@ export const DockerImage = () => {
         required="Required"
         helper={(
           <>
-            Use
-            {' '}
-            <Link href="https://hub.docker.com" color="brand.600" fontWeight="bold" isExternal>
+            Use{' '}
+            <Link
+              href="https://hub.docker.com"
+              color="brand.600"
+              fontWeight="bold"
+              isExternal
+            >
               Docker hub
               <ExternalLinkIcon mx="1" mb="1" />
-            </Link>
-            {' '}
-            image like
-            {' '}
-            <Code colorScheme="brand">ubuntu</Code>
-            {' '}
-            or
-            {' '}
+            </Link>{' '}
+            image like <Code colorScheme="brand">ubuntu</Code> or{' '}
             <Code colorScheme="brand">saagie/design-system</Code>
           </>
         )}

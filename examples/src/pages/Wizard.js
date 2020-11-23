@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
-import { Button, Grid, Box } from '@chakra-ui/core';
+import { Button, Grid, Box } from '@chakra-ui/react';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
@@ -21,7 +21,11 @@ export const Wizard = () => {
    */
   const handleSubmitStep = async (event) => {
     event.preventDefault();
-    if (!form.currentStep || !form.currentStep.isValid || !form.currentStep.name) {
+    if (
+      !form.currentStep
+      || !form.currentStep.isValid
+      || !form.currentStep.name
+    ) {
       form.submitStep();
       return;
     }
@@ -52,24 +56,12 @@ export const Wizard = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
-        <form
-          noValidate
-          onSubmit={handleSubmitStep}
-        >
-          <PageHeader githubPath="Wizard.js">
-            Wizard
-          </PageHeader>
+        <form noValidate onSubmit={handleSubmitStep}>
+          <PageHeader githubPath="Wizard.js">Wizard</PageHeader>
           <FormizStep name="step1">
-            <FieldInput
-              name="name"
-              label="Name"
-              required="Required"
-            />
+            <FieldInput name="name" label="Name" required="Required" />
           </FormizStep>
           <FormizStep name="step2">
             <FieldInput
@@ -86,18 +78,12 @@ export const Wizard = () => {
             />
           </FormizStep>
           <FormizStep name="step3">
-            <FieldInput
-              name="company"
-              label="Company"
-            />
+            <FieldInput name="company" label="Company" />
           </FormizStep>
           {!!form.steps.length && (
             <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
               {!form.isFirstStep && (
-                <Button
-                  gridColumn="1"
-                  onClick={form.prevStep}
-                >
+                <Button gridColumn="1" onClick={form.prevStep}>
                   Previous
                 </Button>
               )}

@@ -3,8 +3,13 @@ import React from 'react';
 import { Formiz, useForm, FormizStep } from '@formiz/core';
 import { isEmail } from '@formiz/validations';
 import {
-  Button, Box, Heading, Stack, AspectRatio, Grid,
-} from '@chakra-ui/core';
+  Button,
+  Box,
+  Heading,
+  Stack,
+  AspectRatio,
+  Grid,
+} from '@chakra-ui/react';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { PageLayout } from '../layout/PageLayout';
@@ -18,12 +23,7 @@ const PreviousButton = (props) => {
   }
 
   return (
-    <Button
-      size="sm"
-      onClick={form.prevStep}
-      variant="ghost"
-      {...props}
-    >
+    <Button size="sm" onClick={form.prevStep} variant="ghost" {...props}>
       Previous
     </Button>
   );
@@ -50,11 +50,7 @@ const NextButton = (props) => {
 // eslint-disable-next-line react/prop-types
 const StepperWrapper = ({ title, children, ...rest }) => (
   <Stack {...rest}>
-    {title && (
-      <Heading fontSize="md">
-        {title}
-      </Heading>
-    )}
+    {title && <Heading fontSize="md">{title}</Heading>}
     <Box bg="gray.50" p="4" borderRadius="md">
       <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
         <Box>
@@ -73,13 +69,7 @@ const SimpleStepper = (props) => {
   const form = useForm({ subscribe: 'form' });
 
   return (
-    <Box
-      flex="1"
-      textAlign="center"
-      fontSize="sm"
-      color="gray.500"
-      {...props}
-    >
+    <Box flex="1" textAlign="center" fontSize="sm" color="gray.500" {...props}>
       Step {form.currentStep.index + 1} / {form.steps.length}
     </Box>
   );
@@ -99,33 +89,39 @@ const DotsStepper = (props) => {
       {...props}
     >
       {form.steps.map((step) => {
-        const inactiveProps = !step.isVisited ? {
-          bg: 'gray.100',
-          color: 'gray.400',
-        } : {};
+        const inactiveProps = !step.isVisited
+          ? {
+            bg: 'gray.100',
+            color: 'gray.400',
+          }
+          : {};
 
-        const visitedProps = step.isVisited && !step.isCurrent ? {
-          bg: 'white',
-          color: 'brand.500',
-          borderColor: 'currentColor',
-          as: 'button',
-          type: 'button',
-          onClick: () => form.goToStep(step.name),
-          _hover: {
+        const visitedProps = step.isVisited && !step.isCurrent
+          ? {
+            bg: 'white',
+            color: 'brand.500',
+            borderColor: 'currentColor',
+            as: 'button',
+            type: 'button',
+            onClick: () => form.goToStep(step.name),
+            _hover: {
+              bg: 'brand.500',
+              color: 'white',
+              borderColor: 'brand.500',
+            },
+            _focus: {
+              boxShadow: 'outline',
+            },
+          }
+          : {};
+
+        const currentProps = step.isCurrent
+          ? {
+            zIndex: 1,
             bg: 'brand.500',
             color: 'white',
-            borderColor: 'brand.500',
-          },
-          _focus: {
-            boxShadow: 'outline',
-          },
-        } : {};
-
-        const currentProps = step.isCurrent ? {
-          zIndex: 1,
-          bg: 'brand.500',
-          color: 'white',
-        } : {};
+          }
+          : {};
 
         return (
           <AspectRatio key={step.name} w="6" ratio={1}>
@@ -138,18 +134,25 @@ const DotsStepper = (props) => {
               fontSize="xs"
               overflow="visible"
               transition="0.2s"
-              _after={step.index !== 0 ? {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                mt: '-1px',
-                mr: '2px',
-                top: '50%',
-                right: '100%',
-                bg: step.isVisited || step.isCurrent ? 'brand.500' : 'gray.100',
-                h: '2px',
-                w: spacing,
-              } : null}
+              _after={
+                step.index !== 0
+                  ? {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    mt: '-1px',
+                    mr: '2px',
+                    top: '50%',
+                    right: '100%',
+                    bg:
+                        step.isVisited || step.isCurrent
+                          ? 'brand.500'
+                          : 'gray.100',
+                    h: '2px',
+                    w: spacing,
+                  }
+                  : null
+              }
               {...inactiveProps}
               {...visitedProps}
               {...currentProps}
@@ -177,23 +180,12 @@ export const Steppers = () => {
   };
 
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-    >
+    <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
-        <form
-          noValidate
-          onSubmit={form.submitStep}
-        >
-          <PageHeader githubPath="Steppers.js">
-            Steppers
-          </PageHeader>
+        <form noValidate onSubmit={form.submitStep}>
+          <PageHeader githubPath="Steppers.js">Steppers</PageHeader>
           <FormizStep name="step1">
-            <FieldInput
-              name="name"
-              label="Name"
-            />
+            <FieldInput name="name" label="Name" />
           </FormizStep>
           <FormizStep name="step2">
             <FieldInput
@@ -209,16 +201,10 @@ export const Steppers = () => {
             />
           </FormizStep>
           <FormizStep name="step3">
-            <FieldInput
-              name="company"
-              label="Company"
-            />
+            <FieldInput name="company" label="Company" />
           </FormizStep>
           <FormizStep name="step4">
-            <FieldInput
-              name="job"
-              label="Job"
-            />
+            <FieldInput name="job" label="Job" />
           </FormizStep>
 
           <Stack spacing="6" mt="8">
@@ -229,7 +215,6 @@ export const Steppers = () => {
               <DotsStepper />
             </StepperWrapper>
           </Stack>
-
         </form>
       </PageLayout>
     </Formiz>

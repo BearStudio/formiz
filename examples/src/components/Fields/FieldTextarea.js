@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Textarea,
-} from '@chakra-ui/core';
+import { Textarea } from '@chakra-ui/react';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 

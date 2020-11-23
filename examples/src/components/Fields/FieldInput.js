@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Input, InputGroup, InputRightElement, Spinner,
-} from '@chakra-ui/core';
+  Input,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+} from '@chakra-ui/react';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 

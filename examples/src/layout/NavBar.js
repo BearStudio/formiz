@@ -11,7 +11,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { FaBars } from 'react-icons/fa';
 import logo from './logo.svg';
 import { Menu } from './Menu';
@@ -50,11 +50,7 @@ export const NavBar = () => {
           align="flex-end"
           mb={{ lg: 6 }}
         >
-          <Image
-            src={logo}
-            alt="Formiz"
-            w={{ base: '8rem', lg: '10rem' }}
-          />
+          <Image src={logo} alt="Formiz" w={{ base: '8rem', lg: '10rem' }} />
           <Box
             fontWeight="bold"
             textTransform="uppercase"

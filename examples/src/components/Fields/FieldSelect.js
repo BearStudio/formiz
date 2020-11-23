@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Select,
-} from '@chakra-ui/core';
+import { Select } from '@chakra-ui/react';
 import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
 import { FormGroup } from '../FormGroup';
 

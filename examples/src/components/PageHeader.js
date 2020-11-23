@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Button, Heading, Link, Box,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { useForm } from '@formiz/core';
 

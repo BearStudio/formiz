@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {
   ChakraProvider, CSSReset, Box, Flex,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 
 import theme from './theme';
 import { NavBar } from './layout/NavBar';
@@ -20,7 +20,12 @@ function App() {
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <CSSReset />
-        <Flex minH="100vh" m="auto" overflow="hidden" flexDirection={{ base: 'column', lg: 'row' }}>
+        <Flex
+          minH="100vh"
+          m="auto"
+          overflow="hidden"
+          flexDirection={{ base: 'column', lg: 'row' }}
+        >
           <NavBar />
           <Box flex="1" w="100%" position="relative">
             <Route path="/" exact>

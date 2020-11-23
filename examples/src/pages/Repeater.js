@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { Formiz, useForm } from '@formiz/core';
 import {
   Button, Flex, Stack, IconButton, Box,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
@@ -13,11 +13,11 @@ import { useToastValues } from '../hooks/useToastValues';
 
 const defaultCollection = [
   {
-    id: uuidv4(),
+    id: uuid(),
     name: 'Default name',
   },
   {
-    id: uuidv4(),
+    id: uuid(),
   },
 ];
 
@@ -38,7 +38,7 @@ export const Repeater = () => {
     setCollection((c) => [
       ...c,
       {
-        id: uuidv4(),
+        id: uuid(),
       },
     ]);
   };
@@ -47,7 +47,7 @@ export const Repeater = () => {
     setCollection((c) => [
       ...c.slice(0, index + 1),
       {
-        id: uuidv4(),
+        id: uuid(),
       },
       ...c.slice(index + 1),
     ]);
@@ -70,17 +70,18 @@ export const Repeater = () => {
       }}
     >
       <PageLayout>
-        <form
-          noValidate
-          onSubmit={form.submit}
-        >
-          <PageHeader githubPath="Repeater.js">
-            Repeater
-          </PageHeader>
+        <form noValidate onSubmit={form.submit}>
+          <PageHeader githubPath="Repeater.js">Repeater</PageHeader>
 
           <Box>
             {collection.map(({ id, name }, index) => (
-              <Stack key={id} direction="row" spacing="4" mb="6" data-test={`repeater-item[${index}]`}>
+              <Stack
+                key={id}
+                direction="row"
+                spacing="4"
+                mb="6"
+                data-test={`repeater-item[${index}]`}
+              >
                 <Box transform="translateY(4rem)">
                   <IconButton
                     aria-label="Add"
@@ -89,7 +90,9 @@ export const Repeater = () => {
                     onClick={() => addItemAtIndex(index)}
                     variant="ghost"
                     isDisabled={collection.length > 20}
-                    pointerEvents={index + 1 >= collection.length ? 'none' : null}
+                    pointerEvents={
+                      index + 1 >= collection.length ? 'none' : null
+                    }
                     opacity={index + 1 >= collection.length ? 0 : null}
                   />
                 </Box>

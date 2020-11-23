@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from '@formiz/core';
-import { Box, Grid, Button } from '@chakra-ui/core';
+import { Box, Grid, Button } from '@chakra-ui/react';
 import { PageLayout } from '../layout/PageLayout';
 
 const propTypes = {
@@ -26,19 +26,13 @@ export const MultiStepsLayout = ({
 
   return (
     <PageLayout {...props}>
-      <form
-        noValidate
-        onSubmit={hasSteps ? form.submitStep : form.submit}
-      >
+      <form noValidate onSubmit={hasSteps ? form.submitStep : form.submit}>
         {children}
 
         {hasSteps && (
           <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
             {!form.isFirstStep && (
-              <Button
-                gridColumn="1"
-                onClick={form.prevStep}
-              >
+              <Button gridColumn="1" onClick={form.prevStep}>
                 Previous
               </Button>
             )}

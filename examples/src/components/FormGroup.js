@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormErrorMessage,
   Text,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { WarningIcon } from '@chakra-ui/icons';
 
 const propTypes = {
@@ -37,11 +37,7 @@ export const FormGroup = ({
   ...props
 }) => (
   <FormControl mb="6" isInvalid={showError} isRequired={isRequired} {...props}>
-    {!!label && (
-      <FormLabel htmlFor={id}>
-        {label}
-      </FormLabel>
-    )}
+    {!!label && <FormLabel htmlFor={id}>{label}</FormLabel>}
     {!!helper && (
       <Text color="gray.500" fontSize="sm" mt="0" mb="3">
         {helper}
@@ -50,7 +46,7 @@ export const FormGroup = ({
     {children}
     <FormErrorMessage id={`${id}-error`}>
       <WarningIcon mr="2" />
-      { errorMessage }
+      {errorMessage}
     </FormErrorMessage>
   </FormControl>
 );
