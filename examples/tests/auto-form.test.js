@@ -1,11 +1,11 @@
 Feature('auto-form');
 
-Before((I) => {
+Before(({ I }) => {
   I.amOnPage('/');
   I.seePageTitle('Auto form');
 });
 
-Scenario('Simple Case', (I) => {
+Scenario('Simple Case', ({ I }) => {
   I.fill('name', 'John');
   I.fill('email', 'john@company.com');
 
@@ -15,7 +15,7 @@ Scenario('Simple Case', (I) => {
   I.seeFormSuccess();
 });
 
-Scenario('Error Email', (I) => {
+Scenario('Error Email', ({ I }) => {
   I.fill('email', 'john@company');
 
   I.submitForm();
@@ -23,14 +23,14 @@ Scenario('Error Email', (I) => {
   I.seeFieldError('email', 'Not a valid email');
 });
 
-Scenario('Show errors', (I) => {
+Scenario('Show errors', ({ I }) => {
   I.submitForm();
 
   I.seeFieldError('name', 'Required');
   I.seeFieldError('email', 'Required');
 });
 
-Scenario('invalidateFields()', (I) => {
+Scenario('invalidateFields()', ({ I }) => {
   I.fill('name', 'John');
   I.fill('email', 'john@company.com');
 
@@ -41,7 +41,7 @@ Scenario('invalidateFields()', (I) => {
   I.seeElement('button[type="submit"][disabled]');
 });
 
-Scenario('setFieldsValues()', (I) => {
+Scenario('setFieldsValues()', ({ I }) => {
   I.fill('name', 'John');
   I.fill('company', 'Formiz');
   I.click('Fill with');

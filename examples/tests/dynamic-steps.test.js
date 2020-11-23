@@ -1,11 +1,11 @@
 Feature('dynamic steps');
 
-Before((I) => {
+Before(({ I }) => {
   I.amOnPage('/dynamic-steps');
   I.seePageTitle('Dynamic Steps');
 });
 
-Scenario('Simple Case', (I) => {
+Scenario('Simple Case', ({ I }) => {
   I.see('1 / 4');
   I.goNextStep();
   I.goNextStep();
@@ -15,7 +15,7 @@ Scenario('Simple Case', (I) => {
   I.seeFormSuccess();
 });
 
-Scenario('Increment steps', (I) => {
+Scenario('Increment steps', ({ I }) => {
   I.see('1 / 4');
   I.fill('count', 3);
   I.see('1 / 5');
@@ -28,7 +28,7 @@ Scenario('Increment steps', (I) => {
   I.seeFormSuccess();
 });
 
-Scenario('Decrement steps', (I) => {
+Scenario('Decrement steps', ({ I }) => {
   I.see('1 / 4');
   I.fill('count', 1);
   I.see('1 / 3');
