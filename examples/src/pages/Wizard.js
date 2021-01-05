@@ -30,7 +30,7 @@ export const Wizard = () => {
           noValidate
           onSubmit={form.submitStep}
         >
-          <PageHeader githubPath="Wizard.js">
+          <PageHeader githubPath="Wizard.tsx">
             Wizard
           </PageHeader>
           <FormizStep name="step1">

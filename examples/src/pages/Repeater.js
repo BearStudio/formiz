@@ -66,7 +66,7 @@ export const Repeater = () => {
           noValidate
           onSubmit={form.submit}
         >
-          <PageHeader githubPath="Repeater.js">
+          <PageHeader githubPath="Repeater.tsx">
             Repeater
           </PageHeader>
 

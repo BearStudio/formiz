@@ -34,7 +34,7 @@ export const LotOfFields = () => {
           noValidate
           onSubmit={form.submitStep}
         >
-          <PageHeader githubPath="LotOfFields.js">
+          <PageHeader githubPath="LotOfFields.tsx">
             Lot of fields
           </PageHeader>
           <FormizStep name="step1">

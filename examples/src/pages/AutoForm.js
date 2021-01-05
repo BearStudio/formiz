@@ -26,7 +26,7 @@ export const AutoForm = () => {
       autoForm
     >
       <PageLayout>
-        <PageHeader githubPath="AutoForm.js">
+        <PageHeader githubPath="AutoForm.tsx">
           Auto form
         </PageHeader>
         <FieldInput

@@ -22,7 +22,7 @@ export const ExoticFields = () => {
       autoForm
     >
       <PageLayout>
-        <PageHeader githubPath="ExoticFields.js">
+        <PageHeader githubPath="ExoticFields.tsx">
           Exotic Fields
         </PageHeader>
 
