@@ -29,7 +29,7 @@ export const DynamicSteps = () => {
     <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
         <form noValidate onSubmit={form.submitStep}>
-          <PageHeader githubPath="DynamicSteps.js">Dynamic Steps</PageHeader>
+          <PageHeader githubPath="DynamicSteps.tsx">Dynamic Steps</PageHeader>
           <FormizStep name="start" order={1000}>
             <FieldInput
               name="count"

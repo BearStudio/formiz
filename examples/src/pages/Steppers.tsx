@@ -184,7 +184,7 @@ export const Steppers = () => {
     <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
         <form noValidate onSubmit={form.submitStep}>
-          <PageHeader githubPath="Steppers.js">Steppers</PageHeader>
+          <PageHeader githubPath="Steppers.tsx">Steppers</PageHeader>
           <FormizStep name="step1">
             <FieldInput name="name" label="Name" />
           </FormizStep>
