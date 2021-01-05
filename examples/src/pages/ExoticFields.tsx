@@ -18,7 +18,7 @@ export const ExoticFields = () => {
   return (
     <Formiz connect={form} onValidSubmit={handleSubmit} autoForm>
       <PageLayout>
-        <PageHeader githubPath="ExoticFields.js">Exotic Fields</PageHeader>
+        <PageHeader githubPath="ExoticFields.tsx">Exotic Fields</PageHeader>
 
         <FieldPickIdenticalImages
           mb="12"

@@ -22,7 +22,7 @@ export const AutoForm = () => {
   return (
     <Formiz connect={form} onValidSubmit={handleSubmit} autoForm>
       <PageLayout>
-        <PageHeader githubPath="AutoForm.js">Auto form</PageHeader>
+        <PageHeader githubPath="AutoForm.tsx">Auto form</PageHeader>
         <FieldInput
           name="name"
           label="Name"

@@ -30,7 +30,7 @@ export const LotOfFields = () => {
     <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
         <form noValidate onSubmit={form.submitStep}>
-          <PageHeader githubPath="LotOfFields.js">Lot of fields</PageHeader>
+          <PageHeader githubPath="LotOfFields.tsx">Lot of fields</PageHeader>
           <FormizStep name="step1">
             {[...Array(FIELDS_BY_STEP)].map((_x, index) => (
               <FieldInput

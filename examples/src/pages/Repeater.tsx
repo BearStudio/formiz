@@ -71,7 +71,7 @@ export const Repeater = () => {
     >
       <PageLayout>
         <form noValidate onSubmit={form.submit}>
-          <PageHeader githubPath="Repeater.js">Repeater</PageHeader>
+          <PageHeader githubPath="Repeater.tsx">Repeater</PageHeader>
 
           <Box>
             {collection.map(({ id, name }, index) => (

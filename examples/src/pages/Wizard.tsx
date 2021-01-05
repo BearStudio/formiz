@@ -61,7 +61,7 @@ export const Wizard = () => {
     <Formiz connect={form} onValidSubmit={handleSubmit}>
       <PageLayout>
         <form noValidate onSubmit={handleSubmitStep}>
-          <PageHeader githubPath="Wizard.js">Wizard</PageHeader>
+          <PageHeader githubPath="Wizard.tsx">Wizard</PageHeader>
           <FormizStep name="step1">
             <FieldInput name="name" label="Name" required="Required" />
           </FormizStep>
