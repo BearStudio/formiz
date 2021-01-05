@@ -18,6 +18,8 @@
     "uuid": "8.3.1"
   },
   "devDependencies": {
+    "@babel/helper-builder-react-jsx": "7.10.4",
+    "@babel/helper-regex": "7.10.5",
     "@codeceptjs/ui": "0.4.2",
     "@types/jest": "26.0.16",
     "@types/node": "14.14.10",
