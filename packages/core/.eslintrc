@@ -1,0 +1,7 @@
+{
+  "extends": "../../.eslintrc",
+  "rules": {
+    "import/extensions": "off",
+    "prettier/prettier": "off"
+  }
+}

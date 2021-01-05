@@ -4,7 +4,7 @@ Core package for the [Formiz](https://formiz-react.com) library.
 
 ## 📚 Full documentation
 
-Full documentation & demos: [formiz-react.com](https://formiz-react.com)
+Full documentation: [formiz-react.com](https://formiz-react.com)
 
 ## Install
 

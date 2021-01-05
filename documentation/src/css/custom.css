@@ -1,0 +1,63 @@
+@import 'fonts/barlow.css';
+@import 'tailwind.min.css';
+
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #48bb78;
+  --ifm-color-primary-dark: #3faa6c;
+  --ifm-color-primary-darker: #3ca166;
+  --ifm-color-primary-darkest: #318454;
+  --ifm-color-primary-light: #5bc286;
+  --ifm-color-primary-lighter: #64c68d;
+  --ifm-color-primary-lightest: #81d0a2;
+  --ifm-font-size-base: 110%;
+  --ifm-code-font-size: 80%;
+
+  --ifm-container-width: 60rem;
+
+  --color-warning: #F6E05E;
+  --color-warning-dark: #744210;
+
+  --ifm-hr-margin-vertical: 4rem;
+  --ifm-hr-border-color: #edf2f7;
+
+  --ifm-font-family-base: 'Barlow', sans-serif;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(72, 187, 120, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+.container {
+  max-width: 1000px !important;
+}
+
+[class^="docTitle"] {
+  font-size: 2.2rem !important;
+}
+
+.markdown > h1 {
+  --ifm-h2-font-size: 2.2rem;
+}
+
+.markdown > h2 {
+  --ifm-h2-font-size: 1.6rem;
+}
+
+.markdown > h3 {
+  --ifm-h3-font-size: 1.4rem;
+}
+
+.markdown > h4 {
+  --ifm-h4-font-size: 1.2rem;
+}
