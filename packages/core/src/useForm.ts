@@ -2,21 +2,19 @@ import {
   useCallback, useState, useRef, useEffect,
 } from 'react';
 import { Subscription } from 'rxjs';
+import { defaultFormMethods, defaultFormState, useFormContext } from './Formiz';
 import {
-  defaultFormMethods,
-  defaultFormState,
-  useFormContext,
-} from './Formiz';
-import {
-  getFormFields, getFormValues, getFormFlatValues, useRefValue,
+  getFormFields,
+  getFormValues,
+  getFormFlatValues,
+  useRefValue,
 } from './utils';
-import {
-  FormFields,
-  UseFormProps,
-  UseFormValues,
-} from './types/form.types';
+import { FormFields, UseFormProps, UseFormValues } from './types/form.types';
 
-const shouldSubscribe = (subscribe: UseFormProps['subscribe'], key: 'form' | 'fields') => {
+const shouldSubscribe = (
+  subscribe: UseFormProps['subscribe'],
+  key: 'form' | 'fields',
+) => {
   if (subscribe === true) {
     return true;
   }
@@ -43,60 +41,64 @@ export const useForm = ({
     formStateRef, fieldsRef, formMethods, subjects,
   } = useFormContext();
   const [methods, setMethods] = useState(formMethods || defaultFormMethods);
-  const [localFormState, setLocalFormState] = useState(formStateRef?.current ?? defaultFormState);
-  const [localFields, setLocalFields] = useState<FormFields>(fieldsRef?.current ?? []);
+  const [localFormState, setLocalFormState] = useState(
+    formStateRef?.current ?? defaultFormState,
+  );
+  const [localFields, setLocalFields] = useState<FormFields>(
+    fieldsRef?.current ?? [],
+  );
   const localFieldsRef = useRefValue(localFields);
   const subjectsRef = useRefValue(subjects);
   const subscriptionsRef = useRef<Array<Subscription>>([]);
   const subjectsFromConnectRef = useRef<any>();
 
-  const subscribeOnFormUpdate = useCallback((subject: any) => {
-    if (!subject || !shouldSubscribe(subscribe, 'form')) {
-      return;
-    }
-    const subscription = subject
-      .subscription
-      .subscribe(setLocalFormState);
-    subscriptionsRef.current.push(subscription);
-  }, [subscribe, setLocalFormState, subscriptionsRef]);
+  const subscribeOnFormUpdate = useCallback(
+    (subject: any) => {
+      if (!subject || !shouldSubscribe(subscribe, 'form')) {
+        return;
+      }
+      const subscription = subject.subscription.subscribe(setLocalFormState);
+      subscriptionsRef.current.push(subscription);
+    },
+    [subscribe],
+  );
 
-  const subscribeOnFieldsUpdate = useCallback((subject: any) => {
-    if (!subject || !shouldSubscribe(subscribe, 'fields')) {
-      return;
-    }
+  const subscribeOnFieldsUpdate = useCallback(
+    (subject: any) => {
+      if (!subject || !shouldSubscribe(subscribe, 'fields')) {
+        return;
+      }
 
-    const subscribeFields = typeof subscribe === 'object' && typeof subscribe.fields === 'object' ? subscribe.fields : null;
-    const subscription = subject
-      .subscription
-      .subscribe((nextFields: FormFields) => {
-        const nextState = subscribeFields
-          ? nextFields.filter((x) => subscribeFields.includes(x.name))
-          : nextFields;
+      const subscribeFields = typeof subscribe === 'object' && typeof subscribe.fields === 'object'
+        ? subscribe.fields
+        : null;
+      const subscription = subject.subscription.subscribe(
+        (nextFields: FormFields) => {
+          const nextState = subscribeFields
+            ? nextFields.filter((x) => subscribeFields.includes(x.name))
+            : nextFields;
 
-        if (JSON.stringify(localFieldsRef.current) === JSON.stringify(nextState)) {
-          return;
-        }
-
-        setLocalFields(nextState);
-      });
-    subscriptionsRef.current.push(subscription);
-  }, [subscribe, subscriptionsRef, localFieldsRef]);
-
-  // Clear all subscriptions at unmount
-  useEffect(() => () => {
-    subscriptionsRef.current.forEach((subscription) => subscription?.unsubscribe());
-  }, [subscriptionsRef]);
+          if (JSON.stringify(localFieldsRef.current) === JSON.stringify(nextState)) {
+            return;
+          }
+          setLocalFields(nextState);
+        },
+      );
+      subscriptionsRef.current.push(subscription);
+    },
+    [subscribe, localFieldsRef],
+  );
 
   // Use the connect property to retrieve the state
-  const connect = useCallback(({
-    formMethods: _formMethods,
-    subjects: _subjects,
-  }) => {
-    setMethods(_formMethods);
-    subjectsFromConnectRef.current = _subjects;
-  }, [setMethods, subjectsFromConnectRef]);
+  const connect = useCallback(
+    ({ formMethods: _formMethods, subjects: _subjects }) => {
+      setMethods(_formMethods);
+      subjectsFromConnectRef.current = _subjects;
+    },
+    [],
+  );
 
-  // Subscribe (if not used with connect)
+  // Subscribe
   useEffect(() => {
     const onFormUpdate = subjectsFromConnectRef?.current?.onFormUpdate
       || subjectsRef.current?.onFormUpdate;
@@ -104,11 +106,14 @@ export const useForm = ({
       || subjectsRef.current?.onFieldsUpdate;
     subscribeOnFormUpdate(onFormUpdate);
     subscribeOnFieldsUpdate(onFieldsUpdate);
-  }, [subjectsRef, subscribeOnFormUpdate, subscribeOnFieldsUpdate, subjectsFromConnectRef]);
 
-  const checkIsCurrentStep = (name: string) => (
-    name === (localFormState.navigatedStepName || localFormState.initialStepName)
-  );
+    // Clear all subscriptions
+    const subscriptionsRefCurrent = subscriptionsRef.current;
+    return () => subscriptionsRefCurrent.forEach((subscription) => subscription?.unsubscribe());
+  }, [subjectsRef, subscribeOnFormUpdate, subscribeOnFieldsUpdate, methods]);
+
+  const checkIsCurrentStep = (name: string) => name
+    === (localFormState.navigatedStepName || localFormState.initialStepName);
 
   const enabledSteps = localFormState.steps
     .filter((x) => x.isEnabled)
@@ -133,9 +138,7 @@ export const useForm = ({
     }))
     .map((x, index) => ({ ...x, index }));
 
-  const currentStep = enabledSteps
-    .find((x) => checkIsCurrentStep(x.name))
-    || null;
+  const currentStep = enabledSteps.find((x) => checkIsCurrentStep(x.name)) || null;
 
   return {
     ...methods,
