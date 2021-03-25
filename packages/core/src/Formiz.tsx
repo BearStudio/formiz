@@ -1,5 +1,6 @@
 import * as React from 'react';
 import omit from 'lodash/omit';
+import cloneDeep from 'lodash/cloneDeep';
 import {
   useEffect, useRef, useContext,
 } from 'react';
@@ -67,7 +68,7 @@ export const Formiz: React.FC<FormizProps> = ({
   });
   const fieldsRef = useRef<FormFields>([]);
   const keepValuesRef = useRef<KeepValues>({});
-  const initialValuesRef = useRef<InitialValues>({ ...initialValues });
+  const initialValuesRef = useRef<InitialValues>(cloneDeep(initialValues));
   const connectRef = useRefValue(connect.__connect__ || (() => {}));
   const onChangeRef = useRefValue(onChange);
   const onSubmitRef = useRefValue(onSubmit);
@@ -292,7 +293,7 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const reset = (): void => {
     keepValuesRef.current = {};
-    initialValuesRef.current = { ...initialValues };
+    initialValuesRef.current = cloneDeep(initialValues);
     updateFormState(formActions.resetForm(formStateRef.current));
     onReset.push();
   };

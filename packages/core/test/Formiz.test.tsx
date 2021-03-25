@@ -37,6 +37,20 @@ describe('<Formiz />', () => {
     ));
   });
 
+  it('Should not mutate initialValues', async () => {
+    const initialValues = { value: 'value', nested: [{ value: 'value0' }, { value: 'value1' }] };
+    const initialValuesCopy = JSON.stringify(initialValues);
+    render((
+      <Formiz initialValues={initialValues}>
+        <Field name="value" />
+        <Field name="nested[0].value" />
+        <Field name="nested[1].value" />
+      </Formiz>
+    ));
+
+    await waitFor(() => expect(JSON.stringify(initialValues)).toBe(initialValuesCopy));
+  });
+
   it('Should be valid if all fields are valid', async () => {
     let isFormValid: any = null;
     const mockValid = jest.fn(() => { isFormValid = true; });
