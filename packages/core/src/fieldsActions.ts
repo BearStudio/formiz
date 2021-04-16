@@ -58,7 +58,7 @@ export const setFieldsValues = (
 
   const newFields = fields.map((field: Field) => ({
     ...field,
-    value: objectOfValues[field.name] ?? field.value,
+    value: objectOfValues[field.name] !== undefined ? objectOfValues[field.name] : field.value,
   }));
 
   return [...newFields];
