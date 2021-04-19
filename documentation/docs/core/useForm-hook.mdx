@@ -339,7 +339,7 @@ Returns true if all the fields are pristine on the current step.
 
 ```jsx
 const myForm = useForm()
-myForm.isStepValid // true or false
+myForm.isStepPristine // true or false
 ```
 
 
@@ -358,7 +358,7 @@ Returns true if one field or more is running async validations on the current st
 
 ```jsx
 const myForm = useForm()
-myForm.isStepValid // true or false
+myForm.isStepValidating // true or false
 ```
 
 ### isStepSubmitted
