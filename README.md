@@ -94,7 +94,7 @@ yarn
 
 ### Bootstrap the repo with Lerna
 
-This is needed the ** the first time** you get the project to link local packages together.
+This is needed the **the first time** you get the project to link local packages together.
 
 ```
 yarn bs
