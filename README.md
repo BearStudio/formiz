@@ -86,7 +86,7 @@ Follow the flowing guide to run the project locally.
 
 This project use [Yarn](https://yarnpkg.com) and [Lerna](https://lerna.js.org/).
 
-This is needed the ** the first time** you get the project to install all dependencies.
+This is needed the **the first time** you get the project to install all dependencies.
 
 ```
 yarn
@@ -94,7 +94,7 @@ yarn
 
 ### Bootstrap the repo with Lerna
 
-This is needed the ** the first time** you get the project to link local packages together.
+This is needed the **the first time** you get the project to link local packages together.
 
 ```
 yarn bs
