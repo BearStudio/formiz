@@ -171,7 +171,7 @@ invalidateFields({
 })
 ```
 
-### setFieldsValues(objectOfValues)
+### setFieldsValues(objectOfValues, options)
 
 Allow you to change the value of one or many fields imperatively.<br />
 Useful to change one or many values based on an external action.
@@ -183,6 +183,34 @@ setFieldsValues({
   'fieldName': 'New value',
   'secondFieldName': 'Another new value',
 })
+```
+#### Options
+
+##### keepUnmounted
+
+Set to `true` to keep the values of unmounted fields.
+The values will be used as initial values on the next mount of each fields.
+(default is `false`).
+
+```jsx
+// Fields logic
+<FieldInput
+  name="fieldA"
+  label="Field A"
+/>
+{form.values?.fieldA === 'hello' && (
+  <FieldInput
+    name="fieldB"
+    label="Field B"
+  />
+)}
+```
+```js
+// setFieldsValues
+form.setFieldsValues(
+  { fieldA: 'hello', fieldB: 'world' },
+  { keepUnmounted: true }
+)
 ```
 
 ### reset()

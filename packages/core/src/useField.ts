@@ -55,6 +55,7 @@ export const useField = ({
     actions,
     subjects,
     keepValuesRef,
+    fromSetFieldsValuesRef,
     initialValuesRef,
   } = useFormContext();
 
@@ -69,9 +70,15 @@ export const useField = ({
   const stepName = stepContext?.name;
 
   const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
-  const initValue = keepValuesRef.current?.[name]
-    ?? get(initialValuesRef?.current, name)
-    ?? defaultValue;
+  const initValue = (() => {
+    if (fromSetFieldsValuesRef?.current?.[name] !== undefined) {
+      return fromSetFieldsValuesRef?.current?.[name];
+    }
+    if (keepValuesRef.current?.[name] !== undefined) {
+      return keepValuesRef.current?.[name];
+    }
+    return get(initialValuesRef?.current, name) ?? defaultValue;
+  })();
   const [state, setState] = useState<FieldState>({
     id: getFieldUniqueId(),
     resetKey: 0,

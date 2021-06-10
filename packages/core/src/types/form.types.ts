@@ -24,6 +24,10 @@ export type InitialValues = {
   [key: string]: FieldValue;
 };
 
+export type FromSetFieldsValues = {
+  [key: string]: FieldValue;
+};
+
 export type FormValues = any;
 
 export interface FormContextValue {
@@ -38,6 +42,7 @@ export interface FormContextValue {
   };
   formMethods?: FormMethods;
   keepValuesRef?: RefObject<KeepValues>;
+  fromSetFieldsValuesRef?: RefObject<FromSetFieldsValues>;
   initialValuesRef?: RefObject<InitialValues>;
   subjects?: {
     onFormUpdate: any;
@@ -47,9 +52,16 @@ export interface FormContextValue {
   };
 }
 
+export interface SetFieldsValuesOptions {
+  keepUnmounted?: boolean;
+}
+
 export interface FormMethods {
   submit(event?: React.FormEvent<HTMLFormElement>): void;
-  setFieldsValues(objectOfValues: { [key: string]: FieldValue }): void;
+  setFieldsValues(
+    objectOfValues: { [key: string]: FieldValue },
+    options?: SetFieldsValuesOptions
+  ): void;
   invalidateFields(objectOfErrors: { [key: string]: string }): void;
   getFieldStepName(fieldName: string): null | string;
   submitStep(event?: React.FormEvent<HTMLFormElement>): void;
