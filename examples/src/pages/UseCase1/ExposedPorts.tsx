@@ -10,7 +10,7 @@ import { useDarkTheme } from '../../hooks/isDarkTheme';
 export const ExposedPorts = () => {
   const form = useForm();
   const isDarkTheme = useDarkTheme();
-  const [exposedPorts, setExposedPorts] = useState([]);
+  const [exposedPorts, setExposedPorts] = useState<any>([]);
 
   useEffect(() => {
     setExposedPorts([]);
@@ -71,6 +71,7 @@ export const ExposedPorts = () => {
           </Box>
           <Box pt="1.75rem">
             <IconButton
+              aria-label="Delete port"
               icon={<DeleteIcon />}
               onClick={() => removeItem(port.id)}
               variant="ghost"

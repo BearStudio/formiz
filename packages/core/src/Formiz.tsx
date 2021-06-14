@@ -9,7 +9,15 @@ import {
   useRefValue, getFormValues, useSubject, useBehaviorSubject, getFormUniqueId,
 } from './utils';
 import {
-  FormMethods, FormState, FormContextValue, FormizProps, FormFields, KeepValues, InitialValues,
+  FormMethods,
+  FormState,
+  FormContextValue,
+  FormizProps,
+  FormFields,
+  KeepValues,
+  FromSetFieldsValues,
+  InitialValues,
+  SetFieldsValuesOptions,
 } from './types/form.types';
 import { StepState } from './types/step.types';
 import * as formActions from './formActions';
@@ -68,6 +76,7 @@ export const Formiz: React.FC<FormizProps> = ({
   });
   const fieldsRef = useRef<FormFields>([]);
   const keepValuesRef = useRef<KeepValues>({});
+  const fromSetFieldsValuesRef = useRef<FromSetFieldsValues>({});
   const initialValuesRef = useRef<InitialValues>(cloneDeep(initialValues));
   const connectRef = useRefValue(connect.__connect__ || (() => {}));
   const onChangeRef = useRefValue(onChange);
@@ -225,7 +234,12 @@ export const Formiz: React.FC<FormizProps> = ({
     nextStep();
   };
 
-  const setFieldsValues = (objectOfValues = {}) => {
+  const setFieldsValues = (objectOfValues: any = {}, options: SetFieldsValuesOptions = {}) => {
+    if (options?.keepUnmounted) {
+      fromSetFieldsValuesRef.current = Object.keys(objectOfValues)
+        .filter((key) => !fieldsRef.current.find((f) => f.name === key))
+        .reduce((acc, cur) => ({ ...acc, [cur]: objectOfValues[cur] }), {});
+    }
     fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues);
     onExternalFieldsUpdate.push();
   };
@@ -267,6 +281,7 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const registerField = (field: Field): void => {
     delete keepValuesRef.current[field.name];
+    delete fromSetFieldsValuesRef.current[field.name];
     omit(initialValuesRef.current, field.name);
     fieldsRef.current = fieldsActions.registerField(fieldsRef.current, field);
     onFieldsUpdate.push();
@@ -293,6 +308,7 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const reset = (): void => {
     keepValuesRef.current = {};
+    fromSetFieldsValuesRef.current = {};
     initialValuesRef.current = cloneDeep(initialValues);
     updateFormState(formActions.resetForm(formStateRef.current));
     onReset.push();
@@ -322,6 +338,7 @@ export const Formiz: React.FC<FormizProps> = ({
     },
     formMethods,
     keepValuesRef,
+    fromSetFieldsValuesRef,
     initialValuesRef,
     subjects: {
       onFormUpdate,

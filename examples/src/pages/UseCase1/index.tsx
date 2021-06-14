@@ -19,7 +19,9 @@ export const UseCase1 = () => {
       'docker.image': 'You can display an error after an API call',
     });
     const stepWithError = form.getFieldStepName('docker.image');
-    form.goToStep(stepWithError);
+    if (stepWithError) {
+      form.goToStep(stepWithError);
+    }
   };
 
   return (
