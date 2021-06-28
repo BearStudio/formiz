@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useField } from '@formiz/core';
 import { chakra } from '@chakra-ui/react';
 import { AttachmentIcon } from '@chakra-ui/icons';

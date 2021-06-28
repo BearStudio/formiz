@@ -114,12 +114,12 @@ const MyExample = () => {
   return (
     <Formiz connect={form}>
       <Collapse in={form?.currentStep?.name === 'step1'}>
-        <FormizStep autoHide={false} name="step1" order={3}>
+        <FormizStep autoHide={false} name="step1">
           {/* Your fields here */}
         </FormizStep>
       </Collapse>
       <Collapse in={form?.currentStep?.name === 'step2'}>
-        <FormizStep autoHide={false} name="step2" order={1}>
+        <FormizStep autoHide={false} name="step2">
           {/* Your fields here */}
         </FormizStep>
       </Collapse>
