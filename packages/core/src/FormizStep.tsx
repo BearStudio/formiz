@@ -18,6 +18,7 @@ export const FormizStep: React.FC<FormizStepProps> = ({
   order,
   isEnabled = true,
   style = {},
+  autoHide = true,
   ...rest
 }: FormizStepProps) => {
   if (!name) {
@@ -87,7 +88,7 @@ export const FormizStep: React.FC<FormizStepProps> = ({
       <Tag
         style={{
           ...style,
-          display: !isActive ? 'none' : null,
+          display: autoHide && !isActive ? 'none' : null,
         }}
         {...rest}
       >

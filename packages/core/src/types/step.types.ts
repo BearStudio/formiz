@@ -31,4 +31,5 @@ export interface FormizStepProps {
   isEnabled?: boolean;
   order?: number;
   style?: object;
+  autoHide?: boolean;
 }

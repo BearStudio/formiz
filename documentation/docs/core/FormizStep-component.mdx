@@ -98,3 +98,32 @@ If you use order, all steps should get an order property to prevent unexpected b
   </FormizStep>
 </Formiz>
 ```
+
+### autoHide
+
+autoHide is a boolean that allows you to toggle the default style to display the step.
+Default value is `true` and will apply a `display: none` on inactive steps.
+
+```jsx
+// Example with Collapse from Chakra UI
+import { Collapse } from '@chakra-ui/react'
+
+const MyExample = () => {
+  const form = useForm();
+
+  return (
+    <Formiz connect={form}>
+      <Collapse in={form?.currentStep?.name === 'step1'}>
+        <FormizStep autoHide={false} name="step1" order={3}>
+          {/* Your fields here */}
+        </FormizStep>
+      </Collapse>
+      <Collapse in={form?.currentStep?.name === 'step2'}>
+        <FormizStep autoHide={false} name="step2" order={1}>
+          {/* Your fields here */}
+        </FormizStep>
+      </Collapse>
+    </Formiz>
+  )
+}
+```
