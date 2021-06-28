@@ -6,6 +6,7 @@ import { FieldInput } from '../components/Fields/FieldInput';
 import { PageHeader } from '../components/PageHeader';
 import { useToastValues } from '../hooks/useToastValues';
 import { PageLayout } from '../layout/PageLayout';
+import { FieldUpload } from '../components/Fields/FieldUpload';
 
 export const AutoForm = () => {
   const form = useForm({ subscribe: 'form' });
@@ -64,6 +65,10 @@ export const AutoForm = () => {
           name="company"
           label="Company"
           formatValue={(val) => (val || '').trim()}
+        />
+        <FieldUpload
+          name="file"
+          label="File"
         />
         <Flex>
           <Button
