@@ -13,8 +13,8 @@ const features = [
     title: <>🧙‍ Built-in multi steps</>,
     description: (
       <>
-        Multi steps form logic available out of the box!
-        No more pain to build perfect UX for complex forms.
+        Multi steps form logic available out of the box! No more pain to build
+        perfect UX for complex forms.
       </>
     ),
   },
@@ -31,9 +31,8 @@ const features = [
     title: <>💅 Headless, build your own UX!</>,
     description: (
       <>
-        Choose how to render validations, form buttons, and navigation
-        between steps (wizard, tabs, other).
-        It&apos;s your choice!
+        Choose how to render validations, form buttons, and navigation between
+        steps (wizard, tabs, other). It&apos;s your choice!
       </>
     ),
   },
@@ -41,8 +40,8 @@ const features = [
     title: <>📋 Turn everything into fields</>,
     description: (
       <>
-        Turn everything into a custom field with full validation!
-        Create forms in React with full validations without the pain.
+        Turn everything into a custom field with full validation! Create forms
+        in React with full validations without the pain.
       </>
     ),
   },
@@ -50,9 +49,8 @@ const features = [
     title: <>⚛️ Built with Typescript &amp; hooks</>,
     description: (
       <>
-        Typescript give you nice types out of the box.
-        Hooks cut the complexity to create custom fields.
-        Use complex logic without even thinking of it.
+        Typescript give you nice types out of the box. Hooks cut the complexity
+        to create custom fields. Use complex logic without even thinking of it.
       </>
     ),
   },
@@ -60,18 +58,85 @@ const features = [
     title: <>📱 React Native compatible</>,
     description: (
       <>
-        You can use it with <a href="https://facebook.github.io/react-native/">React Native</a>.
-        Just use the <code>as=&#123;View&#125;</code> property on
-        {' '}
-        <code>&lt;FormizStep&gt;</code>
-        {' '}
-        component to replace the
-        {' '}
+        You can use it with{' '}
+        <a href="https://facebook.github.io/react-native/">React Native</a>.
+        Just use the <code>as=&#123;View&#125;</code> property on{' '}
+        <code>&lt;FormizStep&gt;</code> component to replace the{' '}
         <code>div</code>.
       </>
     ),
   },
 ];
+
+const BearStudio = () => (
+  <div className="my-16 sm:my-24">
+    <a
+      href="https://www.bearstudio.fr/en"
+      target="_blank"
+      className="group relative block rounded-2xl rounded-lg overflow-hidden shadow-xl px-12 py-10"
+      style={{ background: '#00404c', textDecoration: 'none' }}
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0"
+      >
+        <svg
+          className="absolute inset-0 h-full w-full"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+          viewBox="0 0 1463 360"
+        >
+          <path
+            style={{ color: '#14677e', opacity: 0.2 }}
+            fill="currentColor"
+            d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z"
+          />
+          <path
+            style={{ color: '#00141d', opacity: 0.2 }}
+            fill="currentColor"
+            d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z"
+          />
+        </svg>
+      </div>
+      <div className="relative">
+        <div className="sm:text-center">
+          <h2 className="text-2xl font-extrabold text-white tracking-tight sm:text-3xl">
+            <span
+              className="group-hover:underline group-focus:underline"
+              style={{ color: '#ffc10e' }}
+            >
+              BearStudio
+            </span>{' '}
+            supports the development of Formiz
+          </h2>
+          <p className="mt-4 mb-0 mx-auto max-w-2xl text-lg text-white">
+            <span className="group-hover:underline group-focus:underline">
+              BearStudio
+            </span>{' '}
+            is a french agency that supports project holders in their digital
+            development process, with a team and/or CTO for rent.
+          </p>
+          <span
+            class="inline-flex items-center justify-center mt-4 px-4 py-2 border border-transparent text-base font-medium rounded-md"
+            style={{ background: '#ffc10e', color: '#00404c' }}
+          >
+            Visit BearStudio Website
+            <svg
+              class="-mr-1 ml-3 h-5 w-"
+              style={{ color: '#00404c' }}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+              <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+);
 
 function Home() {
   const context = useDocusaurusContext();
@@ -125,6 +190,7 @@ function Home() {
                   </div>
                 ))}
               </div>
+              <BearStudio />
             </div>
           </section>
         )}
