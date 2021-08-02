@@ -91,10 +91,11 @@ export const useField = ({
     isPristine: true,
     isEnabled: true,
   });
+  const validationsWithRequired = getValidationsWithRequired(validations || [], required);
   const stateRef = useRefValue(state);
   const nameRef = useRefValue(name);
   const stepNameRef = useRefValue(stepName);
-  const validationsRef = useRefValue(getValidationsWithRequired(validations || [], required));
+  const validationsRef = useRefValue(validationsWithRequired);
   const asyncValidationsRef = useRefValue(asyncValidations || []);
   const debounceRef = useRefValue(debounce);
   const onChangeRef = useRefValue(onChange);
@@ -240,7 +241,7 @@ export const useField = ({
     JSON.stringify(state.value),
     JSON.stringify(
       [
-        ...(validations || []),
+        ...(validationsWithRequired),
         ...(asyncValidations || []),
       ]?.reduce<any>(
         (acc, cur) => [
