@@ -32,6 +32,9 @@
     "eslint-plugin-react-hooks": "4.0.0",
     "lerna": "3.20.2"
   },
+  "resolutions": {
+    "electron": "13.1.7"
+  },
   "workspaces": [
     "examples",
     "documentation",
