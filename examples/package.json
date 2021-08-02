@@ -1,13 +1,13 @@
 {
   "name": "examples",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "1.0.1",
     "@chakra-ui/react": "1.0.2",
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
-    "@formiz/core": "^1.1.0",
+    "@formiz/core": "^1.1.1",
     "@formiz/validations": "^1.0.0",
     "framer-motion": "2.9.5",
     "react": "16.13.1",
