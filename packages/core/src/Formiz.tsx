@@ -1,6 +1,7 @@
 import * as React from 'react';
 import omit from 'lodash/omit';
 import cloneDeep from 'lodash/cloneDeep';
+import merge from 'lodash/merge';
 import {
   useEffect, useRef, useContext,
 } from 'react';
@@ -236,9 +237,12 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const setFieldsValues = (objectOfValues: any = {}, options: SetFieldsValuesOptions = {}) => {
     if (options?.keepUnmounted) {
-      fromSetFieldsValuesRef.current = Object.keys(objectOfValues)
-        .filter((key) => !fieldsRef.current.find((f) => f.name === key))
-        .reduce((acc, cur) => ({ ...acc, [cur]: objectOfValues[cur] }), {});
+      fromSetFieldsValuesRef.current = merge(
+        fromSetFieldsValuesRef.current,
+        Object.keys(objectOfValues)
+          .filter((key) => !fieldsRef.current.find((f) => f.name === key))
+          .reduce((acc, cur) => ({ ...acc, [cur]: objectOfValues[cur] }), {}),
+      );
     }
     fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues);
     onExternalFieldsUpdate.push();
@@ -282,7 +286,7 @@ export const Formiz: React.FC<FormizProps> = ({
   const registerField = (field: Field): void => {
     delete keepValuesRef.current[field.name];
     delete fromSetFieldsValuesRef.current[field.name];
-    omit(initialValuesRef.current, field.name);
+    initialValuesRef.current = omit(initialValuesRef.current, field.name);
     fieldsRef.current = fieldsActions.registerField(fieldsRef.current, field);
     onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
@@ -326,6 +330,10 @@ export const Formiz: React.FC<FormizProps> = ({
     reset,
   };
 
+  const removeFromInitialValues = (fieldName: string) => {
+    initialValuesRef.current = omit(initialValuesRef.current, fieldName);
+  };
+
   const contextValue: FormContextValue = {
     formStateRef,
     fieldsRef,
@@ -335,6 +343,7 @@ export const Formiz: React.FC<FormizProps> = ({
       registerField,
       updateField,
       unregisterField,
+      removeFromInitialValues,
     },
     formMethods,
     keepValuesRef,

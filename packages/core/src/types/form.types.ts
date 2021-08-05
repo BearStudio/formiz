@@ -39,6 +39,7 @@ export interface FormContextValue {
     registerField(fieldState: Field): void;
     updateField(fieldState: Field): void;
     unregisterField(fieldState: Field, shouldKeepValue: boolean): void;
+    removeFromInitialValues(fieldName: string): void;
   };
   formMethods?: FormMethods;
   keepValuesRef?: RefObject<KeepValues>;

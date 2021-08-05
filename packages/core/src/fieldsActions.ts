@@ -1,3 +1,4 @@
+import get from 'lodash/get';
 import { FormFields } from './types/form.types';
 import { Field } from './types/field.types';
 
@@ -58,7 +59,7 @@ export const setFieldsValues = (
 
   const newFields = fields.map((field: Field) => ({
     ...field,
-    value: objectOfValues[field.name] !== undefined ? objectOfValues[field.name] : field.value,
+    value: get(objectOfValues, field.name) !== undefined ? get(objectOfValues, field.name) : field.value,
   }));
 
   return [...newFields];

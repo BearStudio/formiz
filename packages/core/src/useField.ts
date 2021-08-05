@@ -71,8 +71,8 @@ export const useField = ({
 
   const [formState, setFormState] = useState(formStateRef?.current ?? defaultFormState);
   const initValue = (() => {
-    if (fromSetFieldsValuesRef?.current?.[name] !== undefined) {
-      return fromSetFieldsValuesRef?.current?.[name];
+    if (get(fromSetFieldsValuesRef?.current, name) !== undefined) {
+      return get(fromSetFieldsValuesRef?.current, name);
     }
     if (keepValuesRef.current?.[name] !== undefined) {
       return keepValuesRef.current?.[name];
@@ -139,10 +139,8 @@ export const useField = ({
     const subscription = subjectsRef.current.onReset
       .subscription
       .subscribe(() => {
-        const value = initialValuesRef?.current?.[nameRef.current] ?? defaultValueRef.current;
-        if (initialValuesRef?.current) {
-          delete initialValuesRef.current[nameRef.current];
-        }
+        const value = get(initialValuesRef?.current, nameRef.current) ?? defaultValueRef.current;
+
         setState((prevState) => ({
           ...prevState,
           error: [],
@@ -151,13 +149,26 @@ export const useField = ({
           isPristine: true,
           value,
         }));
+
         onChangeRef.current(
           formatValueRef.current(value),
           value,
         );
+
+        if (actionsRef.current?.removeFromInitialValues) {
+          actionsRef.current.removeFromInitialValues(nameRef.current);
+        }
       });
     return () => subscription.unsubscribe();
-  }, [subjectsRef, initialValuesRef, defaultValueRef, nameRef, onChangeRef, formatValueRef]);
+  }, [
+    subjectsRef,
+    initialValuesRef,
+    defaultValueRef,
+    nameRef,
+    onChangeRef,
+    formatValueRef,
+    actionsRef,
+  ]);
 
   // Update validations
   useEffect(() => {
