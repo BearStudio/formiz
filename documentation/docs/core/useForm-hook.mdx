@@ -179,9 +179,17 @@ Useful to change one or many values based on an external action.
 ⚠️ Don't use `undefined` as new value, it will not trigger the update (use `null` instead).
 
 ```js
+// Nested values
 setFieldsValues({
-  'fieldName': 'New value',
-  'secondFieldName': 'Another new value',
+  fieldName: 'New value',
+  nested: {
+    subField: 'New value',
+  },
+})
+// OR flat values
+setFieldsValues({
+  fieldName: 'New value',
+  'nested.subField': 'New value',
 })
 ```
 #### Options
