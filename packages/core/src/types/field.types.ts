@@ -102,6 +102,6 @@ export interface ExposedField {
 }
 
 export interface UseFieldValues extends ExposedField {
-  setValue(value: FieldValue): void;
+  setValue(value: FieldValue | ((prevValue: FieldValue) => FieldValue)): void;
   otherProps: any;
 }
