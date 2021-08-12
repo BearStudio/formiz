@@ -103,15 +103,19 @@ export const useField = ({
   const defaultValueRef = useRefValue(defaultValue);
   const keepValueRef = useRefValue(keepValue);
 
-  const setValue = useCallback((value: FieldValue) => {
-    setState((prevState: FieldState) => ({
-      ...prevState,
-      externalErrors: [],
-      value,
-      isPristine: false,
-    }));
-    onChangeRef.current(formatValueRef.current(value), value);
-  }, [onChangeRef, formatValueRef]);
+  const setValue = useCallback(
+    (value: FieldValue | ((prevValue: FieldValue) => FieldValue)) => {
+      const computedValue = typeof value === 'function' ? value(stateRef?.current?.value) : value;
+      setState((prevState: FieldState) => ({
+        ...prevState,
+        externalErrors: [],
+        value: computedValue,
+        isPristine: false,
+      }));
+      onChangeRef.current(formatValueRef.current(computedValue), computedValue);
+    },
+    [onChangeRef, formatValueRef, stateRef],
+  );
 
   // Subscribe to form state
   useEffect(() => {

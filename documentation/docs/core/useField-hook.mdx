@@ -44,6 +44,17 @@ const MyField = (props) => {
 }
 ```
 
+`setValue` also accept a function that gives the previous value (like React `setState`).
+
+```jsx
+setValue((previousValue) => {
+  // ...
+  // Your logic
+  // ...
+  return newValue;
+})
+```
+
 ---
 
 ## Hook values

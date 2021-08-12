@@ -22,4 +22,13 @@ describe('useField: setValue', () => {
     object: { newValue: { a: 1, b: 2, c: 3 } },
     'empty object': { newValue: {} },
   });
+
+  it('useField: setValue with function', async () => {
+    const { act, result, formValues } = renderUseField({ name: 'field1', defaultValue: 'previousValue' });
+    await act(() => {
+      result.current.setValue((previousValue: any) => `${previousValue}+NewValue`);
+    });
+    expect(result.current.value).toStrictEqual('previousValue+NewValue');
+    expect(formValues.current).toHaveProperty('field1', 'previousValue+NewValue');
+  });
 });
