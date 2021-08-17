@@ -33,7 +33,7 @@
     "lerna": "3.20.2"
   },
   "resolutions": {
-    "electron": "13.1.7"
+    "electron": "11.0.1"
   },
   "workspaces": [
     "examples",

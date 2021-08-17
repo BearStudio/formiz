@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
+import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
 import {
   Button, Flex, Stack, IconButton, Box,
@@ -10,51 +9,34 @@ import { PageHeader } from '../components/PageHeader';
 import { AddPlaceholder } from '../components/AddPlaceholder';
 import { PageLayout } from '../layout/PageLayout';
 import { useToastValues } from '../hooks/useToastValues';
+import { useRepeater } from '../hooks/useRepeater';
 
-const defaultCollection = [
-  {
-    id: uuid(),
-    name: 'Default name',
-  },
-  {
-    id: uuid(),
-  },
-];
+const DEFAULT_VALUES = {
+  collection: [
+    { name: 'Default name' },
+  ],
+};
+
+const INITIAL_VALUES = {
+  collection: [
+    { company: 'Initial Company (1)' },
+    { name: 'Initial Name (2)', company: 'Initial Company (2)' },
+  ],
+};
 
 export const Repeater = () => {
   const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
-  const [collection, setCollection] = useState(defaultCollection);
-
-  useEffect(() => {
-    setCollection(defaultCollection);
-  }, [form.resetKey]);
+  const {
+    keys, add: addItem, remove: removeItem,
+  } = useRepeater({
+    name: 'collection',
+    form,
+    initialValues: INITIAL_VALUES.collection,
+  });
 
   const handleSubmit = (values) => {
     toastValues(values);
-  };
-
-  const addItem = () => {
-    setCollection((c) => [
-      ...c,
-      {
-        id: uuid(),
-      },
-    ]);
-  };
-
-  const addItemAtIndex = (index) => {
-    setCollection((c) => [
-      ...c.slice(0, index + 1),
-      {
-        id: uuid(),
-      },
-      ...c.slice(index + 1),
-    ]);
-  };
-
-  const removeItem = (id) => {
-    setCollection((c) => c.filter((x) => x.id !== id));
   };
 
   return (
@@ -62,21 +44,16 @@ export const Repeater = () => {
       key={form.resetKey}
       connect={form}
       onValidSubmit={handleSubmit}
-      initialValues={{
-        collection: [
-          { company: 'Initial Company (1)' },
-          { name: 'Initial Name (2)', company: 'Initial Company (2)' },
-        ],
-      }}
+      initialValues={INITIAL_VALUES}
     >
       <PageLayout>
         <form noValidate onSubmit={form.submit}>
           <PageHeader githubPath="Repeater.tsx">Repeater</PageHeader>
 
           <Box>
-            {collection.map(({ id, name }, index) => (
+            {keys.map((key, index) => (
               <Stack
-                key={id}
+                key={key}
                 direction="row"
                 spacing="4"
                 mb="6"
@@ -87,19 +64,19 @@ export const Repeater = () => {
                     aria-label="Add"
                     icon={<AddIcon />}
                     size="sm"
-                    onClick={() => addItemAtIndex(index)}
+                    onClick={() => addItem({ index: index + 1 })}
                     variant="ghost"
-                    isDisabled={collection.length > 20}
+                    isDisabled={keys.length > 20}
                     pointerEvents={
-                      index + 1 >= collection.length ? 'none' : undefined
+                      index + 1 >= keys.length ? 'none' : undefined
                     }
-                    opacity={index + 1 >= collection.length ? 0 : undefined}
+                    opacity={index + 1 >= keys.length ? 0 : undefined}
                   />
                 </Box>
                 <Box flex="1">
                   <FieldInput
                     name={`collection[${index}].name`}
-                    defaultValue={name}
+                    defaultValue={DEFAULT_VALUES.collection[index]?.name}
                     label="Name"
                     required="Required"
                     m="0"
@@ -116,7 +93,7 @@ export const Repeater = () => {
                   <IconButton
                     aria-label="Delete"
                     icon={<DeleteIcon />}
-                    onClick={() => removeItem(id)}
+                    onClick={() => removeItem(index)}
                     variant="ghost"
                   />
                 </Box>
@@ -124,8 +101,8 @@ export const Repeater = () => {
             ))}
           </Box>
 
-          {collection.length <= 20 && (
-            <AddPlaceholder label="Add member" onClick={addItem} />
+          {keys.length <= 20 && (
+            <AddPlaceholder label="Add member" onClick={() => addItem()} />
           )}
 
           <Flex mt="4">
