@@ -105,16 +105,18 @@ export const useField = ({
 
   const setValue = useCallback(
     (value: FieldValue | ((prevValue: FieldValue) => FieldValue)) => {
-      const computedValue = typeof value === 'function' ? value(stateRef?.current?.value) : value;
-      setState((prevState: FieldState) => ({
-        ...prevState,
-        externalErrors: [],
-        value: computedValue,
-        isPristine: false,
-      }));
-      onChangeRef.current(formatValueRef.current(computedValue), computedValue);
+      setState((prevState: FieldState) => {
+        const computedValue = typeof value === 'function' ? value(prevState.value) : value;
+        onChangeRef.current(formatValueRef.current(computedValue), computedValue);
+        return ({
+          ...prevState,
+          externalErrors: [],
+          value: computedValue,
+          isPristine: false,
+        });
+      });
     },
-    [onChangeRef, formatValueRef, stateRef],
+    [onChangeRef, formatValueRef],
   );
 
   // Subscribe to form state
