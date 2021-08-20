@@ -1,39 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FormizStep, useForm } from '@formiz/core';
 import { IconButton, Box, Stack } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import { v4 as uuidv4 } from 'uuid';
 import { FieldInput } from '../../components/Fields/FieldInput';
 import { AddPlaceholder } from '../../components/AddPlaceholder';
 import { useDarkTheme } from '../../hooks/isDarkTheme';
+import { useRepeater } from '../../hooks/useRepeater';
 
 export const ExposedPorts = () => {
   const form = useForm();
   const isDarkTheme = useDarkTheme();
-  const [exposedPorts, setExposedPorts] = useState<any>([]);
-
-  useEffect(() => {
-    setExposedPorts([]);
-  }, [form.resetKey]);
-
-  const addItem = () => {
-    setExposedPorts((s) => [
-      ...s,
-      {
-        id: uuidv4(),
-      },
-    ]);
-  };
-
-  const removeItem = (id) => {
-    setExposedPorts((s) => s.filter((x) => x.id !== id));
-  };
+  const exposedPorts = useRepeater({
+    name: 'ports',
+    form,
+    initialValues: [],
+  });
 
   return (
     <FormizStep name="exposedPorts">
-      {exposedPorts.map((port, index) => (
+      {exposedPorts.keys.map((key, index) => (
         <Stack
-          key={port.id}
+          key={key}
           direction="row"
           spacing="4"
           mb="6"
@@ -73,14 +60,14 @@ export const ExposedPorts = () => {
             <IconButton
               aria-label="Delete port"
               icon={<DeleteIcon />}
-              onClick={() => removeItem(port.id)}
+              onClick={() => exposedPorts.remove(index)}
               variant="ghost"
             />
           </Box>
         </Stack>
       ))}
       {exposedPorts.length <= 20 && (
-        <AddPlaceholder label="Add port" onClick={addItem} />
+        <AddPlaceholder label="Add port" onClick={() => exposedPorts.append()} />
       )}
     </FormizStep>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formiz, useForm } from '@formiz/core';
 import {
-  Button, Flex, Stack, IconButton, Box,
+  Button, Flex, Stack, IconButton, Box, Wrap, WrapItem,
 } from '@chakra-ui/react';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import { FieldInput } from '../components/Fields/FieldInput';
@@ -12,13 +12,11 @@ import { useToastValues } from '../hooks/useToastValues';
 import { useRepeater } from '../hooks/useRepeater';
 
 const DEFAULT_VALUES = {
-  collection: [
-    { name: 'Default name' },
-  ],
+  collection: [{ name: 'Default name' }],
 };
 
 const INITIAL_VALUES = {
-  collection: [
+  members: [
     { company: 'Initial Company (1)' },
     { name: 'Initial Name (2)', company: 'Initial Company (2)' },
   ],
@@ -27,12 +25,10 @@ const INITIAL_VALUES = {
 export const Repeater = () => {
   const form = useForm({ subscribe: 'form' });
   const toastValues = useToastValues();
-  const {
-    keys, add: addItem, remove: removeItem,
-  } = useRepeater({
-    name: 'collection',
+  const collection = useRepeater({
+    name: 'members',
     form,
-    initialValues: INITIAL_VALUES.collection,
+    initialValues: INITIAL_VALUES.members,
   });
 
   const handleSubmit = (values) => {
@@ -51,7 +47,7 @@ export const Repeater = () => {
           <PageHeader githubPath="Repeater.tsx">Repeater</PageHeader>
 
           <Box>
-            {keys.map((key, index) => (
+            {collection.keys.map((key, index) => (
               <Stack
                 key={key}
                 direction="row"
@@ -64,18 +60,18 @@ export const Repeater = () => {
                     aria-label="Add"
                     icon={<AddIcon />}
                     size="sm"
-                    onClick={() => addItem({ index: index + 1 })}
+                    onClick={() => collection.insert(index + 1)}
                     variant="ghost"
-                    isDisabled={keys.length > 20}
+                    isDisabled={collection.length > 20}
                     pointerEvents={
-                      index + 1 >= keys.length ? 'none' : undefined
+                      index + 1 >= collection.length ? 'none' : undefined
                     }
-                    opacity={index + 1 >= keys.length ? 0 : undefined}
+                    opacity={index + 1 >= collection.length ? 0 : undefined}
                   />
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`collection[${index}].name`}
+                    name={`members[${index}].name`}
                     defaultValue={DEFAULT_VALUES.collection[index]?.name}
                     label="Name"
                     required="Required"
@@ -84,7 +80,7 @@ export const Repeater = () => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`collection[${index}].company`}
+                    name={`members[${index}].company`}
                     label="Company"
                     m="0"
                   />
@@ -93,7 +89,7 @@ export const Repeater = () => {
                   <IconButton
                     aria-label="Delete"
                     icon={<DeleteIcon />}
-                    onClick={() => removeItem(index)}
+                    onClick={() => collection.remove(index)}
                     variant="ghost"
                   />
                 </Box>
@@ -101,9 +97,85 @@ export const Repeater = () => {
             ))}
           </Box>
 
-          {keys.length <= 20 && (
-            <AddPlaceholder label="Add member" onClick={() => addItem()} />
+          {collection.length <= 20 && (
+            <AddPlaceholder
+              label="Add member"
+              onClick={() => collection.append()}
+            />
           )}
+
+          <Wrap>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.insert(4, { name: 'Name (5)' });
+                }}
+              >
+                Add 1 member at index 4
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.insert(-2, { name: `Name (${Math.max(0, collection.length - 2)})` });
+                }}
+              >
+                Add 1 member at index -2
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.insertMultiple(1, [{ name: 'Name (2)' }, { name: 'Name (3)' }, { name: 'Name (4)' }]);
+                }}
+              >
+                Add 3 members at index 1
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.remove(1);
+                }}
+              >
+                Remove member at index 1
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.remove(-2);
+                }}
+              >
+                Remove member at index -2
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.removeMultiple([1, 3, 4]);
+                }}
+              >
+                Remove members at index 1, 3 & 4
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                size="sm"
+                onClick={() => {
+                  collection.set([{ name: 'Name (1)' }, { name: 'Name (2)' }, { name: 'Name (3)' }]);
+                }}
+              >
+                Set collection to 3 members
+              </Button>
+            </WrapItem>
+          </Wrap>
 
           <Flex mt="4">
             <Button
