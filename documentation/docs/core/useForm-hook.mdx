@@ -89,7 +89,7 @@ By default, you subscribe to the complete internal state. But for performance op
 Each time the internal state is updated, the component with the `useForm()` is updated.
 With this you can avoid many unecessary rerender and optimize your application by choosing only what you want to subscribe to.
 
-##### Available values
+#### Available values
 
 ```js
 // Subscribe to form & fields state (default)
@@ -116,6 +116,71 @@ useForm({ subscribe: { form: true, fields: ['email', 'password'] } })
 
 // Subscribe only to some fields
 useForm({ subscribe: { fields: ['email', 'password'] } })
+```
+
+#### Subscribe to fields with nested objects and arrays
+
+Imagine the follwing form:
+```jsx
+<Formiz>
+  <Field name="something.collection[0].name" />
+  <Field name="something.collection[0].email" />
+  <Field name="something.collection[1].name" />
+  <Field name="something.collection[1].email" />
+  <Field name="something.else" />
+</Formiz>
+```
+
+You can subscribe like that:
+```js
+useForm({ subscribe: { fields: ['something.collection[1].name'] } });
+/* form.values will returns
+{
+  something: {
+    collection: [
+      undefined,
+      { name: 'value' },
+    ],
+  },
+}
+*/
+
+useForm({ subscribe: { fields: ['something.collection[1]'] } });
+/* form.values will returns
+{
+  something: {
+    collection: [
+      undefined,
+      { name: 'value', email: 'value' },
+    ],
+  },
+}
+*/
+
+useForm({ subscribe: { fields: ['something.collection'] } });
+/* form.values will returns
+{
+  something: {
+    collection: [
+      { name: 'value', email: 'value' },
+      { name: 'value', email: 'value' },
+    ],
+  },
+}
+*/
+
+useForm({ subscribe: { fields: ['something'] } });
+/* form.values will returns
+{
+  something: {
+    collection: [
+      { name: 'value', email: 'value' },
+      { name: 'value', email: 'value' },
+    ],
+    else: 'value',
+  },
+}
+*/
 ```
 
 ---
