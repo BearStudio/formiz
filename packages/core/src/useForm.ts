@@ -75,7 +75,7 @@ export const useForm = ({
       const subscription = subject.subscription.subscribe(
         (nextFields: FormFields) => {
           const nextState = subscribeFields
-            ? nextFields.filter((x) => subscribeFields.includes(x.name))
+            ? nextFields.filter((x) => subscribeFields.some((name) => name === x.name || x.name.startsWith(`${name}[`) || x.name.startsWith(`${name}.`)))
             : nextFields;
 
           if (JSON.stringify(localFieldsRef.current) === JSON.stringify(nextState)) {
