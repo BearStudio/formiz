@@ -8,8 +8,12 @@ describe('Wizard', () => {
     cy.field('name').fill('John');
     cy.formNextStep();
 
+    cy.wait(2000);
+
     cy.field('email').fill('john@company.com');
     cy.formNextStep();
+
+    cy.wait(2000);
 
     cy.formSubmit();
     cy.isFormSuccess();
@@ -21,10 +25,14 @@ describe('Wizard', () => {
     cy.field('name').fill('John');
     cy.formNextStep();
 
+    cy.wait(2000);
+
     cy.formNextStep();
     cy.field('name').hasError('Required');
     cy.field('email').fill('john@company.com');
     cy.formNextStep();
+
+    cy.wait(2000);
 
     cy.formSubmit();
     cy.isFormSuccess();
@@ -34,8 +42,12 @@ describe('Wizard', () => {
     cy.field('name').fill('John');
     cy.formNextStep();
 
+    cy.wait(2000);
+
     cy.field('email').fill('john@company.com');
     cy.formNextStep();
+
+    cy.wait(2000);
 
     cy.formSubmit();
     cy.field('email').hasError('You can display an error after an API call');
