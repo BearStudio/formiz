@@ -10,6 +10,7 @@ describe('Dynamic Steps', () => {
     cy.formNextStep();
     cy.formNextStep();
     cy.field('end').fill('end');
+    cy.wait(1000);
     cy.formSubmit();
     cy.isFormSuccess();
   });
@@ -23,6 +24,7 @@ describe('Dynamic Steps', () => {
     cy.formNextStep();
     cy.formNextStep();
     cy.field('end').fill('end');
+    cy.wait(1000);
     cy.formSubmit();
     cy.isFormSuccess();
   });
@@ -34,6 +36,7 @@ describe('Dynamic Steps', () => {
     cy.formNextStep();
     cy.formNextStep();
     cy.field('end').fill('end');
+    cy.wait(1000);
     cy.formSubmit();
     cy.isFormSuccess();
   });
