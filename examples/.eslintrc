@@ -3,6 +3,7 @@
   "rules": {
     "import/extensions": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "cypress/no-unnecessary-waiting": "off"
   }
 }
