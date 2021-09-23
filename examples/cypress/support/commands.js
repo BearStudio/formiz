@@ -31,6 +31,18 @@
 Cypress.Commands.add('field', (name) => cy.get(`[name="${name}"]`));
 
 /**
+ * Custom command to see replace the value
+ * @example cy.field('name').fill('John')
+ */
+Cypress.Commands.add(
+  'fill',
+  {
+    prevSubject: 'element',
+  },
+  (subject, value) => cy.get('input', { withinSubject: subject }).clear().type(value),
+);
+
+/**
  * Custom command to see if a field has an value
  * @example cy.field('name').hasValue('John')
  */
@@ -56,9 +68,15 @@ Cypress.Commands.add(
 
 /**
  * Custom command to send the form.
- * @example cy.submitForm()
+ * @example cy.formNextStep()
  */
-Cypress.Commands.add('formSubmit', () => cy.get('[type="submit"]').click());
+Cypress.Commands.add('formNextStep', () => cy.wait(0).get('[type="submit"]').click());
+
+/**
+ * Custom command to send the form.
+ * @example cy.formSubmit()
+ */
+Cypress.Commands.add('formSubmit', () => cy.wait(0).get('[type="submit"]').click());
 
 /**
  * Custom command to check if the form sent successfully.
