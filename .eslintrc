@@ -10,31 +10,38 @@
     "jest": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "react-hooks",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react-hooks", "@typescript-eslint"],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "import/no-unresolved": ["off"],
     "import/prefer-default-export": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "indent": ["warn", 2],
-    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "lines-between-class-members": [
+      "error",
+      "always",
+      { "exceptAfterSingleLine": true }
+    ],
     "max-len": ["warn"],
     "no-multiple-empty-lines": ["warn"],
     "no-trailing-spaces": ["warn"],
     "no-underscore-dangle": ["off"],
-    "no-unused-vars": ["warn"],
+    "no-unused-vars": ["off"],
     "react/forbid-prop-types": ["warn"],
     "react-hooks/rules-of-hooks": ["error"],
     "react-hooks/exhaustive-deps": ["warn"],
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", ".tsx"] }],
+    "react/jsx-filename-extension": [
+      "warn",
+      { "extensions": [".js", ".jsx", ".tsx"] }
+    ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-function": ["off"],
-    "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "ignoreRestSiblings": true }
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "jsx-a11y/label-has-for": ["off"],
