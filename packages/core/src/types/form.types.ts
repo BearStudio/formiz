@@ -55,6 +55,7 @@ export interface FormContextValue {
 
 export interface SetFieldsValuesOptions {
   keepUnmounted?: boolean;
+  keepPristine?: boolean;
 }
 
 export interface FormMethods {
