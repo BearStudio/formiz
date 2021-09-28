@@ -235,7 +235,13 @@ export const Formiz: React.FC<FormizProps> = ({
     nextStep();
   };
 
-  const setFieldsValues = (objectOfValues: any = {}, options: SetFieldsValuesOptions = {}) => {
+  const setFieldsValues = (
+    objectOfValues: any = {},
+    options: SetFieldsValuesOptions = {
+      keepUnmounted: false,
+      keepPristine: true,
+    }
+  ) => {
     if (options?.keepUnmounted) {
       fromSetFieldsValuesRef.current = merge(
         fromSetFieldsValuesRef.current,
@@ -244,7 +250,7 @@ export const Formiz: React.FC<FormizProps> = ({
           .reduce((acc, cur) => ({ ...acc, [cur]: objectOfValues[cur] }), {}),
       );
     }
-    fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues);
+    fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues, options);
     onExternalFieldsUpdate.push();
   };
 

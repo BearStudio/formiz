@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { FormFields } from './types/form.types';
+import { FormFields, SetFieldsValuesOptions } from './types/form.types';
 import { Field } from './types/field.types';
 
 export const registerField = (
@@ -54,11 +54,13 @@ export const unregisterField = (
 export const setFieldsValues = (
   fields: FormFields,
   objectOfValues: any = {},
+  options: SetFieldsValuesOptions = {},
 ): FormFields => {
   if (!objectOfValues) return fields;
 
   const newFields = fields.map((field: Field) => ({
     ...field,
+    isPristine: get(objectOfValues, field.name) !== undefined && !options.keepPristine ? false : field.isPristine,
     value: get(objectOfValues, field.name) !== undefined ? get(objectOfValues, field.name) : field.value,
   }));
 

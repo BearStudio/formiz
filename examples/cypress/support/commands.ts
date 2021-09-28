@@ -57,12 +57,12 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('formNextStep', () => cy
-  .wait(0)
+  .wait(500)
   .get('[type="submit"]')
   .click());
 
 Cypress.Commands.add('formSubmit', () => cy
-  .wait(0)
+  .wait(500)
   .get('[type="submit"]')
   .click());
 

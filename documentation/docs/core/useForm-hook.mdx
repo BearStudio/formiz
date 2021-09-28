@@ -279,10 +279,22 @@ The values will be used as initial values on the next mount of each fields.
 )}
 ```
 ```js
-// setFieldsValues
 form.setFieldsValues(
   { fieldA: 'hello', fieldB: 'world' },
   { keepUnmounted: true }
+)
+```
+
+
+##### keepPristine
+
+Set to `false` to change the `isPristine` state of updated fields.
+(default is `true`).
+
+```js
+form.setFieldsValues(
+  { fieldA: 'hello', fieldB: 'world' },
+  { keepPristine: false }
 )
 ```
 
