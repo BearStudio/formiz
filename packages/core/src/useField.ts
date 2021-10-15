@@ -149,10 +149,10 @@ export const useField = ({
 
         setState((prevState) => ({
           ...prevState,
-          error: [],
           externalErrors: [],
           resetKey: prevState.resetKey + 1,
           isPristine: true,
+          isValidating: false,
           value,
         }));
 
