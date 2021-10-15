@@ -30,6 +30,19 @@ export type FromSetFieldsValues = {
 
 export type FormValues = any;
 
+export type ResetElement =
+  | 'pristine'
+  | 'submitted'
+  | 'validating'
+  | 'resetKey'
+  | 'currentStep'
+  | 'visited'
+  | 'values';
+
+export type ResetOptions = {
+  only?: ResetElement[],
+  exclude?: ResetElement[],
+}
 export interface FormContextValue {
   formStateRef?: React.RefObject<FormState>;
   fieldsRef?: React.RefObject<FormFields>;
@@ -70,7 +83,7 @@ export interface FormMethods {
   goToStep(stepName: string): void;
   nextStep(): void;
   prevStep(): void;
-  reset(): void;
+  reset(options?: ResetOptions): void;
   __connect__?(s: any): void;
 }
 

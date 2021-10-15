@@ -298,13 +298,44 @@ form.setFieldsValues(
 )
 ```
 
-### reset()
+### reset(options)
 
 Allows to reset the form with all fields values to their defaultValue.
 
 ```jsx
 const myForm = useForm()
 myForm.reset() // Trigger the form reset
+```
+
+#### Options
+
+Available reset elements for the `only` and `exclude` options.
+```js
+'pristine'    // Reset isPristine state for form, steps & fields
+'submitted'   // Reset isSubmitted state for form, steps & fields
+'validating'  // Reset isValidating state for form, steps & fields
+'resetKey'    // Increment the resetKey
+'currentStep' // Reset the currentStep
+'visited'     // Reset isVisited state for steps
+'values'      // Reset all fields values
+```
+
+##### only
+
+Allows to reset only some elements.
+
+```js
+// Reset only pristine state and submitted state
+form.reset({ only: ['pristine', 'submitted'] });
+```
+
+##### exclude
+
+Allows to prevent reseting some elements.
+
+```js
+// Reset everything except the form values
+form.reset({ exclude: ['values'] });
 ```
 
 ### getFieldStepName(fieldName)
