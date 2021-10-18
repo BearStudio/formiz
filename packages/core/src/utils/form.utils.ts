@@ -1,6 +1,6 @@
 import { ExposedField, Field } from 'types/field.types';
 import { StepState } from 'types/step.types';
-import { FormFields, FormState } from 'types/form.types';
+import { FormFields, FormState, ResetElement, ResetOptions } from 'types/form.types';
 import { getFieldHtmlUniqueId } from './global.utils';
 
 const isObject = (x: any) => x && typeof x === 'object' && x.constructor === Object;
@@ -115,3 +115,7 @@ export const getFormFields = (fields: FormFields, formState: FormState) => {
 
   return parseValues(exposedFields);
 };
+
+export const isResetAllowed = (resetElement: ResetElement, resetOptions: ResetOptions) =>
+  (!resetOptions.only || resetOptions.only.includes(resetElement))
+  && (!resetOptions.exclude || !resetOptions.exclude.includes(resetElement));

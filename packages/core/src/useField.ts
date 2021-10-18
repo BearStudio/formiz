@@ -11,10 +11,10 @@ import {
   FieldAsyncValidationObject,
   fieldDefaultProps,
 } from './types/field.types';
-import { FormFields } from './types/form.types';
+import { FormFields, ResetOptions } from './types/form.types';
 import { ErrorFieldWithoutForm, ErrorFieldWithoutName } from './errors';
 import {
-  getFieldUniqueId, useRefValue, getExposedField,
+  getFieldUniqueId, useRefValue, getExposedField, isResetAllowed,
 } from './utils';
 import { useFormContext, defaultFormState } from './Formiz';
 import { useStepContext } from './FormizStep';
@@ -144,26 +144,28 @@ export const useField = ({
   useEffect(() => {
     const subscription = subjectsRef.current.onReset
       .subscription
-      .subscribe(() => {
+      .subscribe((resetOptions: ResetOptions = {}) => {
+        console.log(resetOptions);
+
         const value = get(initialValuesRef?.current, nameRef.current) ?? defaultValueRef.current;
 
         setState((prevState) => ({
           ...prevState,
-          error: [],
-          externalErrors: [],
-          resetKey: prevState.resetKey + 1,
-          isPristine: true,
-          value,
+          externalErrors: isResetAllowed('values', resetOptions) ? [] : prevState.externalErrors,
+          resetKey: isResetAllowed('resetKey', resetOptions) ? prevState.resetKey + 1 : prevState.resetKey,
+          isPristine: isResetAllowed('pristine', resetOptions) ? true : prevState.isPristine,
+          isValidating: isResetAllowed('validating', resetOptions) ? false : prevState.isValidating,
+          value: isResetAllowed('values', resetOptions) ? value : prevState.value,
         }));
 
-        onChangeRef.current(
-          formatValueRef.current(value),
-          value,
-        );
-
-        if (actionsRef.current?.removeFromInitialValues) {
-          actionsRef.current.removeFromInitialValues(nameRef.current);
+        if (isResetAllowed('values', resetOptions)) {
+          onChangeRef.current(
+            formatValueRef.current(value),
+            value,
+          );
+          actionsRef.current?.removeFromInitialValues?.(nameRef.current);
         }
+
       });
     return () => subscription.unsubscribe();
   }, [

@@ -90,7 +90,7 @@ export const Formiz: React.FC<FormizProps> = ({
   const onFormUpdate = useBehaviorSubject(formStateRef);
   const onFieldsUpdate = useBehaviorSubject(fieldsRef);
   const onExternalFieldsUpdate = useSubject(fieldsRef);
-  const onReset = useSubject(formStateRef);
+  const onReset = useSubject();
 
   const checkFormValidity = (): boolean => {
     const isValid = fieldsRef.current
@@ -316,12 +316,12 @@ export const Formiz: React.FC<FormizProps> = ({
     validateForm();
   };
 
-  const reset = (): void => {
+  const reset: FormMethods['reset'] = (resetOptions): void => {
     keepValuesRef.current = {};
     fromSetFieldsValuesRef.current = {};
     initialValuesRef.current = cloneDeep(initialValues);
-    updateFormState(formActions.resetForm(formStateRef.current));
-    onReset.push();
+    updateFormState(formActions.resetForm(formStateRef.current, resetOptions));
+    onReset.push(resetOptions ?? {});
   };
 
   const formMethods: FormMethods = {

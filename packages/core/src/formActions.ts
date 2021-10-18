@@ -1,5 +1,6 @@
-import { FormState } from './types/form.types';
+import { FormState, ResetOptions } from './types/form.types';
 import { StepState } from './types/step.types';
+import { isResetAllowed } from './utils';
 
 export const updateStep = (state: FormState, partialStepState: Partial<StepState>): FormState => {
   if (!partialStepState || !partialStepState.name) return state;
@@ -49,17 +50,18 @@ export const unregisterStep = (state: FormState, name: string): FormState => {
   return newState;
 };
 
-export const resetForm = (state: FormState): FormState => {
+export const resetForm = (state: FormState, resetOptions: ResetOptions = {}): FormState => {
   const newState = {
     ...state,
-    resetKey: state.resetKey + 1,
-    isSubmitted: false,
-    isValid: true,
-    navigatedStepName: null,
+    resetKey: isResetAllowed('resetKey', resetOptions) ? state.resetKey + 1 : state.resetKey,
+    isSubmitted: isResetAllowed('submitted', resetOptions) ? false : state.isPristine,
+    isPristine: isResetAllowed('pristine', resetOptions) ? true : state.isPristine,
+    navigatedStepName: isResetAllowed('currentStep', resetOptions) ? null : state.navigatedStepName,
     steps: state.steps.map((step) => ({
       ...step,
-      isSubmitted: false,
-      isVisited: false,
+      isSubmitted: isResetAllowed('submitted', resetOptions) ? false : step.isSubmitted,
+      isPristine: isResetAllowed('pristine', resetOptions) ? true : step.isPristine,
+      isVisited: isResetAllowed('visited', resetOptions) ? false : step.isVisited,
     })),
   };
   return newState;
