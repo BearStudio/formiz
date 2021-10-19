@@ -60,21 +60,6 @@ export const fieldDefaultProps: Omit<UseFieldProps, 'name'> = {
   keepValue: false,
 };
 
-export interface Field {
-  id: string;
-  resetKey: number;
-  name: string;
-  errors: (string | undefined)[];
-  asyncErrors: (string | undefined)[];
-  externalErrors: string[];
-  value: FieldValue;
-  valueDebounced: FieldValue;
-  isValidating: boolean;
-  isPristine: boolean;
-  isEnabled: boolean;
-  stepName?: string;
-}
-
 export interface FieldState {
   id: string;
   resetKey: number;
@@ -83,9 +68,14 @@ export interface FieldState {
   externalErrors: string[];
   value: FieldValue;
   valueDebounced: FieldValue;
-  isValidating: boolean;
+  isAsyncValidating: boolean;
+  isExternalValidating: boolean;
   isPristine: boolean;
   isEnabled: boolean;
+}
+export interface Field extends FieldState {
+  name: string;
+  stepName?: string;
 }
 
 export interface ExposedField {
@@ -103,5 +93,9 @@ export interface ExposedField {
 
 export interface UseFieldValues extends ExposedField {
   setValue(value: FieldValue | ((prevValue: FieldValue) => FieldValue)): void;
+  validating: {
+    start: () => void;
+    end: () => void;
+  },
   otherProps: any;
 }

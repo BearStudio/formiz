@@ -55,6 +55,31 @@ setValue((previousValue) => {
 })
 ```
 
+### validating.start() & validating.end()
+
+Allows to notify the field that some validations are done in the background (like retrieving some data).
+
+This will update the `isValidating` state at the field level and also at the form and step levels.
+
+Notify the start of async processing with `validating.start()`.
+Notify the end of async processing with `validating.end()`.
+
+```js
+const MyField = (props) => {
+  const { isValidating, validating } = useField(props);
+
+  useEffect(() => {
+    validating.start();
+    getSomeAsyncData().then(() => {
+      validating.end();
+    });
+  }, [validating]);
+
+  /* ... */
+}
+```
+
+
 ---
 
 ## Hook values
@@ -105,7 +130,7 @@ const { isValid } = useField(props)
 
 ### isValidating
 
-Returns `true` if the field is running async validation.
+Returns `true` if the field is running async validation or after `validating.start()` is called (until `validation.end()` is called).
 
 ```jsx
 const { isValidating } = useField(props)

@@ -9,7 +9,8 @@ const defautlField = {
   value: 'Value',
   valueDebounced: 'Value',
   isPristine: true,
-  isValidating: false,
+  isAsyncValidating: false,
+  isExternalValidating: false,
   isEnabled: true,
   resetKey: 0,
 };
