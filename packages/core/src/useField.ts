@@ -145,7 +145,6 @@ export const useField = ({
     const subscription = subjectsRef.current.onReset
       .subscription
       .subscribe((resetOptions: ResetOptions = {}) => {
-        console.log(resetOptions);
 
         const value = get(initialValuesRef?.current, nameRef.current) ?? defaultValueRef.current;
 
