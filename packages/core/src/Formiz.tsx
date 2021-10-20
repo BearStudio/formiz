@@ -1,5 +1,6 @@
 import * as React from 'react';
 import omit from 'lodash/omit';
+import get from 'lodash/get';
 import cloneDeep from 'lodash/cloneDeep';
 import merge from 'lodash/merge';
 import {
@@ -237,20 +238,23 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const setFieldsValues = (
     objectOfValues: any = {},
-    options: SetFieldsValuesOptions = {
-      keepUnmounted: false,
-      keepPristine: true,
-    }
+    {
+      keepUnmounted = false,
+      keepPristine = true,
+    }: SetFieldsValuesOptions = {}
   ) => {
-    if (options?.keepUnmounted) {
+    if (keepUnmounted) {
       fromSetFieldsValuesRef.current = merge(
         fromSetFieldsValuesRef.current,
-        Object.keys(objectOfValues)
-          .filter((key) => !fieldsRef.current.find((f) => f.name === key))
-          .reduce((acc, cur) => ({ ...acc, [cur]: objectOfValues[cur] }), {}),
+        fieldsRef.current.reduce(
+          (acc, field) =>
+            (get(objectOfValues, field.name) !== undefined)
+              ? omit(acc, field.name)
+              : acc, objectOfValues
+        )
       );
     }
-    fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues, options);
+    fieldsRef.current = fieldsActions.setFieldsValues(fieldsRef.current, objectOfValues, { keepUnmounted, keepPristine });
     onExternalFieldsUpdate.push();
   };
 
@@ -290,9 +294,9 @@ export const Formiz: React.FC<FormizProps> = ({
   };
 
   const registerField = (field: Field): void => {
-    delete keepValuesRef.current[field.name];
-    delete fromSetFieldsValuesRef.current[field.name];
     initialValuesRef.current = omit(initialValuesRef.current, field.name);
+    fromSetFieldsValuesRef.current = omit(fromSetFieldsValuesRef.current, field.name);
+    keepValuesRef.current = omit(keepValuesRef.current, field.name);
     fieldsRef.current = fieldsActions.registerField(fieldsRef.current, field);
     onFieldsUpdate.push();
     onChangeRef.current(getFormValues(fieldsRef.current));
