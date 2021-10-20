@@ -111,25 +111,25 @@ export const Formiz: React.FC<FormizProps> = ({
 
   const checkStepValidity = (stepName: string): boolean => fieldsRef.current
     .filter((field) => field.stepName === stepName)
-    .every((field: any) => (
+    .every((field: Field) => (
       !field?.errors?.length
       && !field?.asyncErrors?.length
       && !field?.externalErrors?.length
     ));
 
   const checkFormPristine = (): boolean => fieldsRef.current
-    .every((field: any) => field?.isPristine);
+    .every((field: Field) => field?.isPristine);
 
   const checkStepPristine = (stepName: string): boolean => fieldsRef.current
     .filter((field) => field.stepName === stepName)
-    .every((field: any) => field?.isPristine);
+    .every((field: Field) => field?.isPristine);
 
   const checkFormValidating = (): boolean => fieldsRef.current
-    .some((field: any) => field?.isValidating);
+    .some((field: Field) => field.isAsyncValidating || field.isExternalValidating);
 
   const checkStepValidating = (stepName: string): boolean => fieldsRef.current
     .filter((field) => field.stepName === stepName)
-    .some((field: any) => field?.isValidating);
+    .some((field: Field) => field.isAsyncValidating || field.isExternalValidating);
 
   const updateFormState = (stateToUpdate: Partial<FormState>): void => {
     const newState = { ...formStateRef.current, ...stateToUpdate };

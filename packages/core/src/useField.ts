@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useRef, useCallback,
+  useState, useEffect, useRef, useCallback, useMemo,
 } from 'react';
 import get from 'lodash/get';
 import {
@@ -87,7 +87,8 @@ export const useField = ({
     errors: [],
     asyncErrors: [],
     externalErrors: [],
-    isValidating: false,
+    isAsyncValidating: false,
+    isExternalValidating: false,
     isPristine: true,
     isEnabled: true,
   });
@@ -148,12 +149,13 @@ export const useField = ({
 
         const value = get(initialValuesRef?.current, nameRef.current) ?? defaultValueRef.current;
 
-        setState((prevState) => ({
+        setState((prevState): FieldState => ({
           ...prevState,
           externalErrors: isResetAllowed('values', resetOptions) ? [] : prevState.externalErrors,
           resetKey: isResetAllowed('resetKey', resetOptions) ? prevState.resetKey + 1 : prevState.resetKey,
           isPristine: isResetAllowed('pristine', resetOptions) ? true : prevState.isPristine,
-          isValidating: isResetAllowed('validating', resetOptions) ? false : prevState.isValidating,
+          isAsyncValidating: isResetAllowed('validating', resetOptions) ? false : prevState.isAsyncValidating,
+          isExternalValidating: isResetAllowed('validating', resetOptions) ? false : prevState.isExternalValidating,
           value: isResetAllowed('values', resetOptions) ? value : prevState.value,
         }));
 
@@ -197,12 +199,12 @@ export const useField = ({
         && !!(asyncValidationsRef.current || []).length
       );
 
-      setState((prevState: FieldState) => ({
+      setState((prevState): FieldState => ({
         ...prevState,
         errors: fieldErrors,
         asyncErrors: [],
         valueDebounced: prevState.value,
-        isValidating: shouldRunAsyncValidations,
+        isAsyncValidating: shouldRunAsyncValidations,
       }));
 
       if (!shouldRunAsyncValidations) {
@@ -237,10 +239,10 @@ export const useField = ({
           [],
         );
 
-      setState((prevState: FieldState) => ({
+      setState((prevState): FieldState => ({
         ...prevState,
         asyncErrors: fieldAsyncErrors,
-        isValidating: false,
+        isAsyncValidating: false,
       }));
     };
 
@@ -320,12 +322,33 @@ export const useField = ({
   ]);
   /* eslint-enable */
 
+  const validatingStart = useCallback(() => {
+    setState((prevState): FieldState => ({
+      ...prevState,
+      isExternalValidating: true,
+    }))
+  }, []);
+
+  const validatingEnd = useCallback(() => {
+    setState((prevState): FieldState => ({
+      ...prevState,
+      isExternalValidating: false,
+    }))
+  }, []);
+
+  const validating = useMemo(() => ({
+    start: validatingStart,
+    end: validatingEnd,
+  }), [validatingStart, validatingEnd])
+
   useEffect(() => () => {
     isMountedRef.current = false;
   }, []);
 
+
   return {
     setValue,
+    validating,
     otherProps,
     ...getExposedField({
       ...state,
