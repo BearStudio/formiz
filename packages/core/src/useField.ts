@@ -330,10 +330,14 @@ export const useField = ({
   }, []);
 
   const validatingEnd = useCallback(() => {
-    setState((prevState): FieldState => ({
-      ...prevState,
-      isExternalValidating: false,
-    }))
+    setTimeout(() => {
+      setState(
+        (prevState): FieldState => ({
+          ...prevState,
+          isExternalValidating: false,
+        }),
+      );
+    });
   }, []);
 
   const validating = useMemo(() => ({
