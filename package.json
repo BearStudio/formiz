@@ -16,7 +16,7 @@
     "predeploy": "yarn test",
     "deploy": "lerna publish --ignore-changes {documentation,examples}",
     "postdeploy": "yarn docs:deploy",
-    "canary": "lerna publish --ignore-changes {documentation,examples}",
+    "canary": "lerna publish --dist-tag alpha --ignore-changes {documentation,examples}",
     "packages:build": "lerna run build --parallel --scope @formiz/*",
     "docs:deploy": "yarn packages:build && lerna run deploy --stream --scope documentation",
     "examples:build": "yarn packages:build && lerna run build --parallel --scope examples"
