@@ -17,15 +17,8 @@ export const renderUseForm = (props: UseFormProps, fields?: React.ReactNode): an
   );
   const fromHook = renderHook(() => useForm(props), { wrapper });
 
-  const customAct = (async (callback = () => {}) => {
-    act(() => {
-      callback();
-    });
-    await fromHook.waitForNextUpdate();
-  });
-
   return {
-    act: customAct, formValues, ...fromHook,
+    formValues, ...fromHook,
   };
 };
 

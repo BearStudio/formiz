@@ -42,14 +42,15 @@ export const FormizStep: React.FC<FormizStepProps> = ({
     isVisited: false,
     order: order ?? 0,
   });
-  const isActive = formState.navigatedStepName
-    ? formState.navigatedStepName === name
-    : formState.initialStepName === name;
+
+  const isActive = formStateRef?.current?.navigatedStepName
+    ? formStateRef?.current?.navigatedStepName === name
+    : formStateRef?.current?.initialStepName === name;
 
   const actionsRef = useRefValue(actions);
   const subjectsRef = useRefValue(subjects);
 
-  // Subscribe to form state
+  // Subscribe to form state for rerender
   useEffect(() => {
     const subscription = subjectsRef.current.onFormUpdate
       .subscription
@@ -81,9 +82,10 @@ export const FormizStep: React.FC<FormizStepProps> = ({
   }
 
   return (
-    <StepContext.Provider value={{
-      name,
-    }}
+    <StepContext.Provider
+      value={{
+        name,
+      }}
     >
       <Tag
         style={{
