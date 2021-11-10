@@ -8,18 +8,29 @@ describe('useForm: Mount', () => {
   });
 
   it('Should be invalid if a least one field is invalid', async () => {
-    const { result, waitForNextUpdate } = renderUseForm({}, <Field name="fieldA" validations={[{ rule: (x: any) => !!x }]} />);
+    const { result, waitForNextUpdate } = renderUseForm(
+      {},
+      <Field name="fieldA" validations={[{ rule: (x: any) => !!x }]} />,
+    );
     await waitForNextUpdate();
     expect(result.current.isValid).toBe(false);
   });
 
   it('Should get the field key in values', async () => {
-    const { result } = renderUseForm({}, <Field name="fieldA" />);
+    const { result, waitForNextUpdate } = renderUseForm(
+      {},
+      <Field name="fieldA" />,
+    );
+    await waitForNextUpdate();
     expect(result.current.values).toHaveProperty('fieldA', null);
   });
 
   it('Should get the field key and the field default value in values', async () => {
-    const { result } = renderUseForm({}, <Field name="fieldA" defaultValue="default value" />);
+    const { result, waitForNextUpdate } = renderUseForm(
+      {},
+      <Field name="fieldA" defaultValue="default value" />,
+    );
+    await waitForNextUpdate();
     expect(result.current.values).toHaveProperty('fieldA', 'default value');
   });
 
@@ -39,13 +50,17 @@ describe('useForm: Mount', () => {
   });
 
   it('Should get subscribed to values and not form if subscribe is "fields"', async () => {
-    const { result } = renderUseForm({ subscribe: 'fields' }, <Field name="fieldA" validations={[{ rule: (x: any) => !!x }]} />);
+    const { result, waitForNextUpdate } = renderUseForm(
+      { subscribe: 'fields' },
+      <Field name="fieldA" validations={[{ rule: (x: any) => !!x }]} />,
+    );
+    await waitForNextUpdate();
     expect(result.current.isValid).toBe(undefined);
     expect(result.current.values).toHaveProperty('fieldA');
   });
 
   it('Should get subscribed to some fields (1)', async () => {
-    const { result } = renderUseForm(
+    const { result, waitForNextUpdate } = renderUseForm(
       { subscribe: { fields: ['fieldA'] } },
       <>
         <Field name="fieldA" />
@@ -56,6 +71,7 @@ describe('useForm: Mount', () => {
         <Field name="fields[1].B" />
       </>,
     );
+    await waitForNextUpdate();
     expect(result.current.values).toHaveProperty('fieldA');
     expect(result.current.values).not.toHaveProperty('fieldB');
     expect(result.current.values).not.toHaveProperty('field');
@@ -63,7 +79,7 @@ describe('useForm: Mount', () => {
   });
 
   it('Should get subscribed to some fields (2)', async () => {
-    const { result } = renderUseForm(
+    const { result, waitForNextUpdate } = renderUseForm(
       { subscribe: { fields: ['fieldA', 'fieldB'] } },
       <>
         <Field name="fieldA" />
@@ -74,6 +90,7 @@ describe('useForm: Mount', () => {
         <Field name="fields[1].B" />
       </>,
     );
+    await waitForNextUpdate();
     expect(result.current.values).toHaveProperty('fieldA');
     expect(result.current.values).toHaveProperty('fieldB');
     expect(result.current.values).not.toHaveProperty('field');
@@ -81,7 +98,7 @@ describe('useForm: Mount', () => {
   });
 
   it('Should get subscribed to some fields (3)', async () => {
-    const { result } = renderUseForm(
+    const { result, waitForNextUpdate } = renderUseForm(
       { subscribe: { fields: ['field'] } },
       <>
         <Field name="fieldA" />
@@ -92,6 +109,7 @@ describe('useForm: Mount', () => {
         <Field name="fields[1].B" />
       </>,
     );
+    await waitForNextUpdate();
     expect(result.current.isValid).toBe(undefined);
     expect(result.current.values).not.toHaveProperty('fieldA');
     expect(result.current.values).not.toHaveProperty('fieldB');
@@ -101,7 +119,7 @@ describe('useForm: Mount', () => {
   });
 
   it('Should get subscribed to some fields (4)', async () => {
-    const { result } = renderUseForm(
+    const { result, waitForNextUpdate } = renderUseForm(
       { subscribe: { fields: ['fields'] } },
       <>
         <Field name="fieldA" />
@@ -112,6 +130,7 @@ describe('useForm: Mount', () => {
         <Field name="fields[1].B" />
       </>,
     );
+    await waitForNextUpdate();
     expect(result.current.isValid).toBe(undefined);
     expect(result.current.values).not.toHaveProperty('fieldA');
     expect(result.current.values).not.toHaveProperty('fieldB');
