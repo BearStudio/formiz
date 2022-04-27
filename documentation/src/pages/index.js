@@ -170,6 +170,15 @@ function Home() {
               Demos
             </Link>
           </div>
+          <Link
+            className={classnames(
+              'button button--link button--md text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100',
+              styles.getStarted,
+            )}
+            to={useBaseUrl('https://github.com/ivan-dalmet/formiz/issues/116')}
+          >
+            Formiz v2 is under construction !
+          </Link>
         </div>
       </header>
       <main>
