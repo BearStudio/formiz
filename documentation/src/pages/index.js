@@ -177,7 +177,7 @@ function Home() {
             )}
             href="https://github.com/ivan-dalmet/formiz/issues/116"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Formiz v2 is under construction !
           </a>
