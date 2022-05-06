@@ -179,7 +179,7 @@ function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Formiz v2 is under construction !
+            Formiz v2 is under construction!
           </a>
         </div>
       </header>
