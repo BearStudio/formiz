@@ -117,12 +117,12 @@ const BearStudio = () => (
             development process, with a team and/or CTO for rent.
           </p>
           <span
-            class="inline-flex items-center justify-center mt-4 px-4 py-2 border border-transparent text-base font-medium rounded-md"
+            className="inline-flex items-center justify-center mt-4 px-4 py-2 border border-transparent text-base font-medium rounded-md"
             style={{ background: '#ffc10e', color: '#00404c' }}
           >
             Visit BearStudio Website
             <svg
-              class="-mr-1 ml-3 h-5 w-"
+              className="-mr-1 ml-3 h-5 w-"
               style={{ color: '#00404c' }}
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -172,14 +172,14 @@ function Home() {
           </div>
           <a
             className={classnames(
-              'button button--link button--md text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100',
+              'button button--link button--md text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100 whitespace-normal',
               styles.getStarted,
             )}
             href="https://github.com/ivan-dalmet/formiz/issues/116"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Formiz v2 is under construction!
+            Formiz v2 is under heavy developments!
           </a>
         </div>
       </header>
