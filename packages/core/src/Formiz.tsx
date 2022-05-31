@@ -248,9 +248,9 @@ export const Formiz: React.FC<FormizProps> = ({
         fromSetFieldsValuesRef.current,
         fieldsRef.current.reduce(
           (acc, field) =>
-            (get(objectOfValues, field.name) !== undefined)
+            (get(acc, field.name) !== undefined)
               ? omit(acc, field.name)
-              : acc, objectOfValues
+              : acc, cloneDeep(objectOfValues)
         )
       );
     }
