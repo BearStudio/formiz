@@ -23,7 +23,7 @@ const PreviousButton = (props) => {
   }
 
   return (
-    <Button size="sm" onClick={form.prevStep} variant="ghost" {...props}>
+    <Button size="sm" onClick={form.prevStep} variant="ghost" color="gray.800" {...props}>
       Previous
     </Button>
   );
