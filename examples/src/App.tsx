@@ -17,9 +17,9 @@ import { Steppers } from './pages/Steppers';
 
 function App() {
   return (
-    <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <CSSReset />
+    <ChakraProvider theme={theme}>
+      <CSSReset />
+      <BrowserRouter>
         <Flex
           minH="100vh"
           m="auto"
@@ -54,8 +54,8 @@ function App() {
             </Route>
           </Box>
         </Flex>
-      </ChakraProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 
