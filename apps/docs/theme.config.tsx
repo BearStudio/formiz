@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: "https://github.com/bearstudio/formiz",
   footer: {
-    text: "Coded with ❤️ in Normandy by Ivan Dalmet and BearStudio - Logotype by David Endico - Documentation powered by Nextra (v2)",
+    text: "Coded with ❤️ in Normandy by Ivan Dalmet, Hugo Pérard and BearStudio Team - Logotype by David Endico - Documentation powered by Nextra (v2)",
   },
   primaryHue: { light: 140, dark: 115 },
 };
