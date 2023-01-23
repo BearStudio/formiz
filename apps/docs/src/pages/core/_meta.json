@@ -1,0 +1,8 @@
+{
+  "Formiz": "<Formiz />",
+  "useForm": "useForm()",
+  "useFormContext": "useFormContext()",
+  "useFormFields": "useFormFields()",
+  "useField": "useField()",
+  "FormizStep": "<FormizStep />"
+}

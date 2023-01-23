@@ -1,0 +1,49 @@
+# useFormFields
+
+## TODO
+
+- [ ] Write documentation
+
+## Basic usage
+
+Allows to retrieve the state of each fields
+
+```tsx
+const fields = useFormFields();
+```
+
+## Usage at top level
+
+You will need to connect the form
+
+```tsx
+const form = useForm();
+const fields = useFormFields({
+  connect: form,
+});
+```
+
+## Get only some fields
+
+```tsx
+const someFields = useFormFields({ fields: ["firstName", "lastName"] });
+```
+
+You can use `nested.field` or `array[0].nested` syntaxes.
+
+## Get only some state
+
+```tsx
+const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });
+```
+
+```tsx
+const fieldsValues = useFormFields({ selector: (field) => field.value });
+```
+
+```tsx
+const fieldsCustom = useFormFields({
+  selector: (field) =>
+    field.isSubmitted && field.value === "julie" ? "OK" : "KO",
+});
+```

@@ -1,0 +1,34 @@
+{
+  "name": "examples",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint && tsc --noEmit"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "2.2.1",
+    "@chakra-ui/utils": "2.0.2",
+    "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
+    "@formiz/core": "workspace:*",
+    "@formiz/validations": "workspace:*",
+    "framer-motion": "6.4.2",
+    "next": "12.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.0.3",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "config": "workspace:*",
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.0",
+    "tsconfig": "workspace:*",
+    "typescript": "4.7.4"
+  }
+}

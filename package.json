@@ -1,44 +1,26 @@
 {
   "name": "formiz",
+  "version": "0.0.0",
   "private": true,
-  "license": "MIT",
-  "author": {
-    "name": "Ivan Dalmet",
-    "email": "ivan@dalmet.fr",
-    "url": "https://github.com/ivan-dalmet"
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "bs": "lerna bootstrap && yarn packages:build",
-    "start": "lerna run start --parallel --stream",
-    "test": "lerna run test --parallel --scope @formiz/*",
-    "test:dev": "lerna run test:dev --parallel --scope @formiz/*",
-    "lint": "lerna run lint -- --fix",
-    "predeploy": "yarn test",
-    "deploy": "lerna publish --ignore-changes {documentation,examples}",
-    "postdeploy": "yarn docs:deploy",
-    "canary": "lerna publish --dist-tag alpha --ignore-changes {documentation,examples}",
-    "packages:build": "lerna run build --parallel --scope @formiz/*",
-    "docs:deploy": "yarn packages:build && lerna run deploy --stream --scope documentation",
-    "examples:build": "yarn packages:build && lerna run build --parallel --scope examples"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test",
+    "coverage": "turbo run coverage"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "2.30.0",
-    "@typescript-eslint/parser": "2.30.0",
-    "babel-eslint": "10.1.0",
-    "eslint": "6.8.0",
-    "eslint-config-airbnb": "18.1.0",
-    "eslint-plugin-import": "2.20.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "4.0.0",
-    "lerna": "3.20.2"
+    "prettier": "2.8.3",
+    "turbo": "latest"
   },
-  "resolutions": {
-    "electron": "11.0.1"
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
   },
-  "workspaces": [
-    "examples",
-    "documentation",
-    "./packages/*"
-  ]
+  "packageManager": "pnpm@6.32.3"
 }

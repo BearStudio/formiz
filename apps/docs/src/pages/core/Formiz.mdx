@@ -1,0 +1,158 @@
+import { CodeEditor } from "@/components/CodeEditor";
+import { Type } from "@/components/Type";
+import { formizFiles } from "@/templates/formiz.ts";
+import { Formiz } from "@formiz/core";
+import { Callout } from "nextra-theme-docs";
+
+# Formiz
+
+This component define form scope and manage form logic. It create itself his form if it's not connected to a [`useForm()`](/core/useForm) form.
+
+## Import
+
+```tsx
+import { Formiz } from "@formiz/core";
+```
+
+## Props
+
+### id
+
+<Type type="string" />
+Allows you to pass a custom id will be used to create the ids of the fields. By default,
+it is generated automatically. But for SSR rendering like in NextJS, you may want
+to replace the automatically generated identifiers by a predictable id.
+
+```tsx
+<Formiz id="custom-id">{/* Your fields here */}</Formiz>
+```
+
+### autoForm
+
+<Type type='boolean | "form" | "step"'/>
+Set to true to wrap children in a `<form>` element with auto onSubmit.
+
+<Callout type="info">Instead you can get the `submit()` method with the `useForm()` hook and use it with your own `<form>` element.</Callout>
+
+```tsx
+<Formiz autoForm>{/* your fields here */}</Formiz>
+```
+
+### connect
+
+<Type type="Form" />
+Allow you to connect your form with the `useForm()` hook.
+
+See [`useForm()`](/core/useForm) documentation for more details
+
+```tsx
+import { Formiz, useForm } from "@formiz/core";
+
+const MyForm = () => {
+  const form = useForm();
+
+  return <Formiz connect={form}>{/* Your fields here */}</Formiz>;
+};
+```
+
+### initialValues
+
+<Type type="Values" />
+Allows you to pass some initial values to the form. If a field is mounted, it will
+lookup into this object to set his initial value. This is usefull when you getting
+data from an API like an edit page.
+
+```tsx
+<Formiz initialValues={{ input: "initialValue" }}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### initialStepName
+
+<Type type="string" />
+Allow you to define the initial step
+
+```tsx
+<Formiz initialStepName="step-2">{/* your fields here */}</Formiz>
+```
+
+### onSubmit
+
+<Type type="(values: Values) => void" />
+Function triggered on form submission, whether it is valid or not
+
+```tsx
+<Formiz onSubmit={(values) => console.log(values)}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### onValidSubmit(values)
+
+<Type type="(values: Values) => void" />
+Function triggered on form submission, only if it is valid
+
+```tsx
+<Formiz onValidSubmit={(values) => console.log(values)}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### onInvalidSubmit(values)
+
+<Type type="(values: Values) => void" />
+Function triggered on form submission, only if it is invalid
+
+```tsx
+<Formiz onInvalidSubmit={(values) => console.log(values)}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### onValuesChange(values)
+
+<Type type="(values: Values) => void" />
+Function triggered on any form field value change
+
+```tsx
+<Formiz onValuesChange={(values) => console.log(values)}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### onValid()
+
+<Type type="() => void" />
+Triggered when the form is **valid**.
+
+<Callout type="info">
+  Instead you can get `isValid` value with the [`useForm()`](/core/useForm)
+  hook.
+</Callout>
+
+```tsx
+<Formiz onValid={() => console.log("form is valid")}>
+  {/* your fields here */}
+</Formiz>
+```
+
+### onInvalid()
+
+<Type type="() => void" />
+Triggered when the form is **invalid**.
+
+<Callout type="info">
+  Instead you can get `isValid` value with the [`useForm()`](/core/useForm)
+  hook.
+</Callout>
+
+```tsx
+<Formiz onInvalid={() => console.log("form is invalid")}>
+  {/* your fields here */}
+</Formiz>
+```
+
+## Try it
+
+<CodeEditor files={formizFiles} />

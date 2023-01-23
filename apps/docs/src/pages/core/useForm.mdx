@@ -1,0 +1,256 @@
+import { CodeEditor } from "@/components/CodeEditor";
+import { Type } from "@/components/Type";
+import { useFormFiles } from "@/templates/useForm.ts";
+
+# useForm
+
+This hook create a form, and return it.
+
+## Import
+
+```tsx
+import { useForm } from "@formiz/core";
+```
+
+## Form State
+
+### isValid
+
+<Type type="boolean" />
+Return `true` if all form fieds are valid, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isValid;
+```
+
+### isValidating
+
+<Type type="boolean" />
+Return `true` if at least field is running async validations, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isValidating;
+```
+
+### isSubmitted
+
+<Type type="boolean" />
+Return `true` if the form has been submitted, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isSubmitted;
+```
+
+### resetKey
+
+<Type type="string" />
+
+A key that change when form is reset.
+
+Allow you to reset some internal state when the form is reset.
+
+```tsx
+const form = useForm();
+useEffect(() => {
+  /* Do a side effect on reset */
+}, [form.resetKey]);
+```
+
+### currentStep
+
+<Type type="string" />
+The name of the current step
+
+```tsx
+const form = useForm();
+form.currentStep;
+```
+
+### steps
+
+<Type type="Array<string>" />
+An array that contains all form steps
+
+```tsx
+const form = useForm();
+form.steps;
+```
+
+### isStepPristine
+
+<Type type="boolean" />
+Return `true` if all current step fields are pristine, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isStepPristine;
+```
+
+### isStepValid
+
+<Type type="boolean" />
+Return `true` if all current step fields are valid, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isStepValid;
+```
+
+### isStepValidating
+
+<Type type="boolean" />
+Return `true` if at least one current step field is running async validations, `false`
+otherwise.
+
+```tsx
+const form = useForm();
+form.isStepValidating;
+```
+
+### isStepSubmitted
+
+<Type type="boolean" />
+Return `true` if the current step has been submitted, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isStepSubmitted;
+```
+
+### isFirstStep
+
+<Type type="boolean" />
+Return `true` if the current step is the first form step, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isFirstStep;
+```
+
+### isLastStep
+
+<Type type="boolean" />
+Return `true` if the current step is the last form step, `false` otherwise.
+
+```tsx
+const form = useForm();
+form.isLastStep;
+```
+
+## Form Actions
+
+### submit()
+
+<Type type="() => void" />
+Function for submit form.
+
+```tsx
+const form = useForm();
+form.submit();
+```
+
+### submitStep()
+
+<Type type="() => void" />
+Function for submit current step.
+
+```tsx
+const form = useForm();
+form.submitStep();
+```
+
+### setErrors(errors)
+
+<Type type="(errors: Record<string, string>) => void" />
+Function for manually set errors on form fields.
+
+```tsx
+const form = useForm();
+form.setErrors({ field: "Error" });
+```
+
+### setValues(values, options)
+
+<Type type="(values: Record<string, string>, options?: { keepPristine?: boolean }) => void" />
+Function for manually set form fields values.
+
+`keepPristine` option allow you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is false
+
+```tsx
+const form = useForm();
+form.setValues({ field: "New value" }, { keepPristine: true });
+```
+
+### reset(options)
+
+<Type type="(options: { ['only' | 'exclude']: Array<ResetElement>}) => void" />
+<Type
+  type="ResetElement = 'pristine'
+  | 'submitted'
+  | 'touched'
+  | 'validating'
+  | 'debouncing'
+  | 'resetKey'
+  | 'currentStep'
+  | 'visited'
+  | 'values'"
+/>
+Function for reset form states and values.
+
+Options allow you to select data you
+want to reset.
+
+```tsx
+const form = useForm();
+form.reset({ only: "values" });
+form.reset({ exclude: "pristine" });
+```
+
+### getStepByFieldName(fieldName)
+
+<Type type="(fieldName: string) => FormizStep" />
+Function for get step informations from field name.
+
+```tsx
+const form = useForm();
+const step = form.getStepByFieldName("field");
+```
+
+### nextStep()
+
+<Type type="() => void" />
+Function for navigate to next step.
+
+```tsx
+const form = useForm();
+form.nextStep();
+```
+
+### ✅ prevStep()
+
+TODO: rename previousStep ?
+
+<Type type="() => void" />
+Function for navigate to previous step.
+
+```tsx
+const form = useForm();
+form.prevStep();
+```
+
+### goToStep(name)
+
+<Type type="(name: string) => void" />
+Function for navigate to a step.
+
+```tsx
+const form = useForm();
+form.goToStep("step-2");
+```
+
+## Try it
+
+<CodeEditor files={useFormFiles} />

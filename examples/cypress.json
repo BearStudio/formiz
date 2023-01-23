@@ -1,6 +1,0 @@
-{
-  "baseUrl": "http://localhost:3010",
-  "experimentalStudio": false,
-  "experimentalSessionSupport": true,
-  "defaultCommandTimeout": 3000
-}

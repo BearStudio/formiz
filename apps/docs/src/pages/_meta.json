@@ -1,0 +1,16 @@
+{
+  "index": "Introduction",
+  "": { "type": "separator" },
+  "core": "Core",
+  "demo": {
+    "title": "Examples ↗",
+    "type": "page",
+    "// TODO:": "update href",
+    "href": "http://localhost:3001",
+    "newWindow": true
+  },
+  "about": {
+    "title": "About",
+    "type": "page"
+  }
+}
