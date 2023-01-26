@@ -6,7 +6,7 @@ import { Type } from "@/components/Type";
 
 ### setValue()
 
-<Type type="function" />
+<Type type="(fieldValue : any) => void" />
 Set the value of the field.
 
 ```tsx
@@ -30,7 +30,7 @@ setValue((previousValue) => {
 
 ### setIsTouched()
 
-<Type type="function" />
+<Type type="(isTouched : boolean) => void" />
 Set the value of the field isTouched.
 
 ```tsx
@@ -39,9 +39,7 @@ const MyField = (props) => {
 
   setIsTouched(true);
 
-  return (
-    <input />
-  );
+  return <input />;
 };
 ```
 
@@ -74,6 +72,7 @@ const MyField = (props) => {
   )
 }
 ```
+
 ### isTouched
 
 <Type type="boolean" />
@@ -136,6 +135,8 @@ const { shouldDisplayError } = useField(props);
 
 ### errorMessage
 
+<Type type="string | undefined" />
+
 Returns the first error message.
 
 ```jsx
@@ -143,6 +144,8 @@ const { errorMessage } = useField(props);
 ```
 
 ### errorMessages
+
+<Type type="string[] | undefined" />
 
 Returns all error messages.
 
@@ -152,12 +155,17 @@ const { errorMessages } = useField(props);
 
 ### resetKey
 
+<Type type="number" />
+
 Returns the number of time the form has been resetted.
 
 ```jsx
 const { resetKey } = useField(props);
-```
 
+useEffect(() => {
+  /* Do a side effect on reset */
+}, [resetKey]);
+```
 
 ## Hook extra values
 
@@ -248,6 +256,8 @@ Pass an initial value to the field.
 
 ### formatValue(fieldValue)
 
+<Type type="(fieldValue) => string | null" />
+
 Format the value before saving it into the internal state.
 
 ```jsx
@@ -255,6 +265,8 @@ Format the value before saving it into the internal state.
 ```
 
 ### onChange(fieldValue)
+
+<Type type="(fieldValue) => void" />
 
 ```jsx
 <Field name="myFieldName" onChange={(val) => console.log(val)} />
@@ -338,6 +350,9 @@ Accept an array of object with the following keys:
 ```
 
 ---
+
+TODO :
+[ ] get information if you let informations config section
 
 # Field config
 
