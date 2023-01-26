@@ -102,12 +102,14 @@ const Index = () => {
           >
             <Stack direction="row" spacing="8">
               <Stack spacing="4">
-                <Link href="/debug/other" passHref>
-                  <Button as="a">Go to /other</Button>
-                </Link>
-                <Link href="/debug/steps" passHref>
-                  <Button as="a">Go to /steps</Button>
-                </Link>
+                <Button as={Link} href="/debug/other">
+                  Go to /other
+                </Button>
+
+                <Button as={Link} href="/debug/steps">
+                  Go to /steps
+                </Button>
+
                 <Button colorScheme="red" onClick={() => forceUpdate()}>
                   Force Update Root
                 </Button>

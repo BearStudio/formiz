@@ -16,4 +16,6 @@ jobs:
           node-version: 16
       - run: npm install -g pnpm
       - run: pnpm install
+      - run: pnpm build
+      - run: pnpm lint
       - run: pnpm test

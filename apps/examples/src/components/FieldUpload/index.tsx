@@ -29,7 +29,7 @@ const FieldUploadBase = (props: FieldUploadProps) => {
   } = useField(props, {
     validations: [
       {
-        handler: (v) => !!v && v.size < 1024 * 100,
+        handler: (v: { size: number }) => v.size < 1024 * 100,
         message: "File limit exeeded (100ko)",
       },
     ],

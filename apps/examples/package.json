@@ -9,25 +9,25 @@
     "lint": "next lint && tsc --noEmit"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.2.1",
-    "@chakra-ui/utils": "2.0.2",
-    "@emotion/react": "11.9.3",
-    "@emotion/styled": "11.9.3",
+    "@chakra-ui/react": "2.4.9",
+    "@chakra-ui/utils": "2.0.14",
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
     "@formiz/core": "workspace:*",
     "@formiz/validations": "workspace:*",
-    "framer-motion": "6.4.2",
-    "next": "12.2.0",
+    "framer-motion": "8.5.3",
+    "next": "13.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "4.4.0"
+    "react-icons": "4.7.1"
   },
   "devDependencies": {
-    "@types/node": "18.0.3",
-    "@types/react": "18.0.15",
-    "@types/react-dom": "18.0.6",
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
     "config": "workspace:*",
-    "eslint": "8.19.0",
-    "eslint-config-next": "12.2.0",
+    "eslint": "8.32.0",
+    "eslint-config-next": "13.1.5",
     "tsconfig": "workspace:*",
     "typescript": "4.9.4"
   }
