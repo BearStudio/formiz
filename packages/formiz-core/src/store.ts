@@ -188,7 +188,7 @@ export const createStore = ({
       ) => {
         // Required
         const requiredErrors =
-          required && !formattedValue
+          !!required && !formattedValue && formattedValue !== 0
             ? [required !== true ? required : undefined]
             : [];
 
@@ -196,7 +196,9 @@ export const createStore = ({
         const validationsErrors = (validations ?? [])
           .filter(
             (validation) =>
-              (validation.checkFalsy || !!formattedValue || formattedValue === 0) &&
+              (validation.checkFalsy ||
+                !!formattedValue ||
+                formattedValue === 0) &&
               !validation.handler(formattedValue, value)
           )
           .map(({ message }) => message);
