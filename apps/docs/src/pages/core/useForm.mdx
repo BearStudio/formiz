@@ -145,7 +145,7 @@ form.isLastStep;
 ### submit()
 
 <Type type="() => void" />
-Function for submit form.
+Function to submit form.
 
 ```tsx
 const form = useForm();
@@ -155,7 +155,7 @@ form.submit();
 ### submitStep()
 
 <Type type="() => void" />
-Function for submit current step.
+Function to submit current step.
 
 ```tsx
 const form = useForm();
@@ -165,7 +165,7 @@ form.submitStep();
 ### setErrors(errors)
 
 <Type type="(errors: Record<string, string>) => void" />
-Function for manually set errors on form fields.
+Function to manually set errors on form fields.
 
 ```tsx
 const form = useForm();
@@ -175,7 +175,7 @@ form.setErrors({ field: "Error" });
 ### setValues(values, options)
 
 <Type type="(values: Record<string, string>, options?: { keepPristine?: boolean }) => void" />
-Function for manually set form fields values.
+Function to manually set form fields values.
 
 `keepPristine` option allow you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is false
 
@@ -198,7 +198,7 @@ form.setValues({ field: "New value" }, { keepPristine: true });
   | 'visited'
   | 'values'"
 />
-Function for reset form states and values.
+Function to reset form states and values.
 
 Options allow you to select data you
 want to reset.
@@ -229,7 +229,7 @@ const form = useForm();
 form.goToNextStep();
 ```
 
-### ✅ goToPreviousStep()
+### goToPreviousStep()
 
 <Type type="() => void" />
 Function for navigate to previous step.
