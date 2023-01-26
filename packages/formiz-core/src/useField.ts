@@ -219,7 +219,8 @@ export const useField = <
         async (validation) => {
           return {
             isValid:
-              (!currentField?.formattedValue &&
+              (!validation.checkFalsy &&
+                !currentField?.formattedValue &&
                 currentField?.formattedValue !== 0) ||
               (await validation.handler(
                 currentField?.formattedValue,

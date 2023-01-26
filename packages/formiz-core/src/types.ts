@@ -23,6 +23,7 @@ export type FieldValidationObject<
   ): boolean;
   message?: ErrorMessage;
   deps?: unknown[];
+  checkFalsy?: boolean;
 };
 
 export type FieldValidationAsyncObject<
@@ -35,6 +36,7 @@ export type FieldValidationAsyncObject<
   ): Promise<boolean>;
   message?: ErrorMessage;
   deps?: unknown[];
+  checkFalsy?: boolean;
 };
 
 export type Field<Value, FormattedValue extends unknown = unknown> = {
