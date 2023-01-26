@@ -31,7 +31,7 @@ setValue((previousValue) => {
 ### setIsTouched()
 
 <Type type="(isTouched : boolean) => void" />
-Set the value of the field isTouched.
+Set the value isTouched of the field.
 
 ```tsx
 const MyField = (props) => {
@@ -97,7 +97,7 @@ const { isValid } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` if the field is running async validation or after `validating.start()` is called (until `validation.end()` is called).
+Returns `true` if the field is running async validation.
 
 ```jsx
 const { isValidating } = useField(props);

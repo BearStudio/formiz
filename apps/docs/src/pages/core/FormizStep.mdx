@@ -1,19 +1,20 @@
-import { Type } from "@/components/Type";
+import { Type } from '@/components/Type';
 
 # FormizStep
 
 ## Import
 
 ```tsx
-import { FormizStep } from '@formiz/core'
+import { FormizStep } from '@formiz/core';
 ```
 
 ## Props
 
-### name *
+### name \*
 
 <Type type="string" />
 
+This prop gives a name to your `FormizStep` component
 
 **Required**
 
@@ -21,12 +22,8 @@ The name is required to register the step in the form.
 
 ```tsx
 <Formiz>
-  <FormizStep name="step1">
-    {/* Your fields here */}
-  </FormizStep>
-  <FormizStep name="step2">
-    {/* Your fields here */}
-  </FormizStep>
+  <FormizStep name="step1">{/* Your fields here */}</FormizStep>
+  <FormizStep name="step2">{/* Your fields here */}</FormizStep>
 </Formiz>
 ```
 
@@ -49,7 +46,7 @@ You can pass the tag for the step container. Default is 'div'.
 
 <Type type="string" />
 
-A label can be passed to the step and then used for display when getting the steps with the useForm() hook.
+A label can be passed to the step and then used to display when getting the steps with the useForm() hook.
 
 ```tsx
 <Formiz>
@@ -66,21 +63,19 @@ A label can be passed to the step and then used for display when getting the ste
 
 <Type type="boolean" />
 
-Set if the step should be enabled or not (default is true)
+Set if the step should be enabled or not (default value is `true`)
 
 ```tsx
-{/* Display: `step1` > `step3`. */}
+{
+  /* Display: `step1` > `step3`. */
+}
 <Formiz>
-  <FormizStep name="step1">
-    {/* Your fields here */}
-  </FormizStep>
+  <FormizStep name="step1">{/* Your fields here */}</FormizStep>
   <FormizStep name="step2" isEnabled={false}>
     {/* Your fields here */}
   </FormizStep>
-  <FormizStep name="step3">
-    {/* Your fields here */}
-  </FormizStep>
-</Formiz>
+  <FormizStep name="step3">{/* Your fields here */}</FormizStep>
+</Formiz>;
 ```
 
 ### order
@@ -91,7 +86,9 @@ Order is a number to display the steps in the correct order. (default is 0)
 If you use order, all steps should get an order property to prevent unexpected behavior.
 
 ```tsx
-{/* Display order: `step2` > `step3` > `step1`. */}
+{
+  /* Display order: `step2` > `step3` > `step1`. */
+}
 <Formiz>
   <FormizStep name="step1" order={3}>
     {/* Your fields here */}
@@ -113,7 +110,7 @@ autoHide is a boolean that allows you to toggle the default style to display the
 
 ```tsx
 // Example with Collapse from Chakra UI
-import { Collapse } from '@chakra-ui/react'
+import { Collapse } from '@chakra-ui/react';
 
 const MyExample = () => {
   const form = useForm();
@@ -131,6 +128,6 @@ const MyExample = () => {
         </FormizStep>
       </Collapse>
     </Formiz>
-  )
-}
+  );
+};
 ```

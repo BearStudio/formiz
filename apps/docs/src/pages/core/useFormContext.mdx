@@ -1,6 +1,7 @@
 # useFormContext
 
-This hook works like [`useForm()`](/core/useForm), with the difference that it doesn't create a store, but it fetches the parent form. `useFormContext()` should be used only as a form children.
+This hook works like [`useForm()`](/core/useForm), with the difference that it doesn't create a new form,
+but it fetches the functions and state of the first parent form. `useFormContext()` should be used only at a form children level.
 
 ## Import
 
@@ -8,4 +9,4 @@ This hook works like [`useForm()`](/core/useForm), with the difference that it d
 import { useFormContext } from "@formiz/core";
 ```
 
-You should refer to [`useForm()`](/core/useForm) hook
+For full API detail, refer to [`useForm()`](/core/useForm) hook documentation.

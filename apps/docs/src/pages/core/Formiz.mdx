@@ -19,9 +19,10 @@ import { Formiz } from "@formiz/core";
 ### id
 
 <Type type="string" />
-Allows you to pass a custom id, which will be used to create the ids of the fields. By default,
-it is generated automatically. But for SSR rendering like in NextJS, you may want
-to replace the automatically generated identifiers by a predictable id.
+Allows you to pass a custom id, which will be used to create the ids of the fields.
+By default, it is generated automatically. But for SSR rendering like in NextJS,
+you may want to replace the automatically generated identifiers by a predictable
+id.
 
 ```tsx
 <Formiz id="custom-id">{/* Your fields here */}</Formiz>
@@ -59,7 +60,7 @@ const MyForm = () => {
 
 <Type type="Values" />
 Allows you to pass some initial values to the form. If a field is mounted, it will
-lookup into this object to set his initial value. This is usefull when you getting
+lookup into this object to set his initial value. This is usefull when you are getting
 data from an API like an edit page.
 
 ```tsx
