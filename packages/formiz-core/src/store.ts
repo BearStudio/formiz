@@ -196,7 +196,7 @@ export const createStore = ({
         const validationsErrors = (validations ?? [])
           .filter(
             (validation) =>
-              (!!formattedValue || formattedValue === 0) &&
+              (validation.checkFalsy || !!formattedValue || formattedValue === 0) &&
               !validation.handler(formattedValue, value)
           )
           .map(({ message }) => message);
