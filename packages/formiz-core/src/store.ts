@@ -192,7 +192,7 @@ export const createStore = ({
 
         // Sync Validations
         const validationsErrors = (validations ?? [])
-          .filter((validation) => !validation.handler(value, formattedValue))
+          .filter((validation) => !validation.handler(formattedValue, value))
           .map(({ message }) => message);
 
         return { requiredErrors, validationsErrors };

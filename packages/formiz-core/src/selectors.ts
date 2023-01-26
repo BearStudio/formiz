@@ -1,4 +1,10 @@
-import type { ExposedFieldState, Field, Step, Store } from "@/types";
+import type {
+  ExposedFieldState,
+  ExposedExternalFieldState,
+  Field,
+  Step,
+  Store,
+} from "@/types";
 import {
   getFormIsValid,
   getFormIsPristine,
@@ -112,5 +118,17 @@ export const fieldInterfaceSelector =
       isProcessing: getFieldIsProcessing(field),
       isReady: getFieldIsReady(field),
       resetKey: state.form.resetKey,
+    };
+  };
+
+export const fieldExternalInterfaceSelector =
+  <Value>(state: Store) =>
+  (field: Field<Value>): ExposedExternalFieldState<Value> => {
+    const { value, formattedValue, ...internalField } =
+      fieldInterfaceSelector<Value>(state)(field);
+    return {
+      ...internalField,
+      value: formattedValue,
+      rawValue: value,
     };
   };

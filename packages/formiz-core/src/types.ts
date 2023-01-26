@@ -18,8 +18,8 @@ export type FieldValidationObject<
   FormattedValue extends unknown = unknown
 > = {
   handler(
-    value?: FieldValue<Value>,
-    formattedValue?: FieldValue<FormattedValue>
+    value?: FieldValue<FormattedValue>,
+    rawValue?: FieldValue<Value>
   ): boolean;
   message?: ErrorMessage;
   deps?: unknown[];
@@ -30,8 +30,8 @@ export type FieldValidationAsyncObject<
   FormattedValue extends unknown = unknown
 > = {
   handler(
-    value?: FieldValue<Value>,
-    formattedValue?: FieldValue<FormattedValue>
+    value?: FieldValue<FormattedValue>,
+    rawValue?: FieldValue<Value>
   ): Promise<boolean>;
   message?: ErrorMessage;
   deps?: unknown[];
@@ -77,6 +77,18 @@ export type ExposedFieldState<
   errorMessage: ErrorMessage;
   resetKey: number;
 };
+
+export type ExposedExternalFieldState<
+  Value,
+  FormattedValue extends unknown = unknown
+> = Omit<
+  ExposedFieldState<Value, FormattedValue>,
+  "value" | "formattedValue"
+> & {
+  rawValue: FieldValue<Value>;
+  value: FieldValue<FormattedValue>;
+};
+
 export type ExposedField<Value, Props> = ExposedFieldState<Value> & {
   isRequired: boolean;
   setValue: (
