@@ -1,3 +1,6 @@
+import { CodeEditor } from "@/components/CodeEditor";
+import { useFormFields } from "@/templates/useFormFields.ts";
+
 # useFormFields
 
 ## Basic usage
@@ -61,3 +64,6 @@ const fieldsCustom = useFormFields({
     field.isSubmitted && field.value === "julie" ? "OK" : "KO",
 });
 ```
+## Try it
+
+<CodeEditor files={useFormFields} />
