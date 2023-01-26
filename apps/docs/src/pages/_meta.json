@@ -1,5 +1,6 @@
 {
   "index": "Introduction",
+  "migration": "Upgrading to v2",
   "---": {
     "type": "separator"
   },
