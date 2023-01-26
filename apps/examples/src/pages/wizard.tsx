@@ -85,7 +85,7 @@ const Wizard: NextPage = () => {
             {!!form.steps?.length && (
               <Grid templateColumns="1fr 2fr 1fr" alignItems="center">
                 {!form.isFirstStep && (
-                  <Button gridColumn="1" onClick={form.prevStep}>
+                  <Button gridColumn="1" onClick={form.goToPreviousStep}>
                     Previous
                   </Button>
                 )}

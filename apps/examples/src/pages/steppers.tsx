@@ -26,7 +26,12 @@ const PreviousButton = (props: ButtonProps) => {
   }
 
   return (
-    <Button size="sm" onClick={form.prevStep} variant="ghost" {...props}>
+    <Button
+      size="sm"
+      onClick={form.goToPreviousStep}
+      variant="ghost"
+      {...props}
+    >
       Previous
     </Button>
   );

@@ -182,8 +182,8 @@ export interface Store {
     updateStep(stepName: string, newStep: PartialStep): void;
     unregisterStep(stepName: string): void;
     goToStep(stepName: string): void;
-    nextStep(): void;
-    prevStep(): void;
+    goToNextStep(): void;
+    goToPreviousStep(): void;
   };
 }
 
