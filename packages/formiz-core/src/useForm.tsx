@@ -18,7 +18,7 @@ export const useForm = () => {
   const formState = useStore(
     (state) => ({
       ...formInterfaceSelector(state),
-      __store: useStore,
+      __connect: useStore,
     }),
     isDeepEqual
   );

@@ -8,7 +8,7 @@ import { getFormFields } from "./utils/form";
 
 type useFormFieldsProps<Fields extends readonly string[], Selection> = {
   connect?: {
-    __store: UseBoundStore<StoreApi<Store>>;
+    __connect: UseBoundStore<StoreApi<Store>>;
   };
   fields?: Fields;
   selector?: (field: ExposedFieldState<unknown, unknown>) => Selection;
@@ -24,13 +24,13 @@ export const useFormFields = <Fields extends readonly string[], Selection>({
 > => {
   const useStoreFromContext = useFormStore();
 
-  if (!useStoreFromContext && !connect?.__store) {
+  if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
       "useFormFields is used outside of a form or without a `form` connected"
     );
   }
 
-  const useStore = connect?.__store ?? useStoreFromContext;
+  const useStore = connect?.__connect ?? useStoreFromContext;
 
   const statefields = useStore((state) => {
     const flatFields: Record<string, Selection> = Array.from(

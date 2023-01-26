@@ -22,14 +22,14 @@ export const Formiz = ({ children, connect, ...formProps }: FormizProps) => {
   formPropsRef.current = formProps;
   const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>();
 
-  if (!useStoreRef.current && !connect?.__store) {
+  if (!useStoreRef.current && !connect?.__connect) {
     useStoreRef.current = createStore({
       formId: formPropsRef.current.id,
       initialStepName: formPropsRef.current.initialStepName,
     });
   }
 
-  const useStore = connect?.__store ?? useStoreRef.current;
+  const useStore = connect?.__connect ?? useStoreRef.current;
   const actions = useStore?.((state) => state.actions);
 
   useEffect(() => {

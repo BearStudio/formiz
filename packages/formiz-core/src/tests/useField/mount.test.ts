@@ -1,7 +1,7 @@
 import {
-  ERROR_FIELD_MISSING_CONTEXT,
-  ERROR_FIELD_MISSING_NAME,
-  ERROR_FIELD_MISSING_PROPS,
+  ERROR_USE_FIELD_MISSING_CONTEXT,
+  ERROR_USE_FIELD_MISSING_NAME,
+  ERROR_USE_FIELD_MISSING_PROPS,
 } from "@/errors";
 import { renderUseField, silent } from "@/tests/__utils";
 
@@ -10,14 +10,14 @@ describe("useField: Mount", () => {
     silent(() => {
       expect(() => {
         renderUseField(undefined as any, false);
-      }).toThrow(ERROR_FIELD_MISSING_PROPS);
+      }).toThrow(ERROR_USE_FIELD_MISSING_PROPS);
     });
   });
   it("Should crash if a useField is used without `name` property", async () => {
     silent(() => {
       expect(() => {
         renderUseField({} as any, false);
-      }).toThrow(ERROR_FIELD_MISSING_NAME);
+      }).toThrow(ERROR_USE_FIELD_MISSING_NAME);
     });
   });
 
@@ -25,7 +25,7 @@ describe("useField: Mount", () => {
     silent(() => {
       expect(() => {
         renderUseField({ name: "field1" }, false);
-      }).toThrow(ERROR_FIELD_MISSING_CONTEXT);
+      }).toThrow(ERROR_USE_FIELD_MISSING_CONTEXT);
     });
   });
 });

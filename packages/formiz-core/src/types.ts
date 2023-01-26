@@ -182,7 +182,7 @@ export interface FormizProps {
   initialStepName?: string;
   id?: string;
   connect?: {
-    __store: UseBoundStore<StoreApi<Store>>;
+    __connect: UseBoundStore<StoreApi<Store>>;
   };
   onValuesChange?(values: Values): void;
   onSubmit?(values: Values): void;

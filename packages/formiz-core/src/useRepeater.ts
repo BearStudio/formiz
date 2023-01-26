@@ -13,7 +13,7 @@ type UseRepeaterOptions = {
   name: string;
   initialValues?: Data[];
   connect?: {
-    __store: UseBoundStore<StoreApi<Store>>;
+    __connect: UseBoundStore<StoreApi<Store>>;
   };
 };
 
@@ -36,13 +36,13 @@ export const useRepeater = ({
 }: UseRepeaterOptions): UseRepeaterValues => {
   const useStoreFromContext = useFormStore();
 
-  if (!useStoreFromContext && !connect?.__store) {
+  if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
       "useFormFields is used outside of a form or without a `form` connected"
     );
   }
 
-  const useStore = connect?.__store ?? useStoreFromContext;
+  const useStore = connect?.__connect ?? useStoreFromContext;
 
   const storeActions = useStore((state) => state.actions, deepEqual);
   const resetKey = useStore((state) => state.form.resetKey);
