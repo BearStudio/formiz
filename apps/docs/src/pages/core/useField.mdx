@@ -2,13 +2,9 @@ import { Type } from "@/components/Type";
 
 # useField
 
-## TODO
-
-- [ ] Write documentation
-
 ## Hooks methods
 
-### setValue() 🧪
+### setValue()
 
 <Type type="function" />
 Set the value of the field.
@@ -32,9 +28,22 @@ setValue((previousValue) => {
 });
 ```
 
-### ✨ setIsTouched() 🧪
+### setIsTouched()
 
-### ✅ ~validating.start() & validating.end()~ -> externalProcessing.start() & externalProcessing.end()
+<Type type="function" />
+Set the value of the field isTouched.
+
+```tsx
+const MyField = (props) => {
+  const { setIsTouched } = useField(props);
+
+  setIsTouched(true);
+
+  return (
+    <input />
+  );
+};
+```
 
 ## Hook values
 
@@ -50,8 +59,6 @@ const MyField = (props) => {
 };
 ```
 
-### ❓ valueDebounced
-
 ### id
 
 <Type type="number" />
@@ -66,6 +73,15 @@ const MyField = (props) => {
     <input id={id} />
   )
 }
+```
+### isTouched
+
+<Type type="boolean" />
+
+Returns `true` if the field has been touched.
+
+```jsx
+const { isTouched } = useField(props);
 ```
 
 ### isValid
@@ -108,11 +124,17 @@ Returns `true` either if the current step or the form is submitted.
 const { isSubmitted } = useField(props);
 ```
 
-### ✨ shouldDisplayError
+### shouldDisplayError
+
+<Type type="boolean" />
+
+Returns `true` if the field should display an error, usefull when debugging.
+
+```jsx
+const { shouldDisplayError } = useField(props);
+```
 
 ### errorMessage
-
-<Type type="ErrorMessage" />
 
 Returns the first error message.
 
@@ -122,19 +144,26 @@ const { errorMessage } = useField(props);
 
 ### errorMessages
 
-<Type type="ErrorMessage[]" />
-
 Returns all error messages.
 
 ```jsx
 const { errorMessages } = useField(props);
 ```
 
-### 🚧 resetKey
+### resetKey
+
+Returns the number of time the form has been resetted.
+
+```jsx
+const { resetKey } = useField(props);
+```
+
 
 ## Hook extra values
 
 ### otherProps
+
+<Type type="FieldProps" />
 
 Get the props passed to the component without the Formiz props.
 Allows you to keep composition by spreading this object in your component.
@@ -209,7 +238,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 */
 ```
 
-### defaultValue 🧪
+### defaultValue
 
 Pass an initial value to the field.
 
