@@ -221,7 +221,7 @@ export interface FormizStepProps {
   autoHide?: boolean;
 }
 
-export type FieldProps<Value = unknown> = {
+export type FieldProps<Value> = {
   name: string;
   defaultValue?: FieldValue<Value>;
   formatValue?: FormatValue<Value>;
