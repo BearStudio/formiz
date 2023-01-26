@@ -218,10 +218,13 @@ export const useField = <
       const validationsAsyncHandlers = validationsAsyncRef.current.map(
         async (validation) => {
           return {
-            isValid: await validation.handler(
-              currentField?.formattedValue,
-              currentField?.value
-            ),
+            isValid:
+              (!currentField?.formattedValue &&
+                currentField?.formattedValue !== 0) ||
+              (await validation.handler(
+                currentField?.formattedValue,
+                currentField?.value
+              )),
             validation,
           };
         }

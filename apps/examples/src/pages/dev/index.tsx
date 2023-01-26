@@ -90,7 +90,7 @@ const Home: NextPage = () => {
             helper="Do not use `doe`"
             validations={[
               {
-                handler: (v) => !v || v !== "doe",
+                handler: (v) => v !== "doe",
                 message: "You can't use `doe`",
               },
             ]}
