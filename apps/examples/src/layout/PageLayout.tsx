@@ -60,13 +60,13 @@ const DebugOutput = () => {
     <Stack spacing={4}>
       <Stack>
         <Heading fontFamily="mono" size="sm">
-          // useFormContext()
+          # useFormContext()
         </Heading>
         <Box as="pre">{JSON.stringify(form, null, 2)}</Box>
       </Stack>
       <Stack>
         <Heading fontFamily="mono" size="sm">
-          // useFormFields()
+          # useFormFields()
         </Heading>
         <Box as="pre">{JSON.stringify(fields, null, 2)}</Box>
       </Stack>

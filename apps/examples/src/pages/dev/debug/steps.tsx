@@ -78,12 +78,12 @@ const Steps = () => {
           >
             <Stack direction="row" spacing="8">
               <Stack spacing="4">
-                <Link href="/debug/other" passHref>
-                  <Button as="a">Go to /other</Button>
-                </Link>
-                <Link href="/debug" passHref>
-                  <Button as="a">Go to /</Button>
-                </Link>
+                <Button href="/debug/other" as={Link}>
+                  Go to /other
+                </Button>
+                <Button href="/debug" as={Link}>
+                  Go to /
+                </Button>
                 <Button colorScheme="red" onClick={() => forceUpdate()}>
                   Force Update Root
                 </Button>

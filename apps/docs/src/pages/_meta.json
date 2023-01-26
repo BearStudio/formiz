@@ -1,6 +1,8 @@
 {
   "index": "Introduction",
-  "": { "type": "separator" },
+  "---": {
+    "type": "separator"
+  },
   "core": "Core",
   "demo": {
     "title": "Examples ↗",
