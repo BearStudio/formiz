@@ -23,9 +23,9 @@ import type {
 import { useFormStore } from "./Formiz";
 import { fieldInterfaceSelector } from "./selectors";
 import {
-  ERROR_FIELD_MISSING_CONTEXT,
-  ERROR_FIELD_MISSING_NAME,
-  ERROR_FIELD_MISSING_PROPS,
+  ERROR_USE_FIELD_MISSING_CONTEXT,
+  ERROR_USE_FIELD_MISSING_NAME,
+  ERROR_USE_FIELD_MISSING_PROPS,
 } from "./errors";
 
 export const useField = <
@@ -36,7 +36,7 @@ export const useField = <
   config: UseFieldConfig<Value> = {}
 ): ExposedField<Value, Props> => {
   if (!props) {
-    throw new Error(ERROR_FIELD_MISSING_PROPS);
+    throw new Error(ERROR_USE_FIELD_MISSING_PROPS);
   }
 
   const _config: UseFieldConfig<Value> = {
@@ -91,13 +91,13 @@ export const useField = <
   debounceValidationsAsyncRef.current = debounceValidationsAsync;
 
   if (!name) {
-    throw new Error(ERROR_FIELD_MISSING_NAME);
+    throw new Error(ERROR_USE_FIELD_MISSING_NAME);
   }
 
   const useStore = useFormStore();
 
   if (!useStore) {
-    throw new Error(ERROR_FIELD_MISSING_CONTEXT);
+    throw new Error(ERROR_USE_FIELD_MISSING_CONTEXT);
   }
 
   const stepContext = useStepContext();
