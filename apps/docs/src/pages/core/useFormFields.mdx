@@ -18,12 +18,17 @@ You will need to connect the form
 
 ```tsx
 const form = useForm();
-const fields = useFormFields({
-  connect: form,
-});
+
+<MyComponent form={form}>
+  const fields = useFormFields({
+    connect: form,
+  });
+</MyComponent>
 ```
 
 ## Get only some fields
+
+Allows you to filter your fields by name that you want to fetch
 
 ```tsx
 const someFields = useFormFields({ fields: ["firstName", "lastName"] });
@@ -32,6 +37,8 @@ const someFields = useFormFields({ fields: ["firstName", "lastName"] });
 You can use `nested.field` or `array[0].nested` syntaxes.
 
 ## Get only some state
+
+Allows you to filter your fields by state
 
 ```tsx
 const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });
