@@ -43,28 +43,30 @@ export const formInterfaceSelector = (state: Store) => {
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
-    id: state.form.id,
-    resetKey: state.form.resetKey,
-    isSubmitted: state.form.isSubmitted,
-    isValid: getFormIsValid(state.fields),
-    isValidating: getFormIsValidating(state.fields),
-    isPristine: getFormIsPristine(state.fields),
-    steps: state.steps.map(stepInterfaceSelector(state)),
-    currentStep: currentStep
-      ? stepInterfaceSelector(state)(currentStep)
-      : undefined,
-    isStepPristine: currentStep
-      ? getStepIsPristine(currentStep.name, state.fields)
-      : true,
-    isStepValid: currentStep
-      ? getStepIsValid(currentStep.name, state.fields)
-      : true,
-    isStepValidating: currentStep
-      ? getStepIsValidating(currentStep.name, state.fields)
-      : false,
-    isStepSubmitted: currentStep?.isSubmitted ?? false,
-    isFirstStep: state.steps.at(0)?.name === currentStep?.name,
-    isLastStep: state.steps.at(-1)?.name === currentStep?.name,
+    state: {
+      id: state.form.id,
+      resetKey: state.form.resetKey,
+      isSubmitted: state.form.isSubmitted,
+      isValid: getFormIsValid(state.fields),
+      isValidating: getFormIsValidating(state.fields),
+      isPristine: getFormIsPristine(state.fields),
+      steps: state.steps.map(stepInterfaceSelector(state)),
+      currentStep: currentStep
+        ? stepInterfaceSelector(state)(currentStep)
+        : undefined,
+      isStepPristine: currentStep
+        ? getStepIsPristine(currentStep.name, state.fields)
+        : true,
+      isStepValid: currentStep
+        ? getStepIsValid(currentStep.name, state.fields)
+        : true,
+      isStepValidating: currentStep
+        ? getStepIsValidating(currentStep.name, state.fields)
+        : false,
+      isStepSubmitted: currentStep?.isSubmitted ?? false,
+      isFirstStep: state.steps.at(0)?.name === currentStep?.name,
+      isLastStep: state.steps.at(-1)?.name === currentStep?.name,
+    },
   };
 };
 
