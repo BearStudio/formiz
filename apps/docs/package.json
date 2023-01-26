@@ -1,6 +1,7 @@
 {
   "name": "formiz-docs",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "private": true,
   "description": "Formiz documentation",
   "scripts": {
     "dev": "next dev",
