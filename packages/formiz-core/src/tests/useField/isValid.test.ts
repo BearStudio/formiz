@@ -12,9 +12,10 @@ describe("useField: isValid", () => {
   it("Should be invalid if one sync validation is false", async () => {
     const { result } = renderUseField({
       name: "field1",
+      defaultValue: "something",
       validations: [
         {
-          handler: (v) => !!v,
+          handler: (v) => v === "else",
         },
       ],
     });
@@ -24,9 +25,10 @@ describe("useField: isValid", () => {
   it("Should be invalid if one async validation is false", async () => {
     const { result } = renderUseField({
       name: "field1",
+      defaultValue: "something",
       validationsAsync: [
         {
-          handler: async (v) => !!v,
+          handler: async (v) => v === "else",
         },
       ],
     });
