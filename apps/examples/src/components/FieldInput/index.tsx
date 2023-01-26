@@ -14,9 +14,7 @@ import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 
-type Value = string;
-
-export type FieldInputProps = FieldProps<Value> &
+export type FieldInputProps = FieldProps<string> &
   FormGroupProps &
   Pick<InputProps, "type" | "placeholder" | "autoFocus" | "size"> & {
     isLoading?: boolean;
