@@ -219,26 +219,24 @@ const form = useForm();
 const step = form.getStepByFieldName("field");
 ```
 
-### nextStep()
+### goToNextStep()
 
 <Type type="() => void" />
 Function for navigate to next step.
 
 ```tsx
 const form = useForm();
-form.nextStep();
+form.goToNextStep();
 ```
 
-### ✅ prevStep()
-
-TODO: rename previousStep ?
+### ✅ goToPreviousStep()
 
 <Type type="() => void" />
 Function for navigate to previous step.
 
 ```tsx
 const form = useForm();
-form.prevStep();
+form.goToPreviousStep();
 ```
 
 ### goToStep(name)

@@ -422,7 +422,7 @@ export const createStore = ({
           return;
         }
 
-        get().actions.nextStep();
+        get().actions.goToNextStep();
       },
 
       registerStep: (stepName, { label } = {}) =>
@@ -484,7 +484,7 @@ export const createStore = ({
         }));
       },
 
-      nextStep: () => {
+      goToNextStep: () => {
         const currentStepName = get().form.currentStepName;
         const steps = get().steps;
         const isLastStep = steps.at(-1)?.name === currentStepName;
@@ -500,7 +500,7 @@ export const createStore = ({
         get().actions.goToStep(steps[currentStepIndex + 1].name);
       },
 
-      prevStep: () => {
+      goToPreviousStep: () => {
         const currentStepName = get().form.currentStepName;
         const steps = get().steps;
         const isFirstStep = steps.at(0)?.name === currentStepName;

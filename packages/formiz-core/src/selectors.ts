@@ -26,7 +26,6 @@ export const formInterfaceSelector = (state: Store) => {
   );
 
   return {
-    id: state.form.id,
     submit: state.actions.submitForm,
     setValues: state.actions.setValues,
     setErrors: state.actions.setErrors,
@@ -39,19 +38,21 @@ export const formInterfaceSelector = (state: Store) => {
       return stepInterfaceSelector(state)(step);
     },
     reset: state.actions.reset,
+    submitStep: state.actions.submitStep,
+    goToStep: state.actions.goToStep,
+    goToNextStep: state.actions.goToNextStep,
+    goToPreviousStep: state.actions.goToPreviousStep,
+
+    id: state.form.id,
     resetKey: state.form.resetKey,
     isSubmitted: state.form.isSubmitted,
     isValid: getFormIsValid(state.fields),
     isValidating: getFormIsValidating(state.fields),
     isPristine: getFormIsPristine(state.fields),
-    submitStep: state.actions.submitStep,
     steps: state.steps.map(stepInterfaceSelector(state)),
     currentStep: currentStep
       ? stepInterfaceSelector(state)(currentStep)
       : undefined,
-    goToStep: state.actions.goToStep,
-    nextStep: state.actions.nextStep,
-    prevStep: state.actions.prevStep,
     isStepPristine: currentStep
       ? getStepIsPristine(currentStep.name, state.fields)
       : true,
