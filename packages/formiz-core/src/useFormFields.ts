@@ -2,8 +2,8 @@ import { deepEqual } from "fast-equals";
 import { StoreApi, UseBoundStore } from "zustand";
 
 import { useFormStore } from "./Formiz";
-import { fieldInterfaceSelector } from "./selectors";
-import { ExposedFieldState, Store } from "./types";
+import { fieldExternalInterfaceSelector } from "./selectors";
+import { ExposedExternalFieldState, Store } from "./types";
 import { getFormFields } from "./utils/form";
 
 type useFormFieldsProps = {
@@ -11,7 +11,7 @@ type useFormFieldsProps = {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
   fields?: string[];
-  selector?: (field: ExposedFieldState<unknown, unknown>) => unknown;
+  selector?: (field: ExposedExternalFieldState<unknown, unknown>) => unknown;
 };
 
 export const useFormFields = ({
@@ -45,8 +45,8 @@ export const useFormFields = ({
         (acc, field) => ({
           ...acc,
           [field.name]: selector
-            ? selector(fieldInterfaceSelector(state)(field))
-            : fieldInterfaceSelector(state)(field),
+            ? selector(fieldExternalInterfaceSelector(state)(field))
+            : fieldExternalInterfaceSelector(state)(field),
         }),
         {}
       );

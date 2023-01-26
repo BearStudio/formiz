@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const form = useForm();
   const x = useFormFields({
     fields: ["nested.field"],
-    selector: (f) => [f.formattedValue, f.value],
+    selector: (f) => [f.value, f.rawValue],
     connect: form,
   });
 

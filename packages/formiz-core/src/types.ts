@@ -77,6 +77,18 @@ export type ExposedFieldState<
   errorMessage: ErrorMessage;
   resetKey: number;
 };
+
+export type ExposedExternalFieldState<
+  Value,
+  FormattedValue extends unknown = unknown
+> = Omit<
+  ExposedFieldState<Value, FormattedValue>,
+  "value" | "formattedValue"
+> & {
+  rawValue: FieldValue<Value>;
+  value: FieldValue<FormattedValue>;
+};
+
 export type ExposedField<Value, Props> = ExposedFieldState<Value> & {
   isRequired: boolean;
   setValue: (
