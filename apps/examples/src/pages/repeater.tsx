@@ -8,7 +8,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { Formiz, unstable_useRepeater, useForm } from "@formiz/core";
+import { Formiz, useRepeater, useForm } from "@formiz/core";
 import { FiPlus, FiTrash2 } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
@@ -31,7 +31,7 @@ const INITIAL_VALUES = {
 
 const Repeater = () => {
   const form = useForm();
-  const collection = unstable_useRepeater({
+  const collection = useRepeater({
     connect: form,
     name: "members",
     initialValues: INITIAL_VALUES.members,
