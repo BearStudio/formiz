@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { deepMemo, FieldProps, useField } from "@formiz/core";
 import {
@@ -45,7 +45,7 @@ const FieldPickIdenticalImagesBase = (props: FieldPickIdenticalImagesProps) => {
         message: "You need to select a second image",
       },
       {
-        handler: (_, rawValue) => rawValue?.isIdentical,
+        handler: (_, rawValue) => !!rawValue?.isIdentical,
         message: "Image are not identical",
       },
     ],
