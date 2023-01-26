@@ -9,7 +9,7 @@ const Playground: NextPage = () => {
   const form = useForm();
   const values = useFormFields({
     connect: form,
-    fields: ["firstName", "nested"] as const,
+    fields: ["firstName", "nested"],
     selector: (field) => field.isDebouncing,
   });
 

@@ -51,7 +51,7 @@ ChildComponentMemo.displayName = "ChildComponentMemo";
 
 const Debug = React.memo(() => {
   const fields = useFormFields({
-    fields: ["async", "objectValue", "nested"] as const,
+    fields: ["async", "objectValue", "nested"],
     selector: (field) => field.value,
   });
   const debug = fields;

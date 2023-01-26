@@ -6,22 +6,19 @@ import { fieldInterfaceSelector } from "./selectors";
 import { ExposedFieldState, Store } from "./types";
 import { getFormFields } from "./utils/form";
 
-type useFormFieldsProps<Fields extends readonly string[], Selection> = {
+type useFormFieldsProps = {
   connect?: {
     __store: UseBoundStore<StoreApi<Store>>;
   };
-  fields?: Fields;
-  selector?: (field: ExposedFieldState<unknown, unknown>) => Selection;
+  fields?: string[];
+  selector?: (field: ExposedFieldState<unknown, unknown>) => unknown;
 };
 
-export const useFormFields = <Fields extends readonly string[], Selection>({
+export const useFormFields = ({
   connect,
   fields,
   selector,
-}: useFormFieldsProps<Fields, Selection> = {}): Record<
-  Fields[number],
-  Selection
-> => {
+}: useFormFieldsProps = {}) => {
   const useStoreFromContext = useFormStore();
 
   if (!useStoreFromContext && !connect?.__store) {
@@ -33,9 +30,7 @@ export const useFormFields = <Fields extends readonly string[], Selection>({
   const useStore = connect?.__store ?? useStoreFromContext;
 
   const statefields = useStore((state) => {
-    const flatFields: Record<string, Selection> = Array.from(
-      state.fields.values()
-    )
+    const flatFields = Array.from(state.fields.values())
       .filter(
         (field) =>
           !fields ||
@@ -55,7 +50,7 @@ export const useFormFields = <Fields extends readonly string[], Selection>({
         }),
         {}
       );
-    return getFormFields(flatFields);
+    return getFormFields<any>(flatFields);
   }, deepEqual);
   return statefields;
 };
