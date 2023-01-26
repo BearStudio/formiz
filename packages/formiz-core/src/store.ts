@@ -188,11 +188,17 @@ export const createStore = ({
       ) => {
         // Required
         const requiredErrors =
-          required && !value ? [required !== true ? required : undefined] : [];
+          required && !formattedValue
+            ? [required !== true ? required : undefined]
+            : [];
 
         // Sync Validations
         const validationsErrors = (validations ?? [])
-          .filter((validation) => !validation.handler(formattedValue, value))
+          .filter(
+            (validation) =>
+              (!!formattedValue || formattedValue === 0) &&
+              !validation.handler(formattedValue, value)
+          )
           .map(({ message }) => message);
 
         return { requiredErrors, validationsErrors };

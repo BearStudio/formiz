@@ -51,7 +51,7 @@ const AutoForm: NextPage = () => {
             ]}
             validationsAsync={[
               {
-                handler: async (value) =>
+                handler: async (value: string) =>
                   new Promise((resolve) =>
                     setTimeout(() => {
                       resolve(
@@ -86,7 +86,7 @@ const AutoForm: NextPage = () => {
             required="Required"
             validations={[
               {
-                handler: (v) => !!v && !v.name.startsWith("A"),
+                handler: (v: { name: string }) => !v.name.startsWith("A"),
                 message: "File name cannot start with 'A'",
               },
             ]}
