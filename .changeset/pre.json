@@ -1,0 +1,15 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "formiz-docs": "0.0.0",
+    "examples": "0.0.0",
+    "config": "0.0.0",
+    "@formiz/core": "2.0.0-alpha.0",
+    "@formiz/validations": "2.0.0-alpha.0",
+    "tsconfig": "0.0.0"
+  },
+  "changesets": [
+    "shiny-vans-attend"
+  ]
+}
