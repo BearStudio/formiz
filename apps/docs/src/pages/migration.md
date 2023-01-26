@@ -2,13 +2,25 @@
 
 ## Update your dependencies
 
-- All formiz packages you use to `@formiz/<package-name>@2.0.0`
-- Node 14+
-- npm 7.0.0 +
+All the Formiz packages that you use should be at least on version _2.0.0_.
+
+Additionally, you need to use at least:
+
+- version _14_ for **Node**
+- version _7_ for **npm**
+- version _18_ for **React**
+
+```json
+dependencies: {
+  "@formiz/core": 2.0.0,
+  "@formiz/validations": 2.0.0,
+  "react": 18.0.0,
+}
+```
 
 ## Breaking changes
 
-### useForm
+### 1. useForm
 
 #### Usage changes
 
@@ -105,42 +117,38 @@ const MyForm = () => {
 
 #### Functions changes
 
-### Functions names updated
+1. _setFieldsValues_
+   - The function has been renamed to **_setValues_**
+   - The _keepPristine_ option now defaults to **true**
+   - The _keepUnmounted_ option doesn't exist anymore. The function will now always behave as if _keepUnmounted_ was **true**.
+2. _invalidateFields_ was renamed to **setErrors**
+3. _getFieldStepName_ was renamed to **getStepByFieldName**
 
-- setFieldsValues became setValues
-- invalidateFields became setErrors
-- getFieldStepName became getStepByFieldName
+### 2. useField
 
-### Default behavior updated
+The hook is now fully typed using typescript. `otherProps` will automatically be typed as an object containing everything that is not a Formiz prop in the given type.
 
-- setValues (setFieldValues) : keepUnmounted by default (option disappear, was defaulted as false)
-- keepPristine default to false (v1: default to true)
+### 3. Naming changes
 
-### Naming changes
+Several field props and functions were renamed:
 
-## What changed ?
+- on the `<Formiz />` component
+  - onChange was renamed to **onValuesChange**
+- on the `useField` hook
+  - onChange was renamed to **onValueChange**
+  - debounce was renamed to **debounceValidationsAsync**
+  - async validations was renamed to **validationsAsync**
 
-- `<Formiz />`
-  - autoForm can be "form" or "step"
-  - onChange -> onValuesChange
+### 4. Yet to come in v2
 
-* useField()
+#### stateSubscription for useForm & useFormContext
 
-  - new methods
-    - setIsTouched()
-  - new hook values
-    - isTouched
-  - FieldProps changes
-  - Field config options
-    - formatValue
-    - required
-    - validations
-    - validationsAsync
-    - debounceValidationsAsync
-    - unstable_notifyOnChangePropsExclusions
+At the moment, both _useForm_ and _useFormContext_ will always return the full state and every function available for your form. The **stateSubscription** option will allow to only return the necessary state data, avoiding some undesired rerenders and enhancing the performances of your app.
 
-* typed useField
+#### keepValue
 
-### Yet to come in v2
+The _keepValue_ option on fields is set to return to Formiz in a near future, allowing you to get back the value of a field that has been unmounted and then remounted.
 
-- keepValue option on field
+#### validating.start & validating.end
+
+Those two functions will allow you to indicate to a field that you are starting and ending external validations outside of the formiz standard lifecycle, updating the isValidating state to reflect what you are doing.
