@@ -38,15 +38,16 @@ const FieldPickIdenticalImagesBase = (props: FieldPickIdenticalImagesProps) => {
     otherProps: { children, label, helper, options, ...rest },
   } = useField(props, {
     formatValue: (v) => v?.value ?? null,
-    required: "You need to select 2 images",
     validations: [
       {
         handler: (_, rawValue) => rawValue?.selectedCount === 2,
-        message: "You need to select a second image",
+        message: "You need to select 2 images",
+        checkFalsy: true,
       },
       {
         handler: (_, rawValue) => !!rawValue?.isIdentical,
         message: "Image are not identical",
+        checkFalsy: true,
       },
     ],
   });
@@ -98,9 +99,7 @@ const FieldPickIdenticalImagesBase = (props: FieldPickIdenticalImagesProps) => {
       return;
     }
 
-    if (nextValues.length > 1) {
-      setIsTouched(true);
-    }
+    setIsTouched(nextValues.length > 1);
 
     setValue({
       isIdentical,
