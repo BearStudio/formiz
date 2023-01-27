@@ -19,7 +19,8 @@
     "@changesets/cli": "2.26.0",
     "prettier": "2.8.3",
     "turbo": "latest",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "@trivago/prettier-plugin-sort-imports": "4.0.0"
   },
   "engines": {
     "npm": ">=7.0.0",
