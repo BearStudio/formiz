@@ -35,15 +35,15 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
           closeOnBlur={false}
         >
           <PopoverTrigger>
-              <Button
-                minW="28" 
-                variant="link" 
-                textDecoration="underline" 
-                size="sm"
-                rightIcon={<Icon as={FiChevronDown} />}
-                >
-                {value ?? 'No name'}
-              </Button>
+          <Button
+            minW="28" 
+            variant="link" 
+            textDecoration="underline" 
+            size="sm"
+            rightIcon={<Icon as={FiChevronDown} />}
+            >
+            {value ?? 'No name'}
+          </Button>
           </PopoverTrigger>
           <PopoverContent p={5}>
             <PopoverArrow />
@@ -67,11 +67,10 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
                 </Button>
                 <Button 
                   isDisabled={isSubmitDisabled}
-                  colorScheme='teal' 
                   onClick={() => {
                     subForm.submit();
                   }}
-                  >
+                >
                   Save
                 </Button>
               </ButtonGroup>
