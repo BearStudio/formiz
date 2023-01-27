@@ -123,7 +123,13 @@ export const createStore = ({}: {
 
       reset: (resetOptions = {}) => {
         set((state) => {
+          let initialValues = cloneDeep(
+            state.formPropsRef.current?.initialValues
+          );
+
           state.fields.forEach((field) => {
+            initialValues = lodashOmit(initialValues, field.name);
+
             state.fields.set(field.id, {
               ...field,
               value: isResetAllowed("values", resetOptions)
@@ -174,9 +180,9 @@ export const createStore = ({}: {
                 ? false
                 : step.isVisited,
             })),
-            initialValues: cloneDeep(
-              state.formPropsRef.current?.initialValues ?? {}
-            ),
+            initialValues,
+            externalValues: {},
+            keepValues: {},
           };
         });
       },
@@ -261,6 +267,19 @@ export const createStore = ({}: {
           const value = getValue() ?? null;
           const formattedValue = formatValue(value as any);
 
+          const getNewInitialValue = () => {
+            if (oldFieldById?.initialValue) {
+              return oldFieldById.initialValue;
+            }
+            if (initialValue !== undefined) {
+              return initialValue;
+            }
+            return defaultValue;
+          };
+
+          const newInitialValue = getNewInitialValue() ?? null;
+          const newInitialFormattedValue = formatValue(newInitialValue as any);
+
           const { requiredErrors, validationsErrors } =
             state.actions.getFieldValidationsErrors(
               value,
@@ -276,8 +295,8 @@ export const createStore = ({}: {
               ...newField,
               value,
               formattedValue,
-              initialValue: value,
-              initialFormattedValue: formattedValue,
+              initialValue: newInitialValue,
+              initialFormattedValue: newInitialFormattedValue,
               requiredErrors,
               validationsErrors,
               requiredRef,
