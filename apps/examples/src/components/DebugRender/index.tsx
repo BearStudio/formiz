@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { Code, CodeProps } from '@chakra-ui/react';
+import { Code, CodeProps } from "@chakra-ui/react";
 
 export const DebugRender: React.FC<CodeProps> = (props) => {
   const renderCountRef = useRef(0);

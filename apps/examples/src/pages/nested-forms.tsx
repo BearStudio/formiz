@@ -1,9 +1,21 @@
 import { Formiz, FieldProps, useForm, useField } from "@formiz/core";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
-import { Icon, Button, ButtonGroup, Flex, Popover, PopoverArrow, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, useDisclosure } from "@chakra-ui/react";
+import {
+  Icon,
+  Button,
+  ButtonGroup,
+  Flex,
+  Popover,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+  Stack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { FieldInput } from "@/components/FieldInput";
-import { FormGroup } from '@/components/FormGroup';
+import { FormGroup } from "@/components/FormGroup";
 import { FC } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
@@ -20,10 +32,10 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
   const { setValue, value, errorMessage, isValid } = useField(props);
 
   const handleSubmit = ({ firstName, lastName }: any) => {
-    setValue([firstName, lastName].join(' '));
+    setValue([firstName, lastName].join(" "));
     onClose();
-  }
-  
+  };
+
   return (
     <Formiz connect={subForm} onValidSubmit={handleSubmit}>
       <FormGroup label={label} errorMessage={errorMessage} showError={!isValid}>
@@ -31,19 +43,19 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
           isOpen={isOpen}
           onOpen={onOpen}
           onClose={onClose}
-          placement='right'
+          placement="right"
           closeOnBlur={false}
         >
           <PopoverTrigger>
-          <Button
-            minW="28" 
-            variant="link" 
-            textDecoration="underline" 
-            size="sm"
-            rightIcon={<Icon as={FiChevronDown} />}
+            <Button
+              minW="28"
+              variant="link"
+              textDecoration="underline"
+              size="sm"
+              rightIcon={<Icon as={FiChevronDown} />}
             >
-            {value ?? 'No name'}
-          </Button>
+              {value ?? "No name"}
+            </Button>
           </PopoverTrigger>
           <PopoverContent p={5}>
             <PopoverArrow />
@@ -55,9 +67,9 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
                 required="First name is required"
               />
 
-              <FieldInput 
+              <FieldInput
                 label="Last name"
-                name="lastName" 
+                name="lastName"
                 required="Last name is required"
               />
 
@@ -65,7 +77,7 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
                 <Button variant="outline" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button 
+                <Button
                   isDisabled={isSubmitDisabled}
                   onClick={() => {
                     subForm.submit();
@@ -79,23 +91,27 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
         </Popover>
       </FormGroup>
     </Formiz>
-  )
-}
+  );
+};
 
 const NestedForms = () => {
   const form = useForm();
 
   const handleSubmit = (values: any) => {
-    console.log(values)
-  }
+    console.log(values);
+  };
 
   return (
     <Formiz connect={form} autoForm onValidSubmit={handleSubmit}>
       <PageLayout>
         <PageHeader githubPath="nested-forms.tsx">Nested Forms</PageHeader>
-        
-        <FieldSubForm label="Full name" name="fullName" required="Full name is required" />
-        
+
+        <FieldSubForm
+          label="Full name"
+          name="fullName"
+          required="Full name is required"
+        />
+
         <Flex mt="4">
           <Button
             type="submit"
