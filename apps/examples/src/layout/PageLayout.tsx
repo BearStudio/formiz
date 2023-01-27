@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react";
-import { Box, Code, Flex, Heading, Stack } from "@chakra-ui/react";
+import React, { FC, PropsWithChildren } from "react";
+import { Box, Flex, Heading, Stack } from "@chakra-ui/react";
 import { NavBar } from "./NavBar";
 import { useFormContext, useFormFields } from "@formiz/core";
 
-export const PageLayout: FC<{ children?: ReactNode }> = ({ children }) => {
+export const PageLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Flex
       minH="100vh"
