@@ -1,6 +1,6 @@
-import { Type } from '@/components/Type';
-import { CodeEditor } from '@/components/CodeEditor';
-import { useFieldFile } from '@/templates/useField.ts';
+import { Type } from "@/components/Type";
+import { CodeEditor } from "@/components/CodeEditor";
+import { useFieldFile } from "@/templates/useField.ts";
 
 # useField
 
@@ -55,7 +55,7 @@ Get the current value of the field, after it has been formated by `formatValue` 
 const MyField = (props) => {
   const { value } = useField(props);
 
-  return <input value={value ?? ''} />;
+  return <input value={value ?? ""} />;
 };
 ```
 
@@ -67,7 +67,9 @@ Get the current value of the field, before it has been modified by `formatValue`
 const MyField = (props) => {
   const { rawData, value } = useField(props);
 
-  return <input value={value ?? ""} formatValue={(val) => (val || "").trim()} />;
+  return (
+    <input value={value ?? ""} formatValue={(val) => (val || "").trim()} />
+  );
   /* Differences between value and rawValue
   {
     value: 'value',
@@ -80,7 +82,8 @@ const MyField = (props) => {
 ### id
 
 <Type type="number" />
-Return a unique `id`. This `id` will be created based on the form id and the field name.
+Return a unique `id`. This `id` will be created based on the form id and the field
+name.
 
 ```tsx
 const MyField = (props) => {
@@ -279,7 +282,7 @@ Pass a default value to the field.
 Format the value before saving it into the internal state.
 
 ```jsx
-<Field name="myFieldName" formatValue={(val) => (val || '').trim()} />
+<Field name="myFieldName" formatValue={(val) => (val || "").trim()} />
 ```
 
 ### onValueChange(fieldValue)
@@ -332,7 +335,7 @@ Accept an array of object with the following keys:
       message: "Field can't be empty",
     },
     {
-      handler: (value) => value.toLowerCase() !== 'john',
+      handler: (value) => value.toLowerCase() !== "john",
       message: "Field can't be john",
     },
     {
@@ -364,7 +367,7 @@ Accept an array of object with the following keys:
         const isAlreadyUsed = await validateUsername(value);
         return isAlreadyUsed;
       },
-      message: 'Username already used, please select another one.',
+      message: "Username already used, please select another one.",
     },
   ]}
 />
@@ -395,7 +398,3 @@ Awaiting contribution
 ## ✨ unstable_notifyOnChangePropsExclusions
 
 Awaiting contribution
-
-## Try it
-
-<CodeEditor files={useFieldFile} />

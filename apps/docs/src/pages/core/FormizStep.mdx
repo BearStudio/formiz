@@ -1,5 +1,5 @@
 import { CodeEditor } from "@/components/CodeEditor";
-import { Type } from '@/components/Type';
+import { Type } from "@/components/Type";
 import { formizStep } from "@/templates/formizStep.ts";
 
 # FormizStep
@@ -7,7 +7,7 @@ import { formizStep } from "@/templates/formizStep.ts";
 ## Import
 
 ```tsx
-import { FormizStep } from '@formiz/core';
+import { FormizStep } from "@formiz/core";
 ```
 
 ## Props
@@ -101,7 +101,7 @@ If you use order, all steps should get an order property to prevent unexpected b
   <FormizStep name="step3" order={2}>
     {/* Your fields here */}
   </FormizStep>
-</Formiz>
+</Formiz>;
 ```
 
 ### autoHide
@@ -112,19 +112,19 @@ Allow you to toggle the default style to display the step. Defaults to `true` an
 
 ```tsx
 // Example with Collapse from Chakra UI
-import { Collapse } from '@chakra-ui/react';
+import { Collapse } from "@chakra-ui/react";
 
 const MyExample = () => {
   const form = useForm();
 
   return (
     <Formiz connect={form}>
-      <Collapse in={form?.currentStep?.name === 'step1'}>
+      <Collapse in={form?.currentStep?.name === "step1"}>
         <FormizStep autoHide={false} name="step1">
           {/* Your fields here */}
         </FormizStep>
       </Collapse>
-      <Collapse in={form?.currentStep?.name === 'step2'}>
+      <Collapse in={form?.currentStep?.name === "step2"}>
         <FormizStep autoHide={false} name="step2">
           {/* Your fields here */}
         </FormizStep>
@@ -133,7 +133,3 @@ const MyExample = () => {
   );
 };
 ```
-
-## Try it
-
-<CodeEditor files={formizStep} />

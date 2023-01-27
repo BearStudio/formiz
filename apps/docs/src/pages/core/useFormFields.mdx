@@ -38,17 +38,19 @@ const someFields = useFormFields({ fields: ["firstName", "lastName"] });
 You can use `nested.field` or `array[0].nested` syntaxes.
 
 ```tsx
-const someFields = useFormFields({ fields: [
-  "personalInfo.firstName",
-  "personalInfo.lastName",
-  "books[0].name",
-  "books[0].editor",
-]});
+const someFields = useFormFields({
+  fields: [
+    "personalInfo.firstName",
+    "personalInfo.lastName",
+    "books[0].name",
+    "books[0].editor",
+  ],
+});
 ```
 
 ## Get only some state
 
-Allow you to filter which states fields by state. 
+Allow you to filter which states fields by state.
 
 ```tsx
 const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });
@@ -64,6 +66,3 @@ const fieldsCustom = useFormFields({
     field.isSubmitted && field.value === "julie" ? "OK" : "KO",
 });
 ```
-## Try it
-
-<CodeEditor files={useFormFields} />
