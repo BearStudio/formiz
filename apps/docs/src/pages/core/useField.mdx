@@ -1,6 +1,6 @@
-import { Type } from "@/components/Type";
-import { CodeEditor } from "@/components/CodeEditor";
-import { useField } from "@/templates/useField.ts";
+import { Type } from '@/components/Type';
+import { CodeEditor } from '@/components/CodeEditor';
+import { useFieldFile } from '@/templates/useField.ts';
 
 # useField
 
@@ -55,7 +55,7 @@ Get the current value of the field.
 const MyField = (props) => {
   const { value } = useField(props);
 
-  return <input value={value ?? ""} />;
+  return <input value={value ?? ''} />;
 };
 ```
 
@@ -263,7 +263,7 @@ Pass an initial value to the field.
 Format the value before saving it into the internal state.
 
 ```jsx
-<Field name="myFieldName" formatValue={(val) => (val || "").trim()} />
+<Field name="myFieldName" formatValue={(val) => (val || '').trim()} />
 ```
 
 ### onChange(fieldValue)
@@ -306,14 +306,14 @@ Accept an array of object with the following keys:
   validations={[
     {
       rule: isRequired(),
-      message: "Field is required",
+      message: 'Field is required',
     },
     {
       rule: isNotEmptyString(),
       message: "Field can't be empty",
     },
     {
-      rule: (value) => value.toLowerCase() !== "john",
+      rule: (value) => value.toLowerCase() !== 'john',
       message: "Field can't be john",
     },
     {
@@ -345,14 +345,13 @@ Accept an array of object with the following keys:
         const isAlreadyUsed = await validateUsername(value);
         return isAlreadyUsed;
       },
-      message: "Username already used, please select another one.",
+      message: 'Username already used, please select another one.',
     },
   ]}
 />
 ```
 
-<CodeEditor files={useField} />
----
+## <CodeEditor files={useFieldFile} />
 
 TODO :
 [ ] get information if you let informations config section
