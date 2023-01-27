@@ -61,17 +61,25 @@ export const FormizStep = ({
 
   const labelRef = useRef(label);
   labelRef.current = label;
+  const orderRef = useRef(order);
+  orderRef.current = order;
+  const isEnabledRef = useRef(isEnabled);
+  isEnabledRef.current = isEnabled;
 
   // Register / Unregister Step
   useEffect(() => {
-    storeActions.registerStep(name, { label: labelRef.current });
+    storeActions.registerStep(name, {
+      label: labelRef.current,
+      order: orderRef.current,
+      isEnabled: isEnabledRef.current,
+    });
     return () => storeActions.unregisterStep(name);
   }, [name, storeActions]);
 
   // Update Step
   useEffect(() => {
-    storeActions.updateStep(name, { label });
-  }, [name, label, storeActions]);
+    storeActions.updateStep(name, { label, order, isEnabled });
+  }, [name, label, order, isEnabled, storeActions]);
 
   const contextValue = useMemo(
     () => ({
@@ -86,6 +94,10 @@ export const FormizStep = ({
       storeActions.updateStep(name, { isVisited: true });
     }
   }, [name, isCurrentStep, storeActions, resetKey]);
+
+  if (!isEnabled) {
+    return null;
+  }
 
   return (
     <StepContext.Provider value={contextValue}>

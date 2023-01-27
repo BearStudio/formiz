@@ -12,7 +12,7 @@ import {
   getStepIsReady,
   isResetAllowed,
 } from "@/utils/form";
-import type { GetFieldSetValueOptions, Store } from "@/types";
+import type { GetFieldSetValueOptions, Step, Store } from "@/types";
 
 export const createStore = ({
   formId,
@@ -416,7 +416,7 @@ export const createStore = ({
           return;
         }
 
-        const steps = get().steps;
+        const steps = get().steps.filter((step) => step.isEnabled);
         const isLastStep = steps.at(-1)?.name === currentStepName;
 
         if (isLastStep) {
@@ -427,13 +427,20 @@ export const createStore = ({
         get().actions.goToNextStep();
       },
 
-      registerStep: (stepName, { label } = {}) =>
+      registerStep: (stepName, { label, order = 0, isEnabled = true } = {}) =>
         set((state) => {
           return {
             steps: [
               ...state.steps,
-              { name: stepName, label, isSubmitted: false, isVisited: false },
-            ],
+              {
+                name: stepName,
+                label,
+                isSubmitted: false,
+                isVisited: false,
+                order,
+                isEnabled,
+              },
+            ].sort((stepA, stepB) => stepA.order - stepB.order),
             form: {
               ...state.form,
               currentStepName: state.form.currentStepName ?? stepName,
@@ -444,37 +451,43 @@ export const createStore = ({
       updateStep: (stepName, newStep) => {
         set((state) => {
           return {
-            steps: state.steps.map((step) =>
-              step.name === stepName ? { ...step, ...newStep } : step
-            ),
+            steps: state.steps
+              .map((step) =>
+                step.name === stepName ? { ...step, ...newStep } : step
+              )
+              .sort((stepA, stepB) => stepA.order - stepB.order),
           };
         });
       },
 
       unregisterStep: (stepName) =>
         set((state) => {
-          const stepIndex = state.steps.findIndex(
-            (step) => step.name === stepName
-          );
+          // const stepIndex = state.steps.findIndex(
+          //   (step) => step.name === stepName
+          // );
 
-          const fallbackStepName = (
-            stepIndex > 0
-              ? state.steps.at(stepIndex - 1)
-              : state.steps.at(stepIndex + 1)
-          )?.name;
+          // const fallbackStepName = (
+          //   stepIndex > 0
+          //     ? state.steps.at(stepIndex - 1)
+          //     : state.steps.at(stepIndex + 1)
+          // )?.name;
 
           return {
             steps: state.steps.filter((step) => step.name !== stepName),
             form: {
               ...state.form,
-              currentStepName: fallbackStepName ?? null,
+              // currentStepName: fallbackStepName ?? null,
             },
           };
         }),
 
       goToStep: (stepName) => {
         // Unknown step name
-        if (!get().steps.find((step) => step.name === stepName)) {
+        if (
+          !get()
+            .steps.filter((step) => step.isEnabled)
+            .find((step) => step.name === stepName)
+        ) {
           return;
         }
 
@@ -488,7 +501,7 @@ export const createStore = ({
 
       goToNextStep: () => {
         const currentStepName = get().form.currentStepName;
-        const steps = get().steps;
+        const steps = get().steps.filter((step) => step.isEnabled);
         const isLastStep = steps.at(-1)?.name === currentStepName;
 
         if (isLastStep) {
@@ -504,7 +517,7 @@ export const createStore = ({
 
       goToPreviousStep: () => {
         const currentStepName = get().form.currentStepName;
-        const steps = get().steps;
+        const steps = get().steps.filter((step) => step.isEnabled);
         const isFirstStep = steps.at(0)?.name === currentStepName;
 
         if (isFirstStep) {
