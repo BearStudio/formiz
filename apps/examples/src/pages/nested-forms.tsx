@@ -1,53 +1,84 @@
-import { Formiz, FieldProps, useForm, useFormFields, useField, useFormContext } from "@formiz/core";
+import { Formiz, FieldProps, useForm, useField } from "@formiz/core";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
-import { Box, Button, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Icon, Button, ButtonGroup, Flex, Popover, PopoverArrow, PopoverCloseButton, PopoverContent, PopoverTrigger, Stack, useDisclosure } from "@chakra-ui/react";
 import { FieldInput } from "@/components/FieldInput";
-import { FC, useEffect } from "react";
+import { FormGroup } from '@/components/FormGroup';
+import { FC } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
-type SubFieldValues = {
-  subFieldInput: string;
-}
-type FieldSubFormProps = FieldProps<SubFieldValues>;
+type FieldSubFormProps = FieldProps<string> & {
+  label: string;
+};
 
 const FieldSubForm: FC<FieldSubFormProps> = (props) => {
   const subForm = useForm();
-  const isSubmitDisabled = !subForm.isValid && subForm.isSubmitted
+  const { label } = props;
+  const isSubmitDisabled = !subForm.isValid && subForm.isSubmitted;
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { setValue } = useField(props);
+  const { setValue, value, errorMessage, isValid } = useField(props);
 
-  const handleSubmit = (value: SubFieldValues) => {
-    setValue(value);
+  const handleSubmit = ({ firstName, lastName }: any) => {
+    setValue([firstName, lastName].join(' '));
+    onClose();
   }
   
   return (
     <Formiz connect={subForm} onValidSubmit={handleSubmit}>
-      <Stack 
-        border="1px dashed" 
-        borderColor="gray.200"
-        bgColor="gray.50"
-        _dark={{
-          bg: "gray.900",
-          borderColor: "gray.700",
-        }}
-        p="5"
-        borderRadius="md"
-        justifyContent="flex-end"
-      >
-        <FieldInput
-          label="Sub form label"
-          name="subFieldInput"
-          required="Input is required"
-        />
-
-        <Button 
-          mt="2"
-          onClick={() => subForm.submit()} 
-          isDisabled={isSubmitDisabled}
+      <FormGroup label={label} errorMessage={errorMessage} showError={!isValid}>
+        <Popover
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+          placement='right'
+          closeOnBlur={false}
         >
-          Submit subForm
-        </Button>
-      </Stack>
+          <PopoverTrigger>
+              <Button
+                minW="28" 
+                variant="link" 
+                textDecoration="underline" 
+                size="sm"
+                rightIcon={<Icon as={FiChevronDown} />}
+                >
+                {value ?? 'No name'}
+              </Button>
+          </PopoverTrigger>
+          <PopoverContent p={5}>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <Stack spacing={4}>
+              <FieldInput
+                label="First name"
+                name="firstName"
+                required="First name is required"
+              />
+
+              <FieldInput 
+                label="Last name"
+                name="lastName" 
+                required="Last name is required"
+              />
+
+              <ButtonGroup display="flex" justifyContent="flex-end">
+                <Button variant="outline" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button 
+                  isDisabled={isSubmitDisabled}
+                  colorScheme='teal' 
+                  onClick={() => {
+                    subForm.submit();
+                  }}
+                  >
+                  Save
+                </Button>
+              </ButtonGroup>
+            </Stack>
+          </PopoverContent>
+        </Popover>
+      </FormGroup>
     </Formiz>
   )
 }
@@ -64,14 +95,8 @@ const NestedForms = () => {
       <PageLayout>
         <PageHeader githubPath="nested-forms.tsx">Nested Forms</PageHeader>
         
-        <FieldInput
-          label="Label"
-          name="fieldInput"
-          mb="2"
-        />
-
-        <FieldSubForm name="subFormField" formatValue={value => value?.subFieldInput} />
-
+        <FieldSubForm label="Full name" name="fullName" required="Full name is required" />
+        
         <Flex mt="4">
           <Button
             type="submit"

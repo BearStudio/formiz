@@ -30,7 +30,7 @@ const FieldUploadBase = (props: FieldUploadProps) => {
     validations: [
       {
         handler: (v: { size: number }) => v.size < 1024 * 100,
-        message: "File limit exeeded (100ko)",
+        message: "File limit exceeded (100ko)",
       },
     ],
   });
