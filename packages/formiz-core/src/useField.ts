@@ -183,25 +183,25 @@ export const useField = <
       const fixedFieldId = fieldIdRef.current;
       const fixedValue = valueRef.current;
 
-      const timer = setTimeout(() => {
-        storeActions.registerField(
-          fixedFieldId,
-          {
-            name,
-            stepName,
-            value: fixedValue,
-          },
-          {
-            defaultValue: defaultValueRef.current,
-            formatValue: formatValueRef.current,
-            requiredRef,
-            validationsRef,
-          }
-        );
-      });
+      // const timer = setTimeout(() => {
+      storeActions.registerField(
+        fixedFieldId,
+        {
+          name,
+          stepName,
+          value: fixedValue,
+        },
+        {
+          defaultValue: defaultValueRef.current,
+          formatValue: formatValueRef.current,
+          requiredRef,
+          validationsRef,
+        }
+      );
+      // });
 
       return () => {
-        clearTimeout(timer);
+        // clearTimeout(timer);
         const isInStep = !!isStepMountedRef;
         const isStepBeingUnmounted = isInStep && !isStepMountedRef.current; // eslint-disable-line react-hooks/exhaustive-deps
         storeActions.unregisterField(fixedFieldId, {

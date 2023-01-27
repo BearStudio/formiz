@@ -3,13 +3,14 @@ import { FieldUpload } from "@/components/FieldUpload";
 import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
-import { Button, Flex, Stack } from "@chakra-ui/react";
+import { Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
 import { Formiz, useForm } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
 const AutoForm: NextPage = () => {
   const form = useForm();
+  const { onToggle, isOpen } = useDisclosure();
 
   const toastValues = useToastValues();
 
@@ -24,7 +25,7 @@ const AutoForm: NextPage = () => {
   return (
     <Formiz
       connect={form}
-      initialValues={{ company: "My Company" }}
+      initialValues={{ company: "My Company", name: "Initial name" }}
       onValidSubmit={handleSubmit}
       autoForm
       onValuesChange={console.log}
@@ -34,12 +35,20 @@ const AutoForm: NextPage = () => {
       <PageLayout>
         <PageHeader githubPath="index.tsx">Auto form</PageHeader>
         <Stack spacing={4}>
-          <FieldInput
-            name="name"
-            label="Name"
-            required="Required"
-            formatValue={(val) => (val || "").trim()}
-          />
+          {isOpen && (
+            <FieldInput
+              name="name"
+              label="Name"
+              required="Required"
+              formatValue={(val) => (val || "").trim()}
+            />
+          )}
+
+          <Button onClick={onToggle}>Toggle</Button>
+          <Button onClick={() => form.setValues({ name: "External" })}>
+            setValues
+          </Button>
+
           <FieldInput
             name="email"
             label="Email"
@@ -78,6 +87,7 @@ const AutoForm: NextPage = () => {
               Fill with john@company.com
             </Button>
           </FieldInput>
+
           <FieldInput
             name="company"
             label="Company"
