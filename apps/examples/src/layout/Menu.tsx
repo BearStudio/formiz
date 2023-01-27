@@ -30,7 +30,7 @@ export const Menu = ({ direction = "left" }) => {
         <MenuItem direction={direction} href="/steppers">
           Steppers
         </MenuItem>
-        <MenuItem direction={direction} href="/nested-form">
+        <MenuItem direction={direction} href="/nested-forms">
           Nested forms
         </MenuItem>
         <MenuItem direction={direction} href="/real-life-1">
