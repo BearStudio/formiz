@@ -1,0 +1,197 @@
+# Upgrading to v2
+
+## Update your dependencies
+
+Update `@formiz/core` and `@formiz/validations` packages to `2.x.x`
+
+```bash
+npm install @formiz/core@alpha @formiz/validations@alpha
+```
+
+Update React `react` and `react-dom` (also `@type/react` and `@type/react-dom` if your are using Typescript).
+
+```bash
+npm install react@latest react-dom@latest
+npm install -D @types/react@latest @types/react-dom@latest
+```
+
+## Upgrade `<Formiz>`
+
+**👉 `onChange` renamed to `onValuesChange`**
+
+## Upgrade `useForm`
+
+### New usage
+
+`useForm` has been split into 3 different hooks: `useForm`, `useFormContext` and `useFormFields`.
+
+👉 `useForm` is still used for creating a new form like before. However, the `subscribe` prop is gone, and the hook now only returns the form's state and actions.
+
+✨ `useFormContext` is used to access the form's state and actions in a sub component. It will not create a new form so you can't connect it to a `<Formiz>` component.
+
+✨ `useFormFields` is used to access fields states (not only values).
+
+- Use it at top level with the `connect` option (`useFormFields({ connect: form })`) or in a sub component (without the `connect` option).
+- Use a selector to get only the values (`useFormFields({ selector: (field) => field.value })`).
+- Get only some fields with the `fields` options (`useFormFields({ fields: ['myField'])`)
+
+```tsx
+// Formiz v1
+const MyForm = () => {
+  const form = useForm();
+
+  console.log({form.values}) // ❌ Doesn't work anymore
+
+  return <Formiz connect={form}>
+    <MyChildren />
+    <MyField name="myField" />
+    <MyField name="myOtherField" />
+  </Formiz>;
+};
+
+const MyChildren = () => {
+  const form = useForm({ subscribe: { fields: ['myField'] } }); // ❌ Doesn't get the form anymore
+
+  console.log({ form.values }) // ❌ Doesn't work anymore
+
+  return <>
+    {/* your code here */}
+  </>;
+};
+```
+
+```tsx
+// Formiz v2
+const MyForm = () => {
+  const form = useForm();
+  const values = useFormFields({
+    connect: form,
+    selector: (field) => field.value, // ✅ Get only the values
+  });
+
+  console.log({ values }); // ✅ { myField: 'my field value', myOtherField: 'my field value' }
+
+  return (
+    <Formiz connect={form}>
+      <MyChildren />
+      <MyField name="myField" />
+      <MyField name="myOtherField" />
+    </Formiz>
+  );
+};
+
+const MyChildren = () => {
+  const form = useFormContext(); // ✅ Works
+  const values = useFormFields({
+    fields: ["myField"],
+    selector: (field) => field.value,
+  }); // ✅ Works
+
+  console.log({ values }); // ✅ { myField: 'my field value' }
+
+  return <>{/* your code here */}</>;
+};
+```
+
+### Form actions updates
+
+**👉 `setFieldsValues` renamed to `setValues`**
+
+- 👉 `keepPristine` option now defaults to **true**.
+- ❌ `keepUnmounted` was removed. `setValues` will now always behave as if `keepUnmounted` was `true`.
+
+**👉 `invalidateFields` renamed to `setErrors`**
+
+**👉 `getFieldStepName` renamed to `getStepByFieldName`**
+
+**👉 `nextStep` renamed to `goToNextStep`**
+
+**👉 `prevStep` renamed to `goToPreviousStep`**
+
+## Upgrade `useField`
+
+### Validations API changes
+
+**👉 `rule` renamed to `handler`**
+
+**👉 Validations don't run on falsy values by default anymore**
+
+- You don't need to check on every validation that you have a value (`null`, `undefined`, `''` or `false`) if your field is not required
+- If you want to check falsy values (like Formiz v1), just pass the `checkFalsy` option to `true`.
+- Now validations are now executed against formatted value.
+
+```tsx
+// Formiz v1
+<MyField
+  name="myField"
+  validations={[
+    {
+      rule: (value) => !value || value === "something", // 🚫 `!value ||` useless with v2
+      message: 'Value must be "something"',
+    },
+  ]}
+/>
+
+<MyField
+  name="myOtherField"
+  validations={[
+    {
+      rule: (value) => value === "something", // 🚫 Will not be trigger on falsy value with v2
+      message: 'Value is required and must be "something"',
+    },
+  ]}
+/>
+```
+
+```tsx
+// Formiz v2
+<MyField
+  name="myField"
+  validations={[
+    {
+      handler: (value) => value === "something", // ✅ Only triggered if required pass
+      message: 'Value must be "something"',
+    },
+  ]}
+/>
+
+<MyField
+  name="myOtherField"
+  validations={[
+    {
+      handler: (value) => value === "something",
+      message: 'Value is required and must be "something"',
+      checkFalsy: true, // ✅ Opt-in to check also falsy value
+    },
+  ]}
+/>
+```
+
+### Field props renamed
+
+**👉 `onChange` renamed to `onValueChange`**
+
+**👉 `debounce` renamed to `debounceValidationsAsync`**
+
+> This will only debounce the async validations and not the value anymore. This prevents a lot of weird behaviors that were existing in v1. Now the value is handled by React v18 to optimize renders.
+
+**👉 `asyncValidations` renamed to `validationsAsync`**
+
+### Types changes
+
+You can now type the `value` of `useField` by passing a type to the `FieldProps` type. Also the `otherProps` will now be typed correctly 🎉
+
+```tsx
+// ✅ Pass the value type here ----- 👇
+const MyField = (props: FieldProps<string>) => {
+  const { value, setValue, otherProps } = useField(props);
+  //...
+};
+```
+
+## Not implemented yet in alpha
+
+- `keepValue`
+- `validating.start()` and `validating.end()`
+- `stateSubscription` for `useForm` and `useFormContext`
+  > At the moment, both `useForm` and `useFormContext` will always return the full form's state. The `stateSubscription` option will allow to only return parts of the state, in case you need to further optimize renders on heavy forms.
