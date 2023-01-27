@@ -199,6 +199,12 @@ export const useField = <
   validationsAsyncRef.current = validationsAsync;
 
   const valueSerialized = JSON.stringify(value);
+  const validationsAsyncDeps = JSON.stringify(
+    validationsAsync.map((validation) => ({
+      deps: validation.deps,
+      message: validation.message,
+    }))
+  );
   useEffect(() => {
     // Update internal form on external field value update
     setInternalValue(valueRef.current);
@@ -275,7 +281,7 @@ export const useField = <
         isDebouncing: false,
       });
     };
-  }, [storeActions, useStore, valueSerialized]);
+  }, [storeActions, useStore, valueSerialized, validationsAsyncDeps]);
 
   const [internalValue, setInternalValue] = useState<FieldValue<Value>>(
     defaultValue ?? null
@@ -296,11 +302,22 @@ export const useField = <
     [storeActions]
   );
 
+  const validationsDeps = JSON.stringify(
+    validations.map((validation) => ({
+      deps: validation.deps,
+      message: validation.message,
+    }))
+  );
+  const validationsDepsPrevRef = useRef(validationsDeps);
+
   useEffect(() => {
-    if (deferredValue !== undefined && deferredValue !== valueRef.current) {
+    if (
+      (deferredValue !== undefined && deferredValue !== valueRef.current) ||
+      validationsDepsPrevRef.current !== validationsDeps
+    ) {
       setFieldValue(deferredValue);
     }
-  }, [deferredValue, setFieldValue]);
+  }, [deferredValue, setFieldValue, validationsDeps]);
 
   return {
     value: internalValue,
