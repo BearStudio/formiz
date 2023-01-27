@@ -6,7 +6,7 @@ import { Callout } from "nextra-theme-docs";
 
 # Formiz
 
-This component defines form scope and manages form logic. It creates his own form if it's not connected to a [`useForm()`](/core/useForm).
+This component creates a form context.
 
 ## Import
 
@@ -18,11 +18,8 @@ import { Formiz } from "@formiz/core";
 
 ### id
 
-<Type type="string" />
 Allows you to pass a custom id, which will be used to create the ids of the fields.
-By default, it is generated automatically. But for SSR rendering like in NextJS,
-you may want to replace the automatically generated identifiers by a predictable
-id.
+By default, it is generated automatically.
 
 ```tsx
 <Formiz id="custom-id">{/* Your fields here */}</Formiz>
@@ -30,18 +27,19 @@ id.
 
 ### autoForm
 
-<Type type='boolean | "form" | "step"'/>
-Set to true to wrap children in a `<form>` element with auto onSubmit.
-
-<Callout type="info">Instead you can get the `submit()` method with the `useForm()` hook and use it with your own `<form>` element.</Callout>
+<Type type="boolean | 'form' | 'step'"/>
+- Set to `true` or `'form'` to wrap children in a `<form>` element with auto `submit()` on form submission.
+- Set to `'step'` to wrap children in a `<form>` element with auto `submitStep()` on form submission.
 
 ```tsx
-<Formiz autoForm>{/* your fields here */}</Formiz>
+<Formiz autoForm>
+  {/* your fields here */}
+  <button type="submit">Submit</button>
+</Formiz>
 ```
 
 ### connect
 
-<Type type="Form" />
 Allow you to connect your form with the `useForm()` hook.
 
 See [`useForm()`](/core/useForm) documentation for more details.
@@ -64,7 +62,7 @@ lookup into this object to set his initial value. This is usefull when you are g
 data from an API like an edit page.
 
 ```tsx
-<Formiz initialValues={{ input: "initialValue" }}>
+<Formiz initialValues={{ myField: "my initial value" }}>
   {/* your fields here */}
 </Formiz>
 ```
@@ -78,9 +76,9 @@ Allow you to define the initial step.
 <Formiz initialStepName="step-2">{/* your fields here */}</Formiz>
 ```
 
-### onSubmit
+### onSubmit(values)
 
-<Type type="(values: Object) => void" />
+<Type type="(values) => void" />
 Function triggered on form submission, whether it is valid or not.
 
 ```tsx
@@ -91,7 +89,7 @@ Function triggered on form submission, whether it is valid or not.
 
 ### onValidSubmit(values)
 
-<Type type="(values: Object) => void" />
+<Type type="(values) => void" />
 Function triggered on form submission, only if it is valid.
 
 ```tsx
@@ -102,7 +100,7 @@ Function triggered on form submission, only if it is valid.
 
 ### onInvalidSubmit(values)
 
-<Type type="(values: Object) => void" />
+<Type type="(values) => void" />
 Function triggered on form submission, only if it is invalid.
 
 ```tsx
@@ -113,7 +111,7 @@ Function triggered on form submission, only if it is invalid.
 
 ### onValuesChange(values)
 
-<Type type="(values: Object) => void" />
+<Type type="(values) => void" />
 Function triggered on any form field value change.
 
 ```tsx
@@ -153,7 +151,3 @@ Triggered when the form is **invalid**.
   {/* your fields here */}
 </Formiz>
 ```
-
-## Try it
-
-<CodeEditor files={formizFiles} />
