@@ -113,7 +113,6 @@ export const useField = <
 
   const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
   const deferredValue = useDeferredValue(internalValue);
-  const internalValueRef = useRef(internalValue);
 
   const storeActions = useStore(
     useCallback((state: Store) => state.actions, []),
@@ -147,7 +146,7 @@ export const useField = <
           isValidating: false,
           isDebouncing: false,
           // Field
-          ...field,
+          ...(field ?? {}),
         });
 
         if (!configRef.current.unstable_notifyOnChangePropsExclusions)
@@ -173,6 +172,8 @@ export const useField = <
   const validationsRef = useRef(validations);
   validationsRef.current = validations;
 
+  const timerRef = useRef<NodeJS.Timeout>();
+
   // Register / Unregister
   useEffect(
     function registerField() {
@@ -180,16 +181,16 @@ export const useField = <
         return () => {};
       }
 
-      const fixedFieldId = fieldIdRef.current;
-      const fixedValue = valueRef.current;
+      clearTimeout(timerRef.current);
 
-      // const timer = setTimeout(() => {
+      const _fieldId = fieldIdRef.current;
+
       storeActions.registerField(
-        fixedFieldId,
+        _fieldId,
         {
           name,
           stepName,
-          value: fixedValue,
+          value: valueRef.current,
         },
         {
           defaultValue: defaultValueRef.current,
@@ -198,14 +199,15 @@ export const useField = <
           validationsRef,
         }
       );
-      // });
 
       return () => {
-        // clearTimeout(timer);
         const isInStep = !!isStepMountedRef;
         const isStepBeingUnmounted = isInStep && !isStepMountedRef.current; // eslint-disable-line react-hooks/exhaustive-deps
-        storeActions.unregisterField(fixedFieldId, {
-          persist: isStepBeingUnmounted,
+
+        timerRef.current = setTimeout(() => {
+          storeActions.unregisterField(_fieldId, {
+            persist: isStepBeingUnmounted,
+          });
         });
       };
     },
