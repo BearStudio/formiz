@@ -12,14 +12,12 @@ import { FiTrash } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 
 export const ExposedPorts = () => {
-  const form = useFormContext();
   const values = useFormFields({
     fields: ["ports"],
     selector: (field) => field.value,
   });
   const exposedPorts = useRepeater({
     name: "ports",
-    initialValues: [],
   });
 
   return (
