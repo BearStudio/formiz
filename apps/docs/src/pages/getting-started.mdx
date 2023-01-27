@@ -1,1 +1,85 @@
 # Introduction
+
+**🐜 Formiz V2**
+
+## **Getting Started**
+
+### Installation
+
+**yarn**
+
+```bash
+yarn add @formiz/core@alpha
+```
+
+**npm**
+
+```bash
+npm install @formiz/core@alpha
+```
+
+**pnpm**
+
+```bash
+pnpm install @formiz/core@alpha
+```
+
+### Concept
+
+The idea behind **Formiz** is to allow you to build advanced forms with **multi-step**, **complex validations** and a **good UX** without pain
+
+The main idea is to build fields as independent reusable components. **Fields can be anything**, not just inputs. Once you have built your fields, you can use them everywhere.
+
+### Usage
+
+**Create your first field !**
+
+```tsx
+import React from "react";
+import { useFormContext, useField } from "@formiz/core";
+import { Spinner } from "@chakra-ui/react";
+
+export const MyField = (props) => {
+  const form = useFormContext();
+  const { value, setValue, isValid, errorMessage, ...rest } = useField(props);
+  return (
+    <>
+      <input value={value ?? ""} onChange={(e) => setValue(e.target.value)} />
+      {
+        !isValid && <p>{errorMessage}</p> // Display error message
+      }
+      {!form.isValidating && <Spinner />}
+    </>
+  );
+};
+```
+
+**Now you can import it to your form !**
+
+```tsx
+import React from "react";
+import { useForm, useField } from "@formiz/core";
+import { isEmail, isRequired } from "@formiz/validations";
+
+export const MyForm = () => {
+  const form = useForm(); // create a new form
+
+  const handleSubmit = (values) => {
+    console.log(values);
+  };
+  return (
+    <Formiz connect={form} onSubmit={handleSubmit} autoForm>
+      <MyField
+        name="email"
+        validations={[
+          {
+            handler: isEmail(),
+            message: "Email is invalid",
+          },
+        ]}
+      />
+      <button type="submit">Submit</button>
+    </Formiz>
+  );
+};
+```
