@@ -111,6 +111,10 @@ export const useField = <
   const fieldIdRef = useRef(fieldId);
   fieldIdRef.current = fieldId;
 
+  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
+  const deferredValue = useDeferredValue(internalValue);
+  const internalValueRef = useRef(internalValue);
+
   const storeActions = useStore(
     useCallback((state: Store) => state.actions, []),
     deepEqual
@@ -176,26 +180,31 @@ export const useField = <
         return () => {};
       }
 
-      const fieldId = fieldIdRef.current;
+      const fixedFieldId = fieldIdRef.current;
+      const fixedValue = valueRef.current;
 
-      storeActions.registerField(
-        fieldId,
-        {
-          name,
-          stepName,
-          value: valueRef.current,
-        },
-        {
-          defaultValue: defaultValueRef.current,
-          formatValue: formatValueRef.current,
-          requiredRef,
-          validationsRef,
-        }
-      );
+      const timer = setTimeout(() => {
+        storeActions.registerField(
+          fixedFieldId,
+          {
+            name,
+            stepName,
+            value: fixedValue,
+          },
+          {
+            defaultValue: defaultValueRef.current,
+            formatValue: formatValueRef.current,
+            requiredRef,
+            validationsRef,
+          }
+        );
+      });
+
       return () => {
+        clearTimeout(timer);
         const isInStep = !!isStepMountedRef;
         const isStepBeingUnmounted = isInStep && !isStepMountedRef.current; // eslint-disable-line react-hooks/exhaustive-deps
-        storeActions.unregisterField(fieldId, {
+        storeActions.unregisterField(fixedFieldId, {
           persist: isStepBeingUnmounted,
         });
       };
@@ -290,10 +299,6 @@ export const useField = <
       });
     };
   }, [storeActions, useStore, valueSerialized, validationsAsyncDeps]);
-
-  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
-
-  const deferredValue = useDeferredValue(internalValue);
 
   const onValueChangeRef = useRef(onValueChange);
   onValueChangeRef.current = onValueChange;
