@@ -45,7 +45,7 @@ Cypress.Commands.add(
   {
     prevSubject: 'element',
   },
-  (subject, value) => cy.get('input', { withinSubject: subject }).should('have.value', value),
+  (subject, value) => cy.wrap(subject).should('have.value', value),
 );
 
 Cypress.Commands.add(
@@ -69,6 +69,6 @@ Cypress.Commands.add('formSubmit', () => cy
   .get('[type="submit"]')
   .click());
 
-Cypress.Commands.add('isFormSuccess', () => cy.get('.chakra-toast').should('contain', 'Values submitted'));
+Cypress.Commands.add('isFormSuccess', () => cy.get('.chakra-toast').should('contain', 'Submitted values'));
 
 Cypress.Commands.add('pageTitleIs', (title) => cy.get('[data-test="header"]').should('contain', title));
