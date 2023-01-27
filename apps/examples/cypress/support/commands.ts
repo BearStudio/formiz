@@ -23,8 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import '@testing-library/cypress/add-commands'
+import 'cypress-keyboard-plugin';
+import 'cypress-plugin-tab';
 
-Cypress.Commands.add('field', (name) => cy.get(`[name="${name}"]`));
+Cypress.Commands.add('field', (name) => cy.get(`[id*="field-${name}"]`));
 
 Cypress.Commands.add(
   'fill',
@@ -32,7 +35,7 @@ Cypress.Commands.add(
     prevSubject: 'element',
   },
   (subject, value) => cy
-    .get('input', { withinSubject: subject })
+    .wrap(subject)
     .clear()
     .type(value),
 );

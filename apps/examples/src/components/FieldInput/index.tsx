@@ -73,7 +73,6 @@ const FieldInputBase = (props: FieldInputProps) => {
           onBlur={() => setIsTouched(true)}
           placeholder={placeholder}
           autoFocus={autoFocus}
-          name={name}
         />
 
         {type === "password" && (
