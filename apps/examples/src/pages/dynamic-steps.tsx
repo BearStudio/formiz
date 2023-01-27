@@ -39,7 +39,7 @@ const DynamicSteps = () => {
             label="Steps Count"
             type="number"
             required="Required"
-            defaultValue="1"
+            defaultValue="2"
             formatValue={minMax(1, MAX_STEPS)}
             validations={[
               {
