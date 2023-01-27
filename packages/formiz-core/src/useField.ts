@@ -283,9 +283,7 @@ export const useField = <
     };
   }, [storeActions, useStore, valueSerialized, validationsAsyncDeps]);
 
-  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(
-    defaultValue ?? null
-  );
+  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
 
   const deferredValue = useDeferredValue(internalValue);
 
