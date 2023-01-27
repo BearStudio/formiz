@@ -47,6 +47,8 @@ const FieldInputBase = (props: FieldInputProps) => {
       ...rest
     },
   } = useField(props);
+
+  const { name } = props;
   const [showPassword, setShowPassword] = useState(false);
 
   const formGroupProps = {
@@ -71,6 +73,7 @@ const FieldInputBase = (props: FieldInputProps) => {
           onBlur={() => setIsTouched(true)}
           placeholder={placeholder}
           autoFocus={autoFocus}
+          name={name}
         />
 
         {type === "password" && (
