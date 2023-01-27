@@ -24,8 +24,12 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
     <Formiz connect={subForm} onValidSubmit={handleSubmit}>
       <Stack 
         border="1px dashed" 
-        borderColor="gray.600"
-        bgColor="gray.900"
+        borderColor="gray.200"
+        bgColor="gray.50"
+        _dark={{
+          bg: "gray.900",
+          borderColor: "gray.700",
+        }}
         p="5"
         borderRadius="md"
         justifyContent="flex-end"
