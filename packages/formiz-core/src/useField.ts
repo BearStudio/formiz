@@ -116,6 +116,10 @@ export const useField = <
     deepEqual
   );
 
+  const formConnected = useStore(
+    useCallback((state: Store) => state.connected, [])
+  );
+
   // Get field from state
   const { value, ...exposedField } = useStore(
     useCallback(
@@ -168,6 +172,10 @@ export const useField = <
   // Register / Unregister
   useEffect(
     function registerField() {
+      if (!formConnected) {
+        return () => {};
+      }
+
       const fieldId = fieldIdRef.current;
 
       storeActions.registerField(
@@ -192,7 +200,7 @@ export const useField = <
         });
       };
     },
-    [isStepMountedRef, name, stepName, storeActions]
+    [isStepMountedRef, name, stepName, storeActions, formConnected]
   );
 
   const validationsAsyncRef = useRef(validationsAsync);

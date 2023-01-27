@@ -23,10 +23,7 @@ export const Formiz = ({ children, connect, ...formProps }: FormizProps) => {
   const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>();
 
   if (!useStoreRef.current && !connect?.__connect) {
-    useStoreRef.current = createStore({
-      formId: formPropsRef.current.id,
-      initialStepName: formPropsRef.current.initialStepName,
-    });
+    useStoreRef.current = createStore();
   }
 
   const useStore = connect?.__connect ?? useStoreRef.current;

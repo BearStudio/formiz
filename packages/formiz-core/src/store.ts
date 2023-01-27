@@ -14,20 +14,21 @@ import {
 } from "@/utils/form";
 import type { GetFieldSetValueOptions, Step, Store } from "@/types";
 
-export const createStore = ({
-  formId,
-  initialStepName,
-}: { formId?: string; initialStepName?: string } = {}) =>
+export const createStore = ({}: {
+  formId?: string;
+  initialStepName?: string;
+  connected?: boolean;
+} = {}) =>
   create<Store>()((set, get) => ({
     connected: false,
     fields: new Map(),
     steps: [],
     form: {
       resetKey: 0,
-      id: formId,
+      id: undefined,
       isSubmitted: false,
-      currentStepName: initialStepName ?? null,
-      initialStepName: initialStepName ?? null,
+      currentStepName: null,
+      initialStepName: null,
     },
     keepValues: {},
     externalValues: {},
