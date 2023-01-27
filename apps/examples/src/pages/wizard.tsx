@@ -1,4 +1,5 @@
 import { FieldInput } from "@/components/FieldInput";
+import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
 import { Box, Button, Grid, Stack } from "@chakra-ui/react";
@@ -13,6 +14,8 @@ const Wizard: NextPage = () => {
   const form = useForm();
   const [status, setStatus] = useState("idle");
   const isLoading = status === "loading" || form.isValidating;
+
+  const toastValues = useToastValues();
 
   /**
    * Hook into the submitStep method to handle some actions before changing step
@@ -46,7 +49,8 @@ const Wizard: NextPage = () => {
     await fakeDelay();
     setStatus("success");
 
-    console.log(values);
+    toastValues(values);
+
     form.setErrors({
       name: "You can display an error after an API call",
     });

@@ -38,7 +38,7 @@ const RealLife1: NextPage = () => {
         <PageHeader githubPath="UseCase1/index.js">Real life #1</PageHeader>
 
         <Heading fontSize="lg" mb={6} mt={12}>
-          <Icon as={FiPlus} size="0.8rem" mr={2} mb={1} />
+          <Icon as={FiPlus} mr={2} fontSize="sm" />
           Create a Docker Webapp
         </Heading>
 

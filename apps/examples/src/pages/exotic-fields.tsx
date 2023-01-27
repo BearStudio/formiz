@@ -1,5 +1,6 @@
 import { FieldPickIdenticalImages } from "@/components/FieldPickIdenticalImages";
 import { FieldSlider } from "@/components/FieldSlider";
+import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
 import { Button, Flex, Stack } from "@chakra-ui/react";
@@ -10,8 +11,10 @@ import { NextPage } from "next";
 const ExoticFields: NextPage = () => {
   const form = useForm();
 
+  const toastValues = useToastValues();
+
   const handleSubmit = (values: any) => {
-    console.log(values);
+    toastValues(values);
 
     form.setErrors({
       name: "You can display an error after an API call",

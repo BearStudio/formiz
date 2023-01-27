@@ -14,6 +14,7 @@ import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
+import { useToastValues } from "@/hooks/useToastValues";
 
 const DEFAULT_VALUES = {
   collection: [
@@ -37,8 +38,10 @@ const Repeater = () => {
     initialValues: INITIAL_VALUES.members,
   });
 
+  const toastValues = useToastValues();
+
   const handleSubmit = (values: any) => {
-    console.log(values);
+    toastValues(values);
   };
 
   return (
