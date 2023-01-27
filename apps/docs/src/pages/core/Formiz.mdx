@@ -6,7 +6,7 @@ import { Callout } from "nextra-theme-docs";
 
 # Formiz
 
-This component define form scope and manage form logic. It create itself his form if it's not connected to a [`useForm()`](/core/useForm) form.
+This component defines form scope and manages form logic. It creates his own form if it's not connected to a [`useForm()`](/core/useForm).
 
 ## Import
 
@@ -44,7 +44,7 @@ Set to true to wrap children in a `<form>` element with auto onSubmit.
 <Type type="Form" />
 Allow you to connect your form with the `useForm()` hook.
 
-See [`useForm()`](/core/useForm) documentation for more details
+See [`useForm()`](/core/useForm) documentation for more details.
 
 ```tsx
 import { Formiz, useForm } from "@formiz/core";
@@ -58,8 +58,8 @@ const MyForm = () => {
 
 ### initialValues
 
-<Type type="Values" />
-Allows you to pass some initial values to the form. If a field is mounted, it will
+<Type type="Object" />
+Allow you to pass some initial values to the form. If a field is mounted, it will
 lookup into this object to set his initial value. This is usefull when you are getting
 data from an API like an edit page.
 
@@ -72,7 +72,7 @@ data from an API like an edit page.
 ### initialStepName
 
 <Type type="string" />
-Allow you to define the initial step
+Allow you to define the initial step.
 
 ```tsx
 <Formiz initialStepName="step-2">{/* your fields here */}</Formiz>
@@ -80,8 +80,8 @@ Allow you to define the initial step
 
 ### onSubmit
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, whether it is valid or not
+<Type type="(values: Object) => void" />
+Function triggered on form submission, whether it is valid or not.
 
 ```tsx
 <Formiz onSubmit={(values) => console.log(values)}>
@@ -91,8 +91,8 @@ Function triggered on form submission, whether it is valid or not
 
 ### onValidSubmit(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, only if it is valid
+<Type type="(values: Object) => void" />
+Function triggered on form submission, only if it is valid.
 
 ```tsx
 <Formiz onValidSubmit={(values) => console.log(values)}>
@@ -102,8 +102,8 @@ Function triggered on form submission, only if it is valid
 
 ### onInvalidSubmit(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, only if it is invalid
+<Type type="(values: Object) => void" />
+Function triggered on form submission, only if it is invalid.
 
 ```tsx
 <Formiz onInvalidSubmit={(values) => console.log(values)}>
@@ -113,8 +113,8 @@ Function triggered on form submission, only if it is invalid
 
 ### onValuesChange(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on any form field value change
+<Type type="(values: Object) => void" />
+Function triggered on any form field value change.
 
 ```tsx
 <Formiz onValuesChange={(values) => console.log(values)}>

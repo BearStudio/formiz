@@ -3,9 +3,9 @@ import { useFormFields } from "@/templates/useFormFields.ts";
 
 # useFormFields
 
-## Basic usage
-
 This hook allows you to retrieve the state of each fields of a form.
+
+## Basic usage
 
 ```tsx
 const fields = useFormFields();
@@ -13,7 +13,7 @@ const fields = useFormFields();
 
 ## Usage at top level
 
-To use this hook at the top level, you need to connect it to the form.
+To use this hook at the top level, you need to `connect` it to the form.
 
 ```tsx
 const form = useForm();
@@ -48,7 +48,7 @@ const someFields = useFormFields({ fields: [
 
 ## Get only some state
 
-Allow you to filter your fields by state. 
+Allow you to filter which states fields by state. 
 
 ```tsx
 const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });

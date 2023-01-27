@@ -16,11 +16,11 @@ import { FormizStep } from '@formiz/core';
 
 <Type type="string" />
 
-This prop gives a name to your `FormizStep` component
+Give a name to your `FormizStep` component.
 
 **Required**
 
-The name is required to register the step in the form.
+Required to register the step in the form.
 
 ```tsx
 <Formiz>
@@ -31,7 +31,7 @@ The name is required to register the step in the form.
 
 ### as
 
-You can pass the tag for the step container. Default is 'div'.
+Pass the tag for the step container. Default is `<div>`.
 
 ```tsx
 <Formiz>
@@ -48,7 +48,7 @@ You can pass the tag for the step container. Default is 'div'.
 
 <Type type="string" />
 
-A label can be passed to the step and then used to display when getting the steps with the useForm() hook.
+Can be passed to the step and then used to display when getting the steps with the `useForm()` hook.
 
 ```tsx
 <Formiz>
@@ -65,7 +65,7 @@ A label can be passed to the step and then used to display when getting the step
 
 <Type type="boolean" />
 
-Set if the step should be enabled or not (default value is `true`)
+Set if the step should be enabled or not (default value is `true`).
 
 ```tsx
 {
@@ -84,7 +84,7 @@ Set if the step should be enabled or not (default value is `true`)
 
 <Type type="number" />
 
-Order is a number to display the steps in the correct order. (default is 0)
+Number to display the steps in the correct order (default is 0).
 If you use order, all steps should get an order property to prevent unexpected behavior.
 
 ```tsx
@@ -108,7 +108,7 @@ If you use order, all steps should get an order property to prevent unexpected b
 
 <Type type="boolean" />
 
-autoHide is a boolean that allows you to toggle the default style to display the step. Default value is true and will apply a display: none on inactive steps.
+Allow you to toggle the default style to display the step. Defaults to `true` and will apply a `display: none` on inactive steps.
 
 ```tsx
 // Example with Collapse from Chakra UI

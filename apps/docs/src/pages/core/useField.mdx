@@ -4,7 +4,7 @@ import { useFieldFile } from '@/templates/useField.ts';
 
 # useField
 
-## Hooks methods
+## Hook methods
 
 ### setValue()
 
@@ -19,7 +19,7 @@ const MyField = (props) => {
 };
 ```
 
-setValue also accept a function that gives the previous value (like React setState).
+`setValue` also accepts a function that takes the previous value as a parameter (like React setState).
 
 ```tsx
 setValue((previousValue) => {
@@ -33,7 +33,7 @@ setValue((previousValue) => {
 ### setIsTouched()
 
 <Type type="(isTouched : boolean) => void" />
-Set the value isTouched of the field.
+Set the value `isTouched` of the field.
 
 ```tsx
 const MyField = (props) => {
@@ -49,7 +49,7 @@ const MyField = (props) => {
 
 ### value
 
-Get the current value of the field, after it has been format by formatValue (if you used it)
+Get the current value of the field, after it has been formated by `formatValue` (if you used it).
 
 ```tsx
 const MyField = (props) => {
@@ -61,7 +61,7 @@ const MyField = (props) => {
 
 ### rawValue
 
-Get the current value of the field, before it has been modified by formatValue.
+Get the current value of the field, before it has been modified by `formatValue`.
 
 ```tsx
 const MyField = (props) => {
@@ -80,7 +80,7 @@ const MyField = (props) => {
 ### id
 
 <Type type="number" />
-Return a unique id. This id will be created based on the form id and the field name.
+Return a unique `id`. This `id` will be created based on the form id and the field name.
 
 ```tsx
 const MyField = (props) => {
@@ -97,7 +97,7 @@ const MyField = (props) => {
 
 <Type type="boolean" />
 
-Returns `true` if the field has been touched.
+Return `true` if the field has been touched.
 
 ```jsx
 const { isTouched } = useField(props);
@@ -107,7 +107,7 @@ const { isTouched } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` if the field is valid.
+Return `true` if the field is valid.
 
 ```jsx
 const { isValid } = useField(props);
@@ -117,7 +117,7 @@ const { isValid } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` if the field is running async validation.
+Return `true` if the field is running async validations.
 
 ```jsx
 const { isValidating } = useField(props);
@@ -127,7 +127,7 @@ const { isValidating } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` if the field has not been changed.
+Return `true` if the field has not been changed.
 
 ```jsx
 const { isPristine } = useField(props);
@@ -137,7 +137,7 @@ const { isPristine } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` either if the current step or the form is submitted.
+Return `true` either if the current step or the form has been submitted.
 
 ```jsx
 const { isSubmitted } = useField(props);
@@ -147,7 +147,7 @@ const { isSubmitted } = useField(props);
 
 <Type type="boolean" />
 
-Returns `true` if the field should display an error, usefull when debugging.
+Return `true` if the field should display an error, useful when debugging.
 
 ```jsx
 const { shouldDisplayError } = useField(props);
@@ -157,7 +157,7 @@ const { shouldDisplayError } = useField(props);
 
 <Type type="string | undefined" />
 
-Returns the first error message.
+Return the first error message.
 
 ```jsx
 const { errorMessage } = useField(props);
@@ -167,7 +167,7 @@ const { errorMessage } = useField(props);
 
 <Type type="string[] | undefined" />
 
-Returns all error messages.
+Return all error messages.
 
 ```jsx
 const { errorMessages } = useField(props);
@@ -177,7 +177,7 @@ const { errorMessages } = useField(props);
 
 <Type type="number" />
 
-Returns the number of time the form has been resetted.
+Return the number of time the form has been reset.
 
 ```jsx
 const { resetKey } = useField(props);
@@ -190,8 +190,6 @@ useEffect(() => {
 ## Hook extra values
 
 ### otherProps
-
-<Type type="FieldProps" />
 
 Get the props passed to the component without the Formiz props.
 Allows you to keep composition by spreading this object in your component.
@@ -214,7 +212,7 @@ const MyField = (props) => {
 
 **Required**
 
-The name is required to register the field in the form.
+The `name` is required to register the field in the form.
 
 ```jsx
 <Field name="myFieldName" />
@@ -222,7 +220,7 @@ The name is required to register the field in the form.
 
 **Nested objects**
 
-The `name` props can use lodash-like dot paths to reference nested values.
+Can use lodash-like dot paths to reference nested values.
 
 ```jsx
 <Field name="fieldA" />
@@ -244,7 +242,7 @@ The `name` props can use lodash-like dot paths to reference nested values.
 
 **Arrays**
 
-The `name` props allow also arrays and arrays of objects out of the box.
+Also allow arrays out of the box.
 Using lodash-like bracket syntax for `name` allow you to handle fields in a list.
 
 ```jsx
@@ -268,7 +266,7 @@ Using lodash-like bracket syntax for `name` allow you to handle fields in a list
 
 ### defaultValue
 
-Pass an initial value to the field.
+Pass a default value to the field.
 
 ```tsx
 <Field name="myFieldName" defaultValue="My initial value" />
@@ -284,19 +282,21 @@ Format the value before saving it into the internal state.
 <Field name="myFieldName" formatValue={(val) => (val || '').trim()} />
 ```
 
-### onChange(fieldValue)
+### onValueChange(fieldValue)
 
 <Type type="(fieldValue) => void" />
 
+Callback function when the value of the field is changed.
+
 ```jsx
-<Field name="myFieldName" onChange={(val) => console.log(val)} />
+<Field name="myFieldName" onValueChange={(val) => console.log(val)} />
 ```
 
 ### required
 
 <Type type="boolean" />
 
-Shortcut for isRequired() validation
+Shortcut for `isRequired()` validation.
 
 ```jsx
 <Field name="myFieldName" required="Field is required" />
@@ -312,32 +312,31 @@ Number of milliseconds for debouncing validations. (default is `100`).
 
 ### validations
 
+Add validation rules that the value needs to fulfill for the field to be considered valid.
+
 Accept an array of object with the following keys:
 
-- `rule(fieldValue, rawFieldValue)`: Built in validation rule or custom validation function (must returns `true` if the rule is valid).
-  - `fieldValue` references the value of the field
-  - `rawFieldValue` references the value of the field before any formatting of the data via `formatValue`
+- `handler(value, rawValue)`: Built in validation rule or custom validation function (must return `true` if the rule is valid).
+  - `value` references the value of the field.
+  - `rawValue` references the value of the field before any formatting of the data via `formatValue`.
 - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 - `message`: The message if the rule is invalid.
+- `checkFalsy`: When true (default false) validations will run even on falsy values (including `null`, `undefined`, `''` and `false`).
 
 ```jsx
 <Field
   name="myFieldName"
   validations={[
     {
-      rule: isRequired(),
-      message: 'Field is required',
-    },
-    {
-      rule: isNotEmptyString(),
+      handler: isNotEmptyString(),
       message: "Field can't be empty",
     },
     {
-      rule: (value) => value.toLowerCase() !== 'john',
+      handler: (value) => value.toLowerCase() !== 'john',
       message: "Field can't be john",
     },
     {
-      rule: (value) => value !== externalValue,
+      handler: (value) => value !== externalValue,
       deps: [externalValue],
       message: "Field can't be the same as external value",
     },
@@ -348,11 +347,11 @@ Accept an array of object with the following keys:
 ### validationsAsync
 
 Async validations allows you to run asynchronous code to validate a field, such as an API call.
-`validationsAsync` will only be triggered if all the others `validations` rules are valid.
+`validationsAsync` will only be triggered if all the other `validations` rules are valid.
 
 Accept an array of object with the following keys:
 
-- `rule(fieldValue)`: Must returns a **Promise** that returns `true` if the rule is valid.
+- `handler(fieldValue)`: Must return a `Promise` that return `true` if the rule is valid.
 - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 - `message`: The message if the rule is invalid.
 
@@ -361,7 +360,7 @@ Accept an array of object with the following keys:
   name="myFieldName"
   validationsAsync={[
     {
-      rule: async (value) => {
+      handler: async (value) => {
         const isAlreadyUsed = await validateUsername(value);
         return isAlreadyUsed;
       },
@@ -371,23 +370,32 @@ Accept an array of object with the following keys:
 />
 ```
 
-## Try it
-
-<CodeEditor files={useFieldFile} />
-
-TODO :
-[ ] get information if you let informations config section
-
-# Field config
+## Field config
 
 ### ✨ formatValue
 
+Awaiting contribution
+
 ### ✨ required
+
+Awaiting contribution
 
 ### ✨ validations
 
+Awaiting contribution
+
 ### ✨ validationsAsync
+
+Awaiting contribution
 
 ### ✨ debounceValidationsAsync
 
-### ✨ unstable_notifyOnChangePropsExclusions
+#Awaiting contribution
+
+## ✨ unstable_notifyOnChangePropsExclusions
+
+Awaiting contribution
+
+## Try it
+
+<CodeEditor files={useFieldFile} />

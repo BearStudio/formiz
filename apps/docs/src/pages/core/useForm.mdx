@@ -4,7 +4,7 @@ import { useFormFiles } from "@/templates/useForm.ts";
 
 # useForm
 
-This hook create a form, and return it.
+This hook creates a form, and returns it.
 
 ## Import
 
@@ -17,7 +17,7 @@ import { useForm } from "@formiz/core";
 ### isValid
 
 <Type type="boolean" />
-Return `true` if all form fields are valid, else it return `false`.
+Return `true` if all form fields are valid, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -27,7 +27,7 @@ form.isValid;
 ### isValidating
 
 <Type type="boolean" />
-Return `true` if at least field is running async validations, else it return `false`.
+Return `true` if at least one field is running async validations, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -37,7 +37,7 @@ form.isValidating;
 ### isSubmitted
 
 <Type type="boolean" />
-Return `true` if the form has been submitted, else it return `false`.
+Return `true` if the form has been submitted, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -62,7 +62,7 @@ useEffect(() => {
 ### currentStep
 
 <Type type="string" />
-The name of the current step
+The name of the current step.
 
 ```tsx
 const form = useForm();
@@ -72,7 +72,7 @@ form.currentStep;
 ### steps
 
 <Type type="Array<string>" />
-An array that contains all form steps
+An array that contains all form steps.
 
 ```tsx
 const form = useForm();
@@ -82,7 +82,7 @@ form.steps;
 ### isStepPristine
 
 <Type type="boolean" />
-Return `true` if all current step fields are pristine, else it return `false`.
+Return `true` if all current step fields are pristine, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -92,7 +92,7 @@ form.isStepPristine;
 ### isStepValid
 
 <Type type="boolean" />
-Return `true` if all current step fields are valid, else it return `false`.
+Return `true` if all current step fields are valid, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -102,8 +102,7 @@ form.isStepValid;
 ### isStepValidating
 
 <Type type="boolean" />
-Return `true` if at least one current step field is running async validations, else
-it return `false`.
+Return `true` if at least one current step field is running async validations, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -113,7 +112,7 @@ form.isStepValidating;
 ### isStepSubmitted
 
 <Type type="boolean" />
-Return `true` if the current step has been submitted, else it return `false`.
+Return `true` if the current step has been submitted, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -123,7 +122,7 @@ form.isStepSubmitted;
 ### isFirstStep
 
 <Type type="boolean" />
-Return `true` if the current step is the first form step, else it return `false`.
+Return `true` if the current step is the first form step, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -133,7 +132,7 @@ form.isFirstStep;
 ### isLastStep
 
 <Type type="boolean" />
-Return `true` if the current step is the last form step, else it return `false`.
+Return `true` if the current step is the last form step, else return `false`.
 
 ```tsx
 const form = useForm();
@@ -145,7 +144,7 @@ form.isLastStep;
 ### submit()
 
 <Type type="() => void" />
-It is a function to submit form.
+Submit whole form.
 
 ```tsx
 const form = useForm();
@@ -155,7 +154,7 @@ form.submit();
 ### submitStep()
 
 <Type type="() => void" />
-It is a function to submit current step.
+Submit current step.
 
 ```tsx
 const form = useForm();
@@ -165,7 +164,7 @@ form.submitStep();
 ### setErrors(errors)
 
 <Type type="(errors: Record<string, string>) => void" />
-It is a function to manually set errors on form fields.
+Manually set errors on form fields.
 
 ```tsx
 const form = useForm();
@@ -175,13 +174,13 @@ form.setErrors({ field: "Error" });
 ### setValues(values, options)
 
 <Type type="(values: Record<string, string>, options?: { keepPristine?: boolean }) => void" />
-It is a function to manually set form fields values.
+Mnually set form fields values.
 
-`keepPristine` option allow you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is false
+`keepPristine` option allow you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is true
 
 ```tsx
 const form = useForm();
-form.setValues({ field: "New value" }, { keepPristine: true });
+form.setValues({ field: "New value" }, { keepPristine: false });
 ```
 
 ### reset(options)
@@ -198,10 +197,9 @@ form.setValues({ field: "New value" }, { keepPristine: true });
   | 'visited'
   | 'values'"
 />
-It is a function to reset form states and values.
+Reset form's states and values.
 
-Options allow you to select data you
-want to reset.
+Options allow you to select the data you want to reset.
 
 ```tsx
 const form = useForm();
@@ -212,7 +210,7 @@ form.reset({ exclude: "pristine" });
 ### getStepByFieldName(fieldName)
 
 <Type type="(fieldName: string) => FormizStep" />
-It is a function to get step informations from field name.
+Get step informations from field name.
 
 ```tsx
 const form = useForm();
@@ -222,7 +220,7 @@ const step = form.getStepByFieldName("field");
 ### goToNextStep()
 
 <Type type="() => void" />
-Function to navigate to next step.
+Navigate to next step.
 
 ```tsx
 const form = useForm();
@@ -232,7 +230,7 @@ form.goToNextStep();
 ### goToPreviousStep()
 
 <Type type="() => void" />
-It is a function to navigate to previous step.
+Navigate to previous step.
 
 ```tsx
 const form = useForm();
@@ -242,7 +240,7 @@ form.goToPreviousStep();
 ### goToStep(name)
 
 <Type type="(name: string) => void" />
-It is a function to navigate to a step.
+Navigate to a step.
 
 ```tsx
 const form = useForm();
