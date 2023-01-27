@@ -11,12 +11,78 @@ import {
   StackProps,
   BoxProps,
   ButtonProps,
-  CSSObject,
   As,
 } from "@chakra-ui/react";
 import { FieldInput } from "@/components/FieldInput";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
+import { useToastValues } from "@/hooks/useToastValues";
+
+type FormValues = {
+  name?: string;
+  email?: string;
+  company?: string;
+  job?: string;
+};
+
+const Steppers = () => {
+  const form = useForm();
+
+  const toastValues = useToastValues<FormValues>();
+
+  const handleSubmit = (values: FormValues) => {
+    toastValues(values);
+
+    form.setErrors({
+      name: "You can display an error after an API call",
+    });
+    const stepWithError = form.getStepByFieldName("name");
+    if (stepWithError) {
+      form.goToStep(stepWithError?.name);
+    }
+  };
+
+  return (
+    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm="step">
+      <PageLayout>
+        <PageHeader githubPath="steppers.tsx">Steppers</PageHeader>
+        <FormizStep name="step1">
+          <FieldInput name="name" label="Name" />
+        </FormizStep>
+        <FormizStep name="step2">
+          <FieldInput
+            name="email"
+            label="Email"
+            type="email"
+            validations={[
+              {
+                handler: isEmail(),
+                message: "Not a valid email",
+              },
+            ]}
+          />
+        </FormizStep>
+        <FormizStep name="step3">
+          <FieldInput name="company" label="Company" />
+        </FormizStep>
+        <FormizStep name="step4">
+          <FieldInput name="job" label="Job" />
+        </FormizStep>
+
+        <Stack spacing="6" mt="8">
+          <StepperWrapper title="Simple stepper">
+            <SimpleStepper />
+          </StepperWrapper>
+          <StepperWrapper title="Dots stepper">
+            <DotsStepper />
+          </StepperWrapper>
+        </Stack>
+      </PageLayout>
+    </Formiz>
+  );
+};
+
+export default Steppers;
 
 const PreviousButton = (props: ButtonProps) => {
   const form = useFormContext();
@@ -209,65 +275,3 @@ const DotsStepper = (props: BoxProps) => {
     </Stack>
   );
 };
-
-const Steppers = () => {
-  const form = useForm();
-
-  const handleSubmit = (values: {
-    name?: string;
-    email?: string;
-    company?: string;
-    job?: string;
-  }) => {
-    console.log(values);
-
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-    const stepWithError = form.getStepByFieldName("name");
-    if (stepWithError) {
-      form.goToStep(stepWithError?.name);
-    }
-  };
-
-  return (
-    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm="step">
-      <PageLayout>
-        <PageHeader githubPath="steppers.tsx">Steppers</PageHeader>
-        <FormizStep name="step1">
-          <FieldInput name="name" label="Name" />
-        </FormizStep>
-        <FormizStep name="step2">
-          <FieldInput
-            name="email"
-            label="Email"
-            type="email"
-            validations={[
-              {
-                handler: isEmail(),
-                message: "Not a valid email",
-              },
-            ]}
-          />
-        </FormizStep>
-        <FormizStep name="step3">
-          <FieldInput name="company" label="Company" />
-        </FormizStep>
-        <FormizStep name="step4">
-          <FieldInput name="job" label="Job" />
-        </FormizStep>
-
-        <Stack spacing="6" mt="8">
-          <StepperWrapper title="Simple stepper">
-            <SimpleStepper />
-          </StepperWrapper>
-          <StepperWrapper title="Dots stepper">
-            <DotsStepper />
-          </StepperWrapper>
-        </Stack>
-      </PageLayout>
-    </Formiz>
-  );
-};
-
-export default Steppers;

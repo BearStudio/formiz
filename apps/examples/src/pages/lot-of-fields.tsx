@@ -1,5 +1,6 @@
 import { FieldInput } from "@/components/FieldInput";
 import { FieldSelect } from "@/components/FieldSelect";
+import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
 import { Box, Button, Grid, Stack } from "@chakra-ui/react";
@@ -12,8 +13,10 @@ const FIELDS_BY_STEP = 20;
 const Wizard: NextPage = () => {
   const form = useForm();
 
+  const toastValues = useToastValues();
+
   const handleSubmit = (values: Record<string, string>) => {
-    console.log(values);
+    toastValues(values);
 
     form.setErrors({
       "user[0].name": "You can display an error after an API call",

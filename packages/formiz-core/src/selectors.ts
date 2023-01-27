@@ -49,7 +49,9 @@ export const formInterfaceSelector = (state: Store) => {
     isValid: getFormIsValid(state.fields),
     isValidating: getFormIsValidating(state.fields),
     isPristine: getFormIsPristine(state.fields),
-    steps: state.steps.map(stepInterfaceSelector(state)),
+    steps: state.steps
+      .filter((step) => step.isEnabled)
+      .map(stepInterfaceSelector(state)),
     currentStep: currentStep
       ? stepInterfaceSelector(state)(currentStep)
       : undefined,
@@ -73,7 +75,9 @@ export const stepInterfaceSelector = (state: Store) => (step: Step) => {
     name: step.name,
     label: step.label,
     isSubmitted: step.isSubmitted || state.form.isSubmitted,
-    index: state.steps.findIndex((s) => s.name === step.name),
+    index: state.steps
+      .filter((step) => step.isEnabled)
+      .findIndex((s) => s.name === step.name),
     isCurrent: state.form.currentStepName === step.name,
     isValid: getStepIsValid(step.name, state.fields),
     isPristine: getStepIsPristine(step.name, state.fields),

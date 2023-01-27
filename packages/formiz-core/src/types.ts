@@ -111,6 +111,8 @@ export interface Step {
   label?: React.ReactNode;
   isSubmitted: boolean;
   isVisited: boolean;
+  order: number;
+  isEnabled: boolean;
 }
 
 export type PartialStep = Partial<Omit<Step, "name">>;
