@@ -4,11 +4,7 @@
 
 All the Formiz packages that you use should be at least on version _2.0.0_.
 
-Additionally, you need to use at least:
-
-- version _14_ for **Node**
-- version _7_ for **npm**
-- version _18_ for **React**
+Additionally, you need to use at least version _18_ for **React**
 
 ```json
 dependencies: {
@@ -24,9 +20,9 @@ dependencies: {
 
 #### Usage changes
 
-useForm has been split into 3 different hooks: useForm, useFormContext and useFormFields.
+**useForm** has been split into 3 different hooks: **useForm**, **useFormContext** and **useFormFields**.
 
-**useForm** is still used for creating a new form like before. However, the `subscribe` prop is gone, and the hook now only returns form state and functions.
+**useForm** is still used for creating a new form like before. However, the `subscribe` prop is gone, and the hook now only returns the form's state and functions.
 
 ```tsx
 const MyForm = () => {
@@ -38,7 +34,7 @@ const MyForm = () => {
 };
 ```
 
-However, if you need to access the form's state and functions at children levels, you'll have to use the **useFormContext** hook, which has the same API as **useForm**.
+However, if you need to access the form's state and functions at children levels, you'll have to use the **useFormContext** hook, which has the same API as **useForm**. This hook _cannot be used to create a new form_, nor can it be used at the top level.
 
 ```tsx
 const MyForm = () => {
@@ -59,7 +55,7 @@ const MyChildren = () => {
 };
 ```
 
-To get access to the form's values, you now need to use the **useFormFields** hook.
+To get access to the form's fields data, you now need to use the **useFormFields** hook.
 
 ```tsx
 const MyChildren = () => {
@@ -80,7 +76,7 @@ const MyForm = () => {
 };
 ```
 
-You can also use it at top level by providing the [connect](/core/useFormFields#usage-at-top-level) option.
+You can also use it at the top level by providing the _connect_ option.
 
 ```tsx
 const MyForm = () => {
@@ -91,11 +87,11 @@ const MyForm = () => {
 };
 ```
 
-Just like in v1, you can subscribe to different fields to determine when your component should rerender. To do this, you'll have to use the new `fields` prop, which is an array of the fields' names.
+Just like in v1, you can subscribe to different fields to choose when your component should rerender. To do this, you'll have to use the new `fields` prop, which is an array of the fields' names that you want to subscribe to.
 
 Additionnally, you can now use the `selector` prop to choose which data in the fields you really need to subscribe to, avoiding useless rerenders.
 
-In the example below, `myFirstFieldData` returns the _value_ and _pristine_ state of `myFirstField`, and will cause MyForm to rerender whenever one of those two values change.
+In the example below, `myFirstFieldData` returns the _value_ and _isPristine_ data of `myFirstField`, and will cause MyForm to rerender only whenever one of those two values change.
 
 ```tsx
 const MyForm = () => {
@@ -118,19 +114,30 @@ const MyForm = () => {
 #### Functions changes
 
 1. _setFieldsValues_
-   - The function has been renamed to **_setValues_**
-   - The _keepPristine_ option now defaults to **true**
+   - The function has been renamed to **_setValues_**.
+   - The _keepPristine_ option now defaults to **true**.
    - The _keepUnmounted_ option doesn't exist anymore. The function will now always behave as if _keepUnmounted_ was **true**.
-2. _invalidateFields_ was renamed to **setErrors**
-3. _getFieldStepName_ was renamed to **getStepByFieldName**
+2. _invalidateFields_ was renamed to **setErrors**.
+3. _getFieldStepName_ was renamed to **getStepByFieldName**.
 
 ### 2. useField
 
-The hook is now fully typed using typescript. `otherProps` will automatically be typed as an object containing everything that is not a Formiz prop in the given type.
+#### Typing changes
+
+The hook is now fully typed using Typescript. When creating a field, your props need to extend the `FieldProps` type which now takes the value's type as a parameter. This gives access to the full typing of the object returned by `useField`. The `otherProps` object will also automatically be typed as an object containing everything that is not a Formiz prop in the given type.
+
+#### Validations changes
+
+The validations API changed:
+
+- the _rule_ argument has been renamed to **handler**.
+- the validations rules now consider falsy values to always be valid, with the exception of **0**. This implies:
+  - that you don't need to check on every validation that you have a value if your field is not required.
+  - that an empty string or the boolean value `false` are considered as valid values by default. This behavior can be ignored by setting the `checkFalsy` prop to true in your validation.
 
 ### 3. Naming changes
 
-Several field props and functions were renamed:
+Several props and functions were renamed:
 
 - on the `<Formiz />` component
   - onChange was renamed to **onValuesChange**
