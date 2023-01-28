@@ -10,7 +10,7 @@ export const Menu = ({ direction = "left" }) => {
     <Stack spacing="1" w="100%">
       <Stack spacing="0">
         <MenuItem direction={direction} href="/">
-          AutoForm
+          Simple Form
         </MenuItem>
         <MenuItem direction={direction} href="/wizard">
           Wizard
@@ -75,7 +75,7 @@ export const Menu = ({ direction = "left" }) => {
             size="md"
             isChecked={colorMode === "light"}
             onChange={toggleColorMode}
-            colorScheme="none"
+            colorScheme="gray"
           />
           <Icon
             as={FiSun}

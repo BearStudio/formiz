@@ -8,9 +8,8 @@ import { Formiz, useForm } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
-const AutoForm: NextPage = () => {
+const SimpleForm: NextPage = () => {
   const form = useForm();
-  const { onToggle, isOpen } = useDisclosure();
 
   const toastValues = useToastValues();
 
@@ -25,7 +24,7 @@ const AutoForm: NextPage = () => {
   return (
     <Formiz
       connect={form}
-      initialValues={{ company: "My Company", name: "Initial name" }}
+      initialValues={{ company: "My Company" }}
       onValidSubmit={handleSubmit}
       autoForm
       onValuesChange={console.log}
@@ -33,21 +32,14 @@ const AutoForm: NextPage = () => {
       onInvalid={() => console.log("onInvalid")}
     >
       <PageLayout>
-        <PageHeader githubPath="index.tsx">Auto form</PageHeader>
+        <PageHeader githubPath="index.tsx">Simple Form</PageHeader>
         <Stack spacing={4}>
-          {isOpen && (
-            <FieldInput
-              name="name"
-              label="Name"
-              required="Required"
-              formatValue={(val) => (val || "").trim()}
-            />
-          )}
-
-          <Button onClick={onToggle}>Toggle</Button>
-          <Button onClick={() => form.setValues({ name: "External" })}>
-            setValues
-          </Button>
+          <FieldInput
+            name="name"
+            label="Name"
+            required="Required"
+            formatValue={(val) => (val || "").trim()}
+          />
 
           <FieldInput
             name="email"
@@ -93,6 +85,7 @@ const AutoForm: NextPage = () => {
             label="Company"
             formatValue={(val) => (val || "").trim()}
           />
+
           <FieldUpload
             name="file"
             label="File"
@@ -121,4 +114,4 @@ const AutoForm: NextPage = () => {
   );
 };
 
-export default AutoForm;
+export default SimpleForm;
