@@ -47,8 +47,6 @@ const FieldInputBase = (props: FieldInputProps) => {
       ...rest
     },
   } = useField(props);
-
-  const { name } = props;
   const [showPassword, setShowPassword] = useState(false);
 
   const formGroupProps = {
