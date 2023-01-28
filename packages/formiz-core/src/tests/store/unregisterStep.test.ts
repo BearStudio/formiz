@@ -12,7 +12,7 @@ describe("unregisterStep", () => {
   });
 
   it("Should unregister multi steps and keep order", () => {
-    const store = createStore({ formId: "test" });
+    const store = createStore();
     const { registerStep, unregisterStep } = store.getState().actions;
 
     registerStep("step1");
