@@ -264,7 +264,7 @@ export const createStore = () =>
           const formattedValue = formatValue(value as any);
 
           const getNewInitialValue = () => {
-            if (oldFieldById?.initialValue) {
+            if (oldFieldById?.initialValue !== undefined) {
               return oldFieldById.initialValue;
             }
             if (initialValue !== undefined) {
