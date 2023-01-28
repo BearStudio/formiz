@@ -49,7 +49,6 @@ importers:
       '@emotion/styled': 11.10.5
       '@formiz/core': workspace:*
       '@formiz/validations': workspace:*
-      '@testing-library/cypress': ^9.0.0
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -79,7 +78,6 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-icons: 4.7.1_react@18.2.0
     devDependencies:
-      '@testing-library/cypress': 9.0.0_cypress@12.4.0
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -2902,17 +2900,6 @@ packages:
     dependencies:
       tslib: 2.4.0
     dev: false
-
-  /@testing-library/cypress/9.0.0_cypress@12.4.0:
-    resolution: {integrity: sha512-c1XiCGeHGGTWn0LAU12sFUfoX3qfId5gcSE2yHode+vsyHDWraxDPALjVnHd4/Fa3j4KBcc5k++Ccy6A9qnkMA==}
-    engines: {node: '>=12', npm: '>=6'}
-    peerDependencies:
-      cypress: ^12.0.0
-    dependencies:
-      '@babel/runtime': 7.20.13
-      '@testing-library/dom': 8.14.0
-      cypress: 12.4.0
-    dev: true
 
   /@testing-library/dom/8.14.0:
     resolution: {integrity: sha512-m8FOdUo77iMTwVRCyzWcqxlEIk+GnopbrRI15a0EaLbpZSCinIVI4kSQzWhkShK83GogvEFJSsHF3Ws0z1vrqA==}

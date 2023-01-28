@@ -6,7 +6,8 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && tsc --noEmit"
+    "lint": "next lint && tsc --noEmit",
+    "test:e2e": "cypress open"
   },
   "dependencies": {
     "@chakra-ui/react": "2.4.9",
