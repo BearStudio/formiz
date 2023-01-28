@@ -102,7 +102,6 @@ export const useField = <
 
   const stepContext = useStepContext();
   const stepName = stepContext?.name;
-  const isStepMountedRef = stepContext?.isStepMountedRef;
 
   const formatValueRef = useRef(formatValue);
   formatValueRef.current = formatValue;
@@ -111,9 +110,16 @@ export const useField = <
   const fieldIdRef = useRef(fieldId);
   fieldIdRef.current = fieldId;
 
+  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
+  const deferredValue = useDeferredValue(internalValue);
+
   const storeActions = useStore(
     useCallback((state: Store) => state.actions, []),
     deepEqual
+  );
+
+  const formConnected = useStore(
+    useCallback((state: Store) => state.connected, [])
   );
 
   // Get field from state
@@ -139,7 +145,7 @@ export const useField = <
           isValidating: false,
           isDebouncing: false,
           // Field
-          ...field,
+          ...(field ?? {}),
         });
 
         if (!configRef.current.unstable_notifyOnChangePropsExclusions)
@@ -165,13 +171,21 @@ export const useField = <
   const validationsRef = useRef(validations);
   validationsRef.current = validations;
 
+  const unregisterTimoutRef = useRef<NodeJS.Timeout>();
+
   // Register / Unregister
   useEffect(
     function registerField() {
-      const fieldId = fieldIdRef.current;
+      if (!formConnected) {
+        return () => {};
+      }
+
+      clearTimeout(unregisterTimoutRef.current);
+
+      const _fieldId = fieldIdRef.current;
 
       storeActions.registerField(
-        fieldId,
+        _fieldId,
         {
           name,
           stepName,
@@ -184,15 +198,16 @@ export const useField = <
           validationsRef,
         }
       );
+
       return () => {
-        const isInStep = !!isStepMountedRef;
-        const isStepBeingUnmounted = isInStep && !isStepMountedRef.current; // eslint-disable-line react-hooks/exhaustive-deps
-        storeActions.unregisterField(fieldId, {
-          persist: isStepBeingUnmounted,
+        unregisterTimoutRef.current = setTimeout(() => {
+          storeActions.unregisterField(_fieldId, {
+            persist: false,
+          });
         });
       };
     },
-    [isStepMountedRef, name, stepName, storeActions]
+    [name, stepName, storeActions, formConnected]
   );
 
   const validationsAsyncRef = useRef(validationsAsync);
@@ -282,10 +297,6 @@ export const useField = <
       });
     };
   }, [storeActions, useStore, valueSerialized, validationsAsyncDeps]);
-
-  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
-
-  const deferredValue = useDeferredValue(internalValue);
 
   const onValueChangeRef = useRef(onValueChange);
   onValueChangeRef.current = onValueChange;
