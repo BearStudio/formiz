@@ -1,15 +1,21 @@
 import { FieldInput } from "@/components/FieldInput";
+import { FieldSelect } from "@/components/FieldSelect";
 import { FieldUpload } from "@/components/FieldUpload";
 import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
 import { Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
-import { Formiz, useForm } from "@formiz/core";
+import { Formiz, useForm, useFormFields } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
 const SimpleForm: NextPage = () => {
   const form = useForm();
+  const { accountType } = useFormFields({
+    connect: form,
+    fields: ["accountType"],
+    selector: (f) => f.value,
+  });
 
   const toastValues = useToastValues();
 
@@ -80,11 +86,36 @@ const SimpleForm: NextPage = () => {
             </Button>
           </FieldInput>
 
-          <FieldInput
-            name="company"
-            label="Company"
-            formatValue={(val) => (val || "").trim()}
-          />
+          <FieldSelect
+            name="accountType"
+            label="Account type"
+            defaultValue="perso"
+            options={[
+              { label: "Personal", value: "perso" },
+              { label: "Professional", value: "pro" },
+            ]}
+          >
+            <Button
+              size="sm"
+              variant="link"
+              onClick={() =>
+                form.setValues({
+                  accountType: "pro",
+                  company: "BearStudio",
+                })
+              }
+            >
+              Set to `Professional` and company to `BearStudio`
+            </Button>
+          </FieldSelect>
+
+          {accountType === "pro" && (
+            <FieldInput
+              name="company"
+              label="Company"
+              formatValue={(val) => (val || "").trim()}
+            />
+          )}
 
           <FieldUpload
             name="file"
