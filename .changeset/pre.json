@@ -2,7 +2,7 @@
   "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
-    "formiz-docs": "0.0.0",
+    "docs": "0.0.0",
     "examples": "0.0.0",
     "config": "0.0.0",
     "@formiz/core": "2.0.0-alpha.1",
