@@ -102,7 +102,6 @@ export const useField = <
 
   const stepContext = useStepContext();
   const stepName = stepContext?.name;
-  const isStepMountedRef = stepContext?.isStepMountedRef;
 
   const formatValueRef = useRef(formatValue);
   formatValueRef.current = formatValue;
@@ -172,7 +171,7 @@ export const useField = <
   const validationsRef = useRef(validations);
   validationsRef.current = validations;
 
-  const timerRef = useRef<NodeJS.Timeout>();
+  const unregisterTimoutRef = useRef<NodeJS.Timeout>();
 
   // Register / Unregister
   useEffect(
@@ -181,7 +180,7 @@ export const useField = <
         return () => {};
       }
 
-      clearTimeout(timerRef.current);
+      clearTimeout(unregisterTimoutRef.current);
 
       const _fieldId = fieldIdRef.current;
 
@@ -201,17 +200,14 @@ export const useField = <
       );
 
       return () => {
-        const isInStep = !!isStepMountedRef;
-        const isStepBeingUnmounted = isInStep && !isStepMountedRef.current; // eslint-disable-line react-hooks/exhaustive-deps
-
-        timerRef.current = setTimeout(() => {
+        unregisterTimoutRef.current = setTimeout(() => {
           storeActions.unregisterField(_fieldId, {
-            persist: isStepBeingUnmounted,
+            persist: false,
           });
         });
       };
     },
-    [isStepMountedRef, name, stepName, storeActions, formConnected]
+    [name, stepName, storeActions, formConnected]
   );
 
   const validationsAsyncRef = useRef(validationsAsync);
