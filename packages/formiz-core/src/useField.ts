@@ -171,7 +171,7 @@ export const useField = <
   const validationsRef = useRef(validations);
   validationsRef.current = validations;
 
-  const unregisterTimoutRef = useRef<NodeJS.Timeout>();
+  const unregisterTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Register / Unregister
   useEffect(
@@ -180,7 +180,7 @@ export const useField = <
         return () => {};
       }
 
-      clearTimeout(unregisterTimoutRef.current);
+      clearTimeout(unregisterTimeoutRef.current);
 
       const _fieldId = fieldIdRef.current;
 
@@ -200,7 +200,7 @@ export const useField = <
       );
 
       return () => {
-        unregisterTimoutRef.current = setTimeout(() => {
+        unregisterTimeoutRef.current = setTimeout(() => {
           storeActions.unregisterField(_fieldId, {
             persist: false,
           });

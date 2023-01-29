@@ -11,9 +11,9 @@ import { NextPage } from "next";
 
 const SimpleForm: NextPage = () => {
   const form = useForm();
-  const { accountType } = useFormFields({
+  const { accountType, company } = useFormFields({
     connect: form,
-    fields: ["accountType"],
+    fields: ["accountType", "company"],
     selector: (f) => f.value,
   });
 
@@ -30,7 +30,7 @@ const SimpleForm: NextPage = () => {
   return (
     <Formiz
       connect={form}
-      initialValues={{ company: "My Company" }}
+      initialValues={{ company: "My Company", info: "My company info" }}
       onValidSubmit={handleSubmit}
       autoForm
       onValuesChange={console.log}
@@ -113,6 +113,14 @@ const SimpleForm: NextPage = () => {
             <FieldInput
               name="company"
               label="Company"
+              formatValue={(val) => (val || "").trim()}
+            />
+          )}
+
+          {!!company && (
+            <FieldInput
+              name="info"
+              label="Info"
               formatValue={(val) => (val || "").trim()}
             />
           )}
