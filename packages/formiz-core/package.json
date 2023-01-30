@@ -13,8 +13,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --minify",
-    "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts --minify --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react,zustand",
     "lint": "eslint src --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "jest",
