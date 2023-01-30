@@ -1,9 +1,8 @@
 {
   "name": "@formiz/core",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "files": [
@@ -14,7 +13,7 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --minify --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react,zustand",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react",
     "lint": "eslint src --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "jest",
