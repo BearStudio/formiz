@@ -4,16 +4,16 @@ import { FieldUpload } from "@/components/FieldUpload";
 import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
-import { Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Formiz, useForm, useFormFields } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
 const SimpleForm: NextPage = () => {
   const form = useForm();
-  const { accountType, company } = useFormFields({
+  const { accountType } = useFormFields({
     connect: form,
-    fields: ["accountType", "company"],
+    fields: ["accountType"],
     selector: (f) => f.value,
   });
 
@@ -30,7 +30,7 @@ const SimpleForm: NextPage = () => {
   return (
     <Formiz
       connect={form}
-      initialValues={{ company: "My Company", info: "My company info" }}
+      initialValues={{ company: "My Company" }}
       onValidSubmit={handleSubmit}
       autoForm
       onValuesChange={console.log}
@@ -113,14 +113,6 @@ const SimpleForm: NextPage = () => {
             <FieldInput
               name="company"
               label="Company"
-              formatValue={(val) => (val || "").trim()}
-            />
-          )}
-
-          {!!company && (
-            <FieldInput
-              name="info"
-              label="Info"
               formatValue={(val) => (val || "").trim()}
             />
           )}
