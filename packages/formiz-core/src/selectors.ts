@@ -4,6 +4,7 @@ import type {
   Field,
   Step,
   Store,
+  ResetOptions,
 } from "@/types";
 import {
   getFormIsValid,
@@ -37,7 +38,10 @@ export const formInterfaceSelector = (state: Store) => {
       if (!step) return undefined;
       return stepInterfaceSelector(state)(step);
     },
-    reset: state.actions.reset,
+    reset: (options?: ResetOptions) => {
+      state.actions.reset(options);
+      state.actions.resetInitialValues();
+    },
     submitStep: state.actions.submitStep,
     goToStep: state.actions.goToStep,
     goToNextStep: state.actions.goToNextStep,

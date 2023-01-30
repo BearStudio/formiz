@@ -4,7 +4,7 @@ import { FieldUpload } from "@/components/FieldUpload";
 import { useToastValues } from "@/hooks/useToastValues";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
-import { Button, Flex, Stack, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import { Formiz, useForm, useFormFields } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";

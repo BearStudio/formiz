@@ -156,6 +156,7 @@ export interface Store {
     setValues(newValues: Values, options?: { keepPristine?: boolean }): void;
     setErrors(errors: Record<string, unknown>): void;
     reset(options?: ResetOptions): void;
+    resetInitialValues(): void;
 
     getFieldValidationsErrors<Value>(
       value: Value,

@@ -183,6 +183,24 @@ export const createStore = () =>
         });
       },
 
+      resetInitialValues: () => {
+        set((state) => {
+          let initialValues = cloneDeep(
+            state.formPropsRef.current?.initialValues
+          );
+
+          setTimeout(() => {
+            state.fields.forEach((field) => {
+              initialValues = lodashOmit(initialValues, field.name);
+            });
+          });
+
+          return {
+            initialValues,
+          };
+        });
+      },
+
       getFieldValidationsErrors: (
         value,
         formattedValue,
