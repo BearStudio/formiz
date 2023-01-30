@@ -4,5 +4,6 @@
   "useFormContext": "useFormContext()",
   "useFormFields": "useFormFields()",
   "useField": "useField()",
-  "FormizStep": "<FormizStep />"
+  "FormizStep": "<FormizStep />",
+  "useRepeater": "useRepeater()"
 }

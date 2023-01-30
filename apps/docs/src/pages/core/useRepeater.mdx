@@ -1,0 +1,24 @@
+import { Type } from '@/components/Type';
+
+# useRepeater
+
+Provides functionality for managing and manipulating repeatable form fields within a form context.
+
+## Repeater State
+
+### name
+
+<Type type="string" />
+
+The name is required to register the repeater in the form.
+
+### connect
+
+Allow you to connect your repeater with the [useForm()]("https://formiz-react.com/docs/core/use-form") hook.
+See [useForm() documentation]("https://formiz-react.com/docs/core/use-form") for more details
+
+### initialValues
+
+<Type type="unknown[] | undefined" />
+
+Allow you to pass some initial values to the form. If a field is mounted, it will lookup into this object to set his initial value.
