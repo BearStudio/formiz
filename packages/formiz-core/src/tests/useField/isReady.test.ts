@@ -1,4 +1,4 @@
-import { renderUseField } from "@/tests/__utils";
+import { renderUseField } from "../__utils";
 
 describe("useField: isReady", () => {
   it("Should be true if is valid and there is no async validations or debounce", async () => {

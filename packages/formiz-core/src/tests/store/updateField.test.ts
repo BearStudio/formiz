@@ -1,5 +1,5 @@
-import { createStore } from "@/store";
-import { getFormValues } from "@/utils/form";
+import { createStore } from "../../store";
+import { getFormValues } from "../../utils/form";
 
 describe("updateField", () => {
   it("Should update the field value", () => {

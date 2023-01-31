@@ -1,6 +1,6 @@
 import React from "react";
 
-import { isDeepEqual } from "@/utils/global";
+import { isDeepEqual } from "./utils/global";
 
 export function deepMemo<Props = unknown>(
   component: (props: Props) => JSX.Element

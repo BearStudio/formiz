@@ -2,8 +2,8 @@ import {
   ERROR_USE_FIELD_MISSING_CONTEXT,
   ERROR_USE_FIELD_MISSING_NAME,
   ERROR_USE_FIELD_MISSING_PROPS,
-} from "@/errors";
-import { renderUseField, silent } from "@/tests/__utils";
+} from "../../errors";
+import { renderUseField, silent } from "../__utils";
 
 describe("useField: Mount", () => {
   it("Should crash if a useField is used without props", async () => {

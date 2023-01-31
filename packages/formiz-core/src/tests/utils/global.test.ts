@@ -1,4 +1,4 @@
-import { isDeepEqual, isObject } from "@/utils/global";
+import { isDeepEqual, isObject } from "../../utils/global";
 
 export const generateUniqueId = (prefix?: string) => {
   const id = Math.random().toString(36).substr(2, 9);

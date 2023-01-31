@@ -1,4 +1,4 @@
-import { createStore } from "@/store";
+import { createStore } from "../../store";
 
 describe("getFieldSetValue", () => {
   it("Should get the setValue function that can update the field value", () => {

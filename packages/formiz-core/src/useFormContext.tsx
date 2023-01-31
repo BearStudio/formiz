@@ -1,8 +1,8 @@
 import { deepEqual } from "fast-equals";
 
-import { useFormStore } from "@/Formiz";
-import { formInterfaceSelector } from "@/selectors";
-import { ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT } from "@/errors";
+import { useFormStore } from "./Formiz";
+import { formInterfaceSelector } from "./selectors";
+import { ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT } from "./errors";
 
 export const useFormContext = () => {
   const useStore = useFormStore();

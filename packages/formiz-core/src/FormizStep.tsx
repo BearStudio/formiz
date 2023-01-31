@@ -9,7 +9,7 @@ import React, {
 
 import { deepEqual } from "fast-equals";
 
-import type { FormizStepProps } from "@/types";
+import type { FormizStepProps } from "./types";
 import { useFormStore } from "./Formiz";
 
 const StepContext = createContext({

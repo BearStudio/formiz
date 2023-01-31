@@ -1,4 +1,4 @@
-import { createStore } from "@/store";
+import { createStore } from "../../store";
 
 describe("registerStep", () => {
   it("Should register one step", () => {

@@ -1,5 +1,5 @@
-import { createStore } from "@/store";
-import { generateField } from "@/utils/form";
+import { createStore } from "../../store";
+import { generateField } from "../../utils/form";
 
 describe("submitForm", () => {
   it("Should update the isSubmitted value", () => {

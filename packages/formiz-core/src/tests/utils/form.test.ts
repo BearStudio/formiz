@@ -5,7 +5,7 @@ import {
   getFieldIsValid,
   getFormIsValid,
   getFormIsPristine,
-} from "@/utils/form";
+} from "../../utils/form";
 
 describe("getFormValues", () => {
   it("Should get an empty object with no fields", () => {

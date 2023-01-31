@@ -1,5 +1,5 @@
 import cases from "jest-in-case";
-import { renderUseField } from "@/tests/__utils";
+import { renderUseField } from "../__utils";
 import { waitFor } from "@testing-library/react";
 
 describe("useField: formatValue", () => {

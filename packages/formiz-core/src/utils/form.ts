@@ -4,8 +4,8 @@ import type {
   PartialField,
   ResetElement,
   ResetOptions,
-} from "@/types";
-import { isObject } from "@/utils/global";
+} from "../types";
+import { isObject } from "./global";
 
 const parseValues = <T>(values: Record<string, T>) =>
   Object.keys(values).reduce((acc, key) => parseValuesName(key, acc), values);

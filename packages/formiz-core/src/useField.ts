@@ -10,8 +10,8 @@ import React, {
 
 import { deepEqual } from "fast-equals";
 
-import { getField } from "@/utils/form";
-import { useStepContext } from "@/FormizStep";
+import { getField } from "./utils/form";
+import { useStepContext } from "./FormizStep";
 
 import type {
   UseFieldConfig,
@@ -19,7 +19,7 @@ import type {
   Store,
   ExposedField,
   FieldValue,
-} from "@/types";
+} from "./types";
 import { useFormStore } from "./Formiz";
 import { fieldInterfaceSelector } from "./selectors";
 import {

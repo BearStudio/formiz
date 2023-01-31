@@ -2,10 +2,10 @@ import React, { useEffect, useId, useRef } from "react";
 
 import { StoreApi, UseBoundStore } from "zustand";
 
-import { createStore } from "@/store";
-import type { FormizProps, Store } from "@/types";
-import { createContext } from "@/utils/context";
-import { getFormValues, getFormIsValid } from "@/utils/form";
+import { createStore } from "./store";
+import type { FormizProps, Store } from "./types";
+import { createContext } from "./utils/context";
+import { getFormValues, getFormIsValid } from "./utils/form";
 import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
 

@@ -1,5 +1,5 @@
-import { createStore } from "@/store";
-import { getFormValues } from "@/utils/form";
+import { createStore } from "../../store";
+import { getFormValues } from "../../utils/form";
 
 describe("registerField", () => {
   it("Should register a field with no value", () => {

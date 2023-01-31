@@ -11,8 +11,8 @@ import {
   getFormValues,
   getStepIsReady,
   isResetAllowed,
-} from "@/utils/form";
-import type { GetFieldSetValueOptions, Step, Store } from "@/types";
+} from "./utils/form";
+import type { GetFieldSetValueOptions, Step, Store } from "./types";
 
 export const createStore = () =>
   create<Store>()((set, get) => ({

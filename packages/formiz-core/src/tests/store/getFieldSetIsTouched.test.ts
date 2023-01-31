@@ -1,4 +1,4 @@
-import { createStore } from "@/store";
+import { createStore } from "../../store";
 
 describe("getFieldSetIsTouched", () => {
   it("Should get the setIsTouched function that can update the isTouched value", () => {

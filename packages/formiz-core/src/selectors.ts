@@ -5,7 +5,7 @@ import type {
   Step,
   Store,
   ResetOptions,
-} from "@/types";
+} from "./types";
 import {
   getFormIsValid,
   getFormIsPristine,
@@ -19,7 +19,7 @@ import {
   getStepIsValid,
   getStepIsPristine,
   getStepIsValidating,
-} from "@/utils/form";
+} from "./utils/form";
 
 export const formInterfaceSelector = (state: Store) => {
   const currentStep = state.steps.find(
