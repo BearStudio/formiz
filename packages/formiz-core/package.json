@@ -3,6 +3,7 @@
   "version": "2.0.0-alpha.10",
   "license": "MIT",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "files": [
@@ -12,8 +13,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --minify --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --external react",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "lint": "eslint src --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "jest",
