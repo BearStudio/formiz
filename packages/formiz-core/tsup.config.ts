@@ -14,5 +14,5 @@ export const tsup: Options = {
   target: "es2020",
   external: ["react"],
   outDir: "dist",
-  entry: ["src/**/*.ts", "src/**/*.tsx"], //include all files under src
+  entry: ["src/**/*.ts", "src/**/*.tsx", "!src/tests/**/*"], //include all files under src
 };
