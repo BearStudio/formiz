@@ -13,7 +13,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "NODE_ENV=production tsup",
+    "build": "tsup --minify",
     "dev": "tsup --watch",
     "lint": "eslint src --fix && tsc --noEmit",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
