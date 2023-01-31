@@ -1,6 +1,6 @@
 {
   "name": "@formiz/core",
-  "version": "2.0.0-alpha.11",
+  "version": "2.0.0-alpha.12",
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -21,7 +21,12 @@
     "coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "fast-equals": "4.0.3",
+    "clone-deep": "4.0.1",
+    "lodash": "4.17.21",
+    "uniqid": "5.4.0",
+    "react": ">=18",
+    "zustand": "4.3.2"
   },
   "devDependencies": {
     "@testing-library/react": "13.4.0",
