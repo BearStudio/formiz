@@ -9,7 +9,6 @@ export const tsup: Options = {
   format: ["cjs", "esm"], // generate cjs and esm files
   minify: env === "production",
   bundle: env === "production",
-  skipNodeModulesBundle: true,
   entryPoints: ["src/index.ts"],
   target: "es2020",
   external: ["react"],
