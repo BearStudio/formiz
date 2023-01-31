@@ -154,8 +154,7 @@ export const generateField = <Value>(
 ): Field<Value> => {
   return {
     formattedValue: field.value,
-    initialValue: field.value,
-    initialFormattedValue: field.value,
+    defaultValue: field.value,
     isPristine: true,
     isTouched: false,
     isValidating: false,
@@ -166,6 +165,7 @@ export const generateField = <Value>(
     externalErrors: [],
     requiredRef: field.requiredRef,
     validationsRef: field.validationsRef,
+    formatValue: (v) => v,
     ...field,
     id: fieldId,
   };

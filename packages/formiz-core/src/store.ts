@@ -12,7 +12,13 @@ import {
   getStepIsReady,
   isResetAllowed,
 } from "@/utils/form";
-import type { GetFieldSetValueOptions, Step, Store } from "@/types";
+import type {
+  Field,
+  FormatValue,
+  GetFieldSetValueOptions,
+  Step,
+  Store,
+} from "@/types";
 
 export const createStore = () =>
   create<Store>()((set, get) => ({
@@ -124,15 +130,24 @@ export const createStore = () =>
           );
 
           state.fields.forEach((field) => {
+            const initialValue = lodashGet(initialValues, field.name) as Field<
+              unknown,
+              unknown
+            >;
             initialValues = lodashOmit(initialValues, field.name);
+
+            const formatValue = field.formatValue
+              ? field.formatValue
+              : (v: Field<unknown, unknown>) => v;
 
             state.fields.set(field.id, {
               ...field,
               value: isResetAllowed("values", resetOptions)
-                ? field.initialValue
+                ? initialValue ?? field.defaultValue
                 : field.value,
               formattedValue: isResetAllowed("values", resetOptions)
-                ? field.initialFormattedValue
+                ? formatValue(initialValue) ??
+                  formatValue(field.defaultValue as any)
                 : field.formattedValue,
               externalErrors: isResetAllowed("values", resetOptions)
                 ? []
@@ -232,7 +247,7 @@ export const createStore = () =>
         fieldId,
         newField,
         {
-          defaultValue,
+          defaultValue = null,
           formatValue = (v: unknown) => v,
           requiredRef,
           validationsRef,
@@ -281,19 +296,6 @@ export const createStore = () =>
           const value = getValue() ?? null;
           const formattedValue = formatValue(value as any);
 
-          const getNewInitialValue = () => {
-            if (oldFieldById?.initialValue !== undefined) {
-              return oldFieldById.initialValue;
-            }
-            if (initialValue !== undefined) {
-              return initialValue;
-            }
-            return defaultValue;
-          };
-
-          const newInitialValue = getNewInitialValue() ?? null;
-          const newInitialFormattedValue = formatValue(newInitialValue as any);
-
           const { requiredErrors, validationsErrors } =
             state.actions.getFieldValidationsErrors(
               value,
@@ -307,10 +309,10 @@ export const createStore = () =>
             generateField<unknown>(fieldId, {
               ...(oldFieldById ?? {}),
               ...newField,
+              defaultValue,
               value,
+              formatValue: formatValue as FormatValue<unknown, unknown>,
               formattedValue,
-              initialValue: newInitialValue,
-              initialFormattedValue: newInitialFormattedValue,
               requiredErrors,
               validationsErrors,
               requiredRef,
