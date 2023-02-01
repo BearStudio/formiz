@@ -141,9 +141,7 @@ export const createStore = () =>
               : (v: Field<unknown, unknown>) => v;
 
             const resetValue = initialValue ?? field.defaultValue;
-            const resetValueFormatted =
-              formatValue(initialValue) ??
-              formatValue(field.defaultValue as any);
+            const resetValueFormatted = formatValue(resetValue);
 
             // Validations
             const { requiredErrors, validationsErrors } =
