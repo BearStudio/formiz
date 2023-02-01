@@ -140,18 +140,37 @@ export const createStore = () =>
               ? field.formatValue
               : (v: Field<unknown, unknown>) => v;
 
+            const resetValue = initialValue ?? field.defaultValue;
+            const resetValueFormatted =
+              formatValue(initialValue) ??
+              formatValue(field.defaultValue as any);
+
+            // Validations
+            const { requiredErrors, validationsErrors } =
+              state.actions.getFieldValidationsErrors(
+                resetValue,
+                resetValueFormatted,
+                field.requiredRef?.current,
+                field.validationsRef?.current
+              );
+
             state.fields.set(field.id, {
               ...field,
               value: isResetAllowed("values", resetOptions)
-                ? initialValue ?? field.defaultValue
+                ? resetValue
                 : field.value,
               formattedValue: isResetAllowed("values", resetOptions)
-                ? formatValue(initialValue) ??
-                  formatValue(field.defaultValue as any)
+                ? resetValueFormatted
                 : field.formattedValue,
               externalErrors: isResetAllowed("values", resetOptions)
                 ? []
                 : field.externalErrors,
+              requiredErrors: isResetAllowed("values", resetOptions)
+                ? requiredErrors
+                : [],
+              validationsErrors: isResetAllowed("values", resetOptions)
+                ? validationsErrors
+                : [],
               isPristine: isResetAllowed("pristine", resetOptions)
                 ? true
                 : field.isPristine,
