@@ -120,7 +120,6 @@ const SimpleForm: NextPage = () => {
           <FieldUpload
             name="file"
             label="File"
-            required="Required"
             validations={[
               {
                 handler: (v: { name: string }) => !v.name.startsWith("A"),
