@@ -72,6 +72,12 @@ export const CodeEditor = ({
             setRenderError(error);
           }}
         />
+        {files.map(
+          (file) =>
+            file.name.endsWith(".css") && (
+              <style key={file.name}>{file.code}</style>
+            )
+        )}
       </div>
       <div className="code-editor__container__mirror-container">
         <ul className="tabs code-editor__tabs">

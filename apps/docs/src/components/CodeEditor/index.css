@@ -1,9 +1,11 @@
 :root {
-  --nextra-md-header-light: #eef9eb;
-  --nextra-md-content-light: #f6fcf4;
+  --nextra-md-header-light: #ffffff;
+  --nextra-md-content-light: #011627;
   --nextra-md-header-dark: #2c4028;
   --nextra-md-content-dark: #1f291d;
   --code-editor-border-radius: 0.8rem;
+  --code-editor-border-color-light: #E4E4E7;
+  --code-editor-border-color-dark: #27272A;
 }
 
 /* Global container */
@@ -12,8 +14,13 @@
   flex: 1;
   flex-direction: column;
   border-radius: var(--code-editor-border-radius);
+  border: 1px solid var(--code-editor-border-color-light);
   overflow: hidden;
   margin-block: 1rem;
+}
+
+html[class~="dark"] .code-editor__container {
+  border-color: var(--code-editor-border-color-dark);
 }
 
 /* Display container */
@@ -21,8 +28,7 @@
   display: flex;
   flex: 1;
   padding: 1rem;
-  border: 1px solid #808080;
-  border-radius: var(--code-editor-border-radius);
+  border-radius: var(--code-editor-border-radius) var(--code-editor-border-radius) 0 0;
   color: #333333;
   background-color: var(--nextra-md-header-light);
 }
@@ -32,24 +38,17 @@ html[class~="dark"] .code-editor__container__runner-container {
   background-color: transparent;
 }
 
-/* Space between display and editor */
-.code-editor__container > :not(:first-child) {
-  margin-top: 1rem;
-}
-
 /* Tabs */
 .tabs {
   display: flex;
   flex: 1;
   flex-direction: row;
-  background-color: var(--nextra-md-header-light);
+  background-color: var(--nextra-md-content-light);
   gap: 0.1rem;
-  border-top-left-radius: var(--code-editor-border-radius);
-  border-top-right-radius: var(--code-editor-border-radius);
 }
 
 html[class~="dark"] .tabs {
-  background-color: var(--nextra-md-header-dark);
+  background-color: var(--nextra-md-content-dark);
 }
 
 .tabs__item {
@@ -58,6 +57,10 @@ html[class~="dark"] .tabs {
   padding-inline: var(--code-editor-border-radius);
   padding-block: 0.3rem;
   cursor: pointer;
+  color: white;
+}
+
+html[class~="dark"] .tabs__item {
   color: #333333;
 }
 
@@ -66,6 +69,10 @@ html[class~="dark"] .tabs__item {
 }
 
 .tabs__item--active {
+  border-bottom: 2px solid white
+}
+
+html[class~="dark"] .tabs__item--active {
   border-bottom: 2px solid hsl(113, 35%, 34%);
 }
 
@@ -94,7 +101,7 @@ html[class~="dark"] .cm-gutter {
 
 .cm-content {
   background-color: var(--nextra-md-content-light);
-  color: #444444;
+  color: #FFFFFF;
 }
 
 .ͼo .cm-content ::selection {
@@ -111,7 +118,7 @@ html[class~="dark"] .cm-content {
 }
 
 .ͼo .cm-activeLine {
-  background-color: var(--nextra-md-header-light);
+  background-color: var(--nextra-md-header-dark);
 }
 
 html[class~="dark"] .ͼo .cm-activeLine {
@@ -124,7 +131,7 @@ html[class~="dark"] .ͼo .cm-activeLine {
 
 /* Editor theme */
 .ͼt {
-  color: #1e4217;
+  color: #ffffff;
 }
 
 html[class~="dark"] .ͼt {
@@ -132,15 +139,15 @@ html[class~="dark"] .ͼt {
 }
 
 .ͼp {
-  color: #430f51;
+  color: #F286C4;
 }
 
 html[class~="dark"] .ͼp {
-  color: #c678dd;
+  color: #BF9EEE;
 }
 
 .ͼ13 {
-  color: #0d6c02;
+  color: #E7EE98;
 }
 
 html[class~="dark"] .ͼ13 {
@@ -148,7 +155,7 @@ html[class~="dark"] .ͼ13 {
 }
 
 .ͼu {
-  color: #d18c0b;
+  color: #97E1F1;
 }
 
 html[class~="dark"] .ͼu {
@@ -156,7 +163,7 @@ html[class~="dark"] .ͼu {
 }
 
 .ͼr {
-  color: #0a0ab3;
+  color: #62E884;
 }
 
 html[class~="dark"] .ͼr {
@@ -164,7 +171,7 @@ html[class~="dark"] .ͼr {
 }
 
 .ͼq {
-  color: #c72b38;
+  color: #62E884;
 }
 
 html[class~="dark"] .ͼq {
@@ -172,7 +179,7 @@ html[class~="dark"] .ͼq {
 }
 
 .ͼv {
-  color: #7d7d7d;
+  color: #ffee00;
 }
 
 html[class~="dark"] .ͼv {
