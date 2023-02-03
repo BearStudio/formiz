@@ -51,7 +51,7 @@ export const DockerImage = () => {
           label="Docker User Credentials"
           placeholder="Select user..."
           required="Required"
-          // keepValue
+          keepValue
           options={[
             { value: "admin", label: "Admin" },
             { value: "demo", label: "Demo" },

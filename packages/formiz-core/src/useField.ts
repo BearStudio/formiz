@@ -81,6 +81,7 @@ export const useField = <
     required = false,
     formatValue = (v) => v,
     onValueChange = () => undefined,
+    keepValue = false,
     ...otherProps
   } = _props;
 
@@ -170,6 +171,8 @@ export const useField = <
   requiredRef.current = required;
   const validationsRef = useRef(validations);
   validationsRef.current = validations;
+  const keepValueRef = useRef(keepValue);
+  keepValueRef.current = keepValue;
 
   const unregisterTimeoutRef = useRef<NodeJS.Timeout>();
 
@@ -203,6 +206,7 @@ export const useField = <
         unregisterTimeoutRef.current = setTimeout(() => {
           storeActions.unregisterField(_fieldId, {
             persist: false,
+            keepValueRef,
           });
         });
       };

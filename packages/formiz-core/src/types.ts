@@ -175,7 +175,13 @@ export interface Store {
         validationsRef?: React.MutableRefObject<FieldValidationObject<Value>[]>;
       }
     ): void;
-    unregisterField(fieldId: string, options?: { persist?: boolean }): void;
+    unregisterField(
+      fieldId: string,
+      options?: {
+        persist?: boolean;
+        keepValueRef?: React.MutableRefObject<boolean>;
+      }
+    ): void;
     updateField<Value>(fieldId: string, newField: PartialField<Value>): void;
     getFieldSetValue<Value>(
       options: GetFieldSetValueOptions<Value>
@@ -233,7 +239,7 @@ export type FieldProps<Value> = {
   validations?: FieldValidationObject<Value>[];
   validationsAsync?: FieldValidationAsyncObject<Value>[];
   debounceValidationsAsync?: number;
-  // keepValue?: boolean; // TODO: Keep?
+  keepValue?: boolean;
 };
 
 export interface UseFieldConfig<Value> {
