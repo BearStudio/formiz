@@ -27,6 +27,7 @@ const FieldInputBase = (props: FieldInputProps) => {
     isValid,
     isRequired,
     isValidating,
+    isExternalValidating,
     isProcessing,
     isDebouncing,
     isReady,
@@ -95,7 +96,7 @@ const FieldInputBase = (props: FieldInputProps) => {
 
         <InputRightElement>
           {isDebouncing && "✋🏼"}
-          {isValidating || isLoading ? (
+          {isValidating || isExternalValidating || isLoading ? (
             <Spinner size="sm" flex="none" />
           ) : (
             isPristine && "✨"

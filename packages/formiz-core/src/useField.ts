@@ -144,6 +144,7 @@ export const useField = <
           externalErrors: [],
           isPristine: true,
           isValidating: false,
+          isExternalValidating: false,
           isDebouncing: false,
           // Field
           ...(field ?? {}),
@@ -224,6 +225,7 @@ export const useField = <
       message: validation.message,
     }))
   );
+
   useEffect(() => {
     // Update internal form on external field value update
     setInternalValue(valueRef.current);
@@ -332,6 +334,17 @@ export const useField = <
     }
   }, [deferredValue, setFieldValue, validationsDeps]);
 
+  const externalValidating = {
+    onExternalValidationStart: () =>
+      storeActions.updateField(fieldId, {
+        isExternalValidating: true,
+      }),
+    onExternalValidationEnd: () =>
+      storeActions.updateField(fieldId, {
+        isExternalValidating: false,
+      }),
+  };
+
   return {
     value: internalValue,
     setValue: setInternalValue,
@@ -339,5 +352,6 @@ export const useField = <
     otherProps,
     isRequired: !!required,
     ...exposedField,
+    externalValidating,
   };
 };
