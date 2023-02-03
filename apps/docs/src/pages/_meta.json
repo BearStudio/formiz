@@ -5,7 +5,8 @@
     "type": "separator"
   },
   "core": "Core",
-  "demo": {
+  "demo": "Demo",
+  "examples": {
     "title": "Examples ↗",
     "type": "page",
     "// TODO:": "update href",
