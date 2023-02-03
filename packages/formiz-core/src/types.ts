@@ -51,6 +51,7 @@ export type Field<Value, FormattedValue extends unknown = unknown> = {
   isTouched: boolean;
   isValidating: boolean;
   isDebouncing: boolean;
+  isExternalProcessing: boolean;
   validationsAsyncErrors: ErrorMessage[];
   validationsErrors: ErrorMessage[];
   requiredErrors: ErrorMessage[];
@@ -69,6 +70,7 @@ export type ExposedFieldState<
   isPristine: boolean;
   isTouched: boolean;
   isValidating: boolean;
+  isExternalProcessing: boolean;
   isDebouncing: boolean;
   isSubmitted: boolean;
   isProcessing: boolean;
@@ -99,6 +101,10 @@ export type ExposedField<Value, Props> = ExposedFieldState<Value> & {
       | ((oldValue: FieldValue<Value>) => FieldValue<Value>)
   ) => void;
   setIsTouched: (isTouched: boolean) => void;
+  externalProcessing: {
+    start: () => void;
+    end: () => void;
+  };
   otherProps: Omit<Props, keyof FieldProps<Value>>;
 };
 

@@ -177,6 +177,10 @@ const MyChildren = () => {
 
 **👉 `asyncValidations` renamed to `validationsAsync`**
 
+### useField params renamed
+
+**👉 `validating.start()` renamed to `externalProcessing.start()`** and **👉 `validating.end()` renamed to `externalProcessing.end()`**
+
 ### Types changes
 
 You can now type the `value` of `useField` by passing a type to the `FieldProps` type. Also the `otherProps` will now be typed correctly 🎉
@@ -191,6 +195,5 @@ const MyField = (props: FieldProps<string>) => {
 
 ## Not implemented yet in alpha
 
-- `validating.start()` and `validating.end()`
 - `stateSubscription` for `useForm` and `useFormContext`
   > At the moment, both `useForm` and `useFormContext` will always return the full form's state. The `stateSubscription` option will allow to only return parts of the state, in case you need to further optimize renders on heavy forms.

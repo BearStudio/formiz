@@ -89,16 +89,19 @@ export const getFieldIsPristine = <Value>(field: Field<Value>) =>
 export const getFieldIsValidating = <Value>(field: Field<Value>) =>
   field.isValidating;
 
+export const getFieldIsExternalProcessing = <Value>(field: Field<Value>) =>
+  field.isExternalProcessing;
+
 export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
   field.isDebouncing;
 
 export const getFieldIsProcessing = <Value>(field: Field<Value>) =>
-  getFieldIsDebouncing(field) || getFieldIsValidating(field);
+  getFieldIsDebouncing(field) ||
+  getFieldIsValidating(field) ||
+  getFieldIsExternalProcessing(field);
 
 export const getFieldIsReady = <Value>(field: Field<Value>) =>
-  !getFieldIsDebouncing(field) &&
-  !getFieldIsValidating(field) &&
-  getFieldIsValid(field);
+  !getFieldIsProcessing(field) && getFieldIsValid(field);
 
 export const getFormIsValid = (fields: Fields) =>
   Array.from(fields).every(([, field]) => getFieldIsValid(field));
@@ -158,6 +161,7 @@ export const generateField = <Value>(
     isPristine: true,
     isTouched: false,
     isValidating: false,
+    isExternalProcessing: false,
     isDebouncing: false,
     requiredErrors: [],
     validationsErrors: [],
