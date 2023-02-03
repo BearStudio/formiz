@@ -1,0 +1,9 @@
+.changeset
+.gitignore
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.next
+out
+public
+dist

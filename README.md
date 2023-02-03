@@ -14,7 +14,6 @@
 - ⚛️ Built with Typescript & hooks
 - 📱 React Native compatible
 
-
 ## Concept
 
 The idea behind **Formiz** is to allow you to build advanced forms with
@@ -36,8 +35,8 @@ When you use a field built with Formiz, you can apply validations on it.
   validations={[
     {
       handler: isEmail(),
-      message: 'Not a valid email',
-    }
+      message: "Not a valid email",
+    },
   ]}
 />
 ```
@@ -70,9 +69,8 @@ Thanks to our sponsors. [Become one of them](https://opencollective.com/formiz).
     target = _blank
     href = 'https://bearstudio.fr'
 />
-  <img
+<img
       width = 94
       src = 'https://images.opencollective.com/bearstudio/6e72b13/logo/256.png'
   />
 </a>
-
