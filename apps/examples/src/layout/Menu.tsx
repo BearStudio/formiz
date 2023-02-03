@@ -30,9 +30,9 @@ export const Menu = ({ direction = "left" }) => {
         <MenuItem direction={direction} href="/steppers">
           Steppers
         </MenuItem>
-        <MenuItem direction={direction} href="/nested-forms">
+        {/* <MenuItem direction={direction} href="/nested-forms">
           Nested forms
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem direction={direction} href="/real-life-1">
           Real life #1
         </MenuItem>

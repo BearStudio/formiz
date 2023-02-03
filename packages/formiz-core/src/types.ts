@@ -1,4 +1,4 @@
-import React, { FormEvent, RefObject } from "react";
+import React, { FormEvent, Ref, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export type FieldValue<Value extends unknown = unknown> = Value | null;
@@ -44,8 +44,8 @@ export type Field<Value, FormattedValue extends unknown = unknown> = {
   name: string;
   value: FieldValue<Value>;
   formattedValue: FormattedValue | FieldValue<Value>;
-  initialValue: FieldValue<Value>;
-  initialFormattedValue: FormattedValue | FieldValue<Value>;
+  defaultValue: FieldValue<Value>;
+  formatValue: FormatValue;
   stepName?: string;
   isPristine: boolean;
   isTouched: boolean;

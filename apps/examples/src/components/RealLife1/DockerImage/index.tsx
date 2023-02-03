@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FormizStep, useForm } from "@formiz/core";
+import { FormizStep, useFormContext } from "@formiz/core";
 import { Checkbox, Link, Code, Icon } from "@chakra-ui/react";
 import { FiExternalLink } from "react-icons/fi";
 import { FieldInput } from "@/components/FieldInput";
@@ -7,7 +7,7 @@ import { FieldSelect } from "@/components/FieldSelect";
 
 export const DockerImage = () => {
   const [isPrivate, setIsPrivate] = useState(false);
-  const form = useForm();
+  const form = useFormContext();
 
   useEffect(() => {
     setIsPrivate(false);
