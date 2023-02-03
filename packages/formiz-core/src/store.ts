@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
 import lodashOmit from "lodash/omit";
 import cloneDeep from "clone-deep";
@@ -345,7 +346,7 @@ export const createStore = () =>
           };
         }),
 
-      unregisterField: (fieldId, { persist } = {}) =>
+      unregisterField: (fieldId, { persist, keepValueRef } = {}) =>
         set((state) => {
           const field = state.fields.get(fieldId);
 
@@ -357,8 +358,9 @@ export const createStore = () =>
 
           return {
             fields: state.fields,
-            // TODO
-            // keepValues: lodashSet(state.keepValues, field.name, field.value),
+            keepValues: keepValueRef?.current
+              ? lodashSet(state.keepValues, field.name, field.value)
+              : state.keepValues,
           };
         }),
 
