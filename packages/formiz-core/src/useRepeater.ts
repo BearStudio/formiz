@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import lodashSet from "lodash/set";
+import lodashGet from "lodash/get";
 import uniqid from "uniqid";
 import { StoreApi, UseBoundStore } from "zustand";
 import { Store } from "./types";
@@ -11,7 +12,6 @@ type Data = unknown;
 
 type UseRepeaterOptions = {
   name: string;
-  initialValues?: Data[];
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
@@ -32,7 +32,6 @@ export type UseRepeaterValues = {
 export const useRepeater = ({
   name,
   connect,
-  initialValues = [],
 }: UseRepeaterOptions): UseRepeaterValues => {
   const useStoreFromContext = useFormStore();
 
@@ -45,11 +44,19 @@ export const useRepeater = ({
   const useStore = connect?.__connect ?? useStoreFromContext;
 
   const storeActions = useStore((state) => state.actions, deepEqual);
-  const resetKey = useStore((state) => state.form.resetKey);
 
-  const [keys, setKeys] = useState<string[]>(
-    initialValues.map((_, index) => String(index))
-  );
+  const { resetKey, initialValue, connected } = useStore((state) => {
+    return {
+      resetKey: state.form.resetKey,
+      initialValue: (lodashGet(
+        state.formPropsRef.current?.initialValues,
+        name
+      ) ?? []) as unknown[],
+      connected: state.connected,
+    };
+  });
+
+  const [keys, setKeys] = useState<string[]>([]);
 
   const keysRef = useRef(keys);
   keysRef.current = keys;
@@ -131,13 +138,13 @@ export const useRepeater = ({
     [storeActions, name]
   );
 
-  const initialValuesRef = useRef(initialValues);
-  initialValuesRef.current = initialValues;
+  const initialValueRef = useRef(initialValue);
+  initialValueRef.current = initialValue;
   useEffect(() => {
-    if (resetKey) {
-      set(cloneDeep(initialValuesRef.current));
+    if (connected || resetKey) {
+      set(cloneDeep(initialValueRef.current));
     }
-  }, [resetKey, set]);
+  }, [resetKey, set, connected]);
 
   return {
     insert,
