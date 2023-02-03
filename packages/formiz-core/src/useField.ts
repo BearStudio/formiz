@@ -144,7 +144,7 @@ export const useField = <
           externalErrors: [],
           isPristine: true,
           isValidating: false,
-          isExternalValidating: false,
+          isExternalProcessing: false,
           isDebouncing: false,
           // Field
           ...(field ?? {}),
@@ -334,14 +334,14 @@ export const useField = <
     }
   }, [deferredValue, setFieldValue, validationsDeps]);
 
-  const externalValidating = {
-    onExternalValidationStart: () =>
+  const externalProcessing = {
+    start: () =>
       storeActions.updateField(fieldId, {
-        isExternalValidating: true,
+        isExternalProcessing: true,
       }),
-    onExternalValidationEnd: () =>
+    end: () =>
       storeActions.updateField(fieldId, {
-        isExternalValidating: false,
+        isExternalProcessing: false,
       }),
   };
 
@@ -352,6 +352,6 @@ export const useField = <
     otherProps,
     isRequired: !!required,
     ...exposedField,
-    externalValidating,
+    externalProcessing,
   };
 };

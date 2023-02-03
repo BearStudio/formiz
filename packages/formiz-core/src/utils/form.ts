@@ -89,8 +89,8 @@ export const getFieldIsPristine = <Value>(field: Field<Value>) =>
 export const getFieldIsValidating = <Value>(field: Field<Value>) =>
   field.isValidating;
 
-export const getFieldIsExternalValidating = <Value>(field: Field<Value>) =>
-  field.isExternalValidating;
+export const getFieldIsExternalProcessing = <Value>(field: Field<Value>) =>
+  field.isExternalProcessing;
 
 export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
   field.isDebouncing;
@@ -98,22 +98,16 @@ export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
 export const getFieldIsProcessing = <Value>(field: Field<Value>) =>
   getFieldIsDebouncing(field) ||
   getFieldIsValidating(field) ||
-  getFieldIsExternalValidating(field);
+  getFieldIsExternalProcessing(field);
 
 export const getFieldIsReady = <Value>(field: Field<Value>) =>
-  !getFieldIsDebouncing(field) &&
-  !getFieldIsValidating(field) &&
-  !getFieldIsExternalValidating(field) &&
-  getFieldIsValid(field);
+  !getFieldIsProcessing(field) && getFieldIsValid(field);
 
 export const getFormIsValid = (fields: Fields) =>
   Array.from(fields).every(([, field]) => getFieldIsValid(field));
 
 export const getFormIsValidating = (fields: Fields) =>
-  Array.from(fields).some(
-    ([, field]) =>
-      getFieldIsValidating(field) || getFieldIsExternalValidating(field)
-  );
+  Array.from(fields).some(([, field]) => getFieldIsValidating(field));
 
 export const getFormIsDebouncing = (fields: Fields) =>
   Array.from(fields).some(([, field]) => getFieldIsDebouncing(field));
@@ -135,10 +129,7 @@ export const getStepIsValid = (stepName: string, fields: Fields) =>
 export const getStepIsValidating = (stepName: string, fields: Fields) =>
   Array.from(fields)
     .filter(([, field]) => field.stepName === stepName)
-    .some(
-      ([, field]) =>
-        getFieldIsValidating(field) || getFieldIsExternalValidating(field)
-    );
+    .some(([, field]) => getFieldIsValidating(field));
 
 export const getStepIsDebouncing = (stepName: string, fields: Fields) =>
   Array.from(fields)
@@ -170,7 +161,7 @@ export const generateField = <Value>(
     isPristine: true,
     isTouched: false,
     isValidating: false,
-    isExternalValidating: false,
+    isExternalProcessing: false,
     isDebouncing: false,
     requiredErrors: [],
     validationsErrors: [],

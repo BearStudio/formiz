@@ -19,7 +19,7 @@ import {
   getStepIsValid,
   getStepIsPristine,
   getStepIsValidating,
-  getFieldIsExternalValidating,
+  getFieldIsExternalProcessing,
 } from "@/utils/form";
 
 export const formInterfaceSelector = (state: Store) => {
@@ -124,7 +124,7 @@ export const fieldInterfaceSelector =
       isPristine: isPristine,
       isSubmitted: fieldStep ? fieldStep.isSubmitted : state.form.isSubmitted,
       isValidating: getFieldIsValidating(field),
-      isExternalValidating: getFieldIsExternalValidating(field),
+      isExternalProcessing: getFieldIsExternalProcessing(field),
       isDebouncing: getFieldIsDebouncing(field),
       isProcessing: getFieldIsProcessing(field),
       isReady: getFieldIsReady(field),
