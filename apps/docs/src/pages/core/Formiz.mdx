@@ -6,7 +6,7 @@ import { Callout } from "nextra-theme-docs";
 
 # Formiz
 
-This component define form scope and manage form logic. It create itself his form if it's not connected to a [`useForm()`](/core/useForm) form.
+This component creates a form context.
 
 ## Import
 
@@ -18,10 +18,8 @@ import { Formiz } from "@formiz/core";
 
 ### id
 
-<Type type="string" />
-Allows you to pass a custom id will be used to create the ids of the fields. By default,
-it is generated automatically. But for SSR rendering like in NextJS, you may want
-to replace the automatically generated identifiers by a predictable id.
+Allows you to pass a custom id, which will be used to create the ids of the fields.
+By default, it is generated automatically.
 
 ```tsx
 <Formiz id="custom-id">{/* Your fields here */}</Formiz>
@@ -29,21 +27,22 @@ to replace the automatically generated identifiers by a predictable id.
 
 ### autoForm
 
-<Type type='boolean | "form" | "step"'/>
-Set to true to wrap children in a `<form>` element with auto onSubmit.
-
-<Callout type="info">Instead you can get the `submit()` method with the `useForm()` hook and use it with your own `<form>` element.</Callout>
+<Type type="boolean | 'form' | 'step'"/>
+- Set to `true` or `'form'` to wrap children in a `<form>` element with auto `submit()` on form submission.
+- Set to `'step'` to wrap children in a `<form>` element with auto `submitStep()` on form submission.
 
 ```tsx
-<Formiz autoForm>{/* your fields here */}</Formiz>
+<Formiz autoForm>
+  {/* your fields here */}
+  <button type="submit">Submit</button>
+</Formiz>
 ```
 
 ### connect
 
-<Type type="Form" />
 Allow you to connect your form with the `useForm()` hook.
 
-See [`useForm()`](/core/useForm) documentation for more details
+See [`useForm()`](/core/useForm) documentation for more details.
 
 ```tsx
 import { Formiz, useForm } from "@formiz/core";
@@ -57,13 +56,13 @@ const MyForm = () => {
 
 ### initialValues
 
-<Type type="Values" />
-Allows you to pass some initial values to the form. If a field is mounted, it will
-lookup into this object to set his initial value. This is usefull when you getting
+<Type type="Object" />
+Allow you to pass some initial values to the form. If a field is mounted, it will
+lookup into this object to set his initial value. This is usefull when you are getting
 data from an API like an edit page.
 
 ```tsx
-<Formiz initialValues={{ input: "initialValue" }}>
+<Formiz initialValues={{ myField: "my initial value" }}>
   {/* your fields here */}
 </Formiz>
 ```
@@ -71,16 +70,16 @@ data from an API like an edit page.
 ### initialStepName
 
 <Type type="string" />
-Allow you to define the initial step
+Allow you to define the initial step.
 
 ```tsx
 <Formiz initialStepName="step-2">{/* your fields here */}</Formiz>
 ```
 
-### onSubmit
+### onSubmit(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, whether it is valid or not
+<Type type="(values) => void" />
+Function triggered on form submission, whether it is valid or not.
 
 ```tsx
 <Formiz onSubmit={(values) => console.log(values)}>
@@ -90,8 +89,8 @@ Function triggered on form submission, whether it is valid or not
 
 ### onValidSubmit(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, only if it is valid
+<Type type="(values) => void" />
+Function triggered on form submission, only if it is valid.
 
 ```tsx
 <Formiz onValidSubmit={(values) => console.log(values)}>
@@ -101,8 +100,8 @@ Function triggered on form submission, only if it is valid
 
 ### onInvalidSubmit(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on form submission, only if it is invalid
+<Type type="(values) => void" />
+Function triggered on form submission, only if it is invalid.
 
 ```tsx
 <Formiz onInvalidSubmit={(values) => console.log(values)}>
@@ -112,8 +111,8 @@ Function triggered on form submission, only if it is invalid
 
 ### onValuesChange(values)
 
-<Type type="(values: Values) => void" />
-Function triggered on any form field value change
+<Type type="(values) => void" />
+Function triggered on any form field value change.
 
 ```tsx
 <Formiz onValuesChange={(values) => console.log(values)}>
@@ -152,7 +151,3 @@ Triggered when the form is **invalid**.
   {/* your fields here */}
 </Formiz>
 ```
-
-## Try it
-
-<CodeEditor files={formizFiles} />

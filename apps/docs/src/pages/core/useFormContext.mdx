@@ -1,6 +1,10 @@
+import { CodeEditor } from "@/components/CodeEditor";
+import { useFormContextFile } from "@/templates/useFormContext.ts";
+
 # useFormContext
 
-This hook works like [`useForm()`](/core/useForm), with the difference that it doesn't create store. `useFormContext()` should be use only as a form children.
+This hook works like [`useForm()`](/core/useForm), with the difference that it doesn't create a new form,
+but it fetches the actions and state of the first parent form. `useFormContext()` should be used only at a form children level.
 
 ## Import
 
@@ -8,4 +12,4 @@ This hook works like [`useForm()`](/core/useForm), with the difference that it d
 import { useFormContext } from "@formiz/core";
 ```
 
-## Refer to [`useForm()`](/core/useForm)
+For full API detail, refer to [`useForm()`](/core/useForm) hook documentation.
