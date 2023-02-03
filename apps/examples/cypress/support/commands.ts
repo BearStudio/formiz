@@ -23,52 +23,49 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import '@testing-library/cypress/add-commands'
-import 'cypress-keyboard-plugin';
-import 'cypress-plugin-tab';
+import "@testing-library/cypress/add-commands";
+import "cypress-keyboard-plugin";
+import "cypress-plugin-tab";
 
-Cypress.Commands.add('field', (name) => cy.get(`[id*="field-${name}"]`));
+Cypress.Commands.add("field", (name) => cy.get(`[id*="field-${name}"]`));
 
 Cypress.Commands.add(
-  'fill',
+  "fill",
   {
-    prevSubject: 'element',
+    prevSubject: "element",
   },
-  (subject, value) => cy
-    .wrap(subject)
-    .clear()
-    .type(value),
+  (subject, value) => cy.wrap(subject).clear().type(value)
 );
 
 Cypress.Commands.add(
-  'hasValue',
+  "hasValue",
   {
-    prevSubject: 'element',
+    prevSubject: "element",
   },
-  (subject, value) => cy.wrap(subject).should('have.value', value),
+  (subject, value) => cy.wrap(subject).should("have.value", value)
 );
 
 Cypress.Commands.add(
-  'hasError',
+  "hasError",
   {
-    prevSubject: 'element',
+    prevSubject: "element",
   },
-  (subject, error) => cy
-    .wrap(subject)
-    .get('.chakra-form__error-message')
-    .should('contain', error),
+  (subject, error) =>
+    cy.wrap(subject).get(".chakra-form__error-message").should("contain", error)
 );
 
-Cypress.Commands.add('formNextStep', () => cy
-  .wait(500)
-  .get('[type="submit"]')
-  .click());
+Cypress.Commands.add("formNextStep", () =>
+  cy.wait(500).get('[type="submit"]').click()
+);
 
-Cypress.Commands.add('formSubmit', () => cy
-  .wait(500)
-  .get('[type="submit"]')
-  .click());
+Cypress.Commands.add("formSubmit", () =>
+  cy.wait(500).get('[type="submit"]').click()
+);
 
-Cypress.Commands.add('isFormSuccess', () => cy.get('.chakra-toast').should('contain', 'Submitted values'));
+Cypress.Commands.add("isFormSuccess", () =>
+  cy.get(".chakra-toast").should("contain", "Submitted values")
+);
 
-Cypress.Commands.add('pageTitleIs', (title) => cy.get('[data-test="header"]').should('contain', title));
+Cypress.Commands.add("pageTitleIs", (title) =>
+  cy.get('[data-test="header"]').should("contain", title)
+);
