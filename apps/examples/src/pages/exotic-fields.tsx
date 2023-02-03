@@ -67,14 +67,15 @@ const ExoticFields: NextPage = () => {
                 message: "66 is not a valid number",
               },
               {
-                handler: isMinNumber(0),
-                message: "Min 0",
+                handler: isMinNumber(1),
+                message: "Min 1",
               },
               {
                 handler: isMaxNumber(100),
                 message: "Max 100",
               },
             ]}
+            defaultValue={0}
           />
 
           <Flex>
