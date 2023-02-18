@@ -19,7 +19,7 @@ export const useFormFields = ({
   fields,
   selector,
 }: useFormFieldsProps = {}) => {
-  const useStoreFromContext = useFormStore();
+  const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(

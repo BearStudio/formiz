@@ -94,7 +94,7 @@ export const useField = <
     throw new Error(ERROR_USE_FIELD_MISSING_NAME);
   }
 
-  const useStore = useFormStore();
+  const { useStore } = useFormStore() ?? {};
 
   if (!useStore) {
     throw new Error(ERROR_USE_FIELD_MISSING_CONTEXT);

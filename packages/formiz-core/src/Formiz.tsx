@@ -9,9 +9,10 @@ import { getFormValues, getFormIsValid } from "@/utils/form";
 import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
 
-export const [FormContextProvider, useFormStore] = createContext<
-  UseBoundStore<StoreApi<Store>>
->({
+export const [FormContextProvider, useFormStore] = createContext<{
+  useStore: UseBoundStore<StoreApi<Store>>;
+  formProps: FormizProps;
+}>({
   strict: false,
   name: "FormContext",
 });
@@ -52,7 +53,12 @@ export const Formiz = ({ children, connect, ...formProps }: FormizProps) => {
   useIsValidChange(useStore);
 
   return (
-    <FormContextProvider value={useStore as UseBoundStore<StoreApi<Store>>}>
+    <FormContextProvider
+      value={{
+        useStore: useStore as UseBoundStore<StoreApi<Store>>,
+        formProps,
+      }}
+    >
       {formProps.autoForm ? (
         <form
           id={formPropsRef.current.id ?? defaultFormId}

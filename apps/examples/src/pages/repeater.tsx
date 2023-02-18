@@ -35,6 +35,7 @@ const Repeater = () => {
   const collection = useRepeater({
     connect: form,
     name: "members",
+    initialValues: INITIAL_VALUES.members,
   });
 
   const toastValues = useToastValues();

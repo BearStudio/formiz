@@ -12,10 +12,18 @@ type Data = unknown;
 
 type UseRepeaterOptions = {
   name: string;
-  connect?: {
-    __connect: UseBoundStore<StoreApi<Store>>;
-  };
-};
+} & (
+  | {
+      connect: {
+        __connect: UseBoundStore<StoreApi<Store>>;
+      };
+      initialValues: Data[];
+    }
+  | {
+      connect?: never;
+      initialValues?: never;
+    }
+);
 
 export type UseRepeaterValues = {
   keys: string[];
@@ -29,11 +37,20 @@ export type UseRepeaterValues = {
   length: number;
 };
 
+/**
+ * A hook for manage collection of fields
+ *
+ * @param name fields collection name
+ * @param connect form to which connect fields collection
+ * @param initialValues initial collection value (⚠️ to set only if you connect a form, otherwise it's define automatically)
+ */
 export const useRepeater = ({
   name,
   connect,
+  initialValues = [],
 }: UseRepeaterOptions): UseRepeaterValues => {
-  const useStoreFromContext = useFormStore();
+  const { useStore: useStoreFromContext, formProps: formPropsFromContext } =
+    useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
@@ -45,18 +62,17 @@ export const useRepeater = ({
 
   const storeActions = useStore((state) => state.actions, deepEqual);
 
-  const { resetKey, initialValue, connected } = useStore((state) => {
-    return {
-      resetKey: state.form.resetKey,
-      initialValue: (lodashGet(
-        state.formPropsRef.current?.initialValues,
-        name
-      ) ?? []) as unknown[],
-      connected: state.connected,
-    };
-  });
+  const { resetKey } = useStore((state) => ({
+    resetKey: state.form.resetKey,
+  }));
 
-  const [keys, setKeys] = useState<string[]>([]);
+  const collectionInitialValues = !!connect?.__connect
+    ? initialValues
+    : ((formPropsFromContext.initialValues?.[name] ?? []) as unknown[]);
+
+  const [keys, setKeys] = useState<string[]>(
+    collectionInitialValues.map((_, index) => String(index))
+  );
 
   const keysRef = useRef(keys);
   keysRef.current = keys;
@@ -138,13 +154,12 @@ export const useRepeater = ({
     [storeActions, name]
   );
 
-  const initialValueRef = useRef(initialValue);
-  initialValueRef.current = initialValue;
+  const initialValueRef = useRef(collectionInitialValues);
+  initialValueRef.current = collectionInitialValues;
+
   useEffect(() => {
-    if (connected || resetKey) {
-      set(cloneDeep(initialValueRef.current));
-    }
-  }, [resetKey, set, connected]);
+    set(cloneDeep(initialValueRef.current));
+  }, [resetKey, set]);
 
   return {
     insert,
