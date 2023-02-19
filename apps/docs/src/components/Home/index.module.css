@@ -1,0 +1,78 @@
+.titleContainer {
+  text-align: center;
+  width: 100%;
+  background-color: #47bb78;
+  padding: 4rem;
+  color: black;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 4rem;
+}
+
+.button {
+  width: 11rem;
+  padding-block: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: white;
+  border-radius: 0.3rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.featuresContainer {
+  padding: 3rem;
+  text-align: center;
+  display: grid;
+}
+
+.featuresTitle {
+  font-size: xx-large;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  justify-self: center;
+}
+
+@media (max-width: 1100px) {
+  .featuresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature {
+  text-align: start;
+  padding: 1.2rem;
+  background-color: rgb(71, 187, 120, 0.3);
+  border-radius: 1rem;
+}
+
+.feature h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  font-size: 1rem;
+}

@@ -1,3 +1,0 @@
-# Introduction
-
-**🐜 Formiz V2**
