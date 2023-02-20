@@ -1,7 +1,15 @@
 {
-  "index": "Introduction",
+  "index": {
+    "title": "Home",
+    "theme": {
+      "layout": "raw"
+    },
+    "display": "hidden"
+  },
+  "getting-started": "Getting started",
   "migration": "Upgrading to v2",
   "---": {
+    "title": "",
     "type": "separator"
   },
   "core": "Core",
@@ -9,12 +17,7 @@
   "examples": {
     "title": "Examples ↗",
     "type": "page",
-    "// TODO:": "update href",
-    "href": "http://localhost:3001",
+    "href": "https://formiz-examples.vercel.app",
     "newWindow": true
-  },
-  "about": {
-    "title": "About",
-    "type": "page"
   }
 }
