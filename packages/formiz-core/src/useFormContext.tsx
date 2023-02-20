@@ -5,7 +5,7 @@ import { formInterfaceSelector } from "@/selectors";
 import { ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT } from "@/errors";
 
 export const useFormContext = () => {
-  const useStore = useFormStore();
+  const { useStore } = useFormStore() ?? {};
   if (!useStore) {
     throw new Error(ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT);
   }

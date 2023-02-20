@@ -41,7 +41,7 @@ export const FormizStep = ({
   ...rest
 }: FormizStepProps) => {
   const isStepMountedRef = useRef(true);
-  const useStore = useFormStore();
+  const { useStore } = useFormStore() ?? {};
   const storeActions = useStore(
     useCallback((state) => state.actions, []),
     deepEqual

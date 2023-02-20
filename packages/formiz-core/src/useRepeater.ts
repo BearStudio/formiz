@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import lodashSet from "lodash/set";
+import lodashGet from "lodash/get";
 import uniqid from "uniqid";
 import { StoreApi, UseBoundStore } from "zustand";
 import { Store } from "./types";
@@ -11,11 +12,18 @@ type Data = unknown;
 
 type UseRepeaterOptions = {
   name: string;
-  initialValues?: Data[];
-  connect?: {
-    __connect: UseBoundStore<StoreApi<Store>>;
-  };
-};
+} & (
+  | {
+      connect: {
+        __connect: UseBoundStore<StoreApi<Store>>;
+      };
+      initialValues: Data[];
+    }
+  | {
+      connect?: never;
+      initialValues?: never;
+    }
+);
 
 export type UseRepeaterValues = {
   keys: string[];
@@ -29,12 +37,20 @@ export type UseRepeaterValues = {
   length: number;
 };
 
+/**
+ * A hook for manage collection of fields
+ *
+ * @param name fields collection name
+ * @param connect form to which connect fields collection
+ * @param initialValues initial collection value (⚠️ to set only if you connect a form, otherwise it's define automatically)
+ */
 export const useRepeater = ({
   name,
   connect,
   initialValues = [],
 }: UseRepeaterOptions): UseRepeaterValues => {
-  const useStoreFromContext = useFormStore();
+  const { useStore: useStoreFromContext, formProps: formPropsFromContext } =
+    useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
@@ -45,10 +61,17 @@ export const useRepeater = ({
   const useStore = connect?.__connect ?? useStoreFromContext;
 
   const storeActions = useStore((state) => state.actions, deepEqual);
-  const resetKey = useStore((state) => state.form.resetKey);
+
+  const { resetKey } = useStore((state) => ({
+    resetKey: state.form.resetKey,
+  }));
+
+  const collectionInitialValues = !!connect?.__connect
+    ? initialValues
+    : ((formPropsFromContext.initialValues?.[name] ?? []) as unknown[]);
 
   const [keys, setKeys] = useState<string[]>(
-    initialValues.map((_, index) => String(index))
+    collectionInitialValues.map((_, index) => String(index))
   );
 
   const keysRef = useRef(keys);
@@ -131,12 +154,11 @@ export const useRepeater = ({
     [storeActions, name]
   );
 
-  const initialValuesRef = useRef(initialValues);
-  initialValuesRef.current = initialValues;
+  const initialValueRef = useRef(collectionInitialValues);
+  initialValueRef.current = collectionInitialValues;
+
   useEffect(() => {
-    if (resetKey) {
-      set(cloneDeep(initialValuesRef.current));
-    }
+    set(cloneDeep(initialValueRef.current));
   }, [resetKey, set]);
 
   return {
