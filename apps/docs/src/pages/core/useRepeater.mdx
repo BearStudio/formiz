@@ -1,0 +1,32 @@
+import { Type } from "@/components/Type";
+import { Callout } from "nextra-theme-docs";
+
+# useRepeater
+
+Provides functionality for managing and manipulating repeatable form fields within a form context.
+
+## Repeater State
+
+### name
+
+<Type type="string" />
+
+Name of the fields collection
+
+### connect
+
+Allow you to connect your repeater to a form.
+
+### initialValues
+
+<Type type="unknown[] | undefined" />
+
+Allow you to pass some initial values to the form. If a collection field is mounted, it will lookup into this value to set his initial value.
+If you don't manually connect to a form you don't need to pass initialValues, there will be automatically set.
+
+<Callout type="warning">
+  In the case `useRepeater` is define at same level that form, you should pass
+  `connect` **and** `initialValues`
+</Callout>
+
+## [Look example ↗](https://formiz-examples.vercel.app/repeater)
