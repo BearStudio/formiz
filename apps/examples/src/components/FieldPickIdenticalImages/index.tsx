@@ -27,7 +27,7 @@ export type FieldPickIdenticalImagesProps<FormattedValue> = FieldProps<
     options: string[];
   };
 
-const FieldPickIdenticalImagesBase = <FormattedValue = Value,>(
+const FieldPickIdenticalImagesBase = <FormattedValue = string | null,>(
   props: FieldPickIdenticalImagesProps<FormattedValue>
 ) => {
   const {
