@@ -1,22 +1,18 @@
 import React, { FormEvent, Ref, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
-export type FieldValue<Value extends unknown = unknown> = Value | null;
+export type FieldValue<Value = unknown> = Value | null;
 export type Values = Record<string, unknown>;
 export type ErrorMessage = string | undefined;
-export type FormatValue<
-  Value extends unknown = unknown,
-  FormattedValue extends unknown = unknown
-> = (value: FieldValue<Value>) => FieldValue<FormattedValue>;
-export type OnValueChange<Value, FormattedValue extends unknown = unknown> = (
+export type FormatValue<Value = unknown, FormattedValue = Value> = (
+  value: FieldValue<Value>
+) => FormattedValue;
+export type OnValueChange<Value, FormattedValue = unknown> = (
   value?: FieldValue<Value>,
   formattedValue?: FieldValue<FormattedValue>
 ) => void;
 
-export type FieldValidationObject<
-  Value,
-  FormattedValue extends unknown = unknown
-> = {
+export type FieldValidationObject<Value, FormattedValue = unknown> = {
   handler(
     value?: FieldValue<FormattedValue>,
     rawValue?: FieldValue<Value>
@@ -26,10 +22,7 @@ export type FieldValidationObject<
   checkFalsy?: boolean;
 };
 
-export type FieldValidationAsyncObject<
-  Value,
-  FormattedValue extends unknown = unknown
-> = {
+export type FieldValidationAsyncObject<Value, FormattedValue = unknown> = {
   handler(
     value?: FieldValue<FormattedValue>,
     rawValue?: FieldValue<Value>
@@ -39,7 +32,7 @@ export type FieldValidationAsyncObject<
   checkFalsy?: boolean;
 };
 
-export type Field<Value, FormattedValue extends unknown = unknown> = {
+export type Field<Value, FormattedValue = unknown> = {
   id: string;
   name: string;
   value: FieldValue<Value>;
@@ -60,10 +53,7 @@ export type Field<Value, FormattedValue extends unknown = unknown> = {
   validationsRef?: React.MutableRefObject<FieldProps<Value>["validations"]>;
 };
 
-export type ExposedFieldState<
-  Value,
-  FormattedValue extends unknown = unknown
-> = {
+export type ExposedFieldState<Value, FormattedValue = unknown> = {
   id: string;
   value: FieldValue<Value>;
   formattedValue: FieldValue<FormattedValue>;
@@ -82,10 +72,7 @@ export type ExposedFieldState<
   resetKey: number;
 };
 
-export type ExposedExternalFieldState<
-  Value,
-  FormattedValue extends unknown = unknown
-> = Omit<
+export type ExposedExternalFieldState<Value, FormattedValue = unknown> = Omit<
   ExposedFieldState<Value, FormattedValue>,
   "value" | "formattedValue"
 > & {
@@ -236,23 +223,26 @@ export interface FormizStepProps {
   autoHide?: boolean;
 }
 
-export type FieldProps<Value> = {
+export type FieldProps<Value, FormattedValue = Value> = {
   name: string;
   defaultValue?: FieldValue<Value>;
-  formatValue?: FormatValue<Value>;
-  onValueChange?: OnValueChange<Value>;
+  formatValue?: FormatValue<Value, FormattedValue>;
+  onValueChange?: OnValueChange<Value, FormattedValue>;
   required?: boolean | string;
-  validations?: FieldValidationObject<Value>[];
-  validationsAsync?: FieldValidationAsyncObject<Value>[];
+  validations?: FieldValidationObject<Value, FormattedValue>[];
+  validationsAsync?: FieldValidationAsyncObject<Value, FormattedValue>[];
   debounceValidationsAsync?: number;
   keepValue?: boolean;
 };
 
-export interface UseFieldConfig<Value> {
-  unstable_notifyOnChangePropsExclusions?: (keyof ExposedFieldState<Value>)[];
-  formatValue?: FormatValue<Value>;
+export interface UseFieldConfig<Value, FormattedValue = unknown> {
+  unstable_notifyOnChangePropsExclusions?: (keyof ExposedFieldState<
+    Value,
+    FormattedValue
+  >)[];
+  formatValue?: FormatValue<Value, FormattedValue>;
   required?: boolean | string;
-  validations?: FieldValidationObject<Value>[];
-  validationsAsync?: FieldValidationAsyncObject<Value>[];
+  validations?: FieldValidationObject<Value, FormattedValue>[];
+  validationsAsync?: FieldValidationAsyncObject<Value, FormattedValue>[];
   debounceValidationsAsync?: number;
 }

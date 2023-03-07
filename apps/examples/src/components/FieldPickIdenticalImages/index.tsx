@@ -19,12 +19,17 @@ type Value = {
   selectedImages: { value: string; index: number }[];
 };
 
-export type FieldPickIdenticalImagesProps = FieldProps<Value> &
+export type FieldPickIdenticalImagesProps<FormattedValue> = FieldProps<
+  Value,
+  FormattedValue
+> &
   FormGroupProps & {
     options: string[];
   };
 
-const FieldPickIdenticalImagesBase = (props: FieldPickIdenticalImagesProps) => {
+const FieldPickIdenticalImagesBase = <FormattedValue = Value,>(
+  props: FieldPickIdenticalImagesProps<FormattedValue>
+) => {
   const {
     errorMessage,
     id,

@@ -18,14 +18,19 @@ import {
 
 type Value = number;
 
-export type FieldSliderProps = FieldProps<Value> &
+export type FieldSliderProps<FormattedValue> = FieldProps<
+  Value,
+  FormattedValue
+> &
   FormGroupProps & {
     min?: number;
     max?: number;
     step?: number;
   };
 
-const FieldSliderBase = (props: FieldSliderProps) => {
+const FieldSliderBase = <FormattedValue = Value,>(
+  props: FieldSliderProps<FormattedValue>
+) => {
   const {
     errorMessage,
     id,

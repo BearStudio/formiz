@@ -47,7 +47,7 @@ export const ExposedPorts = () => {
                 {
                   handler: (val) =>
                     (values.ports || []).filter(
-                      (x: { number: number }) => x.number === val
+                      (x: { number: string }) => x.number === val
                     ).length <= 1,
                   deps: [JSON.stringify(values.ports)],
                   message: "Must be unique",

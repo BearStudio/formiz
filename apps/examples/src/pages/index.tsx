@@ -122,7 +122,7 @@ const SimpleForm: NextPage = () => {
             label="File"
             validations={[
               {
-                handler: (v: { name: string }) => !v.name.startsWith("A"),
+                handler: (v) => !v?.name?.startsWith("A"),
                 message: "File name cannot start with 'A'",
               },
             ]}
