@@ -7,10 +7,9 @@ import { Store } from "./types";
 import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
+import { ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY } from "@/errors";
 
-type Data = unknown;
-
-type UseRepeaterOptions = {
+type UseRepeaterOptions<Data = unknown> = {
   name: string;
 } & (
   | {
@@ -25,12 +24,12 @@ type UseRepeaterOptions = {
     }
 );
 
-export type UseRepeaterValues = {
+export type UseRepeaterValues<Data = unknown> = {
   keys: string[];
-  insertMultiple(index: number, data?: Data[]): void;
-  insert(index: number, data?: Data): void;
-  append(data?: Data): void;
-  prepend(data?: Data): void;
+  insertMultiple(index: number, data?: Partial<Data>[]): void;
+  insert(index: number, data?: Partial<Data>): void;
+  append(data?: Partial<Data>): void;
+  prepend(data?: Partial<Data>): void;
   remove(index: number): void;
   removeMultiple(index: number[]): void;
   set(values: unknown[]): void;
@@ -44,11 +43,11 @@ export type UseRepeaterValues = {
  * @param connect form to which connect fields collection
  * @param initialValues initial collection value (⚠️ to set only if you connect a form, otherwise it's define automatically)
  */
-export const useRepeater = ({
+export const useRepeater = <Data = unknown>({
   name,
   connect,
   initialValues = [],
-}: UseRepeaterOptions): UseRepeaterValues => {
+}: UseRepeaterOptions<Data>): UseRepeaterValues<Data> => {
   const { useStore: useStoreFromContext, formProps: formPropsFromContext } =
     useFormStore() ?? {};
 
@@ -70,6 +69,10 @@ export const useRepeater = ({
     ? initialValues
     : ((formPropsFromContext.initialValues?.[name] ?? []) as unknown[]);
 
+  if (!Array.isArray(collectionInitialValues)) {
+    throw new Error(ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY);
+  }
+
   const [keys, setKeys] = useState<string[]>(
     collectionInitialValues.map((_, index) => String(index))
   );
@@ -78,7 +81,7 @@ export const useRepeater = ({
   keysRef.current = keys;
 
   const insertMultiple = useCallback(
-    (index: number, data?: Data[]): void => {
+    (index: number, data?: Partial<Data>[]): void => {
       setKeys((oldKeys) => {
         const computedIndex = index < 0 ? oldKeys.length + 1 + index : index;
         const keysToInsert = Array.from({ length: data?.length ?? 0 }, () =>
@@ -109,17 +112,18 @@ export const useRepeater = ({
   );
 
   const insert = useCallback(
-    (index: number, data?: Data): void => insertMultiple(index, [data]),
+    (index: number, data?: Partial<Data>): void =>
+      insertMultiple(index, [data ?? {}]),
     [insertMultiple]
   );
 
   const prepend = useCallback(
-    (data: Data): void => insertMultiple(0, [data]),
+    (data: Partial<Data>): void => insertMultiple(0, [data]),
     [insertMultiple]
   );
 
   const append = useCallback(
-    (data: Data): void => insertMultiple(-1, [data]),
+    (data: Partial<Data>): void => insertMultiple(-1, [data]),
     [insertMultiple]
   );
   const removeMultiple = useCallback((indexesToRemove: number[]) => {
@@ -139,7 +143,7 @@ export const useRepeater = ({
   );
 
   const set = useCallback(
-    (values: Data[]) => {
+    (values: Partial<Data>[]) => {
       setKeys(() => {
         const newKeys = values.map((_, i) => keysRef.current[i] ?? uniqid());
         return newKeys;
