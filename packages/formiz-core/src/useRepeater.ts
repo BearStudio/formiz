@@ -68,7 +68,8 @@ export const useRepeater = ({
 
   const collectionInitialValues = !!connect?.__connect
     ? initialValues
-    : ((formPropsFromContext.initialValues?.[name] ?? []) as unknown[]);
+    : ((lodashGet(formPropsFromContext.initialValues, name) ??
+        []) as unknown[]);
 
   const [keys, setKeys] = useState<string[]>(
     collectionInitialValues.map((_, index) => String(index))
