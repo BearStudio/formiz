@@ -35,9 +35,9 @@ The main idea is to build fields as independent reusable components. **Fields ca
 ```tsx
 import { useField, FieldProps } from "@formiz/core";
 
-type MyFieldProps = FieldProps<string>;
+type MyFieldProps<FormattedValue> = FieldProps<string, FormattedValue>;
 
-export const MyField = (props: MyFieldProps) => {
+export const MyField = <FormattedValue = string,>(props: MyFieldProps<FormattedValue>) => {
   const { value, setValue, isValid, errorMessage } = useField(props);
   return (
     <>
@@ -45,7 +45,7 @@ export const MyField = (props: MyFieldProps) => {
       {
         !isValid && <p>{errorMessage}</p> // Display error message
       }
-    </>
+    </FormattedValue,>
   );
 };
 ```

@@ -1,19 +1,53 @@
+import { Tab, Tabs } from 'nextra-theme-docs'
+
 # Upgrading to v2
 
 ## Update your dependencies
 
 Update `@formiz/core` and `@formiz/validations` packages to `2.x.x`
 
-```bash
-npm install @formiz/core@alpha @formiz/validations@alpha
-```
+
+<Tabs items={['yarn', 'npm', 'pnpm']}>
+  <Tab>
+    ```bash
+    yarn upgrade @formiz/core@alpha @formiz/validations@alpha
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install @formiz/core@alpha @formiz/validations@alpha
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    pnpm install @formiz/core@alpha @formiz/validations@alpha
+    ```
+  </Tab>
+</Tabs>
 
 Update React `react` and `react-dom` (also `@type/react` and `@type/react-dom` if your are using Typescript).
 
-```bash
-npm install react@latest react-dom@latest
-npm install -D @types/react@latest @types/react-dom@latest
-```
+
+<Tabs items={['yarn', 'npm', 'pnpm']}>
+  <Tab>
+    ```bash
+    yarn upgrade react@latest react-dom@latest
+    yarn upgrade -D @types/react@latest @types/react-dom@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install react@latest react-dom@latest
+    npm install -D @types/react@latest @types/react-dom@latest
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    pnpm install react@latest react-dom@latest
+    pnpm install -D @types/react@latest @types/react-dom@latest
+    ```
+  </Tab>
+</Tabs>
 
 ## Upgrade `<Formiz>`
 
@@ -183,14 +217,26 @@ const MyChildren = () => {
 
 ### Types changes
 
-You can now type the `value` of `useField` by passing a type to the `FieldProps` type. Also the `otherProps` will now be typed correctly 🎉
+You can now type the `value` of `useField` by passing a type to the `FieldProps` type. Also the `otherProps` will now be typed correctly 🎉.
 
 ```tsx
 // ✅ Pass the value type here ----- 👇
-const MyField = (props: FieldProps<string>) => {
+type MyFieldProps<FormattedValue> = FieldProps<string, FormattedValue>
+
+const MyField = <FormattedValue = Value,>(props: MyFieldProps<FormattedValue>) => {
   const { value, setValue, otherProps } = useField(props);
   //...
 };
+```
+
+The formatted value is by default the same that the value, but you can dynamicly override it.
+
+```tsx
+<MyField<boolean>
+// 👆 I need to specify that my formatted value 
+// Because I format my value to another type 👇
+  formatValue={v => !!v}
+/>
 ```
 
 ## Not implemented yet in alpha

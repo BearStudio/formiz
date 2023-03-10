@@ -209,7 +209,7 @@ Allows you to keep composition by spreading this object in your component.
 ```jsx
 type MyFieldProps = FieldProps<unknown> & { styles: CSS.Properties }
 
-const MyField = (props: MyFieldProps) => {
+const MyField = <FormattedValue = unknown,>(props: MyFieldProps<FormattedValue>) => {
   const { otherProps } = useField(props);
 
   // otherProps type is { styles: CSS.Properties }
