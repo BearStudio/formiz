@@ -67,7 +67,8 @@ export const useRepeater = <Data = unknown>({
 
   const collectionInitialValues = !!connect?.__connect
     ? initialValues
-    : ((formPropsFromContext.initialValues?.[name] ?? []) as unknown[]);
+    : ((lodashGet(formPropsFromContext.initialValues, name) ??
+        []) as unknown[]);
 
   if (!Array.isArray(collectionInitialValues)) {
     throw new Error(ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY);
