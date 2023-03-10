@@ -53,7 +53,7 @@ export const useRepeater = <Data = unknown>({
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
-      "useFormFields is used outside of a form or without a `form` connected"
+      "useRepeater is used outside of a form or without a `form` connected"
     );
   }
 

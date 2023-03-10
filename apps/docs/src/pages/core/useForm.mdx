@@ -50,7 +50,7 @@ form.isSubmitted;
 
 A key that change when form is reset.
 
-Allow you to reset some internal state when the form is reset.
+Allows you to reset some internal state when the form is reset.
 
 ```tsx
 const form = useForm();
@@ -175,13 +175,13 @@ form.setErrors({ field: "Error" });
 ### setValues(values, options)
 
 <Type type="(values: Record<string, string>, options?: { keepPristine?: boolean }) => void" />
-Mnually set form fields values.
+Manually set form fields values.
 
-`keepPristine` option allow you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is true
+`keepPristine` option allows you to choose if `setValues` keep unchanged fields pristine state. By default, `keepPristine` is false
 
 ```tsx
 const form = useForm();
-form.setValues({ field: "New value" }, { keepPristine: false });
+form.setValues({ field: "New value" }, { keepPristine: true });
 ```
 
 ### reset(options)
@@ -199,13 +199,14 @@ form.setValues({ field: "New value" }, { keepPristine: false });
   | 'values'"
 />
 Reset form's states and values.
+Options allows you to select the data you want to reset. 
 
-Options allow you to select the data you want to reset.
+Available options: `"pristine"`, `"submitted"`, `"touched"`, `"validating"`, `"debouncing"`, `"resetKey"`, `"currentStep"`, `"visited"`, `"values"`
 
 ```tsx
 const form = useForm();
-form.reset({ only: "values" });
-form.reset({ exclude: "pristine" });
+form.reset({ only: ["values"] });
+form.reset({ exclude: ["pristine"] });
 ```
 
 ### getStepByFieldName(fieldName)

@@ -12,15 +12,13 @@ import { FormizStep } from "@formiz/core";
 
 ## Props
 
-### name \*
-
-<Type type="string" />
-
-Give a name to your `FormizStep` component.
+### name 
 
 **Required**
 
-Required to register the step in the form.
+<Type type="string" />
+
+The `name` is required to register the step in the form.
 
 ```tsx
 <Formiz>
@@ -108,7 +106,7 @@ If you use order, all steps should get an order property to prevent unexpected b
 
 <Type type="boolean" />
 
-Allow you to toggle the default style to display the step. Defaults to `true` and will apply a `display: none` on inactive steps.
+Allows you to toggle the default style to display the step. Defaults to `true` and will apply a `display: none` on inactive steps.
 
 ```tsx
 // Example with Collapse from Chakra UI
