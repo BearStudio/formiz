@@ -12,14 +12,19 @@ export type SelectOption = {
 
 type Value = SelectOption["value"];
 
-export type FieldSelectProps = FieldProps<Value> &
+export type FieldSelectProps<FormattedValue> = FieldProps<
+  Value,
+  FormattedValue
+> &
   FormGroupProps &
   Pick<SelectProps, "placeholder" | "autoFocus" | "size"> & {
     isLoading?: boolean;
     options: SelectOption[];
   };
 
-const FieldSelectBase = (props: FieldSelectProps) => {
+const FieldSelectBase = <FormattedValue = Value,>(
+  props: FieldSelectProps<FormattedValue>
+) => {
   const {
     errorMessage,
     id,

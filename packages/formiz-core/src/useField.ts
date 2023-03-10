@@ -30,21 +30,22 @@ import {
 
 export const useField = <
   Props extends FieldProps<any> = FieldProps<any>,
-  Value = Exclude<Required<Props>["defaultValue"], null>
+  Value = Exclude<Required<Props>["defaultValue"], null>,
+  FormattedValue = Value
 >(
   props: Props,
-  config: UseFieldConfig<Value> = {}
+  config: UseFieldConfig<Value, FormattedValue> = {}
 ): ExposedField<Value, Props> => {
   if (!props) {
     throw new Error(ERROR_USE_FIELD_MISSING_PROPS);
   }
 
-  const _config: UseFieldConfig<Value> = {
+  const _config: UseFieldConfig<Value, FormattedValue> = {
     unstable_notifyOnChangePropsExclusions: undefined,
     required: false,
     validations: [],
     validationsAsync: [],
-    formatValue: (v) => v,
+    formatValue: (v) => v as FormattedValue, // TODO: replace as
     ...config,
   };
   const configRef = useRef(_config);

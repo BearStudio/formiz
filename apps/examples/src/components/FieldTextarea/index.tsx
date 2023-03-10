@@ -5,13 +5,20 @@ import { deepMemo, FieldProps, useField } from "@formiz/core";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 
-export type FieldTextareaProps = FieldProps<string> &
+type Value = string;
+
+export type FieldTextareaProps<FormattedValue> = FieldProps<
+  Value,
+  FormattedValue
+> &
   FormGroupProps &
   Pick<TextareaProps, "placeholder" | "autoFocus" | "size"> & {
     isLoading?: boolean;
   };
 
-const FieldTextareaBase = (props: FieldTextareaProps) => {
+const FieldTextareaBase = <FormattedValue = Value,>(
+  props: FieldTextareaProps<FormattedValue>
+) => {
   const {
     errorMessage,
     id,

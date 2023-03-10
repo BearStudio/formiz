@@ -34,7 +34,7 @@ const DynamicSteps = () => {
       <MultiStepsLayout submitLabel="Submit">
         <PageHeader githubPath="DynamicSteps.tsx">Dynamic Steps</PageHeader>
         <FormizStep name="start" order={1000}>
-          <FieldInput
+          <FieldInput<number>
             name="count"
             label="Steps Count"
             type="number"
@@ -43,11 +43,11 @@ const DynamicSteps = () => {
             formatValue={minMax(1, MAX_STEPS)}
             validations={[
               {
-                handler: (_, rawValue) => isMinNumber(1)(rawValue),
+                handler: (value) => isMinNumber(1)(value),
                 message: "Min steps count is 1",
               },
               {
-                handler: (_, rawValue) => isMaxNumber(MAX_STEPS)(rawValue),
+                handler: (value) => isMaxNumber(MAX_STEPS)(value),
                 message: "Max steps count is 10",
               },
             ]}

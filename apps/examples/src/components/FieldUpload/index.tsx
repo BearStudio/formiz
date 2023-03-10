@@ -15,9 +15,15 @@ type Value = {
   file: File;
 };
 
-export type FieldUploadProps = FieldProps<Value> & FormGroupProps;
+export type FieldUploadProps<FormattedValue> = FieldProps<
+  Value,
+  FormattedValue
+> &
+  FormGroupProps;
 
-const FieldUploadBase = (props: FieldUploadProps) => {
+const FieldUploadBase = <FormattedValue = Value,>(
+  props: FieldUploadProps<FormattedValue>
+) => {
   const {
     errorMessage,
     id,
@@ -29,7 +35,7 @@ const FieldUploadBase = (props: FieldUploadProps) => {
   } = useField(props, {
     validations: [
       {
-        handler: (v: { size: number }) => v.size < 1024 * 100,
+        handler: (value) => (value?.size ?? 0) < 1024 * 100,
         message: "File limit exceeded (100ko)",
       },
     ],
