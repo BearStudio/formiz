@@ -2,6 +2,8 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 
 # Upgrading to v2
 
+Your project is too hard to migrate ? [See how to use V1 and V2 together](#using-v1-and-v2-together)
+
 ## Update your dependencies
 
 Update `@formiz/core` and `@formiz/validations` packages to `2.x.x`
@@ -243,3 +245,23 @@ The formatted value is by default the same that the value, but you can dynamicly
 
 - `stateSubscription` for `useForm` and `useFormContext`
   > At the moment, both `useForm` and `useFormContext` will always return the full form's state. The `stateSubscription` option will allows to only return parts of the state, in case you need to further optimize renders on heavy forms.
+
+
+
+## Using V1 and V2 together
+
+If your project has too much form with complexity, you can still install V2, while keeping V1 installed.
+
+For that, we recommend to alias V1 dependency and add V2 dependency without alias.
+
+```json filename="package.json"
+{
+  "dependencies": {
+    "@formiz/core": "2.0.0",
+    "@formiz/validations": "2.0.0",
+    "@formiz/core_v1": "npm:@formiz/core@1.8.1"
+  }
+}
+```
+
+Putting this on your `package.json`, you just have to rename all your existing `@formiz/core` import to `@formiz/core_v1`. You can now use V2 using `@formiz/core` import, without having migrated all your application.
