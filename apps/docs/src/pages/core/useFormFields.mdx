@@ -5,6 +5,12 @@ import { useFormFields } from "@/templates/useFormFields.ts";
 
 This hook allows you to retrieve the state of each fields of a form.
 
+## Import
+
+```tsx
+import { useFormFields } from "@formiz/core";
+```
+
 ## Basic usage
 
 ```tsx
@@ -17,19 +23,20 @@ To use this hook at the top level, you need to `connect` it to the form.
 
 ```tsx
 const form = useForm();
+const fields = useFormFields({
+  connect: form,
+});
 
-<MyComponent form={form}>
-  const fields = useFormFields({
-    connect: form,
-  });
-</MyComponent>
+<Formiz form={form}>
+{/* your fields here */}
+</Formiz>
 ```
 
-Then, you'll be able to access to your fields' states.
+Then, you'll be able to access to your fields states.
 
 ## Get only some fields
 
-Allow you to filter your fields by name(s) that you want to fetch.
+Allows you to filter your fields by name(s) that you want to fetch.
 
 ```tsx
 const someFields = useFormFields({ fields: ["firstName", "lastName"] });
@@ -50,7 +57,7 @@ const someFields = useFormFields({
 
 ## Get only some state
 
-Allow you to filter which states fields by state.
+Allows you to filter which states fields by state.
 
 ```tsx
 const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });

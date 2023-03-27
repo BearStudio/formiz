@@ -4,6 +4,14 @@ import { useFieldFile } from "@/templates/useField.ts";
 
 # useField
 
+This hooks allows to create a form field.
+
+## Import
+
+```tsx
+import { useFormFields } from "@formiz/core";
+```
+
 ## Hook methods
 
 ### setValue()
@@ -14,8 +22,9 @@ Set the value of the field.
 ```tsx
 const MyField = (props) => {
   const { setValue } = useField(props);
-
-  return <input onChange={(e) => setValue(e.target.value)} />;
+  return (
+    <input onChange={(e) => setValue(e.target.value)} />
+  );
 };
 ```
 
@@ -49,7 +58,7 @@ const MyField = (props) => {
 
 ### value
 
-Get the current value of the field, after it has been formated by `formatValue` (if you used it).
+Get the current value of the field, before it has been modified by `formatValue`.
 
 ```tsx
 const MyField = (props) => {
@@ -59,21 +68,21 @@ const MyField = (props) => {
 };
 ```
 
-### rawValue
+### formattedValue
 
-Get the current value of the field, before it has been modified by `formatValue`.
+Get the current value of the field, after it has been formated by `formatValue` (if you used it).
 
 ```tsx
 const MyField = (props) => {
-  const { rawData, value } = useField(props);
+  const { formatValue, value } = useField(props);
 
   return (
-    <input value={value ?? ""} formatValue={(val) => (val || "").trim()} />
+    <input value={value ?? ""} formatValue={(val) => (val || "").replace("a", "e")} />
   );
-  /* Differences between value and rawValue
+  /* Differences between value and formattedValue
   {
     value: 'value',
-    rawValue: '     value',
+    formattedValue: 'velue',
   }
   */
 };
@@ -198,10 +207,14 @@ Get the props passed to the component without the Formiz props.
 Allows you to keep composition by spreading this object in your component.
 
 ```jsx
-const MyField = (props) => {
+type MyFieldProps = FieldProps<unknown> & { styles: CSS.Properties }
+
+const MyField = <FormattedValue = unknown,>(props: MyFieldProps<FormattedValue>) => {
   const { otherProps } = useField(props);
 
-  return <Box {...otherProps}>{/* Field */}</Box>;
+  // otherProps type is { styles: CSS.Properties }
+
+  return <div {...otherProps}>{/* your field here */}</div>;
 };
 ```
 
@@ -209,7 +222,7 @@ const MyField = (props) => {
 
 ## Field props
 
-### name \*
+### name
 
 <Type type="string" />
 
@@ -245,8 +258,8 @@ Can use lodash-like dot paths to reference nested values.
 
 **Arrays**
 
-Also allow arrays out of the box.
-Using lodash-like bracket syntax for `name` allow you to handle fields in a list.
+Also allows arrays out of the box.
+Using lodash-like bracket syntax for `name` allows you to handle fields in a list.
 
 ```jsx
 <Field name="myArray[0]" />
@@ -289,7 +302,7 @@ Format the value before saving it into the internal state.
 
 <Type type="(fieldValue) => void" />
 
-Callback function when the value of the field is changed.
+Function triggered on field value change.
 
 ```jsx
 <Field name="myFieldName" onValueChange={(val) => console.log(val)} />
@@ -324,7 +337,7 @@ Accept an array of object with the following keys:
   - `rawValue` references the value of the field before any formatting of the data via `formatValue`.
 - `deps`: Array of external values used in the rule function (like array of dependencies in useEffect).
 - `message`: The message if the rule is invalid.
-- `checkFalsy`: When true (default false) validations will run even on falsy values (including `null`, `undefined`, `''` and `false`).
+- `checkFalsy`: When `true` (default `false`) validations will run even on falsy values (including `null`, `undefined`, `''` and `false`).
 
 ```jsx
 <Field
@@ -375,26 +388,10 @@ Accept an array of object with the following keys:
 
 ## Field config
 
-### ✨ formatValue
+Allows to pass default values for useField props.
 
-Awaiting contribution
+Available props: `"formatValue"`, `"required"`, `"validations"`, `"validationsAsync"`, `"debounceValidationsAsync"`.
 
-### ✨ required
-
-Awaiting contribution
-
-### ✨ validations
-
-Awaiting contribution
-
-### ✨ validationsAsync
-
-Awaiting contribution
-
-### ✨ debounceValidationsAsync
-
-#Awaiting contribution
-
-## ✨ unstable_notifyOnChangePropsExclusions
+### unstable_notifyOnChangePropsExclusions
 
 Awaiting contribution

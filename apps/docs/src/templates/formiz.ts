@@ -24,9 +24,11 @@ export default function Example() {
   {
     name: "field.ts",
     code: `
-import { useField } from '@formiz/core';
+import { useField, FieldProps } from '@formiz/core';
 
-export const Field = (props) => {
+type MyFieldProps = FieldProps<string>
+
+export const Field = (props: MyFieldProps) => {
   const { name } = props;
   const { value, setValue} = useField(props);
   return (

@@ -16,7 +16,7 @@
 
 ## Concept
 
-The idea behind **Formiz** is to allow you to build advanced forms with
+The idea behind **Formiz** is to allows you to build advanced forms with
 **multiple steps, complex validations** and a **good UX** without pain.
 
 The main idea is to build fields as independent reusable components.

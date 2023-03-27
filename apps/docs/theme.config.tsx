@@ -16,7 +16,7 @@ const config: DocsThemeConfig = {
   footer: {
     text: "Coded with ❤️ in Normandy by Ivan Dalmet, Hugo Pérard and BearStudio Team - Logotype by David Endico - Documentation powered by Nextra (v2)",
   },
-  primaryHue: { light: 100, dark: 115 },
+  primaryHue: { light: 130, dark: 115 },
   sidebar: {
     toggleButton: true,
   },
@@ -37,6 +37,13 @@ const config: DocsThemeConfig = {
       titleTemplate,
     };
   },
+  banner: {
+    key: "v2",
+    dismissible: false,
+    text: <a href="https://formiz-react.com" target="_blank">
+    🐜 This is Formiz v2 Alpha documentation. See V1 documentation →
+  </a>
+  }
 };
 
 export default config;
