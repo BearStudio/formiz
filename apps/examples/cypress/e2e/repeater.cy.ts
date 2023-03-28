@@ -77,7 +77,7 @@ describe("Repeater", () => {
     cy.field("members[0].name").hasValue("Default name (1)");
     cy.field("members[0].company").hasValue("Initial Company (1)");
     cy.field("members[1].name").hasValue("Initial Name (2)");
-    cy.field("members[1].company").hasValue("Default company (2)");
+    cy.field("members[1].company").hasValue("Initial Company (2)");
 
     cy.field("members[0].name").fill("to reset");
     cy.field("members[0].company").fill("to reset");

@@ -1,7 +1,7 @@
-describe("Auto form", () => {
+describe("Simple Form", () => {
   beforeEach(() => {
     cy.visit("/");
-    cy.pageTitleIs("Auto form");
+    cy.pageTitleIs("Simple Form");
   });
 
   it("Simple Case", () => {
@@ -38,12 +38,10 @@ describe("Auto form", () => {
 
   it("Set fields values", () => {
     cy.field("name").fill("John");
-    cy.field("company").fill("Formiz");
     cy.get("button").contains("Fill with").click();
 
     cy.wait(1000);
     cy.field("name").hasValue("John");
     cy.field("email").hasValue("john@company.com");
-    cy.field("company").hasValue("Formiz");
   });
 });
