@@ -48,7 +48,10 @@ export const useRepeater = <Data = unknown>({
 
   const useStore = connect?.__connect ?? useStoreFromContext;
 
-  const storeActions = useStore((state) => state.actions, deepEqual);
+  const storeActions = useStore(
+    useCallback((state: Store) => state.actions, []),
+    deepEqual
+  );
 
   const { resetKey, initialValues, isReady } = useStore((state) => ({
     resetKey: state.form.resetKey,

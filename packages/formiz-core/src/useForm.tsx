@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useCallback, useEffect, useId, useRef } from "react";
 
 import { StoreApi, UseBoundStore } from "zustand";
 
@@ -23,22 +23,30 @@ export const useForm = <Values = unknown,>(
   const formPropsRef = useRef(formProps ?? null);
   formPropsRef.current = formProps ?? null;
 
+  const storeDefaultState = {
+    form: {
+      id: formPropsRef.current?.id ?? defaultFormId,
+      currentStepName: formPropsRef.current?.initialStepName ?? null,
+      initialStepName: formPropsRef.current?.initialStepName ?? null,
+    },
+    initialValues: cloneDeep(formPropsRef.current?.initialValues ?? {}),
+    formPropsRef: formPropsRef ?? null,
+  };
+  const storeDefaultStateRef = useRef(storeDefaultState);
+  storeDefaultStateRef.current = storeDefaultState;
+
   const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>(
     createStore({
-      ready: true,
-      form: {
-        id: formPropsRef.current?.id ?? defaultFormId,
-        currentStepName: formPropsRef.current?.initialStepName ?? null,
-        initialStepName: formPropsRef.current?.initialStepName ?? null,
-      },
-      initialValues: cloneDeep(formPropsRef.current?.initialValues ?? {}),
-      formPropsRef: formPropsRef ?? null,
+      ready: formPropsRef.current?.ready === false ? false : true,
+      ...storeDefaultState,
     })
   );
   const useStore = useStoreRef.current;
 
   useOnValuesChange(useStore);
   useIsValidChange(useStore);
+
+  const formActions = useStore(useCallback((state) => state.actions, []));
 
   const formState = useStore(
     (state) => ({
@@ -47,6 +55,15 @@ export const useForm = <Values = unknown,>(
     }),
     isDeepEqual
   );
+
+  const isReadyRef = useRef(formState.isReady);
+  isReadyRef.current = formState.isReady;
+
+  useEffect(() => {
+    if (!isReadyRef.current && formProps?.ready) {
+      formActions.setReady(storeDefaultStateRef.current);
+    }
+  }, [formActions, formProps?.ready]);
 
   return formState;
 };

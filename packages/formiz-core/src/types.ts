@@ -129,6 +129,11 @@ export type ResetElement =
 
 export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
+export type StoreInitialState = {
+  ready?: boolean;
+  form: Partial<Store["form"]>;
+} & Partial<Pick<Store, "initialValues" | "formPropsRef">>;
+
 export interface Store {
   ready: boolean;
   fields: Fields;
@@ -145,6 +150,7 @@ export interface Store {
   initialValues: Partial<Values>;
   formPropsRef: RefObject<useFormProps>;
   actions: {
+    setReady(initialState?: Omit<StoreInitialState, "ready">): void;
     submitForm(e?: FormEvent): void;
     setValues(newValues: Values, options?: { keepPristine?: boolean }): void;
     setErrors(errors: Record<string, unknown>): void;
@@ -195,6 +201,7 @@ export interface useFormProps<Values = unknown> {
   id?: string;
   initialValues?: Partial<Values>;
   initialStepName?: string;
+  ready?: boolean;
   onValuesChange?(values: Values): void;
   onSubmit?(values: Values): void;
   onValidSubmit?(values: Values): void;

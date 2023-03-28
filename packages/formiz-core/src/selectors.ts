@@ -15,7 +15,6 @@ import {
   getFieldIsValidating,
   getFieldIsDebouncing,
   getFieldIsProcessing,
-  getFieldIsReady,
   getStepIsValid,
   getStepIsPristine,
   getStepIsValidating,
@@ -50,6 +49,7 @@ export const formInterfaceSelector = (state: Store) => {
 
     id: state.form.id,
     resetKey: state.form.resetKey,
+    isReady: state.ready,
     isSubmitted: state.form.isSubmitted,
     isValid: getFormIsValid(state.fields),
     isValidating: getFormIsValidating(state.fields),
@@ -127,7 +127,7 @@ export const fieldInterfaceSelector =
       isExternalProcessing: getFieldIsExternalProcessing(field),
       isDebouncing: getFieldIsDebouncing(field),
       isProcessing: getFieldIsProcessing(field),
-      isReady: getFieldIsReady(field),
+      isReady: state.ready,
       resetKey: state.form.resetKey,
     };
   };

@@ -30,6 +30,9 @@ export const Menu = ({ direction = "left" }) => {
         <MenuItem direction={direction} href="/steppers">
           Steppers
         </MenuItem>
+        <MenuItem direction={direction} href="/async-initial-values">
+          Async initial values
+        </MenuItem>
         {/* <MenuItem direction={direction} href="/nested-forms">
           Nested forms
         </MenuItem> */}

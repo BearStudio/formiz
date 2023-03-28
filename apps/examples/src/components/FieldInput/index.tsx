@@ -95,9 +95,10 @@ const FieldInputBase = <FormattedValue = Value,>(
         )}
 
         <InputLeftElement>
-          {isReady && "✅"}
+          {!isReady && "🚧"}
           {isProcessing && "⏳"}
           {!isValid && "❌"}
+          {isReady && !isProcessing && isValid && "✅"}
         </InputLeftElement>
 
         <InputRightElement>

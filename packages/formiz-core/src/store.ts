@@ -10,7 +10,8 @@ import {
   getFormIsProcessing,
   getFormIsValid,
   getFormValues,
-  getStepIsReady,
+  getStepIsProcessing,
+  getStepIsValid,
   isResetAllowed,
 } from "@/utils/form";
 import type {
@@ -18,15 +19,10 @@ import type {
   FormatValue,
   GetFieldSetValueOptions,
   Store,
+  StoreInitialState,
 } from "@/types";
 
-export const createStore = (
-  defaultState?: Partial<
-    Pick<Store, "initialValues" | "ready" | "formPropsRef">
-  > & {
-    form: Partial<Store["form"]>;
-  }
-) =>
+export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
     ready: false,
     fields: new Map(),
@@ -48,6 +44,16 @@ export const createStore = (
     },
     actions: {
       // FORM
+      setReady: (initialState) => {
+        set((state) => ({
+          ready: true,
+          ...initialState,
+          form: {
+            ...state.form,
+            ...initialState?.form,
+          },
+        }));
+      },
       submitForm: (formEvent) => {
         formEvent?.preventDefault();
         set((state) => {
@@ -474,7 +480,10 @@ export const createStore = (
 
         const fields = get().fields;
 
-        if (!getStepIsReady(currentStepName, fields)) {
+        if (
+          getStepIsProcessing(currentStepName, fields) ||
+          getStepIsValid(currentStepName, fields)
+        ) {
           return;
         }
 

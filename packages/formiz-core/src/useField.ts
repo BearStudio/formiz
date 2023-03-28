@@ -116,11 +116,11 @@ export const useField = <
   const deferredValue = useDeferredValue(internalValue);
 
   const storeActions = useStore(
-    useCallback((state: Store) => state.actions, []),
+    useCallback((state) => state.actions, []),
     deepEqual
   );
 
-  const formReady = useStore(useCallback((state: Store) => state.ready, []));
+  const formReady = useStore(useCallback((state) => state.ready, []));
 
   // Get field from state
   const { value, ...exposedField } = useStore(
