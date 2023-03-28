@@ -1,4 +1,4 @@
-import React, { FormEvent, Ref, RefObject } from "react";
+import React, { FormEvent, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export type FieldValue<Value = unknown> = Value | null;
@@ -130,7 +130,7 @@ export type ResetElement =
 export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
 export interface Store {
-  connected: boolean;
+  ready: boolean;
   fields: Fields;
   steps: Step[];
   form: {
@@ -143,7 +143,7 @@ export interface Store {
   keepValues: Partial<Values>;
   externalValues: Partial<Values>;
   initialValues: Partial<Values>;
-  formPropsRef: RefObject<FormizProps>;
+  formPropsRef: RefObject<useFormProps>;
   actions: {
     submitForm(e?: FormEvent): void;
     setValues(newValues: Values, options?: { keepPristine?: boolean }): void;
@@ -191,21 +191,24 @@ export interface Store {
   };
 }
 
-export interface FormizProps {
-  autoForm?: boolean | "form" | "step";
-  children?: React.ReactNode;
-  initialValues?: Values;
-  initialStepName?: string;
+export interface useFormProps<Values = unknown> {
   id?: string;
-  connect?: {
-    __connect: UseBoundStore<StoreApi<Store>>;
-  };
+  initialValues?: Partial<Values>;
+  initialStepName?: string;
   onValuesChange?(values: Values): void;
   onSubmit?(values: Values): void;
   onValidSubmit?(values: Values): void;
   onInvalidSubmit?(values: Values): void;
-  onValid?(): void; // TODO: Keep? if not kept, just remove useIsValidChange in Formiz.tsx (and use on examples and doc)
-  onInvalid?(): void; // TODO: Keep? if not kept, just remove useIsValidChange in Formiz.tsx (and use on examples and doc)
+  onValid?(): void;
+  onInvalid?(): void;
+}
+
+export interface FormizProps {
+  connect: {
+    __connect: UseBoundStore<StoreApi<Store>>;
+  };
+  autoForm?: boolean | "form" | "step";
+  children?: React.ReactNode;
 }
 
 export interface FormizProviderProps {

@@ -13,12 +13,6 @@ const minMax = (min: number, max: number) => (value: string | null) =>
 type FormValues = {};
 
 const DynamicSteps = () => {
-  const form = useForm();
-  const values = useFormFields({
-    connect: form,
-    fields: ["count"],
-    selector: (field) => ({ value: field.value, rawValue: field.rawValue }),
-  });
   const toastValues = useToastValues();
 
   const handleSubmit = (values: FormValues) => {
@@ -29,8 +23,15 @@ const DynamicSteps = () => {
     });
   };
 
+  const form = useForm({ onValidSubmit: handleSubmit });
+  const values = useFormFields({
+    connect: form,
+    fields: ["count"],
+    selector: (field) => ({ value: field.value, rawValue: field.rawValue }),
+  });
+
   return (
-    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm="step">
+    <Formiz connect={form} autoForm="step">
       <MultiStepsLayout submitLabel="Submit">
         <PageHeader githubPath="DynamicSteps.tsx">Dynamic Steps</PageHeader>
         <FormizStep name="start" order={1000}>

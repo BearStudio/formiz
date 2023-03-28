@@ -9,8 +9,6 @@ import { isMaxNumber, isMinNumber } from "@formiz/validations";
 import { NextPage } from "next";
 
 const ExoticFields: NextPage = () => {
-  const form = useForm();
-
   const toastValues = useToastValues();
 
   const handleSubmit = (values: any) => {
@@ -21,13 +19,13 @@ const ExoticFields: NextPage = () => {
     });
   };
 
+  const form = useForm({
+    onValidSubmit: handleSubmit,
+    onValuesChange: console.log,
+  });
+
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-      autoForm
-      onValuesChange={console.log}
-    >
+    <Formiz connect={form} autoForm>
       <PageLayout>
         <PageHeader githubPath="exotic-fields.tsx">Exotic Fields</PageHeader>
         <Stack spacing={4}>

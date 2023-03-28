@@ -12,8 +12,6 @@ import { ExposedPorts } from "@/components/RealLife1/ExposedPorts";
 type FormValues = {};
 
 const RealLife1: NextPage = () => {
-  const form = useForm();
-
   const toastValues = useToastValues<FormValues>();
 
   const handleSubmit = (values: FormValues) => {
@@ -27,13 +25,13 @@ const RealLife1: NextPage = () => {
     }
   };
 
+  const form = useForm({
+    onValidSubmit: handleSubmit,
+    onValuesChange: console.log,
+  });
+
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-      autoForm="step"
-      onValuesChange={console.log}
-    >
+    <Formiz connect={form} autoForm="step">
       <MultiStepsLayout submitLabel="Create app">
         <PageHeader githubPath="UseCase1/index.js">Real life #1</PageHeader>
 

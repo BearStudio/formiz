@@ -17,27 +17,34 @@ import type {
   Field,
   FormatValue,
   GetFieldSetValueOptions,
-  Step,
   Store,
 } from "@/types";
 
-export const createStore = () =>
+export const createStore = (
+  defaultState?: Partial<
+    Pick<Store, "initialValues" | "ready" | "formPropsRef">
+  > & {
+    form: Partial<Store["form"]>;
+  }
+) =>
   create<Store>()((set, get) => ({
-    connected: false,
+    ready: false,
     fields: new Map(),
     steps: [],
+    keepValues: {},
+    externalValues: {},
+    initialValues: {},
+    formPropsRef: {
+      current: {},
+    },
+    ...defaultState,
     form: {
       resetKey: 0,
       id: undefined,
       isSubmitted: false,
       currentStepName: null,
       initialStepName: null,
-    },
-    keepValues: {},
-    externalValues: {},
-    initialValues: {},
-    formPropsRef: {
-      current: {},
+      ...defaultState?.form,
     },
     actions: {
       // FORM

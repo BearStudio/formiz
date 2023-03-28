@@ -24,9 +24,7 @@ type FieldSubFormProps = FieldProps<string> & {
 };
 
 const FieldSubForm: FC<FieldSubFormProps> = (props) => {
-  const subForm = useForm();
   const { label } = props;
-  const isSubmitDisabled = !subForm.isValid && subForm.isSubmitted;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { setValue, value, errorMessage, isValid } = useField(props);
@@ -36,8 +34,12 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
     onClose();
   };
 
+  const subForm = useForm({ onValidSubmit: handleSubmit });
+
+  const isSubmitDisabled = !subForm.isValid && subForm.isSubmitted;
+
   return (
-    <Formiz connect={subForm} onValidSubmit={handleSubmit}>
+    <Formiz connect={subForm}>
       <FormGroup label={label} errorMessage={errorMessage} showError={!isValid}>
         <Popover
           isOpen={isOpen}
@@ -95,14 +97,14 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
 };
 
 const NestedForms = () => {
-  const form = useForm();
-
   const handleSubmit = (values: any) => {
     console.log(values);
   };
 
+  const form = useForm({ onValidSubmit: handleSubmit });
+
   return (
-    <Formiz connect={form} autoForm onValidSubmit={handleSubmit}>
+    <Formiz connect={form} autoForm>
       <PageLayout>
         <PageHeader githubPath="nested-forms.tsx">Nested Forms</PageHeader>
 

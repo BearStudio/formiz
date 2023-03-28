@@ -11,8 +11,6 @@ import { NextPage } from "next";
 const FIELDS_BY_STEP = 20;
 
 const Wizard: NextPage = () => {
-  const form = useForm();
-
   const toastValues = useToastValues();
 
   const handleSubmit = (values: Record<string, string>) => {
@@ -28,8 +26,10 @@ const Wizard: NextPage = () => {
     }
   };
 
+  const form = useForm({ onValidSubmit: handleSubmit });
+
   return (
-    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm="step">
+    <Formiz connect={form} autoForm="step">
       <PageLayout>
         <PageHeader githubPath="lot-of-fields.tsx">Lot of fields</PageHeader>
         <Stack spacing={4}>

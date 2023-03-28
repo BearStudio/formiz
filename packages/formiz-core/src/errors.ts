@@ -1,3 +1,5 @@
+export const ERROR_FORMIZ_MISSING_CONNECT =
+  "You need to pass the connect property to the Formiz component";
 export const ERROR_USE_FIELD_MISSING_PROPS =
   "You need to pass the props to the useField(props)";
 export const ERROR_USE_FIELD_MISSING_NAME =
