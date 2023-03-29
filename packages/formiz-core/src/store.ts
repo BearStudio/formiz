@@ -67,8 +67,9 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
         const formConfigRef = get().formConfigRef;
         const fields = get().fields;
+        const formIsReady = get().ready;
 
-        if (getFormIsProcessing(fields)) {
+        if (getFormIsProcessing(fields, formIsReady)) {
           return;
         }
 
@@ -479,9 +480,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
         });
 
         const fields = get().fields;
+        const formIsReady = get().ready;
 
         if (
-          getStepIsProcessing(currentStepName, fields) ||
+          getStepIsProcessing(currentStepName, fields, formIsReady) ||
           getStepIsValid(currentStepName, fields)
         ) {
           return;

@@ -106,7 +106,7 @@ export const fieldInterfaceSelector =
     const isSubmitted = fieldStep
       ? fieldStep.isSubmitted
       : state.form.isSubmitted;
-    const isProcessing = getFieldIsProcessing(field);
+    const isProcessing = getFieldIsProcessing(field, state.ready);
     return {
       value: field.value,
       formattedValue: field.formattedValue,
@@ -126,7 +126,7 @@ export const fieldInterfaceSelector =
       isValidating: getFieldIsValidating(field),
       isExternalProcessing: getFieldIsExternalProcessing(field),
       isDebouncing: getFieldIsDebouncing(field),
-      isProcessing: getFieldIsProcessing(field),
+      isProcessing: getFieldIsProcessing(field, state.ready),
       isReady: state.ready,
       resetKey: state.form.resetKey,
     };

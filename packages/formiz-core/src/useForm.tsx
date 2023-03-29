@@ -101,7 +101,7 @@ const useIsValidChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
       const isValid = getFormIsValid(state.fields);
       if (
         isValid === prevIsValidRef.current ||
-        getFormIsProcessing(state.fields)
+        getFormIsProcessing(state.fields, state.ready)
       )
         return;
       const action = isValid

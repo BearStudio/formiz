@@ -95,7 +95,11 @@ export const getFieldIsExternalProcessing = <Value>(field: Field<Value>) =>
 export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
   field.isDebouncing;
 
-export const getFieldIsProcessing = <Value>(field: Field<Value>) =>
+export const getFieldIsProcessing = <Value>(
+  field: Field<Value>,
+  formIsReady: boolean = true
+) =>
+  !formIsReady ||
   getFieldIsDebouncing(field) ||
   getFieldIsValidating(field) ||
   getFieldIsExternalProcessing(field);
@@ -109,7 +113,8 @@ export const getFormIsValidating = (fields: Fields) =>
 export const getFormIsDebouncing = (fields: Fields) =>
   Array.from(fields).some(([, field]) => getFieldIsDebouncing(field));
 
-export const getFormIsProcessing = (fields: Fields) =>
+export const getFormIsProcessing = (fields: Fields, formIsReady: boolean) =>
+  !formIsReady ||
   Array.from(fields).some(([, field]) => getFieldIsProcessing(field));
 
 export const getFormIsPristine = (fields: Fields) =>
@@ -130,7 +135,12 @@ export const getStepIsDebouncing = (stepName: string, fields: Fields) =>
     .filter(([, field]) => field.stepName === stepName)
     .some(([, field]) => getFieldIsDebouncing(field));
 
-export const getStepIsProcessing = (stepName: string, fields: Fields) =>
+export const getStepIsProcessing = (
+  stepName: string,
+  fields: Fields,
+  formIsReady: boolean
+) =>
+  !formIsReady ||
   Array.from(fields)
     .filter(([, field]) => field.stepName === stepName)
     .some(([, field]) => getFieldIsProcessing(field));
