@@ -24,7 +24,7 @@ describe("submitForm", () => {
 
     store.setState({
       fields,
-      formPropsRef: {
+      formConfigRef: {
         current: {
           onSubmit,
         },
@@ -57,7 +57,7 @@ describe("submitForm", () => {
 
     store.setState({
       fields,
-      formPropsRef: {
+      formConfigRef: {
         current: {
           onSubmit,
         },
@@ -85,7 +85,7 @@ describe("submitForm", () => {
 
     store.setState({
       fields,
-      formPropsRef: {
+      formConfigRef: {
         current: {
           onSubmit,
         },

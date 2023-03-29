@@ -21,7 +21,7 @@ import { FormizStep } from "@formiz/core";
 The `name` is required to register the step in the form.
 
 ```tsx
-<Formiz>
+<Formiz connect={form}>
   <FormizStep name="step1">{/* Your fields here */}</FormizStep>
   <FormizStep name="step2">{/* Your fields here */}</FormizStep>
 </Formiz>
@@ -32,7 +32,7 @@ The `name` is required to register the step in the form.
 Pass the tag for the step container. Default is `<div>`.
 
 ```tsx
-<Formiz>
+<Formiz connect={form}>
   <FormizStep name="step1" as={View}>
     {/* Your fields here */}
   </FormizStep>
@@ -49,7 +49,7 @@ Pass the tag for the step container. Default is `<div>`.
 Can be passed to the step and then used to display when getting the steps with the `useForm()` hook.
 
 ```tsx
-<Formiz>
+<Formiz connect={form}>
   <FormizStep name="step1" label="First step">
     {/* Your fields here */}
   </FormizStep>
@@ -69,7 +69,7 @@ Set if the step should be enabled or not (default value is `true`).
 {
   /* Display: `step1` > `step3`. */
 }
-<Formiz>
+<Formiz connect={form}>
   <FormizStep name="step1">{/* Your fields here */}</FormizStep>
   <FormizStep name="step2" isEnabled={false}>
     {/* Your fields here */}
@@ -89,7 +89,7 @@ If you use order, all steps should get an order property to prevent unexpected b
 {
   /* Display order: `step2` > `step3` > `step1`. */
 }
-<Formiz>
+<Formiz connect={form}>
   <FormizStep name="step1" order={3}>
     {/* Your fields here */}
   </FormizStep>

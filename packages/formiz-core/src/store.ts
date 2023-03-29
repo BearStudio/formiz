@@ -30,7 +30,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
     keepValues: {},
     externalValues: {},
     initialValues: {},
-    formPropsRef: {
+    formConfigRef: {
       current: {},
     },
     ...defaultState,
@@ -65,7 +65,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           };
         });
 
-        const formPropsRef = get().formPropsRef;
+        const formConfigRef = get().formConfigRef;
         const fields = get().fields;
 
         if (getFormIsProcessing(fields)) {
@@ -75,11 +75,11 @@ export const createStore = (defaultState?: StoreInitialState) =>
         const formValues = getFormValues(fields);
 
         if (getFormIsValid(fields)) {
-          formPropsRef.current?.onValidSubmit?.(formValues);
+          formConfigRef.current?.onValidSubmit?.(formValues);
         } else {
-          formPropsRef.current?.onInvalidSubmit?.(formValues);
+          formConfigRef.current?.onInvalidSubmit?.(formValues);
         }
-        formPropsRef.current?.onSubmit?.(formValues);
+        formConfigRef.current?.onSubmit?.(formValues);
       },
 
       setValues: (newValues, { keepPristine = false } = {}) => {
@@ -140,7 +140,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
       reset: (resetOptions = {}) => {
         set((state) => {
           let initialValues = cloneDeep(
-            state.formPropsRef.current?.initialValues
+            state.formConfigRef.current?.initialValues
           );
 
           state.fields.forEach((field) => {
@@ -232,7 +232,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
       resetInitialValues: () => {
         set((state) => {
           let initialValues = cloneDeep(
-            state.formPropsRef.current?.initialValues
+            state.formConfigRef.current?.initialValues
           );
 
           setTimeout(() => {

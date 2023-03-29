@@ -16,28 +16,28 @@ import {
 import { deepEqual } from "fast-equals";
 
 export const useForm = <Values = unknown,>(
-  formProps?: useFormProps<Values>
+  formConfig?: useFormProps<Values>
 ) => {
   const defaultFormId = useId();
 
-  const formPropsRef = useRef(formProps ?? null);
-  formPropsRef.current = formProps ?? null;
+  const formConfigRef = useRef(formConfig ?? null);
+  formConfigRef.current = formConfig ?? null;
 
   const storeDefaultState = {
     form: {
-      id: formPropsRef.current?.id ?? defaultFormId,
-      currentStepName: formPropsRef.current?.initialStepName ?? null,
-      initialStepName: formPropsRef.current?.initialStepName ?? null,
+      id: formConfigRef.current?.id ?? defaultFormId,
+      currentStepName: formConfigRef.current?.initialStepName ?? null,
+      initialStepName: formConfigRef.current?.initialStepName ?? null,
     },
-    initialValues: cloneDeep(formPropsRef.current?.initialValues ?? {}),
-    formPropsRef: formPropsRef ?? null,
+    initialValues: cloneDeep(formConfigRef.current?.initialValues ?? {}),
+    formConfigRef: formConfigRef ?? null,
   };
   const storeDefaultStateRef = useRef(storeDefaultState);
   storeDefaultStateRef.current = storeDefaultState;
 
   const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>(
     createStore({
-      ready: formPropsRef.current?.ready === false ? false : true,
+      ready: formConfigRef.current?.ready === false ? false : true,
       ...storeDefaultState,
     })
   );
@@ -60,10 +60,10 @@ export const useForm = <Values = unknown,>(
   isReadyRef.current = formState.isReady;
 
   useEffect(() => {
-    if (!isReadyRef.current && formProps?.ready) {
+    if (!isReadyRef.current && formConfig?.ready) {
       formActions.setReady(storeDefaultStateRef.current);
     }
-  }, [formActions, formProps?.ready]);
+  }, [formActions, formConfig?.ready]);
 
   return formState;
 };
@@ -72,14 +72,14 @@ const useOnValuesChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
   const prevFormValuesRef = useRef({});
   useStore?.((state) => {
-    if (!state.formPropsRef.current?.onValuesChange) {
+    if (!state.formConfigRef.current?.onValuesChange) {
       return null;
     }
     clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       const formValues = getFormValues(state.fields);
       if (deepEqual(formValues, prevFormValuesRef.current)) return;
-      state.formPropsRef.current?.onValuesChange?.(formValues);
+      state.formConfigRef.current?.onValuesChange?.(formValues);
       prevFormValuesRef.current = formValues;
     });
     return null;
@@ -91,8 +91,8 @@ const useIsValidChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
   const prevIsValidRef = useRef({});
   useStore?.((state) => {
     if (
-      !state.formPropsRef.current?.onValid &&
-      !state.formPropsRef.current?.onInvalid
+      !state.formConfigRef.current?.onValid &&
+      !state.formConfigRef.current?.onInvalid
     ) {
       return null;
     }
@@ -105,8 +105,8 @@ const useIsValidChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
       )
         return;
       const action = isValid
-        ? state.formPropsRef.current?.onValid
-        : state.formPropsRef.current?.onInvalid;
+        ? state.formConfigRef.current?.onValid
+        : state.formConfigRef.current?.onInvalid;
       action?.();
       prevIsValidRef.current = isValid;
     });
