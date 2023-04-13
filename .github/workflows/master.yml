@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 16
       - run: npm install -g pnpm
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm build
       - run: pnpm lint
       - run: pnpm test
