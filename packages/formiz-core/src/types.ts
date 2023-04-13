@@ -131,7 +131,7 @@ export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
 export type StoreInitialState = {
   ready?: boolean;
-  form: Partial<Store["form"]>;
+  form?: Partial<Store["form"]>;
 } & Partial<Pick<Store, "initialValues" | "formConfigRef">>;
 
 export interface Store {

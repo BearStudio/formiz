@@ -24,7 +24,7 @@ import type {
 
 export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
-    ready: false,
+    ready: true,
     fields: new Map(),
     steps: [],
     keepValues: {},

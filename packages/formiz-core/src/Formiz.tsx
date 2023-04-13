@@ -1,6 +1,6 @@
 import { StoreApi, UseBoundStore } from "zustand";
 
-import type { FormizProps, Store, useFormProps } from "@/types";
+import type { FormizProps, Store } from "@/types";
 import { createContext } from "@/utils/context";
 import { ERROR_FORMIZ_MISSING_CONNECT } from "@/errors";
 

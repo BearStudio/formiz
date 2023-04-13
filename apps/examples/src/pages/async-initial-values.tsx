@@ -72,7 +72,8 @@ const SimpleForm: NextPage = () => {
               type="submit"
               ml="auto"
               isDisabled={
-                (!form.isValid || form.isValidating) && form.isSubmitted
+                !form.isReady ||
+                ((!form.isValid || form.isValidating) && form.isSubmitted)
               }
             >
               Submit

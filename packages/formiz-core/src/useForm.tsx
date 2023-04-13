@@ -35,13 +35,10 @@ export const useForm = <Values = unknown,>(
   const storeDefaultStateRef = useRef(storeDefaultState);
   storeDefaultStateRef.current = storeDefaultState;
 
-  const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>(
-    createStore({
-      ready: formConfigRef.current?.ready === false ? false : true,
-      ...storeDefaultState,
-    })
-  );
-  const useStore = useStoreRef.current;
+  const useStore = createStore({
+    ready: formConfigRef.current?.ready === false ? false : true,
+    ...storeDefaultState,
+  });
 
   useOnValuesChange(useStore);
   useIsValidChange(useStore);
