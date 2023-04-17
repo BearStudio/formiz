@@ -3,13 +3,14 @@ export const formizFiles = [
     name: "index.js",
     code: `
 import { useState } from 'react';
-import { Formiz } from '@formiz/core';
+import { Formiz, useForm } from '@formiz/core';
 import { Field } from './field.ts';
 
 export default function Example() {
   const [submittedValues, setSubmitted] = useState();
+  const form = useForm({ onSubmit: setSubmitted })
   return (
-    <Formiz autoForm onSubmit={values => setSubmitted(values)}>
+    <Formiz connect={form} autoForm>
       <Field
         name="my-field"
         required="I'm required"

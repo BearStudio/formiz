@@ -49,9 +49,10 @@ Update React `react` and `react-dom` (also `@type/react` and `@type/react-dom` i
   </Tab>
 </Tabs>
 
-## Upgrade `<Formiz>`
+## Upgrade `<Formiz />`
 
-**👉 `onChange` renamed to `onValuesChange`**
+👉 `<Formiz>` component doesn't accepts form actions definitions anymore. Now the only props that `<Formiz />` accepts are `connect` and `autoForm`, and `connect` is required.
+Others props has to be past to useForm now.
 
 ## Upgrade `useForm`
 
@@ -59,7 +60,9 @@ Update React `react` and `react-dom` (also `@type/react` and `@type/react-dom` i
 
 `useForm` has been split into 3 different hooks: `useForm`, `useFormContext` and `useFormFields`.
 
-👉 `useForm` is still used for creating a new form like before. However, the `subscribe` prop is gone, and the hook now only returns the form's state and actions.
+👉 `useForm` is still used for creating a new form like before. However, there is two changes :
+* Now contains form actions definitions (like `onSubmit` for example).
+* The `subscribe` property is gone, and the hook now only returns the form's state and actions.
 
 ✨ `useFormContext` is used to access the form's state and actions in a sub component. It will not create a new form so you can't connect it to a `<Formiz>` component.
 
@@ -69,14 +72,18 @@ Update React `react` and `react-dom` (also `@type/react` and `@type/react-dom` i
 - Use a selector to get only the values (`useFormFields({ selector: (field) => field.value })`).
 - Get only some fields with the `fields` options (`useFormFields({ fields: ['myField'])`)
 
-```tsx
-// Formiz v1
+```tsx filename="Formiz V1"
 const MyForm = () => {
   const form = useForm();
 
-  console.log({form.values}) // ❌ Doesn't work anymore
+  console.log({ values: form.values }) // ❌ Doesn't work anymore
 
-  return <Formiz connect={form}>
+  const handleSubmit = (values) => {
+    console.log({ values })
+  }
+
+  // ❌ Formiz doesn't accept form actions anymore
+  return <Formiz connect={form} onSubmit={handleSubmit}> 
     <MyChildren />
     <MyField name="myField" />
     <MyField name="myOtherField" />
@@ -94,10 +101,14 @@ const MyChildren = () => {
 };
 ```
 
-```tsx
-// Formiz v2
+```tsx filename="Formiz V2"
 const MyForm = () => {
-  const form = useForm();
+  const handleSubmit = (values) => {
+    console.log({ values })
+  } 
+
+  const form = useForm({ onSubmit: handleSubmit }); // ✅ Form values passed in useForm
+
   const values = useFormFields({
     connect: form,
     selector: (field) => field.value, // ✅ Get only the values
@@ -154,8 +165,7 @@ const MyChildren = () => {
 - If you want to check falsy values (like Formiz v1), just pass the `checkFalsy` option to `true`.
 - Now validations are now executed against formatted value.
 
-```tsx
-// Formiz v1
+```tsx filename="Formiz V1"
 <MyField
   name="myField"
   validations={[
@@ -177,8 +187,7 @@ const MyChildren = () => {
 />
 ```
 
-```tsx
-// Formiz v2
+```tsx filename="Formiz V2"
 <MyField
   name="myField"
   validations={[

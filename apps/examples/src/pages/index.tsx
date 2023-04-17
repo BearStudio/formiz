@@ -10,13 +10,6 @@ import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
 const SimpleForm: NextPage = () => {
-  const form = useForm();
-  const { accountType } = useFormFields({
-    connect: form,
-    fields: ["accountType"],
-    selector: (f) => f.value,
-  });
-
   const toastValues = useToastValues();
 
   const handleSubmit = (values: any) => {
@@ -27,16 +20,22 @@ const SimpleForm: NextPage = () => {
     });
   };
 
+  const form = useForm({
+    initialValues: { company: "My Company" },
+    onValidSubmit: handleSubmit,
+    onValuesChange: console.log,
+    onValid: () => console.log("onValid"),
+    onInvalid: () => console.log("onInvalid"),
+  });
+
+  const { accountType } = useFormFields({
+    connect: form,
+    fields: ["accountType"],
+    selector: (f) => f.value,
+  });
+
   return (
-    <Formiz
-      connect={form}
-      initialValues={{ company: "My Company" }}
-      onValidSubmit={handleSubmit}
-      autoForm
-      onValuesChange={console.log}
-      onValid={() => console.log("onValid")}
-      onInvalid={() => console.log("onInvalid")}
-    >
+    <Formiz connect={form} autoForm>
       <PageLayout>
         <PageHeader githubPath="index.tsx">Simple Form</PageHeader>
         <Stack spacing={4}>

@@ -31,26 +31,24 @@ const INITIAL_VALUES = {
 };
 
 const Repeater = () => {
-  const form = useForm();
-  const collection = useRepeater({
-    connect: form,
-    name: "members",
-    initialValues: INITIAL_VALUES.members,
-  });
-
   const toastValues = useToastValues();
 
   const handleSubmit = (values: any) => {
     toastValues(values);
   };
 
+  const form = useForm({
+    onValidSubmit: handleSubmit,
+    initialValues: INITIAL_VALUES,
+  });
+
+  const collection = useRepeater({
+    connect: form,
+    name: "members",
+  });
+
   return (
-    <Formiz
-      connect={form}
-      onValidSubmit={handleSubmit}
-      autoForm
-      initialValues={INITIAL_VALUES}
-    >
+    <Formiz connect={form} autoForm>
       <PageLayout>
         <PageHeader githubPath="repeater.tsx">Repeater</PageHeader>
         <Box>

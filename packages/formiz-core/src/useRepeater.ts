@@ -9,20 +9,12 @@ import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
 import { ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY } from "@/errors";
 
-type UseRepeaterOptions<Data = unknown> = {
+export interface UseRepeaterOptions {
   name: string;
-} & (
-  | {
-      connect: {
-        __connect: UseBoundStore<StoreApi<Store>>;
-      };
-      initialValues: Data[];
-    }
-  | {
-      connect?: never;
-      initialValues?: never;
-    }
-);
+  connect?: {
+    __connect: UseBoundStore<StoreApi<Store>>;
+  };
+}
 
 export type UseRepeaterValues<Data = unknown> = {
   keys: string[];
@@ -41,15 +33,12 @@ export type UseRepeaterValues<Data = unknown> = {
  *
  * @param name fields collection name
  * @param connect form to which connect fields collection
- * @param initialValues initial collection value (⚠️ to set only if you connect a form, otherwise it's define automatically)
  */
 export const useRepeater = <Data = unknown>({
   name,
   connect,
-  initialValues = [],
-}: UseRepeaterOptions<Data>): UseRepeaterValues<Data> => {
-  const { useStore: useStoreFromContext, formProps: formPropsFromContext } =
-    useFormStore() ?? {};
+}: UseRepeaterOptions): UseRepeaterValues<Data> => {
+  const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
@@ -59,16 +48,19 @@ export const useRepeater = <Data = unknown>({
 
   const useStore = connect?.__connect ?? useStoreFromContext;
 
-  const storeActions = useStore((state) => state.actions, deepEqual);
+  const storeActions = useStore(
+    useCallback((state: Store) => state.actions, []),
+    deepEqual
+  );
 
-  const { resetKey } = useStore((state) => ({
+  const { resetKey, initialValues, isReady } = useStore((state) => ({
     resetKey: state.form.resetKey,
+    isReady: state.ready,
+    initialValues: state.initialValues,
   }));
 
-  const collectionInitialValues = !!connect?.__connect
-    ? initialValues
-    : ((lodashGet(formPropsFromContext.initialValues, name) ??
-        []) as unknown[]);
+  const collectionInitialValues = (lodashGet(initialValues, name) ??
+    []) as unknown[];
 
   if (!Array.isArray(collectionInitialValues)) {
     throw new Error(ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY);
@@ -163,8 +155,10 @@ export const useRepeater = <Data = unknown>({
   initialValueRef.current = collectionInitialValues;
 
   useEffect(() => {
-    set(cloneDeep(initialValueRef.current));
-  }, [resetKey, set]);
+    if (isReady) {
+      set(cloneDeep(initialValueRef.current));
+    }
+  }, [isReady, resetKey, set]);
 
   return {
     insert,

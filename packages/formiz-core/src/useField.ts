@@ -116,13 +116,11 @@ export const useField = <
   const deferredValue = useDeferredValue(internalValue);
 
   const storeActions = useStore(
-    useCallback((state: Store) => state.actions, []),
+    useCallback((state) => state.actions, []),
     deepEqual
   );
 
-  const formConnected = useStore(
-    useCallback((state: Store) => state.connected, [])
-  );
+  const formReady = useStore(useCallback((state) => state.ready, []));
 
   // Get field from state
   const { value, ...exposedField } = useStore(
@@ -181,7 +179,7 @@ export const useField = <
   // Register / Unregister
   useEffect(
     function registerField() {
-      if (!formConnected) {
+      if (!formReady) {
         return () => {};
       }
 
@@ -213,7 +211,7 @@ export const useField = <
         });
       };
     },
-    [name, stepName, storeActions, formConnected]
+    [name, stepName, storeActions, formReady]
   );
 
   const validationsAsyncRef = useRef(validationsAsync);

@@ -12,6 +12,113 @@ This hook creates a form, and returns it.
 import { useForm } from "@formiz/core";
 ```
 
+## Form Config
+
+### id
+
+<Type type="string" />
+Allows you to pass a custom id, which will be used to create the ids of the fields.
+By default, it is generated automatically.
+
+```tsx
+const form = useForm({ id: "custom-id" });
+```
+
+### initialValues
+
+<Type type="Record<string, unknown>" />
+Allows you to pass some initial values to the form. If a field is mounted, it will
+lookup into this object to set his initial value. This is usefull when you are getting
+data from an API like an edit page.
+
+```tsx
+const form = useForm({ initialValues: { myField: "my initial value" } });
+```
+
+### initialStepName
+
+<Type type="string" />
+Allows you to define the initial step.
+
+```tsx
+const form = useForm({ initialStepName: "step-2" });
+```
+
+### ready
+
+Allows you to delayed form setup, this can be usefull when you have async initialValues. By default ready is true.
+It can be initialised at false and be updated to true, but it can no longer be updated when it is true.
+
+```tsx
+const [data, setData] = useState();
+const [isFetched, setIsFetched] = useState(false);
+useEffect(() => {
+  const dataFetch = async () => {
+    const data = await (await fetch("/api/async-initial-values")).json();
+    setData(data);
+    setIsFetched(true);
+  };
+
+  dataFetch();
+}, []);
+
+const form = useForm({ ready: isFetched, initialValues: data });
+```
+
+### onSubmit(values)
+
+<Type type="(values) => void" />
+Function triggered on form submission, whether it is valid or not.
+
+```tsx
+const form = useForm({ onSubmit: (values) => console.log({ values }) });
+```
+
+### onValidSubmit(values)
+
+<Type type="(values) => void" />
+Function triggered on form submission, only if it is valid.
+
+```tsx
+const form = useForm({ onValidSubmit: (values) => console.log({ values }) });
+```
+
+### onInvalidSubmit(values)
+
+<Type type="(values) => void" />
+Function triggered on form submission, only if it is invalid.
+
+```tsx
+const form = useForm({ onInvalidSubmit: (values) => console.log({ values }) });
+```
+
+### onValuesChange(values)
+
+<Type type="(values) => void" />
+Function triggered on any form field value change.
+
+```tsx
+const form = useForm({ onValuesChange: (values) => console.log({ values }) });
+```
+
+### onValid()
+
+<Type type="() => void" />
+Triggered when the form is **valid**.
+
+```tsx
+const form = useForm({ onValid: () => console.log("form is valid") });
+```
+
+### onInvalid()
+
+<Type type="() => void" />
+Triggered when the form is **invalid**.
+
+```tsx
+const form = useForm({ onInvalid: () => console.log("form is invalid") });
+```
+
 ## Form State
 
 ### isValid
@@ -198,8 +305,8 @@ form.setValues({ field: "New value" }, { keepPristine: true });
   | 'visited'
   | 'values'"
 />
-Reset form's states and values.
-Options allows you to select the data you want to reset. 
+Reset form's states and values. Options allows you to select the data you want
+to reset.{" "}
 
 Available options: `"pristine"`, `"submitted"`, `"touched"`, `"validating"`, `"debouncing"`, `"resetKey"`, `"currentStep"`, `"visited"`, `"values"`
 

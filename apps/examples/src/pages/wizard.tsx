@@ -11,9 +11,7 @@ import { useState } from "react";
 const fakeDelay = (delay = 500) => new Promise((r) => setTimeout(r, delay));
 
 const Wizard: NextPage = () => {
-  const form = useForm();
   const [status, setStatus] = useState("idle");
-  const isLoading = status === "loading" || form.isValidating;
 
   const toastValues = useToastValues();
 
@@ -60,8 +58,11 @@ const Wizard: NextPage = () => {
     }
   };
 
+  const form = useForm({ onValidSubmit: handleSubmit });
+  const isLoading = status === "loading" || form.isValidating;
+
   return (
-    <Formiz connect={form} onValidSubmit={handleSubmit}>
+    <Formiz connect={form}>
       <PageLayout>
         <form noValidate onSubmit={handleSubmitStep}>
           <Stack spacing={4}>

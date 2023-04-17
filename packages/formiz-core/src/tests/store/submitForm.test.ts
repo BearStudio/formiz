@@ -11,10 +11,16 @@ describe("submitForm", () => {
   });
 
   it("Should trigger the onSubmit method", () => {
-    const store = createStore();
-    const { submitForm } = store.getState().actions;
-
     const onSubmit = jest.fn();
+
+    const store = createStore({
+      formConfigRef: {
+        current: {
+          onSubmit,
+        },
+      },
+    });
+
     const fields = new Map();
     fields.set("A", generateField("A", { name: "fieldA", value: "valueA" }));
     fields.set(
@@ -22,16 +28,9 @@ describe("submitForm", () => {
       generateField("B", { name: "nested.fieldB", value: "valueB" })
     );
 
-    store.setState({
-      fields,
-      formPropsRef: {
-        current: {
-          onSubmit,
-        },
-      },
-    });
+    store.setState({ fields });
 
-    submitForm();
+    store.getState().actions.submitForm();
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith({
@@ -57,7 +56,7 @@ describe("submitForm", () => {
 
     store.setState({
       fields,
-      formPropsRef: {
+      formConfigRef: {
         current: {
           onSubmit,
         },
@@ -85,7 +84,7 @@ describe("submitForm", () => {
 
     store.setState({
       fields,
-      formPropsRef: {
+      formConfigRef: {
         current: {
           onSubmit,
         },

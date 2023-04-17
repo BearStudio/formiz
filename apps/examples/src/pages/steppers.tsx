@@ -26,8 +26,6 @@ type FormValues = {
 };
 
 const Steppers = () => {
-  const form = useForm();
-
   const toastValues = useToastValues<FormValues>();
 
   const handleSubmit = (values: FormValues) => {
@@ -42,8 +40,10 @@ const Steppers = () => {
     }
   };
 
+  const form = useForm({ onValidSubmit: handleSubmit });
+
   return (
-    <Formiz connect={form} onValidSubmit={handleSubmit} autoForm="step">
+    <Formiz connect={form} autoForm="step">
       <PageLayout>
         <PageHeader githubPath="steppers.tsx">Steppers</PageHeader>
         <FormizStep name="step1">

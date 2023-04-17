@@ -10,37 +10,50 @@ import {
   getFormIsProcessing,
   getFormIsValid,
   getFormValues,
-  getStepIsReady,
+  getStepIsProcessing,
+  getStepIsValid,
   isResetAllowed,
 } from "@/utils/form";
 import type {
   Field,
   FormatValue,
   GetFieldSetValueOptions,
-  Step,
   Store,
+  StoreInitialState,
 } from "@/types";
 
-export const createStore = () =>
+export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
-    connected: false,
+    ready: true,
     fields: new Map(),
     steps: [],
+    keepValues: {},
+    externalValues: {},
+    initialValues: {},
+    formConfigRef: {
+      current: {},
+    },
+    ...defaultState,
     form: {
       resetKey: 0,
       id: undefined,
       isSubmitted: false,
       currentStepName: null,
       initialStepName: null,
-    },
-    keepValues: {},
-    externalValues: {},
-    initialValues: {},
-    formPropsRef: {
-      current: {},
+      ...defaultState?.form,
     },
     actions: {
       // FORM
+      setReady: (initialState) => {
+        set((state) => ({
+          ready: true,
+          ...initialState,
+          form: {
+            ...state.form,
+            ...initialState?.form,
+          },
+        }));
+      },
       submitForm: (formEvent) => {
         formEvent?.preventDefault();
         set((state) => {
@@ -52,21 +65,22 @@ export const createStore = () =>
           };
         });
 
-        const formPropsRef = get().formPropsRef;
+        const formConfigRef = get().formConfigRef;
         const fields = get().fields;
+        const formIsReady = get().ready;
 
-        if (getFormIsProcessing(fields)) {
+        if (getFormIsProcessing(fields, formIsReady)) {
           return;
         }
 
         const formValues = getFormValues(fields);
 
         if (getFormIsValid(fields)) {
-          formPropsRef.current?.onValidSubmit?.(formValues);
+          formConfigRef.current?.onValidSubmit?.(formValues);
         } else {
-          formPropsRef.current?.onInvalidSubmit?.(formValues);
+          formConfigRef.current?.onInvalidSubmit?.(formValues);
         }
-        formPropsRef.current?.onSubmit?.(formValues);
+        formConfigRef.current?.onSubmit?.(formValues);
       },
 
       setValues: (newValues, { keepPristine = false } = {}) => {
@@ -127,7 +141,7 @@ export const createStore = () =>
       reset: (resetOptions = {}) => {
         set((state) => {
           let initialValues = cloneDeep(
-            state.formPropsRef.current?.initialValues
+            state.formConfigRef.current?.initialValues
           );
 
           state.fields.forEach((field) => {
@@ -219,7 +233,7 @@ export const createStore = () =>
       resetInitialValues: () => {
         set((state) => {
           let initialValues = cloneDeep(
-            state.formPropsRef.current?.initialValues
+            state.formConfigRef.current?.initialValues
           );
 
           setTimeout(() => {
@@ -466,8 +480,12 @@ export const createStore = () =>
         });
 
         const fields = get().fields;
+        const formIsReady = get().ready;
 
-        if (!getStepIsReady(currentStepName, fields)) {
+        if (
+          getStepIsProcessing(currentStepName, fields, formIsReady) ||
+          getStepIsValid(currentStepName, fields)
+        ) {
           return;
         }
 

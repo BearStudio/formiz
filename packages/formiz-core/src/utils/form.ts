@@ -95,13 +95,14 @@ export const getFieldIsExternalProcessing = <Value>(field: Field<Value>) =>
 export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
   field.isDebouncing;
 
-export const getFieldIsProcessing = <Value>(field: Field<Value>) =>
+export const getFieldIsProcessing = <Value>(
+  field: Field<Value>,
+  formIsReady: boolean = true
+) =>
+  !formIsReady ||
   getFieldIsDebouncing(field) ||
   getFieldIsValidating(field) ||
   getFieldIsExternalProcessing(field);
-
-export const getFieldIsReady = <Value>(field: Field<Value>) =>
-  !getFieldIsProcessing(field) && getFieldIsValid(field);
 
 export const getFormIsValid = (fields: Fields) =>
   Array.from(fields).every(([, field]) => getFieldIsValid(field));
@@ -112,11 +113,9 @@ export const getFormIsValidating = (fields: Fields) =>
 export const getFormIsDebouncing = (fields: Fields) =>
   Array.from(fields).some(([, field]) => getFieldIsDebouncing(field));
 
-export const getFormIsProcessing = (fields: Fields) =>
+export const getFormIsProcessing = (fields: Fields, formIsReady: boolean) =>
+  !formIsReady ||
   Array.from(fields).some(([, field]) => getFieldIsProcessing(field));
-
-export const getFormIsReady = (fields: Fields) =>
-  Array.from(fields).every(([, field]) => getFieldIsReady(field));
 
 export const getFormIsPristine = (fields: Fields) =>
   Array.from(fields).every(([, field]) => getFieldIsPristine(field));
@@ -136,15 +135,15 @@ export const getStepIsDebouncing = (stepName: string, fields: Fields) =>
     .filter(([, field]) => field.stepName === stepName)
     .some(([, field]) => getFieldIsDebouncing(field));
 
-export const getStepIsProcessing = (stepName: string, fields: Fields) =>
+export const getStepIsProcessing = (
+  stepName: string,
+  fields: Fields,
+  formIsReady: boolean
+) =>
+  !formIsReady ||
   Array.from(fields)
     .filter(([, field]) => field.stepName === stepName)
     .some(([, field]) => getFieldIsProcessing(field));
-
-export const getStepIsReady = (stepName: string, fields: Fields) =>
-  Array.from(fields)
-    .filter(([, field]) => field.stepName === stepName)
-    .every(([, field]) => getFieldIsReady(field));
 
 export const getStepIsPristine = (stepName: string, fields: Fields) =>
   Array.from(fields)
