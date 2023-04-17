@@ -484,7 +484,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
         if (
           getStepIsProcessing(currentStepName, fields, formIsReady) ||
-          getStepIsValid(currentStepName, fields)
+          !getStepIsValid(currentStepName, fields)
         ) {
           return;
         }
