@@ -99,6 +99,10 @@ export type PartialField<Value> = Partial<Omit<Field<Value>, "id">>;
 
 export type Fields = Map<string, Field<unknown>>;
 
+export type RepeaterKey = string;
+
+export type Repeaters = Map<string, RepeaterKey[]>;
+
 export interface Step {
   name: string;
   label?: React.ReactNode;
@@ -137,6 +141,7 @@ export type StoreInitialState = {
 export interface Store {
   ready: boolean;
   fields: Fields;
+  repeaters: Repeaters;
   steps: Step[];
   form: {
     resetKey: number;
@@ -194,6 +199,13 @@ export interface Store {
     goToStep(stepName: string): void;
     goToNextStep(): void;
     goToPreviousStep(): void;
+
+    setRepeaterKeys(
+      fieldName: string
+    ): (
+      keys: RepeaterKey[] | ((oldKeys: RepeaterKey[]) => RepeaterKey[])
+    ) => void;
+    getRepeaterKeys(fieldName: string): RepeaterKey[] | undefined;
   };
 }
 

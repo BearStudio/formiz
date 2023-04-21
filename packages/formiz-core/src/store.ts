@@ -26,6 +26,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
     ready: true,
     fields: new Map(),
+    repeaters: new Map(),
     steps: [],
     keepValues: {},
     externalValues: {},
@@ -602,6 +603,24 @@ export const createStore = (defaultState?: StoreInitialState) =>
         );
 
         get().actions.goToStep(steps[currentStepIndex - 1].name);
+      },
+
+      setRepeaterKeys: (fieldName) => (keys) => {
+        set((state) => {
+          state.repeaters.set(
+            fieldName,
+            typeof keys === "function"
+              ? keys(get().repeaters.get(fieldName) ?? [])
+              : keys
+          );
+          return {
+            repeaters: state.repeaters,
+          };
+        });
+      },
+
+      getRepeaterKeys: (fieldName) => {
+        return get().repeaters.get(fieldName);
       },
     },
   }));

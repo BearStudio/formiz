@@ -17,10 +17,7 @@ import { PageLayout } from "@/layout/PageLayout";
 import { useToastValues } from "@/hooks/useToastValues";
 
 const DEFAULT_VALUES = {
-  collection: [
-    { name: "Default name (1)" },
-    { company: "Default company (2)" },
-  ],
+  members: [{ name: "Default name (1)" }, { company: "Default company (2)" }],
 };
 
 const INITIAL_VALUES = {
@@ -78,7 +75,7 @@ const Repeater = () => {
               <Box flex="1">
                 <FieldInput
                   name={`members[${index}].name`}
-                  defaultValue={DEFAULT_VALUES.collection[index]?.name}
+                  defaultValue={DEFAULT_VALUES.members[index]?.name}
                   label="Name"
                   required="Required"
                   m="0"
@@ -87,7 +84,7 @@ const Repeater = () => {
               <Box flex="1">
                 <FieldInput
                   name={`members[${index}].company`}
-                  defaultValue={DEFAULT_VALUES.collection[index]?.company}
+                  defaultValue={DEFAULT_VALUES.members[index]?.company}
                   label="Company"
                   m="0"
                 />

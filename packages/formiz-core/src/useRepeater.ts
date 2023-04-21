@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
 import uniqid from "uniqid";
@@ -53,21 +53,32 @@ export const useRepeater = <Data = unknown>({
     deepEqual
   );
 
-  const { resetKey, initialValues, isReady } = useStore((state) => ({
-    resetKey: state.form.resetKey,
-    isReady: state.ready,
-    initialValues: state.initialValues,
-  }));
+  const { resetKey, initialValues, isReady, keys } = useStore((state) => {
+    const initialValues = lodashGet(state.initialValues, name) ?? [];
 
-  const collectionInitialValues = (lodashGet(initialValues, name) ??
-    []) as unknown[];
+    if (!Array.isArray(initialValues)) {
+      console.error(
+        `Formiz initial values for the field "${name}" is not an array! Fallback to an empty array.`
+      );
+    }
 
-  if (!Array.isArray(collectionInitialValues)) {
-    throw new Error(ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY);
-  }
+    const initialValuesArray = Array.isArray(initialValues)
+      ? initialValues
+      : [];
 
-  const [keys, setKeys] = useState<string[]>(
-    collectionInitialValues.map((_, index) => String(index))
+    return {
+      resetKey: state.form.resetKey,
+      isReady: state.ready,
+      initialValues: initialValuesArray,
+      keys:
+        state.actions.getRepeaterKeys(name) ??
+        initialValuesArray.map((_, index) => index.toString()),
+    };
+  });
+
+  const setKeys = useMemo(
+    () => storeActions.setRepeaterKeys(name),
+    [storeActions, name]
   );
 
   const keysRef = useRef(keys);
@@ -101,7 +112,7 @@ export const useRepeater = <Data = unknown>({
         return newKeys;
       });
     },
-    [storeActions, name]
+    [storeActions, name, setKeys]
   );
 
   const insert = useCallback(
@@ -119,14 +130,17 @@ export const useRepeater = <Data = unknown>({
     (data: Partial<Data>): void => insertMultiple(-1, [data]),
     [insertMultiple]
   );
-  const removeMultiple = useCallback((indexesToRemove: number[]) => {
-    setKeys((oldKeys) => {
-      const computedIndexes = indexesToRemove.map((index) =>
-        index < 0 ? oldKeys.length + index : index
-      );
-      return oldKeys.filter((_, index) => !computedIndexes.includes(index));
-    });
-  }, []);
+  const removeMultiple = useCallback(
+    (indexesToRemove: number[]) => {
+      setKeys((oldKeys) => {
+        const computedIndexes = indexesToRemove.map((index) =>
+          index < 0 ? oldKeys.length + index : index
+        );
+        return oldKeys.filter((_, index) => !computedIndexes.includes(index));
+      });
+    },
+    [setKeys]
+  );
 
   const remove = useCallback(
     (indexToRemove: number) => {
@@ -148,11 +162,11 @@ export const useRepeater = <Data = unknown>({
         });
       });
     },
-    [storeActions, name]
+    [storeActions, name, setKeys]
   );
 
-  const initialValueRef = useRef(collectionInitialValues);
-  initialValueRef.current = collectionInitialValues;
+  const initialValueRef = useRef(initialValues);
+  initialValueRef.current = initialValues;
 
   useEffect(() => {
     if (isReady) {
