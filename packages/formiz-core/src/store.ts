@@ -21,11 +21,13 @@ import type {
   Store,
   StoreInitialState,
 } from "@/types";
+import uniqid from "uniqid";
 
 export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
     ready: true,
     fields: new Map(),
+    collections: new Map(),
     steps: [],
     keepValues: {},
     externalValues: {},
@@ -90,7 +92,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
             const newValue = lodashGet(externalValues, field.name);
             if (newValue !== undefined) {
               const { requiredErrors, validationsErrors } =
-                state.actions.getFieldValidationsErrors(
+                get().actions.getFieldValidationsErrors(
                   newValue,
                   newValue,
                   field.requiredRef?.current,
@@ -160,7 +162,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              state.actions.getFieldValidationsErrors(
+              get().actions.getFieldValidationsErrors(
                 resetValue,
                 resetValueFormatted,
                 field.requiredRef?.current,
@@ -329,7 +331,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const formattedValue = formatValue(value as any);
 
           const { requiredErrors, validationsErrors } =
-            state.actions.getFieldValidationsErrors(
+            get().actions.getFieldValidationsErrors(
               value,
               formattedValue,
               requiredRef?.current,
@@ -415,7 +417,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              state.actions.getFieldValidationsErrors(
+              get().actions.getFieldValidationsErrors(
                 value,
                 formattedValue,
                 field.requiredRef?.current,
@@ -602,6 +604,124 @@ export const createStore = (defaultState?: StoreInitialState) =>
         );
 
         get().actions.goToStep(steps[currentStepIndex - 1].name);
+      },
+
+      setCollectionKeys: (fieldName) => (keys) => {
+        set((state) => {
+          get().collections.set(
+            fieldName,
+            typeof keys === "function"
+              ? keys(get().actions.getCollectionKeys(fieldName) ?? [])
+              : keys
+          );
+          return {
+            collections: state.collections,
+          };
+        });
+      },
+
+      getCollectionKeys: (fieldName) => {
+        return get().collections.get(fieldName);
+      },
+
+      setCollectionValues: (fieldName) => (values, options) => {
+        set((state) => {
+          get().actions.setValues({ [fieldName]: values }, options);
+          get().actions.setCollectionKeys(fieldName)((oldKeys) =>
+            values.map((_, index) => oldKeys?.[index] ?? uniqid())
+          );
+
+          return {
+            collections: state.collections,
+          };
+        });
+      },
+
+      insertMultipleCollectionValues:
+        (fieldName) =>
+        (index, values, options = { keepPristine: true }) => {
+          set((state) => {
+            get().actions.setCollectionKeys(fieldName)((oldKeys) => {
+              const computedIndex =
+                index < 0 ? oldKeys.length + 1 + index : index;
+              const keysToInsert = Array.from(
+                { length: values?.length ?? 0 },
+                () => uniqid()
+              );
+              const newKeys = [
+                ...(oldKeys || []).slice(0, computedIndex),
+                ...keysToInsert,
+                ...(oldKeys || []).slice(computedIndex),
+              ];
+
+              const newValues = [
+                ...(oldKeys || []).slice(0, computedIndex).map(() => undefined),
+                ...(values ?? []),
+                ...(oldKeys || []).slice(computedIndex).map(() => undefined),
+              ];
+
+              setTimeout(() => {
+                get().actions.setValues({ [fieldName]: newValues }, options);
+              });
+
+              return newKeys;
+            });
+            return { collections: state.collections };
+          });
+        },
+
+      insertCollectionValue: (fieldName) => (index, value, options) => {
+        set((state) => {
+          get().actions.insertMultipleCollectionValues(fieldName)(
+            index,
+            [value],
+            options
+          );
+          return { collections: state.collections };
+        });
+      },
+
+      prependCollectionValue: (fieldName) => (value, options) => {
+        set((state) => {
+          get().actions.insertMultipleCollectionValues(fieldName)(
+            0,
+            [value ?? {}],
+            options
+          );
+          return { collections: state.collections };
+        });
+      },
+
+      appendCollectionValue: (fieldName) => (value, options) => {
+        set((state) => {
+          get().actions.insertMultipleCollectionValues(fieldName)(
+            -1,
+            [value ?? {}],
+            options
+          );
+          return { collections: state.collections };
+        });
+      },
+
+      removeMultipleCollectionValues: (fieldName) => (indexes) => {
+        set((state) => {
+          get().actions.setCollectionKeys(fieldName)((oldKeys) => {
+            const computedIndexes = indexes.map((index) =>
+              index < 0 ? oldKeys.length + index : index
+            );
+            return oldKeys.filter(
+              (_, index) => !computedIndexes.includes(index)
+            );
+          });
+          return { collections: state.collections };
+        });
+      },
+
+      removeCollectionValue: (fieldName) => (index) => {
+        set((state) => {
+          get().actions.removeMultipleCollectionValues(fieldName)([index]);
+          return { collections: state.collections };
+        });
       },
     },
   }));

@@ -47,6 +47,17 @@ export const formInterfaceSelector = (state: Store) => {
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
+    collection: (fieldName: string) => ({
+      setKeys: state.actions.setCollectionKeys(fieldName),
+      set: state.actions.setCollectionValues(fieldName),
+      insertMultiple: state.actions.insertMultipleCollectionValues(fieldName),
+      insert: state.actions.insertCollectionValue(fieldName),
+      append: state.actions.appendCollectionValue(fieldName),
+      prepend: state.actions.prependCollectionValue(fieldName),
+      removeMultiple: state.actions.removeMultipleCollectionValues(fieldName),
+      remove: state.actions.removeCollectionValue(fieldName),
+    }),
+
     id: state.form.id,
     resetKey: state.form.resetKey,
     isReady: state.ready,

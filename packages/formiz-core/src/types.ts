@@ -99,6 +99,10 @@ export type PartialField<Value> = Partial<Omit<Field<Value>, "id">>;
 
 export type Fields = Map<string, Field<unknown>>;
 
+export type CollectionKey = string;
+
+export type Collections = Map<string, CollectionKey[]>;
+
 export interface Step {
   name: string;
   label?: React.ReactNode;
@@ -137,6 +141,7 @@ export type StoreInitialState = {
 export interface Store {
   ready: boolean;
   fields: Fields;
+  collections: Collections;
   steps: Step[];
   form: {
     resetKey: number;
@@ -194,6 +199,49 @@ export interface Store {
     goToStep(stepName: string): void;
     goToNextStep(): void;
     goToPreviousStep(): void;
+
+    setCollectionKeys(
+      fieldName: string
+    ): (
+      keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
+    ) => void;
+    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
+    setCollectionValues(
+      fieldName: string
+    ): (
+      values: unknown[],
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    insertMultipleCollectionValues(
+      fieldName: string
+    ): (
+      index: number,
+      values?: unknown[],
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    insertCollectionValue(
+      fieldName: string
+    ): (
+      index: number,
+      value?: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    prependCollectionValue(
+      fieldName: string
+    ): (
+      value: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    appendCollectionValue(
+      fieldName: string
+    ): (
+      value: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    removeMultipleCollectionValues(
+      fieldName: string
+    ): (indexes: number[]) => void;
+    removeCollectionValue(fieldName: string): (index: number) => void;
   };
 }
 

@@ -8,7 +8,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { Formiz, useRepeater, useForm } from "@formiz/core";
+import { Formiz, useCollection, useForm } from "@formiz/core";
 import { FiPlus, FiTrash2 } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
@@ -17,10 +17,7 @@ import { PageLayout } from "@/layout/PageLayout";
 import { useToastValues } from "@/hooks/useToastValues";
 
 const DEFAULT_VALUES = {
-  collection: [
-    { name: "Default name (1)" },
-    { company: "Default company (2)" },
-  ],
+  members: [{ name: "Default name (1)" }, { company: "Default company (2)" }],
 };
 
 const INITIAL_VALUES = {
@@ -30,7 +27,7 @@ const INITIAL_VALUES = {
   ],
 };
 
-const Repeater = () => {
+const Collection = () => {
   const toastValues = useToastValues();
 
   const handleSubmit = (values: any) => {
@@ -42,7 +39,7 @@ const Repeater = () => {
     initialValues: INITIAL_VALUES,
   });
 
-  const collection = useRepeater({
+  const collection = useCollection({
     connect: form,
     name: "members",
   });
@@ -50,7 +47,7 @@ const Repeater = () => {
   return (
     <Formiz connect={form} autoForm>
       <PageLayout>
-        <PageHeader githubPath="repeater.tsx">Repeater</PageHeader>
+        <PageHeader githubPath="collection.tsx">Collection</PageHeader>
         <Box>
           {collection.keys.map((key, index) => (
             <Stack
@@ -59,7 +56,7 @@ const Repeater = () => {
               direction="row"
               spacing="4"
               mb="6"
-              data-test={`repeater-item[${index}]`}
+              data-test={`collection-item[${index}]`}
             >
               <Box transform="translateY(4rem)">
                 <IconButton
@@ -78,7 +75,7 @@ const Repeater = () => {
               <Box flex="1">
                 <FieldInput
                   name={`members[${index}].name`}
-                  defaultValue={DEFAULT_VALUES.collection[index]?.name}
+                  defaultValue={DEFAULT_VALUES.members[index]?.name}
                   label="Name"
                   required="Required"
                   m="0"
@@ -87,7 +84,7 @@ const Repeater = () => {
               <Box flex="1">
                 <FieldInput
                   name={`members[${index}].company`}
-                  defaultValue={DEFAULT_VALUES.collection[index]?.company}
+                  defaultValue={DEFAULT_VALUES.members[index]?.company}
                   label="Company"
                   m="0"
                 />
@@ -217,4 +214,4 @@ const Repeater = () => {
   );
 };
 
-export default Repeater;
+export default Collection;

@@ -5,5 +5,5 @@ export { useFormContext } from "./useFormContext";
 export { useFormFields } from "./useFormFields";
 export { deepMemo } from "./deepMemo";
 export { FormizStep } from "./FormizStep";
-export { useRepeater } from "./useRepeater";
+export { useCollection } from "./useCollection";
 export type { FieldProps } from "./types";

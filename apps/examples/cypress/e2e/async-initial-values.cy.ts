@@ -1,4 +1,4 @@
-describe("Repeater", () => {
+describe("AsyncInitialValues", () => {
   beforeEach(() => {
     cy.visit("/async-initial-values");
     cy.pageTitleIs("Async Initial Values");

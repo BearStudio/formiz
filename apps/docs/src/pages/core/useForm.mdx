@@ -119,6 +119,17 @@ Triggered when the form is **invalid**.
 const form = useForm({ onInvalid: () => console.log("form is invalid") });
 ```
 
+### collection(fieldName)
+
+Return methods to manage a field collection, see [`useCollection()`](/core/useCollection).
+
+```tsx
+const form = useForm();
+const portsCollection = form.collection("ports");
+
+portsCollection.append({ number: "1234" }); // add an element to ports collection
+```
+
 ## Form State
 
 ### isValid
