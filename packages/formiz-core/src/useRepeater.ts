@@ -1,13 +1,10 @@
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
-import lodashSet from "lodash/set";
+import { useCallback, useEffect, useRef, useMemo } from "react";
 import lodashGet from "lodash/get";
-import uniqid from "uniqid";
 import { StoreApi, UseBoundStore } from "zustand";
 import { Store } from "./types";
 import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
-import { ERROR_USE_REPEATER_INITIAL_VALUES_NOT_ARRAY } from "@/errors";
 
 export interface UseRepeaterOptions {
   name: string;
@@ -54,9 +51,12 @@ export const useRepeater = <Data = unknown>({
   );
 
   const { resetKey, initialValues, isReady, keys } = useStore((state) => {
-    const initialValues = lodashGet(state.initialValues, name) ?? [];
+    const initialValues = lodashGet(state.initialValues, name);
 
-    if (!Array.isArray(initialValues)) {
+    if (
+      (!!initialValues || initialValues === 0 || initialValues === "") &&
+      !Array.isArray(initialValues)
+    ) {
       console.error(
         `Formiz initial values for the field "${name}" is not an array! Fallback to an empty array.`
       );
@@ -76,113 +76,33 @@ export const useRepeater = <Data = unknown>({
     };
   });
 
-  const setKeys = useMemo(
-    () => storeActions.setRepeaterKeys(name),
+  const repeaterActions = useMemo(
+    () => ({
+      setKeys: storeActions.setRepeaterKeys(name),
+      set: storeActions.setRepeaterValues(name),
+      insertMultiple: storeActions.insertMultipleRepeaterValues(name),
+      insert: storeActions.insertRepeaterValue(name),
+      prepend: storeActions.prependRepeaterValue(name),
+      append: storeActions.appendRepeaterValue(name),
+      removeMultiple: storeActions.removeMultipleRepeaterValues(name),
+      remove: storeActions.removeRepeaterValue(name),
+    }),
     [storeActions, name]
   );
 
   const keysRef = useRef(keys);
-  keysRef.current = keys;
-
-  const insertMultiple = useCallback(
-    (index: number, data?: Partial<Data>[]): void => {
-      setKeys((oldKeys) => {
-        const computedIndex = index < 0 ? oldKeys.length + 1 + index : index;
-        const keysToInsert = Array.from({ length: data?.length ?? 0 }, () =>
-          uniqid()
-        );
-        const newKeys = [
-          ...(oldKeys || []).slice(0, computedIndex),
-          ...keysToInsert,
-          ...(oldKeys || []).slice(computedIndex),
-        ];
-
-        const newValues = [
-          ...(oldKeys || []).slice(0, computedIndex).map(() => undefined),
-          ...(data ?? []),
-          ...(oldKeys || []).slice(computedIndex).map(() => undefined),
-        ];
-
-        setTimeout(() => {
-          storeActions.setValues(lodashSet({}, name, newValues), {
-            keepPristine: true,
-          });
-        });
-
-        return newKeys;
-      });
-    },
-    [storeActions, name, setKeys]
-  );
-
-  const insert = useCallback(
-    (index: number, data?: Partial<Data>): void =>
-      insertMultiple(index, [data ?? {}]),
-    [insertMultiple]
-  );
-
-  const prepend = useCallback(
-    (data: Partial<Data>): void => insertMultiple(0, [data]),
-    [insertMultiple]
-  );
-
-  const append = useCallback(
-    (data: Partial<Data>): void => insertMultiple(-1, [data]),
-    [insertMultiple]
-  );
-  const removeMultiple = useCallback(
-    (indexesToRemove: number[]) => {
-      setKeys((oldKeys) => {
-        const computedIndexes = indexesToRemove.map((index) =>
-          index < 0 ? oldKeys.length + index : index
-        );
-        return oldKeys.filter((_, index) => !computedIndexes.includes(index));
-      });
-    },
-    [setKeys]
-  );
-
-  const remove = useCallback(
-    (indexToRemove: number) => {
-      removeMultiple([indexToRemove]);
-    },
-    [removeMultiple]
-  );
-
-  const set = useCallback(
-    (values: Partial<Data>[]) => {
-      setKeys(() => {
-        const newKeys = values.map((_, i) => keysRef.current[i] ?? uniqid());
-        return newKeys;
-      });
-
-      setTimeout(() => {
-        storeActions.setValues(lodashSet({}, name, values), {
-          keepPristine: true,
-        });
-      });
-    },
-    [storeActions, name, setKeys]
-  );
-
   const initialValueRef = useRef(initialValues);
-  initialValueRef.current = initialValues;
 
   useEffect(() => {
     if (isReady) {
-      set(cloneDeep(initialValueRef.current));
+      repeaterActions.setKeys(keysRef.current);
+      repeaterActions.set(cloneDeep(initialValueRef.current));
     }
-  }, [isReady, resetKey, set]);
+  }, [isReady, resetKey, repeaterActions]);
 
   return {
-    insert,
-    insertMultiple,
-    append,
-    prepend,
-    remove,
-    removeMultiple,
+    ...repeaterActions,
     keys,
-    set,
     length: keys.length,
   };
 };

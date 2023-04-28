@@ -206,6 +206,42 @@ export interface Store {
       keys: RepeaterKey[] | ((oldKeys: RepeaterKey[]) => RepeaterKey[])
     ) => void;
     getRepeaterKeys(fieldName: string): RepeaterKey[] | undefined;
+    setRepeaterValues(
+      fieldName: string
+    ): (
+      values: unknown[],
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    insertMultipleRepeaterValues(
+      fieldName: string
+    ): (
+      index: number,
+      values?: unknown[],
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    insertRepeaterValue(
+      fieldName: string
+    ): (
+      index: number,
+      value?: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    prependRepeaterValue(
+      fieldName: string
+    ): (
+      value: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    appendRepeaterValue(
+      fieldName: string
+    ): (
+      value: unknown,
+      options?: Parameters<Store["actions"]["setValues"]>[1]
+    ) => void;
+    removeMultipleRepeaterValues(
+      fieldName: string
+    ): (indexes: number[]) => void;
+    removeRepeaterValue(fieldName: string): (index: number) => void;
   };
 }
 

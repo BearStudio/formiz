@@ -21,6 +21,7 @@ import type {
   Store,
   StoreInitialState,
 } from "@/types";
+import uniqid from "uniqid";
 
 export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
@@ -91,7 +92,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
             const newValue = lodashGet(externalValues, field.name);
             if (newValue !== undefined) {
               const { requiredErrors, validationsErrors } =
-                state.actions.getFieldValidationsErrors(
+                get().actions.getFieldValidationsErrors(
                   newValue,
                   newValue,
                   field.requiredRef?.current,
@@ -161,7 +162,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              state.actions.getFieldValidationsErrors(
+              get().actions.getFieldValidationsErrors(
                 resetValue,
                 resetValueFormatted,
                 field.requiredRef?.current,
@@ -330,7 +331,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const formattedValue = formatValue(value as any);
 
           const { requiredErrors, validationsErrors } =
-            state.actions.getFieldValidationsErrors(
+            get().actions.getFieldValidationsErrors(
               value,
               formattedValue,
               requiredRef?.current,
@@ -416,7 +417,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              state.actions.getFieldValidationsErrors(
+              get().actions.getFieldValidationsErrors(
                 value,
                 formattedValue,
                 field.requiredRef?.current,
@@ -607,10 +608,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
       setRepeaterKeys: (fieldName) => (keys) => {
         set((state) => {
-          state.repeaters.set(
+          get().repeaters.set(
             fieldName,
             typeof keys === "function"
-              ? keys(get().repeaters.get(fieldName) ?? [])
+              ? keys(get().actions.getRepeaterKeys(fieldName) ?? [])
               : keys
           );
           return {
@@ -621,6 +622,106 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
       getRepeaterKeys: (fieldName) => {
         return get().repeaters.get(fieldName);
+      },
+
+      setRepeaterValues: (fieldName) => (values, options) => {
+        set((state) => {
+          get().actions.setValues({ [fieldName]: values }, options);
+          get().actions.setRepeaterKeys(fieldName)((oldKeys) =>
+            values.map((_, index) => oldKeys?.[index] ?? uniqid())
+          );
+
+          return {
+            repeaters: state.repeaters,
+          };
+        });
+      },
+
+      insertMultipleRepeaterValues:
+        (fieldName) =>
+        (index, values, options = { keepPristine: true }) => {
+          set((state) => {
+            get().actions.setRepeaterKeys(fieldName)((oldKeys) => {
+              const computedIndex =
+                index < 0 ? oldKeys.length + 1 + index : index;
+              const keysToInsert = Array.from(
+                { length: values?.length ?? 0 },
+                () => uniqid()
+              );
+              const newKeys = [
+                ...(oldKeys || []).slice(0, computedIndex),
+                ...keysToInsert,
+                ...(oldKeys || []).slice(computedIndex),
+              ];
+
+              const newValues = [
+                ...(oldKeys || []).slice(0, computedIndex).map(() => undefined),
+                ...(values ?? []),
+                ...(oldKeys || []).slice(computedIndex).map(() => undefined),
+              ];
+
+              setTimeout(() => {
+                get().actions.setValues({ [fieldName]: newValues }, options);
+              });
+
+              return newKeys;
+            });
+            return { repeaters: state.repeaters };
+          });
+        },
+
+      insertRepeaterValue: (fieldName) => (index, value, options) => {
+        set((state) => {
+          get().actions.insertMultipleRepeaterValues(fieldName)(
+            index,
+            [value],
+            options
+          );
+          return { repeaters: state.repeaters };
+        });
+      },
+
+      prependRepeaterValue: (fieldName) => (value, options) => {
+        set((state) => {
+          get().actions.insertMultipleRepeaterValues(fieldName)(
+            0,
+            [value ?? {}],
+            options
+          );
+          return { repeaters: state.repeaters };
+        });
+      },
+
+      appendRepeaterValue: (fieldName) => (value, options) => {
+        set((state) => {
+          get().actions.insertMultipleRepeaterValues(fieldName)(
+            -1,
+            [value ?? {}],
+            options
+          );
+          return { repeaters: state.repeaters };
+        });
+      },
+
+      removeMultipleRepeaterValues: (fieldName) => (indexes) => {
+        set((state) => {
+          get().actions.setRepeaterKeys(fieldName)((oldKeys) => {
+            const computedIndexes = indexes.map((index) =>
+              index < 0 ? oldKeys.length + index : index
+            );
+            return oldKeys.filter(
+              (_, index) => !computedIndexes.includes(index)
+            );
+          });
+          return { repeaters: state.repeaters };
+        });
+      },
+
+      removeRepeaterValue: (fieldName) => (index) => {
+        set((state) => {
+          get().actions.removeMultipleRepeaterValues(fieldName)([index]);
+          return { repeaters: state.repeaters };
+        });
       },
     },
   }));
