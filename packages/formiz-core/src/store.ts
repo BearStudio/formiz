@@ -27,7 +27,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
     ready: true,
     fields: new Map(),
-    repeaters: new Map(),
+    collections: new Map(),
     steps: [],
     keepValues: {},
     externalValues: {},
@@ -606,42 +606,42 @@ export const createStore = (defaultState?: StoreInitialState) =>
         get().actions.goToStep(steps[currentStepIndex - 1].name);
       },
 
-      setRepeaterKeys: (fieldName) => (keys) => {
+      setCollectionKeys: (fieldName) => (keys) => {
         set((state) => {
-          get().repeaters.set(
+          get().collections.set(
             fieldName,
             typeof keys === "function"
-              ? keys(get().actions.getRepeaterKeys(fieldName) ?? [])
+              ? keys(get().actions.getCollectionKeys(fieldName) ?? [])
               : keys
           );
           return {
-            repeaters: state.repeaters,
+            collections: state.collections,
           };
         });
       },
 
-      getRepeaterKeys: (fieldName) => {
-        return get().repeaters.get(fieldName);
+      getCollectionKeys: (fieldName) => {
+        return get().collections.get(fieldName);
       },
 
-      setRepeaterValues: (fieldName) => (values, options) => {
+      setCollectionValues: (fieldName) => (values, options) => {
         set((state) => {
           get().actions.setValues({ [fieldName]: values }, options);
-          get().actions.setRepeaterKeys(fieldName)((oldKeys) =>
+          get().actions.setCollectionKeys(fieldName)((oldKeys) =>
             values.map((_, index) => oldKeys?.[index] ?? uniqid())
           );
 
           return {
-            repeaters: state.repeaters,
+            collections: state.collections,
           };
         });
       },
 
-      insertMultipleRepeaterValues:
+      insertMultipleCollectionValues:
         (fieldName) =>
         (index, values, options = { keepPristine: true }) => {
           set((state) => {
-            get().actions.setRepeaterKeys(fieldName)((oldKeys) => {
+            get().actions.setCollectionKeys(fieldName)((oldKeys) => {
               const computedIndex =
                 index < 0 ? oldKeys.length + 1 + index : index;
               const keysToInsert = Array.from(
@@ -666,46 +666,46 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
               return newKeys;
             });
-            return { repeaters: state.repeaters };
+            return { collections: state.collections };
           });
         },
 
-      insertRepeaterValue: (fieldName) => (index, value, options) => {
+      insertCollectionValue: (fieldName) => (index, value, options) => {
         set((state) => {
-          get().actions.insertMultipleRepeaterValues(fieldName)(
+          get().actions.insertMultipleCollectionValues(fieldName)(
             index,
             [value],
             options
           );
-          return { repeaters: state.repeaters };
+          return { collections: state.collections };
         });
       },
 
-      prependRepeaterValue: (fieldName) => (value, options) => {
+      prependCollectionValue: (fieldName) => (value, options) => {
         set((state) => {
-          get().actions.insertMultipleRepeaterValues(fieldName)(
+          get().actions.insertMultipleCollectionValues(fieldName)(
             0,
             [value ?? {}],
             options
           );
-          return { repeaters: state.repeaters };
+          return { collections: state.collections };
         });
       },
 
-      appendRepeaterValue: (fieldName) => (value, options) => {
+      appendCollectionValue: (fieldName) => (value, options) => {
         set((state) => {
-          get().actions.insertMultipleRepeaterValues(fieldName)(
+          get().actions.insertMultipleCollectionValues(fieldName)(
             -1,
             [value ?? {}],
             options
           );
-          return { repeaters: state.repeaters };
+          return { collections: state.collections };
         });
       },
 
-      removeMultipleRepeaterValues: (fieldName) => (indexes) => {
+      removeMultipleCollectionValues: (fieldName) => (indexes) => {
         set((state) => {
-          get().actions.setRepeaterKeys(fieldName)((oldKeys) => {
+          get().actions.setCollectionKeys(fieldName)((oldKeys) => {
             const computedIndexes = indexes.map((index) =>
               index < 0 ? oldKeys.length + index : index
             );
@@ -713,14 +713,14 @@ export const createStore = (defaultState?: StoreInitialState) =>
               (_, index) => !computedIndexes.includes(index)
             );
           });
-          return { repeaters: state.repeaters };
+          return { collections: state.collections };
         });
       },
 
-      removeRepeaterValue: (fieldName) => (index) => {
+      removeCollectionValue: (fieldName) => (index) => {
         set((state) => {
-          get().actions.removeMultipleRepeaterValues(fieldName)([index]);
-          return { repeaters: state.repeaters };
+          get().actions.removeMultipleCollectionValues(fieldName)([index]);
+          return { collections: state.collections };
         });
       },
     },

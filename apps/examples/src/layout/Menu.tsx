@@ -15,8 +15,8 @@ export const Menu = ({ direction = "left" }) => {
         <MenuItem direction={direction} href="/wizard">
           Wizard
         </MenuItem>
-        <MenuItem direction={direction} href="/repeater">
-          Repeater
+        <MenuItem direction={direction} href="/collection">
+          Collection
         </MenuItem>
         <MenuItem direction={direction} href="/exotic-fields">
           Exotic Fields

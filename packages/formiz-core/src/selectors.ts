@@ -48,14 +48,14 @@ export const formInterfaceSelector = (state: Store) => {
     goToPreviousStep: state.actions.goToPreviousStep,
 
     collection: (fieldName: string) => ({
-      setKeys: state.actions.setRepeaterKeys(fieldName),
-      set: state.actions.setRepeaterValues(fieldName),
-      insertMultiple: state.actions.insertMultipleRepeaterValues(fieldName),
-      insert: state.actions.insertRepeaterValue(fieldName),
-      append: state.actions.appendRepeaterValue(fieldName),
-      prepend: state.actions.prependRepeaterValue(fieldName),
-      removeMultiple: state.actions.removeMultipleRepeaterValues(fieldName),
-      remove: state.actions.removeRepeaterValue(fieldName),
+      setKeys: state.actions.setCollectionKeys(fieldName),
+      set: state.actions.setCollectionValues(fieldName),
+      insertMultiple: state.actions.insertMultipleCollectionValues(fieldName),
+      insert: state.actions.insertCollectionValue(fieldName),
+      append: state.actions.appendCollectionValue(fieldName),
+      prepend: state.actions.prependCollectionValue(fieldName),
+      removeMultiple: state.actions.removeMultipleCollectionValues(fieldName),
+      remove: state.actions.removeCollectionValue(fieldName),
     }),
 
     id: state.form.id,

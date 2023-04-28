@@ -1,7 +1,7 @@
-describe("Repeater", () => {
+describe("Collection", () => {
   beforeEach(() => {
-    cy.visit("/repeater");
-    cy.pageTitleIs("Repeater");
+    cy.visit("/collection");
+    cy.pageTitleIs("Collection");
   });
 
   it("Simple Case", () => {
@@ -31,7 +31,7 @@ describe("Repeater", () => {
   it("Add item between", () => {
     cy.field("members[1].name").fill("John");
 
-    cy.get('[data-test="repeater-item[0]"] [aria-label="Add"]').click();
+    cy.get('[data-test="collection-item[0]"] [aria-label="Add"]').click();
     cy.field("members[1].name").hasValue("");
     cy.field("members[2].name").hasValue("John");
 
@@ -45,11 +45,11 @@ describe("Repeater", () => {
   });
 
   it("Remove all items", () => {
-    cy.get('[data-test="repeater-item[1]"] [aria-label="Delete"]').click();
-    cy.get('[data-test="repeater-item[1]').should("not.exist");
+    cy.get('[data-test="collection-item[1]"] [aria-label="Delete"]').click();
+    cy.get('[data-test="collection-item[1]').should("not.exist");
 
-    cy.get('[data-test="repeater-item[0]"] [aria-label="Delete"]').click();
-    cy.get('[data-test="repeater-item[0]').should("not.exist");
+    cy.get('[data-test="collection-item[0]"] [aria-label="Delete"]').click();
+    cy.get('[data-test="collection-item[0]').should("not.exist");
 
     cy.formSubmit();
     cy.isFormSuccess();
@@ -60,7 +60,7 @@ describe("Repeater", () => {
     cy.field("members[1].name").fill("John");
     cy.field("members[2].name").fill("Doe");
 
-    cy.get('[data-test="repeater-item[2]"] [aria-label="Delete"]').click();
+    cy.get('[data-test="collection-item[2]"] [aria-label="Delete"]').click();
     cy.field("members[1].name").hasValue("John");
   });
 
@@ -69,7 +69,7 @@ describe("Repeater", () => {
     cy.field("members[1].name").fill("John");
     cy.field("members[2].name").fill("Doe");
 
-    cy.get('[data-test="repeater-item[1]"] [aria-label="Delete"]').click();
+    cy.get('[data-test="collection-item[1]"] [aria-label="Delete"]').click();
     cy.field("members[1].name").hasValue("Doe");
   });
 

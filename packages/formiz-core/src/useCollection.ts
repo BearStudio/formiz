@@ -6,14 +6,14 @@ import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 import cloneDeep from "clone-deep";
 
-export interface UseRepeaterOptions {
+export interface UseCollectionOptions {
   name: string;
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
 }
 
-export type UseRepeaterValues<Data = unknown> = {
+export type UseCollectionValues<Data = unknown> = {
   keys: string[];
   insertMultiple(index: number, data?: Partial<Data>[]): void;
   insert(index: number, data?: Partial<Data>): void;
@@ -31,15 +31,15 @@ export type UseRepeaterValues<Data = unknown> = {
  * @param name fields collection name
  * @param connect form to which connect fields collection
  */
-export const useRepeater = <Data = unknown>({
+export const useCollection = <Data = unknown>({
   name,
   connect,
-}: UseRepeaterOptions): UseRepeaterValues<Data> => {
+}: UseCollectionOptions): UseCollectionValues<Data> => {
   const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
     throw new Error(
-      "useRepeater is used outside of a form or without a `form` connected"
+      "useCollection is used outside of a form or without a `form` connected"
     );
   }
 
@@ -71,21 +71,21 @@ export const useRepeater = <Data = unknown>({
       isReady: state.ready,
       initialValues: initialValuesArray,
       keys:
-        state.actions.getRepeaterKeys(name) ??
+        state.actions.getCollectionKeys(name) ??
         initialValuesArray.map((_, index) => index.toString()),
     };
   });
 
-  const repeaterActions = useMemo(
+  const collectionActions = useMemo(
     () => ({
-      setKeys: storeActions.setRepeaterKeys(name),
-      set: storeActions.setRepeaterValues(name),
-      insertMultiple: storeActions.insertMultipleRepeaterValues(name),
-      insert: storeActions.insertRepeaterValue(name),
-      prepend: storeActions.prependRepeaterValue(name),
-      append: storeActions.appendRepeaterValue(name),
-      removeMultiple: storeActions.removeMultipleRepeaterValues(name),
-      remove: storeActions.removeRepeaterValue(name),
+      setKeys: storeActions.setCollectionKeys(name),
+      set: storeActions.setCollectionValues(name),
+      insertMultiple: storeActions.insertMultipleCollectionValues(name),
+      insert: storeActions.insertCollectionValue(name),
+      prepend: storeActions.prependCollectionValue(name),
+      append: storeActions.appendCollectionValue(name),
+      removeMultiple: storeActions.removeMultipleCollectionValues(name),
+      remove: storeActions.removeCollectionValue(name),
     }),
     [storeActions, name]
   );
@@ -95,13 +95,13 @@ export const useRepeater = <Data = unknown>({
 
   useEffect(() => {
     if (isReady) {
-      repeaterActions.setKeys(keysRef.current);
-      repeaterActions.set(cloneDeep(initialValueRef.current));
+      collectionActions.setKeys(keysRef.current);
+      collectionActions.set(cloneDeep(initialValueRef.current));
     }
-  }, [isReady, resetKey, repeaterActions]);
+  }, [isReady, resetKey, collectionActions]);
 
   return {
-    ...repeaterActions,
+    ...collectionActions,
     keys,
     length: keys.length,
   };

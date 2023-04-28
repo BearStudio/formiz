@@ -99,9 +99,9 @@ export type PartialField<Value> = Partial<Omit<Field<Value>, "id">>;
 
 export type Fields = Map<string, Field<unknown>>;
 
-export type RepeaterKey = string;
+export type CollectionKey = string;
 
-export type Repeaters = Map<string, RepeaterKey[]>;
+export type Collections = Map<string, CollectionKey[]>;
 
 export interface Step {
   name: string;
@@ -141,7 +141,7 @@ export type StoreInitialState = {
 export interface Store {
   ready: boolean;
   fields: Fields;
-  repeaters: Repeaters;
+  collections: Collections;
   steps: Step[];
   form: {
     resetKey: number;
@@ -200,48 +200,48 @@ export interface Store {
     goToNextStep(): void;
     goToPreviousStep(): void;
 
-    setRepeaterKeys(
+    setCollectionKeys(
       fieldName: string
     ): (
-      keys: RepeaterKey[] | ((oldKeys: RepeaterKey[]) => RepeaterKey[])
+      keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
     ) => void;
-    getRepeaterKeys(fieldName: string): RepeaterKey[] | undefined;
-    setRepeaterValues(
+    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
+    setCollectionValues(
       fieldName: string
     ): (
       values: unknown[],
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
-    insertMultipleRepeaterValues(
+    insertMultipleCollectionValues(
       fieldName: string
     ): (
       index: number,
       values?: unknown[],
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
-    insertRepeaterValue(
+    insertCollectionValue(
       fieldName: string
     ): (
       index: number,
       value?: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
-    prependRepeaterValue(
+    prependCollectionValue(
       fieldName: string
     ): (
       value: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
-    appendRepeaterValue(
+    appendCollectionValue(
       fieldName: string
     ): (
       value: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
-    removeMultipleRepeaterValues(
+    removeMultipleCollectionValues(
       fieldName: string
     ): (indexes: number[]) => void;
-    removeRepeaterValue(fieldName: string): (index: number) => void;
+    removeCollectionValue(fieldName: string): (index: number) => void;
   };
 }
 

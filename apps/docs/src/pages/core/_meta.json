@@ -5,5 +5,5 @@
   "useFormFields": "useFormFields()",
   "useField": "useField()",
   "FormizStep": "<FormizStep />",
-  "useRepeater": "useRepeater()"
+  "useCollection": "useCollection()"
 }

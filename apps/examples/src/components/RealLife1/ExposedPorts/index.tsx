@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  FormizStep,
-  useForm,
-  useFormContext,
-  useFormFields,
-  useRepeater,
-} from "@formiz/core";
-import { IconButton, Box, Stack, Icon } from "@chakra-ui/react";
+import { FormizStep, useFormFields, useCollection } from "@formiz/core";
+import { IconButton, Box, Stack, Icon, Button } from "@chakra-ui/react";
 import { FieldInput } from "@/components/FieldInput";
 import { FiTrash } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
@@ -16,7 +10,7 @@ export const ExposedPorts = () => {
     fields: ["ports"],
     selector: (field) => field.value,
   });
-  const exposedPorts = useRepeater({
+  const exposedPorts = useCollection({
     name: "ports",
   });
 
