@@ -26,7 +26,7 @@ export const formInterfaceSelector = (state: Store) => {
     (step) => step.name === state.form.currentStepName
   );
 
-  return {
+  const formFunctions = {
     submit: state.actions.submitForm,
     setValues: state.actions.setValues,
     setErrors: state.actions.setErrors,
@@ -46,7 +46,6 @@ export const formInterfaceSelector = (state: Store) => {
     goToStep: state.actions.goToStep,
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
-
     collection: (fieldName: string) => ({
       setKeys: state.actions.setCollectionKeys(fieldName),
       set: state.actions.setCollectionValues(fieldName),
@@ -57,7 +56,10 @@ export const formInterfaceSelector = (state: Store) => {
       removeMultiple: state.actions.removeMultipleCollectionValues(fieldName),
       remove: state.actions.removeCollectionValue(fieldName),
     }),
+  };
 
+  return {
+    ...formFunctions,
     id: state.form.id,
     resetKey: state.form.resetKey,
     isReady: state.ready,
@@ -85,6 +87,8 @@ export const formInterfaceSelector = (state: Store) => {
     isLastStep: state.steps.at(-1)?.name === currentStep?.name,
   };
 };
+export interface FormInterface
+  extends ReturnType<typeof formInterfaceSelector> {}
 
 export const stepInterfaceSelector = (state: Store) => (step: Step) => {
   return {
@@ -140,6 +144,7 @@ export const fieldInterfaceSelector =
       isProcessing: getFieldIsProcessing(field, state.ready),
       isReady: state.ready,
       resetKey: state.form.resetKey,
+      stepName: fieldStep?.name,
     };
   };
 

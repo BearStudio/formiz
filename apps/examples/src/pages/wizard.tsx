@@ -10,6 +10,8 @@ import { useState } from "react";
 
 const fakeDelay = (delay = 500) => new Promise((r) => setTimeout(r, delay));
 
+type FormValues = any;
+
 const Wizard: NextPage = () => {
   const [status, setStatus] = useState("idle");
 
@@ -38,27 +40,24 @@ const Wizard: NextPage = () => {
     form.submitStep();
   };
 
-  /**
-   * Handle the complete form submit
-   */
-  const handleSubmit = async (values: any) => {
-    setStatus("loading");
-    console.log("Submitting form...", values); // eslint-disable-line no-console
-    await fakeDelay();
-    setStatus("success");
+  const form = useForm<FormValues>({
+    onValidSubmit: async (values) => {
+      setStatus("loading");
+      console.log("Submitting form...", values); // eslint-disable-line no-console
+      await fakeDelay();
+      setStatus("success");
 
-    toastValues(values);
+      toastValues(values);
 
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-    const stepWithError = form.getStepByFieldName("name");
-    if (stepWithError) {
-      form.goToStep(stepWithError.name);
-    }
-  };
-
-  const form = useForm({ onValidSubmit: handleSubmit });
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+      const stepWithError = form.getStepByFieldName("name");
+      if (stepWithError) {
+        form.goToStep(stepWithError.name);
+      }
+    },
+  });
   const isLoading = status === "loading" || form.isValidating;
 
   return (

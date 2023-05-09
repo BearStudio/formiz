@@ -13,17 +13,18 @@ const minMax = (min: number, max: number) => (value: string | null) =>
 type FormValues = {};
 
 const DynamicSteps = () => {
-  const toastValues = useToastValues();
+  const toastValues = useToastValues<FormValues>();
 
-  const handleSubmit = (values: FormValues) => {
-    toastValues(values);
+  const form = useForm<FormValues>({
+    onValidSubmit: (values) => {
+      toastValues(values);
 
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-  };
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+    },
+  });
 
-  const form = useForm({ onValidSubmit: handleSubmit });
   const values = useFormFields({
     connect: form,
     fields: ["count"],

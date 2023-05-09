@@ -159,7 +159,7 @@ const FieldPickIdenticalImagesBase = <FormattedValue = string | null,>(
           </AspectRatio>
         ))}
       </SimpleGrid>
-      {isReady && (
+      {isValid && (
         <Alert status="success" variant="solid" borderRadius="md">
           <AlertIcon />
           Perfect, the two images are identical!

@@ -1,5 +1,6 @@
 import React, { FormEvent, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
+import { FormInterface, formInterfaceSelector } from "@/selectors";
 
 export type FieldValue<Value = unknown> = Value | null;
 export type Values = Record<string, unknown>;
@@ -70,6 +71,7 @@ export type ExposedFieldState<Value, FormattedValue = unknown> = {
   errorMessages: ErrorMessage[];
   errorMessage: ErrorMessage;
   resetKey: number;
+  stepName?: string;
 };
 
 export type ExposedExternalFieldState<Value, FormattedValue = unknown> = Omit<
@@ -250,12 +252,12 @@ export interface useFormProps<Values = unknown> {
   initialValues?: Partial<Values>;
   initialStepName?: string;
   ready?: boolean;
-  onValuesChange?(values: Values): void;
-  onSubmit?(values: Values): void;
-  onValidSubmit?(values: Values): void;
-  onInvalidSubmit?(values: Values): void;
-  onValid?(): void;
-  onInvalid?(): void;
+  onValuesChange?(values: Values, form: FormInterface): void;
+  onSubmit?(values: Values, form: FormInterface): void;
+  onValidSubmit?(values: Values, form: FormInterface): void;
+  onInvalidSubmit?(values: Values, form: FormInterface): void;
+  onValid?(form: FormInterface): void;
+  onInvalid?(form: FormInterface): void;
 }
 
 export interface FormizProps {
@@ -264,6 +266,7 @@ export interface FormizProps {
   };
   autoForm?: boolean | "form" | "step";
   children?: React.ReactNode;
+  debug?: boolean;
 }
 
 export interface FormizProviderProps {

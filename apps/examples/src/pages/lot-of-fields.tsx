@@ -13,20 +13,20 @@ const FIELDS_BY_STEP = 20;
 const Wizard: NextPage = () => {
   const toastValues = useToastValues();
 
-  const handleSubmit = (values: Record<string, string>) => {
-    toastValues(values);
+  const form = useForm<Record<string, string>>({
+    onValidSubmit: (values) => {
+      toastValues(values);
 
-    form.setErrors({
-      "user[0].name": "You can display an error after an API call",
-    });
+      form.setErrors({
+        "user[0].name": "You can display an error after an API call",
+      });
 
-    const stepWithError = form.getStepByFieldName("user[0].name");
-    if (stepWithError) {
-      form.goToStep(stepWithError.name);
-    }
-  };
-
-  const form = useForm({ onValidSubmit: handleSubmit });
+      const stepWithError = form.getStepByFieldName("user[0].name");
+      if (stepWithError) {
+        form.goToStep(stepWithError.name);
+      }
+    },
+  });
 
   return (
     <Formiz connect={form} autoForm="step">
