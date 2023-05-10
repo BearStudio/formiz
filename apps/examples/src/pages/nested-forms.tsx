@@ -23,18 +23,20 @@ type FieldSubFormProps = FieldProps<string> & {
   label: string;
 };
 
+type SubFormValues = any;
+
 const FieldSubForm: FC<FieldSubFormProps> = (props) => {
   const { label } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { setValue, value, errorMessage, isValid } = useField(props);
 
-  const handleSubmit = ({ firstName, lastName }: any) => {
-    setValue([firstName, lastName].join(" "));
-    onClose();
-  };
-
-  const subForm = useForm({ onValidSubmit: handleSubmit });
+  const subForm = useForm<SubFormValues>({
+    onValidSubmit: ({ firstName, lastName }) => {
+      setValue([firstName, lastName].join(" "));
+      onClose();
+    },
+  });
 
   const isSubmitDisabled = !subForm.isValid && subForm.isSubmitted;
 
@@ -96,12 +98,10 @@ const FieldSubForm: FC<FieldSubFormProps> = (props) => {
   );
 };
 
-const NestedForms = () => {
-  const handleSubmit = (values: any) => {
-    console.log(values);
-  };
+type FormValues = any;
 
-  const form = useForm({ onValidSubmit: handleSubmit });
+const NestedForms = () => {
+  const form = useForm<FormValues>({ onValidSubmit: console.log });
 
   return (
     <Formiz connect={form} autoForm>

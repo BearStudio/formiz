@@ -22,6 +22,7 @@ import type {
   StoreInitialState,
 } from "@/types";
 import uniqid from "uniqid";
+import { formInterfaceSelector } from "@/selectors";
 
 export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
@@ -78,11 +79,20 @@ export const createStore = (defaultState?: StoreInitialState) =>
         const formValues = getFormValues(fields);
 
         if (getFormIsValid(fields)) {
-          formConfigRef.current?.onValidSubmit?.(formValues);
+          formConfigRef.current?.onValidSubmit?.(
+            formValues,
+            formInterfaceSelector(get())
+          );
         } else {
-          formConfigRef.current?.onInvalidSubmit?.(formValues);
+          formConfigRef.current?.onInvalidSubmit?.(
+            formValues,
+            formInterfaceSelector(get())
+          );
         }
-        formConfigRef.current?.onSubmit?.(formValues);
+        formConfigRef.current?.onSubmit?.(
+          formValues,
+          formInterfaceSelector(get())
+        );
       },
 
       setValues: (newValues, { keepPristine = false } = {}) => {

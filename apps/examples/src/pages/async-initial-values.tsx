@@ -10,16 +10,10 @@ import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 
+type FormValues = any;
+
 const SimpleForm: NextPage = () => {
   const toastValues = useToastValues();
-
-  const handleSubmit = (values: any) => {
-    toastValues(values);
-
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-  };
 
   const [data, setData] = useState();
   const [isFetched, setIsFetched] = useState(false);
@@ -34,10 +28,15 @@ const SimpleForm: NextPage = () => {
     dataFetch();
   }, []);
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     ready: isFetched,
     initialValues: data,
-    onValidSubmit: handleSubmit,
+    onValidSubmit: (values, form) => {
+      toastValues(values);
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+    },
   });
 
   return (

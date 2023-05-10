@@ -103,11 +103,9 @@ const MyChildren = () => {
 
 ```tsx filename="Formiz V2"
 const MyForm = () => {
-  const handleSubmit = (values) => {
+  const form = useForm({ onSubmit: (values) => { // ✅ Form values passed in useForm
     console.log({ values })
-  } 
-
-  const form = useForm({ onSubmit: handleSubmit }); // ✅ Form values passed in useForm
+  }}); 
 
   const values = useFormFields({
     connect: form,

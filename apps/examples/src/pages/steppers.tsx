@@ -40,7 +40,19 @@ const Steppers = () => {
     }
   };
 
-  const form = useForm({ onValidSubmit: handleSubmit });
+  const form = useForm<FormValues>({
+    onValidSubmit: (values, form) => {
+      toastValues(values);
+
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+      const stepWithError = form.getStepByFieldName("name");
+      if (stepWithError) {
+        form.goToStep(stepWithError?.name);
+      }
+    },
+  });
 
   return (
     <Formiz connect={form} autoForm="step">

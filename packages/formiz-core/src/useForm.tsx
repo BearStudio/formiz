@@ -80,7 +80,10 @@ const useOnValuesChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
     timeoutRef.current = setTimeout(() => {
       const formValues = getFormValues(state.fields);
       if (deepEqual(formValues, prevFormValuesRef.current)) return;
-      state.formConfigRef.current?.onValuesChange?.(formValues);
+      state.formConfigRef.current?.onValuesChange?.(
+        formValues,
+        formInterfaceSelector(state)
+      );
       prevFormValuesRef.current = formValues;
     });
     return null;
@@ -108,7 +111,7 @@ const useIsValidChange = (useStore?: UseBoundStore<StoreApi<Store>>) => {
       const action = isValid
         ? state.formConfigRef.current?.onValid
         : state.formConfigRef.current?.onInvalid;
-      action?.();
+      action?.(formInterfaceSelector(state));
       prevIsValidRef.current = isValid;
     });
     return null;
