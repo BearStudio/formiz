@@ -1,3 +1,4 @@
+import { formInterfaceSelector } from "@/selectors";
 import { createStore } from "@/store";
 import { generateField } from "@/utils/form";
 
@@ -33,10 +34,13 @@ describe("submitForm", () => {
     store.getState().actions.submitForm();
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit).toHaveBeenCalledWith({
-      fieldA: "valueA",
-      nested: { fieldB: "valueB" },
-    });
+    expect(onSubmit).toHaveBeenCalledWith(
+      {
+        fieldA: "valueA",
+        nested: { fieldB: "valueB" },
+      },
+      expect.anything()
+    );
   });
 
   it("Should not submit if on field is validating", () => {
