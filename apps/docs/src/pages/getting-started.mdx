@@ -61,13 +61,14 @@ import { useForm } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 
 export const MyForm = () => {
-  const form = useForm(); // create a new form
-
   const handleSubmit = (values) => {
     console.log(values);
   };
+
+  const form = useForm({ onSubmit: handleSubmit }); // create a new form
+  
   return (
-    <Formiz connect={form} onSubmit={handleSubmit} autoForm>
+    <Formiz connect={form} autoForm>
       <MyField
         name="email"
         validations={[
