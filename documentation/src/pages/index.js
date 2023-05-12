@@ -172,14 +172,13 @@ function Home() {
           </div>
           <a
             className={classnames(
-              'button button--link button--md text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100 whitespace-normal',
+              'button button--link button--lg text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100 whitespace-normal',
               styles.getStarted,
             )}
-            href="https://github.com/ivan-dalmet/formiz/issues/116"
-            target="_blank"
+            href="https://v2.formiz-react.com"
             rel="noopener noreferrer"
           >
-            Formiz v2 is under heavy developments!
+            Formiz v2 beta is available!
           </a>
         </div>
       </header>

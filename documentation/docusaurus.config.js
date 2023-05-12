@@ -38,6 +38,15 @@ module.exports = {
       apiKey: '65e00a07bf4d341582d20602b7aa9f72',
       indexName: 'formiz-react',
     },
+    announcementBar: {
+      id: 'formiz_v2',
+      content:
+      'Formiz V2 beta is available! 🐜 <a rel="noopener noreferrer" href="https://v2.formiz-react.com">The documentation is here!</a>.',
+      backgroundColor: '#69B97E',
+      textColor: '#000',
+      isCloseable: false,
+      
+    },
   },
   presets: [
     [
