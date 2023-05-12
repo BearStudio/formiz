@@ -41,7 +41,7 @@ const config: DocsThemeConfig = {
     key: "v2",
     dismissible: false,
     text: <a href="https://formiz-react.com" target="_blank">
-    🐜 This is Formiz v2 Alpha documentation. See V1 documentation →
+    🐜 This is Formiz v2 Beta documentation. See V1 documentation →
   </a>
   }
 };

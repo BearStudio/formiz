@@ -11,17 +11,17 @@ Full documentation: [formiz-react.com](https://formiz-react.com)
 Using npm:
 
 ```
-npm install @formiz/core@alpha
+npm install @formiz/core@beta
 ```
 
 Using yarn:
 
 ```
-yarn add @formiz/core@alpha
+yarn add @formiz/core@beta
 ```
 
 Using pnpm:
 
 ```
-pnpm i @formiz/core@alpha
+pnpm i @formiz/core@beta
 ```

@@ -11,17 +11,17 @@ Full documentation & demos: [formiz-react.com](https://formiz-react.com)
 Using npm:
 
 ```
-npm install @formiz/validations@alpha
+npm install @formiz/validations@beta
 ```
 
 or using yarn:
 
 ```
-yarn add @formiz/validations@alpha
+yarn add @formiz/validations@beta
 ```
 
 Using pnpm:
 
 ```
-pnpm i @formiz/validations@alpha
+pnpm i @formiz/validations@beta
 ```
