@@ -15,15 +15,15 @@ type FormValues = {};
 const DynamicSteps = () => {
   const toastValues = useToastValues();
 
-  const handleSubmit = (values: FormValues) => {
-    toastValues(values);
+  const form = useForm<FormValues>({
+    onValidSubmit: (values, form) => {
+      toastValues(values);
 
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-  };
-
-  const form = useForm({ onValidSubmit: handleSubmit });
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+    },
+  });
   const values = useFormFields({
     connect: form,
     fields: ["count"],

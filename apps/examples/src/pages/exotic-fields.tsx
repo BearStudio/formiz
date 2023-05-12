@@ -8,19 +8,19 @@ import { Formiz, useForm } from "@formiz/core";
 import { isMaxNumber, isMinNumber } from "@formiz/validations";
 import { NextPage } from "next";
 
+type FormValues = any;
+
 const ExoticFields: NextPage = () => {
   const toastValues = useToastValues();
 
-  const handleSubmit = (values: any) => {
-    toastValues(values);
+  const form = useForm<FormValues>({
+    onValidSubmit: (values, form) => {
+      toastValues(values);
 
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-  };
-
-  const form = useForm({
-    onValidSubmit: handleSubmit,
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+    },
     onValuesChange: console.log,
   });
 

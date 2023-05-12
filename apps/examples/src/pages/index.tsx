@@ -9,20 +9,20 @@ import { Formiz, useForm, useFormFields } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
+type FormValues = any;
+
 const SimpleForm: NextPage = () => {
   const toastValues = useToastValues();
 
-  const handleSubmit = (values: any) => {
-    toastValues(values);
-
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-  };
-
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: { company: "My Company" },
-    onValidSubmit: handleSubmit,
+    onValidSubmit: (values, form) => {
+      toastValues(values);
+
+      form.setErrors({
+        name: "You can display an error after an API call",
+      });
+    },
     onValuesChange: console.log,
     onValid: () => console.log("onValid"),
     onInvalid: () => console.log("onInvalid"),

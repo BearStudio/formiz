@@ -27,16 +27,16 @@ const INITIAL_VALUES = {
   ],
 };
 
+type FormValues = any;
+
 const Collection = () => {
   const toastValues = useToastValues();
 
-  const handleSubmit = (values: any) => {
-    toastValues(values);
-  };
-
-  const form = useForm({
-    onValidSubmit: handleSubmit,
+  const form = useForm<FormValues>({
     initialValues: INITIAL_VALUES,
+    onValidSubmit: (values) => {
+      toastValues(values);
+    },
   });
 
   const collection = useCollection({

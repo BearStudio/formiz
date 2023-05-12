@@ -25,8 +25,17 @@ const RealLife1: NextPage = () => {
     }
   };
 
-  const form = useForm({
-    onValidSubmit: handleSubmit,
+  const form = useForm<FormValues>({
+    onValidSubmit: (values, form) => {
+      toastValues(values);
+      form.setErrors({
+        "docker.image": "You can display an error after an API call",
+      });
+      const stepWithError = form.getStepByFieldName("docker.image");
+      if (stepWithError) {
+        form.goToStep(stepWithError.name);
+      }
+    },
     onValuesChange: console.log,
   });
 

@@ -85,6 +85,8 @@ export const formInterfaceSelector = (state: Store) => {
     isLastStep: state.steps.at(-1)?.name === currentStep?.name,
   };
 };
+export interface FormInterface
+  extends ReturnType<typeof formInterfaceSelector> {}
 
 export const stepInterfaceSelector = (state: Store) => (step: Step) => {
   return {
