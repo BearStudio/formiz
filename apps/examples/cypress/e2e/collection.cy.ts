@@ -91,4 +91,19 @@ describe("Collection", () => {
     cy.field("members[1].name").hasValue("Initial Name (2)");
     cy.field("members[1].company").hasValue("Initial Company (2)");
   });
+
+  it("Reset with new members", () => {
+    cy.field("members[0].name").hasValue("Default name (1)");
+    cy.field("members[0].company").hasValue("Initial Company (1)");
+    cy.field("members[1].name").hasValue("Initial Name (2)");
+    cy.field("members[1].company").hasValue("Initial Company (2)");
+
+    cy.get("button").contains("Add 3 members at index 1").click();
+    cy.get("button").contains("Reset form").click();
+
+    cy.field("members[0].name").hasValue("Default name (1)");
+    cy.field("members[0].company").hasValue("Initial Company (1)");
+    cy.field("members[1].name").hasValue("Initial Name (2)");
+    cy.field("members[1].company").hasValue("Initial Company (2)");
+  });
 });
