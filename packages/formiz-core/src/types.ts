@@ -163,13 +163,6 @@ export interface Store {
     reset(options?: ResetOptions): void;
     resetInitialValues(): void;
 
-    getFieldValidationsErrors<Value>(
-      value: Value,
-      formattedValue: Value,
-      required: FieldProps<Value>["required"],
-      validations: FieldProps<Value>["validations"]
-    ): { requiredErrors: ErrorMessage[]; validationsErrors: ErrorMessage[] };
-
     registerField<Value>(
       fieldId: string,
       newField: PartialField<Value> & Pick<Field<Value>, "name">,

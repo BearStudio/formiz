@@ -7,6 +7,7 @@ describe("Simple Form", () => {
   it("Simple Case", () => {
     cy.field("name").fill("John");
     cy.field("email").fill("john@company.com");
+    cy.field("confirmEmail").fill("john@company.com");
     cy.wait(1000);
     cy.formSubmit();
     cy.isFormSuccess();
@@ -27,6 +28,7 @@ describe("Simple Form", () => {
   it("Set fields errors", () => {
     cy.field("name").fill("John");
     cy.field("email").fill("john@company.com");
+    cy.field("confirmEmail").fill("john@company.com");
 
     cy.wait(1000);
     cy.formSubmit();
@@ -43,5 +45,30 @@ describe("Simple Form", () => {
     cy.wait(1000);
     cy.field("name").hasValue("John");
     cy.field("email").hasValue("john@company.com");
+  });
+
+  it("Update validations deps", () => {
+    cy.field("name").fill("John");
+    cy.field("email").fill("john@company.com");
+    cy.field("confirmEmail").fill("john@company.com");
+
+    cy.wait(1000);
+    cy.formSubmit();
+    cy.isFormSuccess();
+
+    cy.wait(100);
+
+    cy.field("email").fill("update");
+    cy.field("confirmEmail").hasError("Emails are not equals");
+  });
+
+  it("Reset form when field with validations deps", () => {
+    cy.field("email").fill("john@company.com");
+    cy.field("confirmEmail").fill("email");
+
+    cy.get("button").contains("Reset form").click();
+
+    cy.field("email").hasValue("");
+    cy.field("confirmEmail").hasValue("");
   });
 });

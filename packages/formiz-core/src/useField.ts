@@ -27,6 +27,7 @@ import {
   ERROR_USE_FIELD_MISSING_NAME,
   ERROR_USE_FIELD_MISSING_PROPS,
 } from "./errors";
+import { getFieldValidationsErrors } from "@/utils/validations";
 
 export const useField = <
   Props extends FieldProps<any> = FieldProps<any>,
@@ -325,13 +326,26 @@ export const useField = <
   const validationsDepsPrevRef = useRef(validationsDeps);
 
   useEffect(() => {
-    if (
-      (deferredValue !== undefined && deferredValue !== valueRef.current) ||
-      validationsDepsPrevRef.current !== validationsDeps
-    ) {
+    if (deferredValue !== undefined && deferredValue !== valueRef.current) {
       setFieldValue(deferredValue);
     }
-  }, [deferredValue, setFieldValue, validationsDeps]);
+  }, [deferredValue, setFieldValue]);
+
+  useEffect(() => {
+    if (validationsDepsPrevRef.current !== validationsDeps) {
+      const currentField = useStore.getState().fields.get(fieldIdRef.current);
+      const { requiredErrors, validationsErrors } = getFieldValidationsErrors(
+        currentField?.value,
+        currentField?.formattedValue,
+        currentField?.requiredRef?.current,
+        currentField?.validationsRef?.current
+      );
+      storeActions.updateField(fieldIdRef.current, {
+        requiredErrors,
+        validationsErrors,
+      });
+    }
+  }, [storeActions, validationsDeps, useStore]);
 
   const externalProcessing = {
     start: () =>

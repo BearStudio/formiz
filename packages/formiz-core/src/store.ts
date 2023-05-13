@@ -23,6 +23,7 @@ import type {
 } from "@/types";
 import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
+import { getFieldValidationsErrors } from "@/utils/validations";
 
 export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
@@ -102,7 +103,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
             const newValue = lodashGet(externalValues, field.name);
             if (newValue !== undefined) {
               const { requiredErrors, validationsErrors } =
-                get().actions.getFieldValidationsErrors(
+                getFieldValidationsErrors(
                   newValue,
                   newValue,
                   field.requiredRef?.current,
@@ -172,7 +173,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              get().actions.getFieldValidationsErrors(
+              getFieldValidationsErrors(
                 resetValue,
                 resetValueFormatted,
                 field.requiredRef?.current,
@@ -260,32 +261,6 @@ export const createStore = (defaultState?: StoreInitialState) =>
         });
       },
 
-      getFieldValidationsErrors: (
-        value,
-        formattedValue,
-        required,
-        validations
-      ) => {
-        // Required
-        const requiredErrors =
-          !!required && !formattedValue && formattedValue !== 0
-            ? [required !== true ? required : undefined]
-            : [];
-
-        // Sync Validations
-        const validationsErrors = (validations ?? [])
-          .filter(
-            (validation) =>
-              (validation.checkFalsy ||
-                !!formattedValue ||
-                formattedValue === 0) &&
-              !validation.handler(formattedValue, value)
-          )
-          .map(({ message }) => message);
-
-        return { requiredErrors, validationsErrors };
-      },
-
       // FIELDS
       registerField: (
         fieldId,
@@ -341,7 +316,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const formattedValue = formatValue(value as any);
 
           const { requiredErrors, validationsErrors } =
-            get().actions.getFieldValidationsErrors(
+            getFieldValidationsErrors(
               value,
               formattedValue,
               requiredRef?.current,
@@ -427,7 +402,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
             // Validations
             const { requiredErrors, validationsErrors } =
-              get().actions.getFieldValidationsErrors(
+              getFieldValidationsErrors(
                 value,
                 formattedValue,
                 field.requiredRef?.current,
