@@ -28,9 +28,9 @@ const SimpleForm: NextPage = () => {
     onInvalid: () => console.log("onInvalid"),
   });
 
-  const { accountType } = useFormFields({
+  const { accountType, email } = useFormFields({
     connect: form,
-    fields: ["accountType"],
+    fields: ["accountType", "email"],
     selector: (f) => f.value,
   });
 
@@ -78,6 +78,32 @@ const SimpleForm: NextPage = () => {
               onClick={() =>
                 form.setValues({
                   email: "john@company.com",
+                })
+              }
+            >
+              Fill with john@company.com
+            </Button>
+          </FieldInput>
+          <FieldInput
+            name="confirmEmail"
+            label="Confirm email"
+            type="email"
+            formatValue={(val) => (val || "").trim()}
+            required="Required"
+            validations={[
+              {
+                handler: (value) => value === email,
+                message: "Emails are not equals",
+                deps: [email],
+              },
+            ]}
+          >
+            <Button
+              size="sm"
+              variant="link"
+              onClick={() =>
+                form.setValues({
+                  confirmEmail: "john@company.com",
                 })
               }
             >
