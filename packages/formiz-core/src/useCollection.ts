@@ -4,7 +4,6 @@ import { StoreApi, UseBoundStore } from "zustand";
 import { Store } from "./types";
 import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
-import cloneDeep from "clone-deep";
 
 export interface UseCollectionOptions {
   name: string;
@@ -50,7 +49,7 @@ export const useCollection = <Data = unknown>({
     deepEqual
   );
 
-  const { resetKey, initialValues, isReady, keys } = useStore((state) => {
+  const { isReady, keys } = useStore((state) => {
     const initialValues = lodashGet(state.initialValues, name);
 
     if (
@@ -67,9 +66,7 @@ export const useCollection = <Data = unknown>({
       : [];
 
     return {
-      resetKey: state.form.resetKey,
       isReady: state.ready,
-      initialValues: initialValuesArray,
       keys:
         state.actions.getCollectionKeys(name) ??
         initialValuesArray.map((_, index) => index.toString()),
@@ -91,14 +88,12 @@ export const useCollection = <Data = unknown>({
   );
 
   const keysRef = useRef(keys);
-  const initialValueRef = useRef(initialValues);
 
   useEffect(() => {
     if (isReady) {
       collectionActions.setKeys(keysRef.current);
-      collectionActions.set(cloneDeep(initialValueRef.current));
     }
-  }, [isReady, resetKey, collectionActions]);
+  }, [isReady, collectionActions]);
 
   return {
     ...collectionActions,

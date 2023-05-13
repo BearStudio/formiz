@@ -157,16 +157,32 @@ export const createStore = (defaultState?: StoreInitialState) =>
             state.formConfigRef.current?.initialValues
           );
 
+          if (isResetAllowed("values", resetOptions)) {
+            state.collections.forEach((values, collectionName) => {
+              const collectionFields: Array<Field<unknown>> = lodashGet(
+                state.formConfigRef.current?.initialValues,
+                collectionName
+              );
+
+              state.collections.set(
+                collectionName,
+                collectionFields.map(
+                  (_, index) => values[index] ?? index.toString()
+                )
+              );
+            });
+          }
+
           state.fields.forEach((field) => {
-            const initialValue = lodashGet(initialValues, field.name) as Field<
-              unknown,
-              unknown
-            >;
+            const initialValue: Field<unknown> = lodashGet(
+              initialValues,
+              field.name
+            );
             initialValues = lodashOmit(initialValues, field.name);
 
             const formatValue = field.formatValue
               ? field.formatValue
-              : (v: Field<unknown, unknown>) => v;
+              : (v: Field<unknown>) => v;
 
             const resetValue = initialValue ?? field.defaultValue;
             const resetValueFormatted = formatValue(resetValue);
@@ -193,10 +209,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
                 : field.externalErrors,
               requiredErrors: isResetAllowed("values", resetOptions)
                 ? requiredErrors
-                : [],
+                : field.requiredErrors,
               validationsErrors: isResetAllowed("values", resetOptions)
                 ? validationsErrors
-                : [],
+                : field.validationsErrors,
               isPristine: isResetAllowed("pristine", resetOptions)
                 ? true
                 : field.isPristine,
@@ -227,6 +243,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
                 : state.form.currentStepName,
             },
             fields: state.fields,
+            collections: state.collections,
             steps: state.steps.map((step) => ({
               ...step,
               isSubmitted: isResetAllowed("submitted", resetOptions)
