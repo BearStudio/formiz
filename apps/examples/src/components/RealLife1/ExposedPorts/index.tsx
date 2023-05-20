@@ -7,7 +7,7 @@ import { AddPlaceholder } from "@/components/AddPlaceholder";
 
 export const ExposedPorts = () => {
   const values = useFormFields({
-    fields: ["ports"],
+    fields: ["ports"] as const,
     selector: (field) => field.value,
   });
   const exposedPorts = useCollection({

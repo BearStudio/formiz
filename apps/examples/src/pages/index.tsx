@@ -30,7 +30,7 @@ const SimpleForm: NextPage = () => {
 
   const { accountType, email } = useFormFields({
     connect: form,
-    fields: ["accountType", "email"],
+    fields: ["accountType", "email"] as const,
     selector: (f) => f.value,
   });
 

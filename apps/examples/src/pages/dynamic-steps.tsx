@@ -26,7 +26,7 @@ const DynamicSteps = () => {
   });
   const values = useFormFields({
     connect: form,
-    fields: ["count"],
+    fields: ["count"] as const,
     selector: (field) => ({ value: field.value, rawValue: field.rawValue }),
   });
 

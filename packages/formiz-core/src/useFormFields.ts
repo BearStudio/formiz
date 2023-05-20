@@ -7,13 +7,14 @@ import { ExposedExternalFieldState, Store } from "./types";
 import { getFormFields } from "./utils/form";
 
 type useFormFieldsProps<
-  Fields extends readonly string[] | undefined = undefined
+  Fields extends readonly string[] | undefined = undefined,
+  Selection = unknown
 > = {
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
   fields?: Fields;
-  selector?: (field: ExposedExternalFieldState<unknown>) => unknown;
+  selector?: (field: ExposedExternalFieldState<any>) => Selection;
 };
 
 type ConvertType<
@@ -29,14 +30,16 @@ type ConvertType<
   ? { [K in A]: Output }
   : never;
 
-type SelectedFields<T extends readonly string[] | undefined> =
-  T extends undefined
-    ? Record<string, any>
-    : T extends [infer A extends string, ...infer Rest extends string[]]
-    ? ConvertType<A> & SelectedFields<Rest>
-    : T extends [infer B extends string]
-    ? ConvertType<B>
-    : {};
+type SelectedFields<
+  T extends readonly string[] | undefined,
+  Selection
+> = T extends undefined
+  ? Record<string, any>
+  : T extends [infer A extends string, ...infer Rest extends string[]]
+  ? ConvertType<A, Selection> & SelectedFields<Rest, Selection>
+  : T extends [infer B extends string]
+  ? ConvertType<B, Selection>
+  : {};
 
 type ConvertReadOnlyTuple<T extends readonly any[] | undefined> =
   T extends undefined
@@ -46,8 +49,13 @@ type ConvertReadOnlyTuple<T extends readonly any[] | undefined> =
     : never;
 
 export const useFormFields = <
-  Fields extends readonly string[] | undefined = undefined
->({ connect, fields, selector }: useFormFieldsProps<Fields> = {}) => {
+  Fields extends readonly string[] | undefined = undefined,
+  Selection = unknown
+>({
+  connect,
+  fields,
+  selector,
+}: useFormFieldsProps<Fields, Selection> = {}) => {
   const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
@@ -79,8 +87,8 @@ export const useFormFields = <
         }),
         {}
       );
-    return getFormFields<any>(flatFields);
+    return getFormFields(flatFields);
   }, deepEqual);
 
-  return statefields as SelectedFields<ConvertReadOnlyTuple<Fields>>;
+  return statefields as SelectedFields<ConvertReadOnlyTuple<Fields>, Selection>;
 };
