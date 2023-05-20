@@ -19,6 +19,7 @@ import {
 } from "@/utils/form";
 import type {
   DefaultFormValues,
+  Field,
   FormatValue,
   GetFieldSetValueOptions,
   NullablePartial,
@@ -33,6 +34,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
   defaultState?: StoreInitialState<Values>
 ) =>
   create<Store<Values>>()((set, get) => ({
+    providerConfig: {
+      required: (formattedValue) => !formattedValue && formattedValue !== 0,
+    },
     ready: true,
     connected: false,
     fields: new Map(),
@@ -127,7 +131,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
                   newValue,
                   newValue,
                   field.requiredRef?.current,
-                  field.validationsRef?.current
+                  field.validationsRef?.current,
+                  state.providerConfig.required
                 );
               externalValues =
                 omitValueByFieldName(cloneDeep(externalValues), field.name) ??
@@ -258,7 +263,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 resetValue,
                 resetValueFormatted,
                 field.requiredRef?.current,
-                field.validationsRef?.current
+                field.validationsRef?.current,
+                state.providerConfig.required
               );
 
             state.fields.set(field.id, {
@@ -430,7 +436,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
               value,
               formattedValue,
               requiredRef?.current,
-              validationsRef?.current
+              validationsRef?.current,
+              state.providerConfig.required
             );
 
           state.fields.set(
@@ -520,7 +527,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 value,
                 formattedValue,
                 field.requiredRef?.current,
-                field.validationsRef?.current
+                field.validationsRef?.current,
+                state.providerConfig.required
               );
 
             state.fields.set(fieldId, {

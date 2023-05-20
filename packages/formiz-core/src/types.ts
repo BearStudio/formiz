@@ -152,6 +152,7 @@ export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
     | "isValidating"
     | "isExternalProcessing"
     | "isDebouncing"
+    | "stepName"
   > {
   value: FieldValue<Value> | undefined;
   /**
@@ -304,7 +305,7 @@ export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 export type StoreInitialState<Values extends object = DefaultFormValues> = {
   ready?: boolean;
   form?: Partial<Store<Values>["form"]>;
-} & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef">>;
+} & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef" | "providerConfig">>;
 
 export interface Store<Values extends object = DefaultFormValues> {
   ready: boolean;
@@ -486,7 +487,12 @@ export interface FormizProps {
   children?: React.ReactNode;
 }
 
+export interface FormizConfig {
+  required: (value: any, rawValue: any) => boolean;
+}
+
 export interface FormizProviderProps {
+  config?: FormizConfig;
   children: React.ReactNode;
 }
 
