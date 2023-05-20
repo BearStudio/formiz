@@ -11,7 +11,7 @@ type useFormFieldsProps = {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
   fields?: string[];
-  selector?: (field: ExposedExternalFieldState<unknown, unknown>) => unknown;
+  selector?: (field: ExposedExternalFieldState<unknown>) => unknown;
 };
 
 export const useFormFields = ({

@@ -16,6 +16,7 @@ import {
 } from "@/utils/form";
 import type {
   Field,
+  FieldValue,
   FormatValue,
   GetFieldSetValueOptions,
   Store,
@@ -25,7 +26,9 @@ import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
-export const createStore = (defaultState?: StoreInitialState) =>
+export const createStore = <Value = unknown, FormattedValue = Value>(
+  defaultState?: StoreInitialState
+) =>
   create<Store>()((set, get) => ({
     ready: true,
     fields: new Map(),
@@ -342,7 +345,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
           state.fields.set(
             fieldId,
-            generateField<unknown>(fieldId, {
+            generateField(fieldId, {
               ...(oldFieldById ?? {}),
               ...newField,
               defaultValue,

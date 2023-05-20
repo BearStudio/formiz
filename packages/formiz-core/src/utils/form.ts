@@ -74,29 +74,37 @@ export const getFormFields = <Selection>(
   return parseValues(flatFields);
 };
 
-export const getField = <Value>(fields: Fields, fieldId: string) =>
-  fields.get(fieldId) as Field<Value> | undefined;
+export const getField = <Value = unknown, FormattedValue = Value>(
+  fields: Fields,
+  fieldId: string
+) => fields.get(fieldId) as Field<Value, FormattedValue>;
 
-export const getFieldIsValid = <Value>(field: Field<Value>) =>
+export const getFieldIsValid = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>
+) =>
   !field.requiredErrors.length &&
   !field.validationsErrors.length &&
   !field.validationsAsyncErrors.length &&
   !field.externalErrors.length;
 
-export const getFieldIsPristine = <Value>(field: Field<Value>) =>
-  field.isPristine;
+export const getFieldIsPristine = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>
+) => field.isPristine;
 
-export const getFieldIsValidating = <Value>(field: Field<Value>) =>
-  field.isValidating;
+export const getFieldIsValidating = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>
+) => field.isValidating;
 
-export const getFieldIsExternalProcessing = <Value>(field: Field<Value>) =>
-  field.isExternalProcessing;
+export const getFieldIsExternalProcessing = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>
+) => field.isExternalProcessing;
 
-export const getFieldIsDebouncing = <Value>(field: Field<Value>) =>
-  field.isDebouncing;
+export const getFieldIsDebouncing = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>
+) => field.isDebouncing;
 
-export const getFieldIsProcessing = <Value>(
-  field: Field<Value>,
+export const getFieldIsProcessing = <Value, FormattedValue>(
+  field: Field<Value, FormattedValue>,
   formIsReady: boolean = true
 ) =>
   !formIsReady ||
