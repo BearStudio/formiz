@@ -1,8 +1,6 @@
-import { Store } from "@/types";
 import React from "react";
-import { UseBoundStore, StoreApi } from "zustand";
 
-export interface CreateContextOptions<Value = unknown, FormattedValue = Value> {
+export interface CreateContextOptions {
   /**
    * If `true`, React will throw if context is `null` or `undefined`
    * In some cases, you might want to support nested context, so you can set it to `false`
@@ -16,36 +14,27 @@ export interface CreateContextOptions<Value = unknown, FormattedValue = Value> {
    * The display name of the context
    */
   name?: string;
-
-  value?: Value;
-  formattedValue?: FormattedValue;
 }
 
-export interface FormContextProps<Value = unknown, FormattedValue = Value> {
-  useStore: UseBoundStore<StoreApi<Store>>;
-}
+type CreateContextReturn<T> = [React.Provider<T>, () => T, React.Context<T>];
 
 /**
  * Creates a named context, provider, and hook.
  *
  * @param options create context options
  */
-export function createContext<Value = unknown, FormattedValue = Value>(
-  options: CreateContextOptions = {}
-) {
+export function createContext<ContextType>(options: CreateContextOptions = {}) {
   const {
     strict = true,
     errorMessage = "useContext: `context` is undefined. Seems you forgot to wrap component within the Provider",
     name,
   } = options;
 
-  const Context = React.createContext<
-    FormContextProps<Value, FormattedValue> | undefined
-  >(undefined);
+  const Context = React.createContext<ContextType | undefined>(undefined);
 
   Context.displayName = name;
 
-  function useContext<Value = unknown, FormattedValue = Value>() {
+  function useContext() {
     const context = React.useContext(Context);
 
     if (!context && strict) {
@@ -55,8 +44,12 @@ export function createContext<Value = unknown, FormattedValue = Value>(
       throw error;
     }
 
-    return context as FormContextProps<Value, FormattedValue>;
+    return context;
   }
 
-  return [Context.Provider, useContext, Context] as const;
+  return [
+    Context.Provider,
+    useContext,
+    Context,
+  ] as CreateContextReturn<ContextType>;
 }

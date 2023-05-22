@@ -88,23 +88,21 @@ export const formInterfaceSelector = (state: Store) => {
 export interface FormInterface
   extends ReturnType<typeof formInterfaceSelector> {}
 
-export const stepInterfaceSelector =
-  <Value = unknown, FormattedValue = Value>(state: Store) =>
-  (step: Step) => {
-    return {
-      name: step.name,
-      label: step.label,
-      isSubmitted: step.isSubmitted || state.form.isSubmitted,
-      index: state.steps
-        .filter((step) => step.isEnabled)
-        .findIndex((s) => s.name === step.name),
-      isCurrent: state.form.currentStepName === step.name,
-      isValid: getStepIsValid(step.name, state.fields),
-      isPristine: getStepIsPristine(step.name, state.fields),
-      isValidating: getStepIsValidating(step.name, state.fields),
-      isVisited: step.isVisited,
-    };
+export const stepInterfaceSelector = (state: Store) => (step: Step) => {
+  return {
+    name: step.name,
+    label: step.label,
+    isSubmitted: step.isSubmitted || state.form.isSubmitted,
+    index: state.steps
+      .filter((step) => step.isEnabled)
+      .findIndex((s) => s.name === step.name),
+    isCurrent: state.form.currentStepName === step.name,
+    isValid: getStepIsValid(step.name, state.fields),
+    isPristine: getStepIsPristine(step.name, state.fields),
+    isValidating: getStepIsValidating(step.name, state.fields),
+    isVisited: step.isVisited,
   };
+};
 
 export const fieldInterfaceSelector =
   <Value = unknown, FormattedValue = Value>(state: Store) =>

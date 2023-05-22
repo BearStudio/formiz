@@ -26,9 +26,7 @@ import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
-export const createStore = <Value = unknown, FormattedValue = Value>(
-  defaultState?: StoreInitialState
-) =>
+export const createStore = (defaultState?: StoreInitialState) =>
   create<Store>()((set, get) => ({
     ready: true,
     fields: new Map(),
