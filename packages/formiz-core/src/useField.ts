@@ -16,7 +16,6 @@ import { useStepContext } from "@/FormizStep";
 import type {
   UseFieldConfig,
   FieldProps,
-  Store,
   ExposedField,
   FieldValue,
 } from "@/types";
@@ -36,7 +35,7 @@ export const useField = <
 >(
   props: Props,
   config: UseFieldConfig<Value, FormattedValue> = {}
-): ExposedField<Value, Props> => {
+): ExposedField<Value, FormattedValue, Props> => {
   if (!props) {
     throw new Error(ERROR_USE_FIELD_MISSING_PROPS);
   }
@@ -127,27 +126,27 @@ export const useField = <
   const { value, ...exposedField } = useStore(
     useCallback(
       (state) => {
-        const field = getField<Value>(state.fields, fieldId);
+        const field = getField<Value, FormattedValue>(state.fields, fieldId);
 
-        let draft = fieldInterfaceSelector<Value | undefined>(state)({
-          // Default
-          name,
-          value: undefined,
-          formattedValue: undefined,
-          defaultValue: undefined,
-          formatValue: (v) => v,
-          id: fieldId,
-          isTouched: false,
-          requiredErrors: [],
-          validationsErrors: [],
-          validationsAsyncErrors: [],
-          externalErrors: [],
-          isPristine: true,
-          isValidating: false,
-          isExternalProcessing: false,
-          isDebouncing: false,
+        let draft = fieldInterfaceSelector<Value, FormattedValue>(state)({
           // Field
-          ...(field ?? {}),
+          ...(field ?? {
+            name,
+            value: undefined,
+            formattedValue: undefined,
+            defaultValue: undefined,
+            formatValue: (v) => v,
+            id: fieldId,
+            isTouched: false,
+            requiredErrors: [],
+            validationsErrors: [],
+            validationsAsyncErrors: [],
+            externalErrors: [],
+            isPristine: true,
+            isValidating: false,
+            isExternalProcessing: false,
+            isDebouncing: false,
+          }),
         });
 
         if (!configRef.current.unstable_notifyOnChangePropsExclusions)
@@ -166,7 +165,7 @@ export const useField = <
     deepEqual
   );
 
-  const valueRef = useRef(value ?? null);
+  const valueRef = useRef<FieldValue<Value>>(value ?? null);
   valueRef.current = value ?? null;
   const requiredRef = useRef(required);
   requiredRef.current = required;

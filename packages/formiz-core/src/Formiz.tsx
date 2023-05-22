@@ -25,7 +25,7 @@ export const Formiz = ({ children, connect, autoForm }: FormizProps) => {
   return (
     <FormContextProvider
       value={{
-        useStore: useStore as UseBoundStore<StoreApi<Store>>,
+        useStore,
       }}
     >
       {autoForm ? (

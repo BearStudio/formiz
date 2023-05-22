@@ -16,6 +16,7 @@ import {
 } from "@/utils/form";
 import type {
   Field,
+  FieldValue,
   FormatValue,
   GetFieldSetValueOptions,
   Store,
@@ -342,7 +343,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
           state.fields.set(
             fieldId,
-            generateField<unknown>(fieldId, {
+            generateField(fieldId, {
               ...(oldFieldById ?? {}),
               ...newField,
               defaultValue,

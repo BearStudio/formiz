@@ -105,8 +105,10 @@ export const stepInterfaceSelector = (state: Store) => (step: Step) => {
 };
 
 export const fieldInterfaceSelector =
-  <Value>(state: Store) =>
-  (field: Field<Value>): ExposedFieldState<Value> => {
+  <Value = unknown, FormattedValue = Value>(state: Store) =>
+  (
+    field: Field<Value, FormattedValue>
+  ): ExposedFieldState<Value, FormattedValue> => {
     const fieldStep = state.steps.find((step) => step.name === field.stepName);
     const errorMessages = [
       field.externalErrors.filter((message) => !!message),
@@ -146,10 +148,14 @@ export const fieldInterfaceSelector =
   };
 
 export const fieldExternalInterfaceSelector =
-  <Value>(state: Store) =>
-  (field: Field<Value>): ExposedExternalFieldState<Value> => {
-    const { value, formattedValue, ...internalField } =
-      fieldInterfaceSelector<Value>(state)(field);
+  <Value = unknown, FormattedValue = Value>(state: Store) =>
+  (
+    field: Field<Value, FormattedValue>
+  ): ExposedExternalFieldState<Value, FormattedValue> => {
+    const { value, formattedValue, ...internalField } = fieldInterfaceSelector<
+      Value,
+      FormattedValue
+    >(state)(field);
     return {
       ...internalField,
       value: formattedValue,
