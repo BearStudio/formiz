@@ -1,4 +1,6 @@
 import { FormInterface } from "@/selectors";
+import { useForm } from "@/useForm";
+import { useFormContext } from "@/useFormContext";
 import React, { FormEvent, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
@@ -539,3 +541,7 @@ export interface UseFieldConfig<Value, FormattedValue = unknown>
     FormattedValue
   >)[];
 }
+
+export type Form = ReturnType<typeof useForm>;
+
+export type FormContext = ReturnType<typeof useFormContext>;

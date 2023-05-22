@@ -6,4 +6,18 @@ export { useFormFields } from "./useFormFields";
 export { deepMemo } from "./deepMemo";
 export { FormizStep } from "./FormizStep";
 export { useCollection } from "./useCollection";
-export type { FieldProps } from "./types";
+export type {
+  FieldProps,
+  FieldValidation,
+  FieldValidationAsync,
+  Field,
+  Step,
+  ResetElement,
+  ResetOptions,
+  useFormProps,
+  FormizProviderProps,
+  FormizStepProps,
+  FormizProps,
+  Form,
+  FormContext,
+} from "./types";
