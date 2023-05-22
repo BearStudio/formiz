@@ -7,7 +7,7 @@ import { ExposedExternalFieldState, Store } from "@/types";
 import { getFormValues } from "@/utils/form";
 import Logo from "@/utils/Logo";
 import { deepEqual } from "fast-equals";
-import { useRef, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export const FormizDevTools = () => {
@@ -51,33 +51,43 @@ export const FormizDevTools = () => {
         height: "25vh",
         background: "#48bb78",
         boxShadow: "10px",
-        borderRadius: "10px",
-        padding: "5px",
-        overflow: "hidden",
+        padding: "12px",
+        overflow: "scroll",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
       }}
     >
-      {storesRef.current?.length > 1 && (
-        <select
-          value={currentStore?.getState().form.id}
-          onChange={(e) => {
-            console.log(e.target.value);
-            setCurrentStoreId(e.target.value);
-          }}
-        >
-          {storesIds.map((storeId) => (
-            <option key={storeId} label={storeId} value={storeId} />
-          ))}
-        </select>
-      )}
-      <FormizDevToolsContent store={currentStore ?? storesRef.current?.[0]} />
+      <FormizDevToolsContent store={currentStore ?? storesRef.current?.[0]}>
+        <p style={{ fontWeight: "bold" }}>
+          Form{" "}
+          {storesRef.current?.length > 1 ? (
+            <select
+              value={currentStore?.getState().form.id}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setCurrentStoreId(e.target.value);
+              }}
+            >
+              {storesIds.map((storeId) => (
+                <option key={storeId} label={storeId} value={storeId} />
+              ))}
+            </select>
+          ) : (
+            <span>{storesIds?.[0]}</span>
+          )}
+        </p>
+      </FormizDevToolsContent>
     </div>
   );
 };
 
 export const FormizDevToolsContent = ({
   store: useStore,
+  children,
 }: {
   store: UseBoundStore<StoreApi<Store>>;
+  children: React.ReactNode;
 }) => {
   const { statefields, formValues, formState } = useStore((state) => {
     const statefields = Array.from(state.fields.values()).reduce(
@@ -97,20 +107,21 @@ export const FormizDevToolsContent = ({
   return (
     <div
       style={{
-        overflow: "scroll",
         height: "25vh",
-        background: "#00000030",
-        borderRadius: "7px",
-        padding: "5px",
         display: "flex",
-        flexDirection: "column",
-        gap: "5px",
+        flexDirection: "row",
+        gap: "12px",
       }}
     >
-      <div>
-        <p>
-          <strong>Form {formState.id}</strong>
-        </p>
+      <div
+        style={{
+          display: "flex",
+          flex: 1,
+          flexDirection: "column",
+          gap: "6px",
+        }}
+      >
+        {children}
         <p>
           <strong>resetKey</strong>: {formState.resetKey} •{" "}
           <strong>isReady</strong>: {displayBoolean(formState.isReady)} •{" "}
@@ -186,16 +197,16 @@ export const FormizDevToolsContent = ({
                 {displayBoolean(step.isValidating)} • <strong>isVisited</strong>
                 : {displayBoolean(step.isVisited)}{" "}
               </p>
-              {displayFieldsEntries(
-                allFieldsEntries.filter(
+              <FieldEntries
+                fieldsEntries={allFieldsEntries.filter(
                   ([_, field]) => field.stepName === step.name
-                )
-              )}
+                )}
+              />
             </div>
           ))}
         </div>
       ) : (
-        displayFieldsEntries(allFieldsEntries)
+        <FieldEntries fieldsEntries={allFieldsEntries} flex={2} />
       )}
     </div>
   );
@@ -249,15 +260,19 @@ const displayField = (field: ExposedExternalFieldState<unknown>) => (
   </div>
 );
 
-const displayFieldsEntries = (
-  fieldsEntries: Array<[string, ExposedExternalFieldState<unknown>]>
-) => (
-  <div>
+const FieldEntries = ({
+  fieldsEntries,
+  ...style
+}: CSSProperties & {
+  fieldsEntries: Array<[string, ExposedExternalFieldState<unknown>]>;
+}) => (
+  <div style={style}>
     <p style={{ marginTop: "10px", fontWeight: "bold" }}>Fields</p>
     <div
       style={{
         display: "flex",
-        gap: "2rem",
+        flexDirection: "column",
+        gap: "6px",
         overflowX: "scroll",
       }}
     >
