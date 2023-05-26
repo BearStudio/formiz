@@ -10,7 +10,6 @@ export type {
   FieldValidation,
   FieldValidationAsync,
   Field,
-  Step,
   ResetElement,
   ResetOptions,
   useFormProps,
@@ -20,3 +19,4 @@ export type {
   Form,
   FormContext,
 } from "./types";
+export type { StepInterface as Step } from "@/selectors";

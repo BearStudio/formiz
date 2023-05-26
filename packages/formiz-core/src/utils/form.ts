@@ -163,7 +163,7 @@ export const generateField = <Value>(
   field: PartialField<Value> & Pick<Field<Value>, "name" | "value">
 ): Field<Value> => {
   return {
-    formattedValue: field.value,
+    formattedValue: field.value as Value,
     defaultValue: field.value,
     isPristine: true,
     isTouched: false,

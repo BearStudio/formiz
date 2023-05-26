@@ -316,7 +316,7 @@ export const useField = <
 
   useEffect(() => {
     if (deferredValue !== undefined && deferredValue !== valueRef.current) {
-      storeActions.getFieldSetValue<Value>({
+      storeActions.getFieldSetValue<Value, FormattedValue>({
         fieldId: fieldIdRef.current,
         onValueChange: onValueChangeRef.current,
         formatValue: formatValueRef.current,

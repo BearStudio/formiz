@@ -334,7 +334,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const formattedValue = formatValue(value as any);
 
           const { requiredErrors, validationsErrors } =
-            getFieldValidationsErrors(
+            getFieldValidationsErrors<unknown, unknown>(
               value,
               formattedValue,
               requiredRef?.current,
@@ -400,14 +400,17 @@ export const createStore = (defaultState?: StoreInitialState) =>
         }),
 
       getFieldSetValue:
-        <Value>({
+        <Value, FormattedValue>({
           fieldId,
           onValueChange,
           formatValue,
-        }: GetFieldSetValueOptions<Value>) =>
+        }: GetFieldSetValueOptions<Value, FormattedValue>) =>
         (newValue) => {
           set((state) => {
-            const field = getField<Value>(state.fields, fieldId);
+            const field = getField<Value, FormattedValue>(
+              state.fields,
+              fieldId
+            );
 
             if (!field) return {};
 

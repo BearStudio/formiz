@@ -10,21 +10,18 @@ export type ErrorMessage = string | undefined;
 export type FormatValue<Value = unknown, FormattedValue = unknown> = (
   value: FieldValue<Value>
 ) => FormattedValue;
-export type OnValueChange<Value, FormattedValue = unknown> = (
+export type OnValueChange<Value = unknown, FormattedValue = Value> = (
   value?: FieldValue<Value>,
   formattedValue?: FieldValue<FormattedValue>
 ) => void;
 
-export interface FieldValidation<Value, FormattedValue = unknown> {
+export interface FieldValidation<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
    * @param value the value as presents in form values.
    * @param rawValue the value before formatting.
    */
-  handler(
-    value?: FieldValue<FormattedValue>,
-    rawValue?: FieldValue<Value>
-  ): boolean;
+  handler(value?: FormattedValue, rawValue?: FieldValue<Value>): boolean;
   /**
    * Message if the validation is not respected.
    */
@@ -39,7 +36,7 @@ export interface FieldValidation<Value, FormattedValue = unknown> {
   checkFalsy?: boolean;
 }
 
-export interface FieldValidationAsync<Value, FormattedValue = unknown> {
+export interface FieldValidationAsync<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
    * @param value the value as presents in form values.
@@ -79,7 +76,7 @@ export interface Field<Value = unknown, FormattedValue = Value> {
   /**
    * Formatted value of the field, as presents in form values.
    */
-  formattedValue: FieldValue<FormattedValue>;
+  formattedValue: FormattedValue;
   /**
    * Default value of the field, the one give when field is registered.
    */
@@ -131,11 +128,15 @@ export interface Field<Value = unknown, FormattedValue = Value> {
   /**
    * Reference of required value.
    */
-  requiredRef?: React.MutableRefObject<FieldProps<Value>["required"]>;
+  requiredRef?: React.MutableRefObject<
+    FieldProps<Value, FormattedValue>["required"]
+  >;
   /**
    * Reference of validations value.
    */
-  validationsRef?: React.MutableRefObject<FieldProps<Value>["validations"]>;
+  validationsRef?: React.MutableRefObject<
+    FieldProps<Value, FormattedValue>["validations"]
+  >;
 }
 
 export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
@@ -278,10 +279,10 @@ export interface Step {
 
 export type PartialStep = Partial<Omit<Step, "name">>;
 
-export type GetFieldSetValueOptions<Value> = {
+export type GetFieldSetValueOptions<Value, FormattedValue> = {
   fieldId: string;
-  formatValue: FormatValue<Value>;
-  onValueChange: OnValueChange<Value>;
+  formatValue: FormatValue<Value, FormattedValue>;
+  onValueChange: OnValueChange<Value, FormattedValue>;
 };
 
 export type ResetElement =
@@ -336,8 +337,12 @@ export interface Store {
       options?: {
         defaultValue?: FieldValue<Value>;
         formatValue?: FormatValue<Value, FormattedValue>;
-        requiredRef?: React.MutableRefObject<FieldProps<Value>["required"]>;
-        validationsRef?: React.MutableRefObject<FieldValidation<Value>[]>;
+        requiredRef?: React.MutableRefObject<
+          FieldProps<Value, FormattedValue>["required"]
+        >;
+        validationsRef?: React.MutableRefObject<
+          FieldValidation<Value, FormattedValue>[]
+        >;
       }
     ): void;
     unregisterField(
@@ -348,8 +353,8 @@ export interface Store {
       }
     ): void;
     updateField<Value>(fieldId: string, newField: PartialField<Value>): void;
-    getFieldSetValue<Value>(
-      options: GetFieldSetValueOptions<Value>
+    getFieldSetValue<Value, FormattedValue>(
+      options: GetFieldSetValueOptions<Value, FormattedValue>
     ): (fieldValue: FieldValue<Value> | ((oldValue: Value) => Value)) => void;
     getFieldSetIsTouched(fieldId: string): (isTouched: boolean) => void;
 
@@ -491,7 +496,7 @@ export interface FormizStepProps extends Pick<Step, "name" | "label"> {
   autoHide?: boolean;
 }
 
-export interface FieldProps<Value, FormattedValue = Value>
+export interface FieldProps<Value = unknown, FormattedValue = Value>
   extends Pick<Field<Value, FormattedValue>, "name"> {
   /**
    * Default value of the field, the one give when field is registered.
@@ -527,7 +532,7 @@ export interface FieldProps<Value, FormattedValue = Value>
   keepValue?: boolean;
 }
 
-export interface UseFieldConfig<Value, FormattedValue = unknown>
+export interface UseFieldConfig<Value = unknown, FormattedValue = Value>
   extends Pick<
     FieldProps<Value, FormattedValue>,
     | "formatValue"

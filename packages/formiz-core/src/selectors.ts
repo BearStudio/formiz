@@ -104,6 +104,9 @@ export const stepInterfaceSelector = (state: Store) => (step: Step) => {
   };
 };
 
+export interface StepInterface
+  extends ReturnType<typeof stepInterfaceSelector> {}
+
 export const fieldInterfaceSelector =
   <Value = unknown, FormattedValue = Value>(state: Store) =>
   (
