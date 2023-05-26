@@ -306,16 +306,6 @@ export const useField = <
   const onValueChangeRef = useRef(onValueChange);
   onValueChangeRef.current = onValueChange;
 
-  const setFieldValue = useMemo(
-    () =>
-      storeActions.getFieldSetValue<Value>({
-        fieldId: fieldIdRef.current,
-        onValueChange: onValueChangeRef.current,
-        formatValue: formatValueRef.current,
-      }),
-    [storeActions]
-  );
-
   const validationsDeps = JSON.stringify(
     validations.map((validation) => ({
       deps: validation.deps,
@@ -326,9 +316,13 @@ export const useField = <
 
   useEffect(() => {
     if (deferredValue !== undefined && deferredValue !== valueRef.current) {
-      setFieldValue(deferredValue);
+      storeActions.getFieldSetValue<Value>({
+        fieldId: fieldIdRef.current,
+        onValueChange: onValueChangeRef.current,
+        formatValue: formatValueRef.current,
+      })(deferredValue);
     }
-  }, [deferredValue, setFieldValue]);
+  }, [deferredValue, storeActions]);
 
   useEffect(() => {
     if (validationsDepsPrevRef.current !== validationsDeps) {
