@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 import { chakra, Icon, useToken } from "@chakra-ui/react";
 import { FiPaperclip } from "react-icons/fi";
 
@@ -21,7 +21,7 @@ export type FieldUploadProps<FormattedValue> = FieldProps<
 > &
   FormGroupProps;
 
-const FieldUploadBase = <FormattedValue = Value,>(
+export const FieldUpload = <FormattedValue = Value,>(
   props: FieldUploadProps<FormattedValue>
 ) => {
   const {
@@ -115,5 +115,3 @@ const FieldUploadBase = <FormattedValue = Value,>(
     </FormGroup>
   );
 };
-
-export const FieldUpload = deepMemo(FieldUploadBase);

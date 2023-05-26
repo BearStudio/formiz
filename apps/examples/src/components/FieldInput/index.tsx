@@ -9,7 +9,7 @@ import {
   InputRightElement,
   Spinner,
 } from "@chakra-ui/react";
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
@@ -25,7 +25,7 @@ export type FieldInputProps<FormattedValue> = FieldProps<
     isLoading?: boolean;
   };
 
-const FieldInputBase = <FormattedValue = Value,>(
+export const FieldInput = <FormattedValue = Value,>(
   props: FieldInputProps<FormattedValue>
 ) => {
   const {
@@ -114,5 +114,3 @@ const FieldInputBase = <FormattedValue = Value,>(
     </FormGroup>
   );
 };
-
-export const FieldInput = deepMemo(FieldInputBase);
