@@ -15,7 +15,9 @@ import {
 } from "@/utils/form";
 import { deepEqual } from "fast-equals";
 
-export const useForm = <Values = unknown,>(
+export const useForm = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
   formConfig?: useFormProps<Values>
 ) => {
   const defaultFormId = useId();
@@ -35,7 +37,7 @@ export const useForm = <Values = unknown,>(
   const storeDefaultStateRef = useRef(storeDefaultState);
   storeDefaultStateRef.current = storeDefaultState;
 
-  const useStoreRef = useRef<UseBoundStore<StoreApi<Store>>>();
+  const useStoreRef = useRef<UseBoundStore<StoreApi<Store<Values>>>>();
   if (!useStoreRef.current) {
     useStoreRef.current = createStore({
       ready: formConfigRef.current?.ready === false ? false : true,

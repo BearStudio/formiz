@@ -21,7 +21,11 @@ import {
   getFieldIsExternalProcessing,
 } from "@/utils/form";
 
-export const formInterfaceSelector = (state: Store) => {
+export const formInterfaceSelector = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  state: Store<Values>
+) => {
   const currentStep = state.steps.find(
     (step) => step.name === state.form.currentStepName
   );
@@ -47,7 +51,7 @@ export const formInterfaceSelector = (state: Store) => {
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
-    collection: (fieldName: string) => ({
+    collection: (fieldName: keyof Values) => ({
       setKeys: state.actions.setCollectionKeys(fieldName),
       set: state.actions.setCollectionValues(fieldName),
       insertMultiple: state.actions.insertMultipleCollectionValues(fieldName),

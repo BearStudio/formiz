@@ -5,7 +5,6 @@ import React, { FormEvent, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export type FieldValue<Value = unknown> = Value | null;
-export type Values = Record<string, unknown>;
 export type ErrorMessage = string | undefined;
 export type FormatValue<Value = unknown, FormattedValue = unknown> = (
   value: FieldValue<Value>
@@ -298,12 +297,16 @@ export type ResetElement =
 
 export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
-export type StoreInitialState = {
+export type StoreInitialState<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = {
   ready?: boolean;
-  form?: Partial<Store["form"]>;
-} & Partial<Pick<Store, "initialValues" | "formConfigRef">>;
+  form?: Partial<Store<Values>["form"]>;
+} & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef">>;
 
-export interface Store {
+export interface Store<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> {
   ready: boolean;
   fields: Fields;
   collections: Collections;
@@ -320,13 +323,13 @@ export interface Store {
   initialValues: Partial<Values>;
   formConfigRef: RefObject<useFormProps>;
   actions: {
-    setReady(initialState?: Omit<StoreInitialState, "ready">): void;
+    setReady(initialState?: Omit<StoreInitialState<Values>, "ready">): void;
     submitForm(e?: FormEvent): void;
     setValues(
       newValues: Partial<Values>,
       options?: { keepPristine?: boolean }
     ): void;
-    setErrors(errors: Record<string, unknown>): void;
+    setErrors(errors: Record<keyof Values, string>): void;
     reset(options?: ResetOptions): void;
     resetInitialValues(): void;
 
@@ -367,47 +370,47 @@ export interface Store {
     goToPreviousStep(): void;
 
     setCollectionKeys(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
     ) => void;
-    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
+    getCollectionKeys(fieldName: keyof Values): CollectionKey[] | undefined;
     setCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       values: unknown[],
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
     insertMultipleCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       index: number,
       values?: unknown[],
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
     insertCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       index: number,
       value?: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
     prependCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       value: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
     appendCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       value: unknown,
       options?: Parameters<Store["actions"]["setValues"]>[1]
     ) => void;
     removeMultipleCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (indexes: number[]) => void;
-    removeCollectionValue(fieldName: string): (index: number) => void;
+    removeCollectionValue(fieldName: keyof Values): (index: number) => void;
   };
 }
 

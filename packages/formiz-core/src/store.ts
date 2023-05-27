@@ -16,7 +16,6 @@ import {
 } from "@/utils/form";
 import type {
   Field,
-  FieldValue,
   FormatValue,
   GetFieldSetValueOptions,
   Store,
@@ -26,8 +25,12 @@ import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
-export const createStore = (defaultState?: StoreInitialState) =>
-  create<Store>()((set, get) => ({
+export const createStore = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  defaultState?: StoreInitialState<Values>
+) =>
+  create<Store<Values>>()((set, get) => ({
     ready: true,
     fields: new Map(),
     collections: new Map(),
@@ -113,7 +116,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
               externalValues = lodashOmit(
                 cloneDeep(externalValues),
                 field.name
-              );
+              ) as Partial<Values>;
               state.fields.set(field.id, {
                 ...field,
                 value: newValue,
@@ -297,19 +300,19 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const externalValues = lodashOmit(
             cloneDeep(state.externalValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const keepValue = lodashGet(state.keepValues, newField.name);
           const keepValues = lodashOmit(
             cloneDeep(state.keepValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const initialValue = lodashGet(state.initialValues, newField.name);
           const initialValues = lodashOmit(
             cloneDeep(state.initialValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const getValue = () => {
             if (externalValue !== undefined) {
@@ -601,7 +604,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
       setCollectionKeys: (fieldName) => (keys) => {
         set((state) => {
           get().collections.set(
-            fieldName,
+            fieldName.toString(),
             typeof keys === "function"
               ? keys(get().actions.getCollectionKeys(fieldName) ?? [])
               : keys
@@ -613,12 +616,15 @@ export const createStore = (defaultState?: StoreInitialState) =>
       },
 
       getCollectionKeys: (fieldName) => {
-        return get().collections.get(fieldName);
+        return get().collections.get(fieldName.toString());
       },
 
       setCollectionValues: (fieldName) => (values, options) => {
         set((state) => {
-          get().actions.setValues({ [fieldName]: values }, options);
+          get().actions.setValues(
+            { [fieldName]: values } as Partial<Values>,
+            options
+          );
           get().actions.setCollectionKeys(fieldName)((oldKeys) =>
             values.map((_, index) => oldKeys?.[index] ?? uniqid())
           );
@@ -653,7 +659,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
               ];
 
               setTimeout(() => {
-                get().actions.setValues({ [fieldName]: newValues }, options);
+                get().actions.setValues(
+                  { [fieldName]: newValues } as Partial<Values>,
+                  options
+                );
               });
 
               return newKeys;
