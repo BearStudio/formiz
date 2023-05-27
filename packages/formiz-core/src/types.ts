@@ -321,7 +321,7 @@ export interface Store<
   keepValues: Partial<Values>;
   externalValues: Partial<Values>;
   initialValues: Partial<Values>;
-  formConfigRef: RefObject<useFormProps>;
+  formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
     setReady(initialState?: Omit<StoreInitialState<Values>, "ready">): void;
     submitForm(e?: FormEvent): void;
@@ -329,7 +329,11 @@ export interface Store<
       newValues: Partial<Values>,
       options?: { keepPristine?: boolean }
     ): void;
-    setErrors(errors: Record<keyof Values, string>): void;
+    setErrors(
+      errors: Partial<
+        Record<keyof Values extends string ? keyof Values : never, string>
+      >
+    ): void;
     reset(options?: ResetOptions): void;
     resetInitialValues(): void;
 
@@ -379,33 +383,33 @@ export interface Store<
       fieldName: keyof Values
     ): (
       values: unknown[],
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertMultipleCollectionValues(
       fieldName: keyof Values
     ): (
       index: number,
       values?: unknown[],
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertCollectionValue(
       fieldName: keyof Values
     ): (
       index: number,
       value?: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     prependCollectionValue(
       fieldName: keyof Values
     ): (
       value: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     appendCollectionValue(
       fieldName: keyof Values
     ): (
       value: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     removeMultipleCollectionValues(
       fieldName: keyof Values
@@ -414,7 +418,9 @@ export interface Store<
   };
 }
 
-export interface useFormProps<Values = unknown> {
+export interface useFormProps<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> {
   /**
    * Id of the form.
    */
@@ -434,27 +440,27 @@ export interface useFormProps<Values = unknown> {
   /**
    * Function triggered on every form values change.
    */
-  onValuesChange?(values: Values, form: FormInterface): void;
+  onValuesChange?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit.
    */
-  onSubmit?(values: Values, form: FormInterface): void;
+  onSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit if all fields are valid.
    */
-  onValidSubmit?(values: Values, form: FormInterface): void;
+  onValidSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit if some field is invalid.
    */
-  onInvalidSubmit?(values: Values, form: FormInterface): void;
+  onInvalidSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered when form becomes valid.
    */
-  onValid?(form: FormInterface): void;
+  onValid?(form: FormInterface<Values>): void;
   /**
    * Function triggered when form becomes invalid.
    */
-  onInvalid?(form: FormInterface): void;
+  onInvalid?(form: FormInterface<Values>): void;
 }
 
 export interface FormizProps {

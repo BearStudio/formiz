@@ -93,21 +93,25 @@ export interface FormInterface<
   Values extends Record<string, unknown> = Record<string, unknown>
 > extends ReturnType<typeof formInterfaceSelector<Values>> {}
 
-export const stepInterfaceSelector = (state: Store) => (step: Step) => {
-  return {
-    name: step.name,
-    label: step.label,
-    isSubmitted: step.isSubmitted || state.form.isSubmitted,
-    index: state.steps
-      .filter((step) => step.isEnabled)
-      .findIndex((s) => s.name === step.name),
-    isCurrent: state.form.currentStepName === step.name,
-    isValid: getStepIsValid(step.name, state.fields),
-    isPristine: getStepIsPristine(step.name, state.fields),
-    isValidating: getStepIsValidating(step.name, state.fields),
-    isVisited: step.isVisited,
+export const stepInterfaceSelector =
+  <Values extends Record<string, unknown> = Record<string, unknown>>(
+    state: Store<Values>
+  ) =>
+  (step: Step) => {
+    return {
+      name: step.name,
+      label: step.label,
+      isSubmitted: step.isSubmitted || state.form.isSubmitted,
+      index: state.steps
+        .filter((step) => step.isEnabled)
+        .findIndex((s) => s.name === step.name),
+      isCurrent: state.form.currentStepName === step.name,
+      isValid: getStepIsValid(step.name, state.fields),
+      isPristine: getStepIsPristine(step.name, state.fields),
+      isValidating: getStepIsValidating(step.name, state.fields),
+      isVisited: step.isVisited,
+    };
   };
-};
 
 export interface StepInterface
   extends ReturnType<typeof stepInterfaceSelector> {}

@@ -81,7 +81,7 @@ export const createStore = <
           return;
         }
 
-        const formValues = getFormValues(fields);
+        const formValues = getFormValues(fields) as Values;
 
         if (getFormIsValid(fields)) {
           formConfigRef.current?.onValidSubmit?.(
@@ -159,18 +159,18 @@ export const createStore = <
         set((state) => {
           let initialValues = cloneDeep(
             state.formConfigRef.current?.initialValues
-          );
+          ) as Partial<Values> | undefined;
 
           if (isResetAllowed("values", resetOptions)) {
             state.collections.forEach((values, collectionName) => {
-              const collectionFields: Array<Field<unknown>> = lodashGet(
+              const collectionFields = lodashGet(
                 state.formConfigRef.current?.initialValues,
                 collectionName
-              );
+              ) as Partial<Values>[];
 
               state.collections.set(
                 collectionName,
-                collectionFields.map(
+                collectionFields?.map(
                   (_, index) => values[index] ?? index.toString()
                 )
               );
@@ -178,15 +178,15 @@ export const createStore = <
           }
 
           state.fields.forEach((field) => {
-            const initialValue: Field<unknown> = lodashGet(
+            const initialValue = lodashGet(initialValues, field.name);
+            initialValues = lodashOmit(
               initialValues,
               field.name
-            );
-            initialValues = lodashOmit(initialValues, field.name);
+            ) as Partial<Values>;
 
             const formatValue = field.formatValue
               ? field.formatValue
-              : (v: Field<unknown>) => v;
+              : (v: unknown) => v;
 
             const resetValue = initialValue ?? field.defaultValue;
             const resetValueFormatted = formatValue(resetValue);
@@ -272,7 +272,10 @@ export const createStore = <
 
           setTimeout(() => {
             state.fields.forEach((field) => {
-              initialValues = lodashOmit(initialValues, field.name);
+              initialValues = lodashOmit(
+                initialValues,
+                field.name
+              ) as Partial<Values>;
             });
           });
 
