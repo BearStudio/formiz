@@ -16,7 +16,7 @@ import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 
 type Value = string;
 
-export type FieldInputProps<FormattedValue> = FieldProps<
+export type FieldInputProps<FormattedValue = Value> = FieldProps<
   Value,
   FormattedValue
 > &

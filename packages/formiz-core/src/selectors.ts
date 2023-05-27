@@ -89,8 +89,9 @@ export const formInterfaceSelector = <
     isLastStep: state.steps[state.steps.length - 1]?.name === currentStep?.name,
   };
 };
-export interface FormInterface
-  extends ReturnType<typeof formInterfaceSelector> {}
+export interface FormInterface<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> extends ReturnType<typeof formInterfaceSelector<Values>> {}
 
 export const stepInterfaceSelector = (state: Store) => (step: Step) => {
   return {
