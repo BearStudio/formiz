@@ -6,8 +6,9 @@
     "dev": "next dev --port 3010",
     "build": "next build",
     "start": "next start",
+    "serve": "next build && next start --port 3010",
     "lint": "next lint && tsc --noEmit",
-    "test": "start-server-and-test dev http://localhost:3010 test:run",
+    "test": "start-server-and-test serve http://localhost:3010 test:run",
     "test:ui": "start-server-and-test dev http://localhost:3010 test:open",
     "test:run": "cypress run",
     "test:open": "cypress open"
