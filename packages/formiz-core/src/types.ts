@@ -75,7 +75,7 @@ export interface Field<Value = unknown, FormattedValue = Value> {
   /**
    * Formatted value of the field, as presents in form values.
    */
-  formattedValue: FormattedValue;
+  formattedValue: FieldValue<FormattedValue>;
   /**
    * Default value of the field, the one give when field is registered.
    */
