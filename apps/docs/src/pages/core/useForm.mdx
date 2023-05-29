@@ -12,6 +12,25 @@ This hook creates a form, and returns it.
 import { useForm } from "@formiz/core";
 ```
 
+## Basic usage
+
+```tsx
+const form = useForm();
+```
+
+## Form values type
+
+You can add a generic type param to useForm to help you using form actions.
+
+```tsx
+type FormValues = { name: string };
+
+const form = useForm<FormValues>();
+
+form.setValues({ name: "" }); // ✅ ok, with autocompletion
+form.setValues({ notName: "" }); // ❌ error
+```
+
 ## Form Config
 
 ### id
