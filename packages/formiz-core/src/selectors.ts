@@ -181,9 +181,7 @@ export const fieldInterfaceSelector =
     ].flat();
     const isValid = getFieldIsValid(field);
     const isPristine = getFieldIsPristine(field);
-    const isSubmitted = fieldStep
-      ? fieldStep.isSubmitted
-      : state.form.isSubmitted;
+    const isSubmitted = fieldStep?.isSubmitted || state.form.isSubmitted;
     const isProcessing = getFieldIsProcessing(field, state.ready);
     return {
       value: field.value,
@@ -199,12 +197,12 @@ export const fieldInterfaceSelector =
       isTouched: field.isTouched,
       errorMessages: errorMessages,
       errorMessage: errorMessages[0],
-      isPristine: isPristine,
-      isSubmitted: fieldStep ? fieldStep.isSubmitted : state.form.isSubmitted,
+      isPristine,
+      isSubmitted,
       isValidating: getFieldIsValidating(field),
       isExternalProcessing: getFieldIsExternalProcessing(field),
       isDebouncing: getFieldIsDebouncing(field),
-      isProcessing: getFieldIsProcessing(field, state.ready),
+      isProcessing,
       isReady: state.ready,
       resetKey: state.form.resetKey,
     };
