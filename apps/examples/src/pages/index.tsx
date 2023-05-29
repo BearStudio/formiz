@@ -10,10 +10,11 @@ import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
 type FormValues = {
-  company: string;
-  accountType: string;
+  name: string;
   email: string;
   confirmEmail: string;
+  accountType: string;
+  company: string;
 };
 
 const SimpleForm: NextPage = () => {

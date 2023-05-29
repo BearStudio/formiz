@@ -556,6 +556,10 @@ export interface UseFieldConfig<Value = unknown, FormattedValue = Value>
   >)[];
 }
 
-export type Form = ReturnType<typeof useForm>;
+export type Form<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = ReturnType<typeof useForm<Values>>;
 
-export type FormContext = ReturnType<typeof useFormContext>;
+export type FormContext<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = ReturnType<typeof useFormContext<Values>>;
