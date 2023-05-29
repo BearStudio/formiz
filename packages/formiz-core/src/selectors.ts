@@ -81,8 +81,8 @@ export const formInterfaceSelector = (state: Store) => {
       ? getStepIsValidating(currentStep.name, state.fields)
       : false,
     isStepSubmitted: currentStep?.isSubmitted ?? false,
-    isFirstStep: state.steps.at(0)?.name === currentStep?.name,
-    isLastStep: state.steps.at(-1)?.name === currentStep?.name,
+    isFirstStep: state.steps[0]?.name === currentStep?.name,
+    isLastStep: state.steps[state.steps.length - 1]?.name === currentStep?.name,
   };
 };
 export interface FormInterface
