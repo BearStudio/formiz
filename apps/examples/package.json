@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
+    "dev": "next dev --port 3010",
     "build": "next build",
     "start": "next start",
     "lint": "next lint && tsc --noEmit",
-    "test:e2e": "cypress open"
+    "test": "start-server-and-test dev http://localhost:3010 test:run",
+    "test:ui": "start-server-and-test dev http://localhost:3010 test:open",
+    "test:run": "cypress run",
+    "test:open": "cypress open"
   },
   "dependencies": {
     "@chakra-ui/react": "2.4.9",
@@ -33,6 +36,7 @@
     "cypress-plugin-tab": "1.0.5",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
+    "start-server-and-test": "2.0.0",
     "tsconfig": "workspace:*",
     "typescript": "4.9.4"
   }
