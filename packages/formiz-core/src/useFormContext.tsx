@@ -6,7 +6,7 @@ import { ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT } from "@/errors";
 import { Store } from "@/types";
 
 export const useFormContext = <
-  Values extends Record<string, unknown> = Record<string, unknown>
+  Values extends Record<string, unknown> = any
 >() => {
   const { useStore } = useFormStore() ?? {};
   if (!useStore) {
