@@ -27,9 +27,7 @@ const fields = useFormFields({
   connect: form,
 });
 
-<Formiz form={form}>
-{/* your fields here */}
-</Formiz>
+<Formiz form={form}>{/* your fields here */}</Formiz>;
 ```
 
 Then, you'll be able to access to your fields states.
@@ -63,6 +61,16 @@ Allows you to filter which states fields by state.
 const fieldsIsValid = useFormFields({ selector: (field) => field.isValid });
 
 const fieldsValues = useFormFields({ selector: (field) => field.value });
+```
+
+You can also use shortcuts to access fields state
+
+```tsx
+const fieldsIsValid = useFormFields({ selector: "isValid" });
+// same as useFormFields({ selector: (field) => field.isValid });
+
+const fieldsValues = useFormFields({ selector: "value" });
+// same as useFormFields({ selector: (field) => field.value });
 ```
 
 This way, you can avoid re-rendering the form if a state you don't need updates, and lessen the strain on the page.

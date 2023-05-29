@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Textarea, TextareaProps } from "@chakra-ui/react";
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 
@@ -16,7 +16,7 @@ export type FieldTextareaProps<FormattedValue> = FieldProps<
     isLoading?: boolean;
   };
 
-const FieldTextareaBase = <FormattedValue = Value,>(
+export const FieldTextarea = <FormattedValue = Value,>(
   props: FieldTextareaProps<FormattedValue>
 ) => {
   const {
@@ -64,5 +64,3 @@ const FieldTextareaBase = <FormattedValue = Value,>(
     </FormGroup>
   );
 };
-
-export const FieldTextarea = deepMemo(FieldTextareaBase);

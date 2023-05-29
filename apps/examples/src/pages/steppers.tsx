@@ -28,18 +28,6 @@ type FormValues = {
 const Steppers = () => {
   const toastValues = useToastValues<FormValues>();
 
-  const handleSubmit = (values: FormValues) => {
-    toastValues(values);
-
-    form.setErrors({
-      name: "You can display an error after an API call",
-    });
-    const stepWithError = form.getStepByFieldName("name");
-    if (stepWithError) {
-      form.goToStep(stepWithError?.name);
-    }
-  };
-
   const form = useForm<FormValues>({
     onValidSubmit: (values, form) => {
       toastValues(values);

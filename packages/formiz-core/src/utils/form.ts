@@ -7,7 +7,11 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
-const parseValues = <T>(values: Record<string, T>) =>
+const parseValues = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  values: Values
+) =>
   Object.keys(values).reduce((acc, key) => parseValuesName(key, acc), values);
 
 const parseValuesName = (name: string, values: any): any => {
@@ -54,13 +58,17 @@ const parseValuesName = (name: string, values: any): any => {
   };
 };
 
-export const getFormFlatValues = (fields: Fields) =>
+export const getFormFlatValues = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  fields: Fields
+): Values =>
   Array.from(fields.values()).reduce(
     (obj, field) => ({
       ...obj,
       [field.name]: field.formattedValue,
     }),
-    {}
+    {} as Values
   );
 
 export const getFormValues = (fields: Fields) => {
@@ -163,7 +171,7 @@ export const generateField = <Value>(
   field: PartialField<Value> & Pick<Field<Value>, "name" | "value">
 ): Field<Value> => {
   return {
-    formattedValue: field.value,
+    formattedValue: field.value as Value,
     defaultValue: field.value,
     isPristine: true,
     isTouched: false,

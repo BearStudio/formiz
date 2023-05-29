@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 import {
   AspectRatio,
   Button,
@@ -27,7 +27,7 @@ export type FieldPickIdenticalImagesProps<FormattedValue> = FieldProps<
     options: string[];
   };
 
-const FieldPickIdenticalImagesBase = <FormattedValue = string | null,>(
+export const FieldPickIdenticalImages = <FormattedValue = string | null,>(
   props: FieldPickIdenticalImagesProps<FormattedValue>
 ) => {
   const {
@@ -169,5 +169,3 @@ const FieldPickIdenticalImagesBase = <FormattedValue = string | null,>(
     </FormGroup>
   );
 };
-
-export const FieldPickIdenticalImages = deepMemo(FieldPickIdenticalImagesBase);

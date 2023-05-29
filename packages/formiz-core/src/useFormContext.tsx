@@ -1,14 +1,20 @@
 import { deepEqual } from "fast-equals";
 
 import { useFormStore } from "@/Formiz";
-import { FormInterface, formInterfaceSelector } from "@/selectors";
+import { formInterfaceSelector } from "@/selectors";
 import { ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT } from "@/errors";
+import { Store } from "@/types";
 
-export const useFormContext = (): FormInterface => {
+export const useFormContext = <
+  Values extends Record<string, unknown> = any
+>() => {
   const { useStore } = useFormStore() ?? {};
   if (!useStore) {
     throw new Error(ERROR_USE_FORM_CONTEXT_MISSING_CONTEXT);
   }
-  const formState = useStore?.(formInterfaceSelector, deepEqual);
+  const formState = useStore?.(
+    (state) => formInterfaceSelector<Values>(state as Store<Values>),
+    deepEqual
+  );
   return { ...formState };
 };

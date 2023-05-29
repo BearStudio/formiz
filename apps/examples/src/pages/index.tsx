@@ -9,7 +9,13 @@ import { Formiz, useForm, useFormFields } from "@formiz/core";
 import { isEmail } from "@formiz/validations";
 import { NextPage } from "next";
 
-type FormValues = any;
+type FormValues = {
+  name: string;
+  email: string;
+  confirmEmail: string;
+  accountType: string;
+  company: string;
+};
 
 const SimpleForm: NextPage = () => {
   const toastValues = useToastValues();
@@ -31,7 +37,7 @@ const SimpleForm: NextPage = () => {
   const { accountType, email } = useFormFields({
     connect: form,
     fields: ["accountType", "email"] as const,
-    selector: (f) => f.value,
+    selector: "value",
   });
 
   return (

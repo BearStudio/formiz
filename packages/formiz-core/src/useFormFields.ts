@@ -8,18 +8,20 @@ import { getFormFields } from "./utils/form";
 
 type useFormFieldsProps<
   Fields extends readonly string[] | undefined = undefined,
-  Selection = unknown
+  Selection extends
+    | keyof ExposedExternalFieldState<any>
+    | ((field: ExposedExternalFieldState<any>) => any) = never
 > = {
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
   fields?: Fields;
-  selector?: (field: ExposedExternalFieldState<any>) => Selection;
+  selector?: Selection;
 };
 
 type ConvertType<
   T extends string,
-  Output = unknown
+  Output = any
 > = T extends `${infer A extends ""}`
   ? Output
   : T extends `${infer A extends string}[${infer Index}]${infer Rest}`
@@ -28,17 +30,28 @@ type ConvertType<
   ? ConvertType<A, ConvertType<B, Output>>
   : T extends `${infer A}`
   ? { [K in A]: Output }
-  : never;
+  : any;
 
 type SelectedFields<
   T extends readonly string[] | undefined,
   Selection
 > = T extends undefined
-  ? Record<string, any>
+  ? any
   : T extends [infer A extends string, ...infer Rest extends string[]]
-  ? ConvertType<A, Selection> & SelectedFields<Rest, Selection>
+  ? ConvertType<
+      A,
+      Selection extends keyof ExposedExternalFieldState<any>
+        ? ExposedExternalFieldState<any>[Selection]
+        : Selection
+    > &
+      SelectedFields<Rest, Selection>
   : T extends [infer B extends string]
-  ? ConvertType<B, Selection>
+  ? ConvertType<
+      B,
+      Selection extends keyof ExposedExternalFieldState<any>
+        ? ExposedExternalFieldState<any>[Selection]
+        : Selection
+    >
   : {};
 
 type ConvertReadOnlyTuple<T extends readonly any[] | undefined> =
@@ -50,7 +63,11 @@ type ConvertReadOnlyTuple<T extends readonly any[] | undefined> =
 
 export const useFormFields = <
   Fields extends readonly string[] | undefined = undefined,
-  Selection = unknown
+  Selection extends
+    | keyof ExposedExternalFieldState<any>
+    | ((field: ExposedExternalFieldState<any>) => any) = (
+    field: ExposedExternalFieldState<any>
+  ) => any
 >({
   connect,
   fields,
@@ -82,7 +99,11 @@ export const useFormFields = <
         (acc, field) => ({
           ...acc,
           [field.name]: selector
-            ? selector(fieldExternalInterfaceSelector(state)(field))
+            ? typeof selector === "string"
+              ? fieldExternalInterfaceSelector(state)(field)[
+                  selector as keyof ExposedExternalFieldState<any>
+                ]
+              : selector(fieldExternalInterfaceSelector(state)(field))
             : fieldExternalInterfaceSelector(state)(field),
         }),
         {}
@@ -90,5 +111,8 @@ export const useFormFields = <
     return getFormFields(flatFields);
   }, deepEqual);
 
-  return statefields as SelectedFields<ConvertReadOnlyTuple<Fields>, Selection>;
+  return statefields as SelectedFields<
+    ConvertReadOnlyTuple<Fields>,
+    Selection extends (...args: any) => any ? ReturnType<Selection> : Selection
+  >;
 };

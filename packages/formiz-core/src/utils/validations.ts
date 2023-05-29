@@ -1,10 +1,10 @@
 import { FieldProps } from "@/types";
 
-export const getFieldValidationsErrors = <Value>(
+export const getFieldValidationsErrors = <Value, FormattedValue>(
   value: Value,
-  formattedValue: Value,
-  required: FieldProps<Value>["required"],
-  validations: FieldProps<Value>["validations"]
+  formattedValue: FormattedValue,
+  required: FieldProps<Value, FormattedValue>["required"],
+  validations: FieldProps<Value, FormattedValue>["validations"]
 ) => {
   const requiredErrors =
     !!required && !formattedValue && formattedValue !== 0

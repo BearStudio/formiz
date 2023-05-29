@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 import {
@@ -28,7 +28,7 @@ export type FieldSliderProps<FormattedValue> = FieldProps<
     step?: number;
   };
 
-const FieldSliderBase = <FormattedValue = Value,>(
+export const FieldSlider = <FormattedValue = Value,>(
   props: FieldSliderProps<FormattedValue>
 ) => {
   const {
@@ -108,5 +108,3 @@ const FieldSliderBase = <FormattedValue = Value,>(
     </FormGroup>
   );
 };
-
-export const FieldSlider = deepMemo(FieldSliderBase);

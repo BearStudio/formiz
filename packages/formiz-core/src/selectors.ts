@@ -21,7 +21,11 @@ import {
   getFieldIsExternalProcessing,
 } from "@/utils/form";
 
-export const formInterfaceSelector = (state: Store) => {
+export const formInterfaceSelector = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  state: Store<Values>
+): FormInterface<Values> => {
   const currentStep = state.steps.find(
     (step) => step.name === state.form.currentStepName
   );
@@ -47,7 +51,7 @@ export const formInterfaceSelector = (state: Store) => {
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
-    collection: (fieldName: string) => ({
+    collection: (fieldName) => ({
       setKeys: state.actions.setCollectionKeys(fieldName),
       set: state.actions.setCollectionValues(fieldName),
       insertMultiple: state.actions.insertMultipleCollectionValues(fieldName),
@@ -85,24 +89,83 @@ export const formInterfaceSelector = (state: Store) => {
     isLastStep: state.steps[state.steps.length - 1]?.name === currentStep?.name,
   };
 };
-export interface FormInterface
-  extends ReturnType<typeof formInterfaceSelector> {}
 
-export const stepInterfaceSelector = (state: Store) => (step: Step) => {
-  return {
-    name: step.name,
-    label: step.label,
-    isSubmitted: step.isSubmitted || state.form.isSubmitted,
-    index: state.steps
-      .filter((step) => step.isEnabled)
-      .findIndex((s) => s.name === step.name),
-    isCurrent: state.form.currentStepName === step.name,
-    isValid: getStepIsValid(step.name, state.fields),
-    isPristine: getStepIsPristine(step.name, state.fields),
-    isValidating: getStepIsValidating(step.name, state.fields),
-    isVisited: step.isVisited,
+export interface FormInterface<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> {
+  submit: Store<Values>["actions"]["submitForm"];
+  setValues: Store<Values>["actions"]["setValues"];
+  setErrors: Store<Values>["actions"]["setErrors"];
+  getStepByFieldName: (fieldName: string) => StepInterface | undefined;
+  reset: (options?: ResetOptions) => void;
+  submitStep: Store<Values>["actions"]["submitStep"];
+  goToStep: Store<Values>["actions"]["goToStep"];
+  goToNextStep: Store<Values>["actions"]["goToNextStep"];
+  goToPreviousStep: Store<Values>["actions"]["goToPreviousStep"];
+
+  collection: (fieldName: keyof Values) => {
+    setKeys: ReturnType<Store<Values>["actions"]["setCollectionKeys"]>;
+    set: ReturnType<Store<Values>["actions"]["setCollectionValues"]>;
+    insertMultiple: ReturnType<
+      Store<Values>["actions"]["insertMultipleCollectionValues"]
+    >;
+    insert: ReturnType<Store<Values>["actions"]["insertCollectionValue"]>;
+    append: ReturnType<Store<Values>["actions"]["appendCollectionValue"]>;
+    prepend: ReturnType<Store<Values>["actions"]["prependCollectionValue"]>;
+    removeMultiple: ReturnType<
+      Store<Values>["actions"]["removeMultipleCollectionValues"]
+    >;
+    remove: ReturnType<Store<Values>["actions"]["removeCollectionValue"]>;
   };
-};
+
+  id: Store<Values>["form"]["id"];
+  resetKey: Store<Values>["form"]["resetKey"];
+  isReady: Store<Values>["ready"];
+  isSubmitted: Store<Values>["form"]["isSubmitted"];
+  isValid: boolean;
+  isValidating: boolean;
+  isPristine: boolean;
+  steps: StepInterface[];
+  currentStep: StepInterface | undefined;
+  isStepPristine: boolean;
+  isStepValid: boolean;
+  isStepValidating: boolean;
+  isStepSubmitted: boolean;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+}
+
+export const stepInterfaceSelector =
+  <Values extends Record<string, unknown> = Record<string, unknown>>(
+    state: Store<Values>
+  ) =>
+  (step: Step): StepInterface => {
+    return {
+      name: step.name,
+      label: step.label,
+      isSubmitted: step.isSubmitted || state.form.isSubmitted,
+      index: state.steps
+        .filter((step) => step.isEnabled)
+        .findIndex((s) => s.name === step.name),
+      isCurrent: state.form.currentStepName === step.name,
+      isValid: getStepIsValid(step.name, state.fields),
+      isPristine: getStepIsPristine(step.name, state.fields),
+      isValidating: getStepIsValidating(step.name, state.fields),
+      isVisited: step.isVisited,
+    };
+  };
+
+export interface StepInterface {
+  name: string;
+  label: React.ReactNode;
+  isSubmitted: boolean;
+  index: number;
+  isCurrent: boolean;
+  isValid: boolean;
+  isPristine: boolean;
+  isValidating: boolean;
+  isVisited: boolean;
+}
 
 export const fieldInterfaceSelector =
   <Value = unknown, FormattedValue = Value>(state: Store) =>
@@ -118,9 +181,7 @@ export const fieldInterfaceSelector =
     ].flat();
     const isValid = getFieldIsValid(field);
     const isPristine = getFieldIsPristine(field);
-    const isSubmitted = fieldStep
-      ? fieldStep.isSubmitted
-      : state.form.isSubmitted;
+    const isSubmitted = fieldStep?.isSubmitted || state.form.isSubmitted;
     const isProcessing = getFieldIsProcessing(field, state.ready);
     return {
       value: field.value,
@@ -136,12 +197,12 @@ export const fieldInterfaceSelector =
       isTouched: field.isTouched,
       errorMessages: errorMessages,
       errorMessage: errorMessages[0],
-      isPristine: isPristine,
-      isSubmitted: fieldStep ? fieldStep.isSubmitted : state.form.isSubmitted,
+      isPristine,
+      isSubmitted,
       isValidating: getFieldIsValidating(field),
       isExternalProcessing: getFieldIsExternalProcessing(field),
       isDebouncing: getFieldIsDebouncing(field),
-      isProcessing: getFieldIsProcessing(field, state.ready),
+      isProcessing,
       isReady: state.ready,
       resetKey: state.form.resetKey,
     };

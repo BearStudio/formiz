@@ -16,7 +16,6 @@ import {
 } from "@/utils/form";
 import type {
   Field,
-  FieldValue,
   FormatValue,
   GetFieldSetValueOptions,
   Store,
@@ -26,8 +25,12 @@ import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
-export const createStore = (defaultState?: StoreInitialState) =>
-  create<Store>()((set, get) => ({
+export const createStore = <
+  Values extends Record<string, unknown> = Record<string, unknown>
+>(
+  defaultState?: StoreInitialState<Values>
+) =>
+  create<Store<Values>>()((set, get) => ({
     ready: true,
     fields: new Map(),
     collections: new Map(),
@@ -78,7 +81,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           return;
         }
 
-        const formValues = getFormValues(fields);
+        const formValues = getFormValues(fields) as Values;
 
         if (getFormIsValid(fields)) {
           formConfigRef.current?.onValidSubmit?.(
@@ -113,7 +116,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
               externalValues = lodashOmit(
                 cloneDeep(externalValues),
                 field.name
-              );
+              ) as Partial<Values>;
               state.fields.set(field.id, {
                 ...field,
                 value: newValue,
@@ -156,18 +159,18 @@ export const createStore = (defaultState?: StoreInitialState) =>
         set((state) => {
           let initialValues = cloneDeep(
             state.formConfigRef.current?.initialValues
-          );
+          ) as Partial<Values> | undefined;
 
           if (isResetAllowed("values", resetOptions)) {
             state.collections.forEach((values, collectionName) => {
-              const collectionFields: Array<Field<unknown>> = lodashGet(
+              const collectionFields = lodashGet(
                 state.formConfigRef.current?.initialValues,
                 collectionName
-              );
+              ) as Partial<Values>[];
 
               state.collections.set(
                 collectionName,
-                collectionFields.map(
+                collectionFields?.map(
                   (_, index) => values[index] ?? index.toString()
                 )
               );
@@ -175,15 +178,15 @@ export const createStore = (defaultState?: StoreInitialState) =>
           }
 
           state.fields.forEach((field) => {
-            const initialValue: Field<unknown> = lodashGet(
+            const initialValue = lodashGet(initialValues, field.name);
+            initialValues = lodashOmit(
               initialValues,
               field.name
-            );
-            initialValues = lodashOmit(initialValues, field.name);
+            ) as Partial<Values>;
 
             const formatValue = field.formatValue
               ? field.formatValue
-              : (v: Field<unknown>) => v;
+              : (v: unknown) => v;
 
             const resetValue = initialValue ?? field.defaultValue;
             const resetValueFormatted = formatValue(resetValue);
@@ -269,7 +272,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
 
           setTimeout(() => {
             state.fields.forEach((field) => {
-              initialValues = lodashOmit(initialValues, field.name);
+              initialValues = lodashOmit(
+                initialValues,
+                field.name
+              ) as Partial<Values>;
             });
           });
 
@@ -297,19 +303,19 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const externalValues = lodashOmit(
             cloneDeep(state.externalValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const keepValue = lodashGet(state.keepValues, newField.name);
           const keepValues = lodashOmit(
             cloneDeep(state.keepValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const initialValue = lodashGet(state.initialValues, newField.name);
           const initialValues = lodashOmit(
             cloneDeep(state.initialValues),
             newField.name
-          );
+          ) as Partial<Values>;
 
           const getValue = () => {
             if (externalValue !== undefined) {
@@ -334,7 +340,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
           const formattedValue = formatValue(value as any);
 
           const { requiredErrors, validationsErrors } =
-            getFieldValidationsErrors(
+            getFieldValidationsErrors<unknown, unknown>(
               value,
               formattedValue,
               requiredRef?.current,
@@ -400,14 +406,17 @@ export const createStore = (defaultState?: StoreInitialState) =>
         }),
 
       getFieldSetValue:
-        <Value>({
+        <Value, FormattedValue>({
           fieldId,
           onValueChange,
           formatValue,
-        }: GetFieldSetValueOptions<Value>) =>
+        }: GetFieldSetValueOptions<Value, FormattedValue>) =>
         (newValue) => {
           set((state) => {
-            const field = getField<Value>(state.fields, fieldId);
+            const field = getField<Value, FormattedValue>(
+              state.fields,
+              fieldId
+            );
 
             if (!field) return {};
 
@@ -598,7 +607,7 @@ export const createStore = (defaultState?: StoreInitialState) =>
       setCollectionKeys: (fieldName) => (keys) => {
         set((state) => {
           get().collections.set(
-            fieldName,
+            fieldName.toString(),
             typeof keys === "function"
               ? keys(get().actions.getCollectionKeys(fieldName) ?? [])
               : keys
@@ -610,12 +619,15 @@ export const createStore = (defaultState?: StoreInitialState) =>
       },
 
       getCollectionKeys: (fieldName) => {
-        return get().collections.get(fieldName);
+        return get().collections.get(fieldName.toString());
       },
 
       setCollectionValues: (fieldName) => (values, options) => {
         set((state) => {
-          get().actions.setValues({ [fieldName]: values }, options);
+          get().actions.setValues(
+            { [fieldName]: values } as Partial<Values>,
+            options
+          );
           get().actions.setCollectionKeys(fieldName)((oldKeys) =>
             values.map((_, index) => oldKeys?.[index] ?? uniqid())
           );
@@ -650,7 +662,10 @@ export const createStore = (defaultState?: StoreInitialState) =>
               ];
 
               setTimeout(() => {
-                get().actions.setValues({ [fieldName]: newValues }, options);
+                get().actions.setValues(
+                  { [fieldName]: newValues } as Partial<Values>,
+                  options
+                );
               });
 
               return newKeys;

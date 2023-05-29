@@ -5,26 +5,22 @@ import React, { FormEvent, RefObject } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export type FieldValue<Value = unknown> = Value | null;
-export type Values = Record<string, unknown>;
 export type ErrorMessage = string | undefined;
 export type FormatValue<Value = unknown, FormattedValue = unknown> = (
   value: FieldValue<Value>
 ) => FormattedValue;
-export type OnValueChange<Value, FormattedValue = unknown> = (
+export type OnValueChange<Value = unknown, FormattedValue = Value> = (
   value?: FieldValue<Value>,
   formattedValue?: FieldValue<FormattedValue>
 ) => void;
 
-export interface FieldValidation<Value, FormattedValue = unknown> {
+export interface FieldValidation<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
    * @param value the value as presents in form values.
    * @param rawValue the value before formatting.
    */
-  handler(
-    value?: FieldValue<FormattedValue>,
-    rawValue?: FieldValue<Value>
-  ): boolean;
+  handler(value?: FormattedValue, rawValue?: FieldValue<Value>): boolean;
   /**
    * Message if the validation is not respected.
    */
@@ -39,7 +35,7 @@ export interface FieldValidation<Value, FormattedValue = unknown> {
   checkFalsy?: boolean;
 }
 
-export interface FieldValidationAsync<Value, FormattedValue = unknown> {
+export interface FieldValidationAsync<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
    * @param value the value as presents in form values.
@@ -131,11 +127,15 @@ export interface Field<Value = unknown, FormattedValue = Value> {
   /**
    * Reference of required value.
    */
-  requiredRef?: React.MutableRefObject<FieldProps<Value>["required"]>;
+  requiredRef?: React.MutableRefObject<
+    FieldProps<Value, FormattedValue>["required"]
+  >;
   /**
    * Reference of validations value.
    */
-  validationsRef?: React.MutableRefObject<FieldProps<Value>["validations"]>;
+  validationsRef?: React.MutableRefObject<
+    FieldProps<Value, FormattedValue>["validations"]
+  >;
 }
 
 export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
@@ -278,10 +278,10 @@ export interface Step {
 
 export type PartialStep = Partial<Omit<Step, "name">>;
 
-export type GetFieldSetValueOptions<Value> = {
+export type GetFieldSetValueOptions<Value, FormattedValue> = {
   fieldId: string;
-  formatValue: FormatValue<Value>;
-  onValueChange: OnValueChange<Value>;
+  formatValue: FormatValue<Value, FormattedValue>;
+  onValueChange: OnValueChange<Value, FormattedValue>;
 };
 
 export type ResetElement =
@@ -297,12 +297,16 @@ export type ResetElement =
 
 export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
-export type StoreInitialState = {
+export type StoreInitialState<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = {
   ready?: boolean;
-  form?: Partial<Store["form"]>;
-} & Partial<Pick<Store, "initialValues" | "formConfigRef">>;
+  form?: Partial<Store<Values>["form"]>;
+} & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef">>;
 
-export interface Store {
+export interface Store<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> {
   ready: boolean;
   fields: Fields;
   collections: Collections;
@@ -317,15 +321,19 @@ export interface Store {
   keepValues: Partial<Values>;
   externalValues: Partial<Values>;
   initialValues: Partial<Values>;
-  formConfigRef: RefObject<useFormProps>;
+  formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
-    setReady(initialState?: Omit<StoreInitialState, "ready">): void;
+    setReady(initialState?: Omit<StoreInitialState<Values>, "ready">): void;
     submitForm(e?: FormEvent): void;
     setValues(
       newValues: Partial<Values>,
       options?: { keepPristine?: boolean }
     ): void;
-    setErrors(errors: Record<string, unknown>): void;
+    setErrors(
+      errors: Partial<
+        Record<keyof Values extends string ? keyof Values : never, string>
+      >
+    ): void;
     reset(options?: ResetOptions): void;
     resetInitialValues(): void;
 
@@ -336,8 +344,12 @@ export interface Store {
       options?: {
         defaultValue?: FieldValue<Value>;
         formatValue?: FormatValue<Value, FormattedValue>;
-        requiredRef?: React.MutableRefObject<FieldProps<Value>["required"]>;
-        validationsRef?: React.MutableRefObject<FieldValidation<Value>[]>;
+        requiredRef?: React.MutableRefObject<
+          FieldProps<Value, FormattedValue>["required"]
+        >;
+        validationsRef?: React.MutableRefObject<
+          FieldValidation<Value, FormattedValue>[]
+        >;
       }
     ): void;
     unregisterField(
@@ -348,8 +360,8 @@ export interface Store {
       }
     ): void;
     updateField<Value>(fieldId: string, newField: PartialField<Value>): void;
-    getFieldSetValue<Value>(
-      options: GetFieldSetValueOptions<Value>
+    getFieldSetValue<Value, FormattedValue>(
+      options: GetFieldSetValueOptions<Value, FormattedValue>
     ): (fieldValue: FieldValue<Value> | ((oldValue: Value) => Value)) => void;
     getFieldSetIsTouched(fieldId: string): (isTouched: boolean) => void;
 
@@ -362,51 +374,53 @@ export interface Store {
     goToPreviousStep(): void;
 
     setCollectionKeys(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
     ) => void;
-    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
+    getCollectionKeys(fieldName: keyof Values): CollectionKey[] | undefined;
     setCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       values: unknown[],
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertMultipleCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       index: number,
       values?: unknown[],
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       index: number,
       value?: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     prependCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       value: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     appendCollectionValue(
-      fieldName: string
+      fieldName: keyof Values
     ): (
       value: unknown,
-      options?: Parameters<Store["actions"]["setValues"]>[1]
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     removeMultipleCollectionValues(
-      fieldName: string
+      fieldName: keyof Values
     ): (indexes: number[]) => void;
-    removeCollectionValue(fieldName: string): (index: number) => void;
+    removeCollectionValue(fieldName: keyof Values): (index: number) => void;
   };
 }
 
-export interface useFormProps<Values = unknown> {
+export interface useFormProps<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> {
   /**
    * Id of the form.
    */
@@ -426,27 +440,27 @@ export interface useFormProps<Values = unknown> {
   /**
    * Function triggered on every form values change.
    */
-  onValuesChange?(values: Values, form: FormInterface): void;
+  onValuesChange?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit.
    */
-  onSubmit?(values: Values, form: FormInterface): void;
+  onSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit if all fields are valid.
    */
-  onValidSubmit?(values: Values, form: FormInterface): void;
+  onValidSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered on form submit if some field is invalid.
    */
-  onInvalidSubmit?(values: Values, form: FormInterface): void;
+  onInvalidSubmit?(values: Values, form: FormInterface<Values>): void;
   /**
    * Function triggered when form becomes valid.
    */
-  onValid?(form: FormInterface): void;
+  onValid?(form: FormInterface<Values>): void;
   /**
    * Function triggered when form becomes invalid.
    */
-  onInvalid?(form: FormInterface): void;
+  onInvalid?(form: FormInterface<Values>): void;
 }
 
 export interface FormizProps {
@@ -491,7 +505,7 @@ export interface FormizStepProps extends Pick<Step, "name" | "label"> {
   autoHide?: boolean;
 }
 
-export interface FieldProps<Value, FormattedValue = Value>
+export interface FieldProps<Value = unknown, FormattedValue = Value>
   extends Pick<Field<Value, FormattedValue>, "name"> {
   /**
    * Default value of the field, the one give when field is registered.
@@ -527,7 +541,7 @@ export interface FieldProps<Value, FormattedValue = Value>
   keepValue?: boolean;
 }
 
-export interface UseFieldConfig<Value, FormattedValue = unknown>
+export interface UseFieldConfig<Value = unknown, FormattedValue = Value>
   extends Pick<
     FieldProps<Value, FormattedValue>,
     | "formatValue"
@@ -542,6 +556,10 @@ export interface UseFieldConfig<Value, FormattedValue = unknown>
   >)[];
 }
 
-export type Form = ReturnType<typeof useForm>;
+export type Form<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = ReturnType<typeof useForm<Values>>;
 
-export type FormContext = ReturnType<typeof useFormContext>;
+export type FormContext<
+  Values extends Record<string, unknown> = Record<string, unknown>
+> = ReturnType<typeof useFormContext<Values>>;

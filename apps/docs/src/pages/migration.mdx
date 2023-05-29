@@ -227,10 +227,10 @@ const MyChildren = () => {
 You can now type the `value` of `useField` by passing a type to the `FieldProps` type. Also the `otherProps` will now be typed correctly 🎉.
 
 ```tsx
-// ✅ Pass the value type here ----- 👇
-type MyFieldProps<FormattedValue> = FieldProps<string, FormattedValue>
+// ✅ Pass the value type here ------------------------- 👇
+type MyFieldProps<FormattedValue = string> = FieldProps<string, FormattedValue>
 
-const MyField = <FormattedValue = Value,>(props: MyFieldProps<FormattedValue>) => {
+const MyField = <FormattedValue = string,>(props: MyFieldProps<FormattedValue>) => {
   const { value, setValue, otherProps } = useField(props);
   //...
 };
@@ -240,8 +240,9 @@ The formatted value is by default the same that the value, but you can dynamicly
 
 ```tsx
 <MyField<boolean>
-// 👆 I need to specify that my formatted value 
-// Because I format my value to another type 👇
+// ------- 👆 I need to specify that my formatted value 
+// Because I format my value to another type 
+// ----------------- 👇
   formatValue={v => !!v}
 />
 ```

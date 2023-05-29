@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import { Select, SelectProps } from "@chakra-ui/react";
-import { deepMemo, FieldProps, useField } from "@formiz/core";
+import { FieldProps, useField } from "@formiz/core";
 
 import { FormGroup, FormGroupProps } from "@/components/FormGroup";
 
@@ -22,7 +22,7 @@ export type FieldSelectProps<FormattedValue> = FieldProps<
     options: SelectOption[];
   };
 
-const FieldSelectBase = <FormattedValue = Value,>(
+export const FieldSelect = <FormattedValue = Value,>(
   props: FieldSelectProps<FormattedValue>
 ) => {
   const {
@@ -81,4 +81,3 @@ const FieldSelectBase = <FormattedValue = Value,>(
     </FormGroup>
   );
 };
-export const FieldSelect = deepMemo(FieldSelectBase);
