@@ -1,4 +1,5 @@
 import type {
+  DefaultFormValues,
   Field,
   Fields,
   PartialField,
@@ -7,9 +8,7 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
-const parseValues = <
-  Values extends Record<string, unknown> = Record<string, unknown>
->(
+const parseValues = <Values extends object = DefaultFormValues>(
   values: Values
 ) =>
   Object.keys(values).reduce((acc, key) => parseValuesName(key, acc), values);
@@ -58,9 +57,7 @@ const parseValuesName = (name: string, values: any): any => {
   };
 };
 
-export const getFormFlatValues = <
-  Values extends Record<string, unknown> = Record<string, unknown>
->(
+export const getFormFlatValues = <Values extends object = DefaultFormValues>(
   fields: Fields
 ): Values =>
   Array.from(fields.values()).reduce(

@@ -14,6 +14,8 @@ export type OnValueChange<Value = unknown, FormattedValue = Value> = (
   formattedValue?: FieldValue<FormattedValue>
 ) => void;
 
+export type DefaultFormValues = any;
+
 export interface FieldValidation<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
@@ -297,16 +299,12 @@ export type ResetElement =
 
 export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
 
-export type StoreInitialState<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> = {
+export type StoreInitialState<Values extends object = DefaultFormValues> = {
   ready?: boolean;
   form?: Partial<Store<Values>["form"]>;
 } & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef">>;
 
-export interface Store<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> {
+export interface Store<Values extends object = DefaultFormValues> {
   ready: boolean;
   fields: Fields;
   collections: Collections;
@@ -374,53 +372,51 @@ export interface Store<
     goToPreviousStep(): void;
 
     setCollectionKeys(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
     ) => void;
-    getCollectionKeys(fieldName: keyof Values): CollectionKey[] | undefined;
+    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
     setCollectionValues(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       values: unknown[],
       options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertMultipleCollectionValues(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       index: number,
       values?: unknown[],
       options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     insertCollectionValue(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       index: number,
       value?: unknown,
       options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     prependCollectionValue(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       value: unknown,
       options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     appendCollectionValue(
-      fieldName: keyof Values
+      fieldName: string
     ): (
       value: unknown,
       options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     removeMultipleCollectionValues(
-      fieldName: keyof Values
+      fieldName: string
     ): (indexes: number[]) => void;
-    removeCollectionValue(fieldName: keyof Values): (index: number) => void;
+    removeCollectionValue(fieldName: string): (index: number) => void;
   };
 }
 
-export interface useFormProps<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> {
+export interface useFormProps<Values extends object = DefaultFormValues> {
   /**
    * Id of the form.
    */
@@ -440,27 +436,27 @@ export interface useFormProps<
   /**
    * Function triggered on every form values change.
    */
-  onValuesChange?(values: Values, form: FormInterface<Values>): void;
+  onValuesChange?(values: Values, form: FormInterface<any>): void;
   /**
    * Function triggered on form submit.
    */
-  onSubmit?(values: Values, form: FormInterface<Values>): void;
+  onSubmit?(values: Values, form: FormInterface<any>): void;
   /**
    * Function triggered on form submit if all fields are valid.
    */
-  onValidSubmit?(values: Values, form: FormInterface<Values>): void;
+  onValidSubmit?(values: Values, form: FormInterface<any>): void;
   /**
    * Function triggered on form submit if some field is invalid.
    */
-  onInvalidSubmit?(values: Values, form: FormInterface<Values>): void;
+  onInvalidSubmit?(values: Values, form: FormInterface<any>): void;
   /**
    * Function triggered when form becomes valid.
    */
-  onValid?(form: FormInterface<Values>): void;
+  onValid?(form: FormInterface<any>): void;
   /**
    * Function triggered when form becomes invalid.
    */
-  onInvalid?(form: FormInterface<Values>): void;
+  onInvalid?(form: FormInterface<any>): void;
 }
 
 export interface FormizProps {
@@ -556,10 +552,10 @@ export interface UseFieldConfig<Value = unknown, FormattedValue = Value>
   >)[];
 }
 
-export type Form<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> = ReturnType<typeof useForm<Values>>;
+export type Form<Values extends object = DefaultFormValues> = ReturnType<
+  typeof useForm<Values>
+>;
 
-export type FormContext<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> = ReturnType<typeof useFormContext<Values>>;
+export type FormContext<Values extends object = DefaultFormValues> = ReturnType<
+  typeof useFormContext<Values>
+>;
