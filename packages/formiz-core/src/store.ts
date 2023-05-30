@@ -15,7 +15,7 @@ import {
   isResetAllowed,
 } from "@/utils/form";
 import type {
-  Field,
+  DefaultFormValues,
   FormatValue,
   GetFieldSetValueOptions,
   Store,
@@ -25,9 +25,7 @@ import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
-export const createStore = <
-  Values extends Record<string, unknown> = Record<string, unknown>
->(
+export const createStore = <Values extends object = DefaultFormValues>(
   defaultState?: StoreInitialState<Values>
 ) =>
   create<Store<Values>>()((set, get) => ({

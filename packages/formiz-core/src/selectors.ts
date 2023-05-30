@@ -5,6 +5,7 @@ import type {
   Step,
   Store,
   ResetOptions,
+  DefaultFormValues,
 } from "@/types";
 import {
   getFormIsValid,
@@ -22,7 +23,7 @@ import {
 } from "@/utils/form";
 
 export const formInterfaceSelector = <
-  Values extends Record<string, unknown> = Record<string, unknown>
+  Values extends object = DefaultFormValues
 >(
   state: Store<Values>
 ): FormInterface<Values> => {
@@ -90,32 +91,30 @@ export const formInterfaceSelector = <
   };
 };
 
-export interface FormInterface<
-  Values extends Record<string, unknown> = Record<string, unknown>
-> {
+export interface FormInterface<Values extends object = DefaultFormValues> {
   submit: Store<Values>["actions"]["submitForm"];
-  setValues: Store<Values>["actions"]["setValues"];
-  setErrors: Store<Values>["actions"]["setErrors"];
+  setValues: Store<any>["actions"]["setValues"];
+  setErrors: Store<any>["actions"]["setErrors"];
   getStepByFieldName: (fieldName: string) => StepInterface | undefined;
   reset: (options?: ResetOptions) => void;
-  submitStep: Store<Values>["actions"]["submitStep"];
-  goToStep: Store<Values>["actions"]["goToStep"];
-  goToNextStep: Store<Values>["actions"]["goToNextStep"];
-  goToPreviousStep: Store<Values>["actions"]["goToPreviousStep"];
+  submitStep: Store<any>["actions"]["submitStep"];
+  goToStep: Store<any>["actions"]["goToStep"];
+  goToNextStep: Store<any>["actions"]["goToNextStep"];
+  goToPreviousStep: Store<any>["actions"]["goToPreviousStep"];
 
-  collection: (fieldName: keyof Values) => {
-    setKeys: ReturnType<Store<Values>["actions"]["setCollectionKeys"]>;
-    set: ReturnType<Store<Values>["actions"]["setCollectionValues"]>;
+  collection: (fieldName: string) => {
+    setKeys: ReturnType<Store<any>["actions"]["setCollectionKeys"]>;
+    set: ReturnType<Store<any>["actions"]["setCollectionValues"]>;
     insertMultiple: ReturnType<
-      Store<Values>["actions"]["insertMultipleCollectionValues"]
+      Store<any>["actions"]["insertMultipleCollectionValues"]
     >;
-    insert: ReturnType<Store<Values>["actions"]["insertCollectionValue"]>;
-    append: ReturnType<Store<Values>["actions"]["appendCollectionValue"]>;
-    prepend: ReturnType<Store<Values>["actions"]["prependCollectionValue"]>;
+    insert: ReturnType<Store<any>["actions"]["insertCollectionValue"]>;
+    append: ReturnType<Store<any>["actions"]["appendCollectionValue"]>;
+    prepend: ReturnType<Store<any>["actions"]["prependCollectionValue"]>;
     removeMultiple: ReturnType<
-      Store<Values>["actions"]["removeMultipleCollectionValues"]
+      Store<any>["actions"]["removeMultipleCollectionValues"]
     >;
-    remove: ReturnType<Store<Values>["actions"]["removeCollectionValue"]>;
+    remove: ReturnType<Store<any>["actions"]["removeCollectionValue"]>;
   };
 
   id: Store<Values>["form"]["id"];
@@ -136,9 +135,7 @@ export interface FormInterface<
 }
 
 export const stepInterfaceSelector =
-  <Values extends Record<string, unknown> = Record<string, unknown>>(
-    state: Store<Values>
-  ) =>
+  <Values extends object = DefaultFormValues>(state: Store<Values>) =>
   (step: Step): StepInterface => {
     return {
       name: step.name,

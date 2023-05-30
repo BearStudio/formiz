@@ -15,7 +15,7 @@ import {
 } from "@/utils/form";
 import { deepEqual } from "fast-equals";
 
-export const useForm = <Values extends Record<string, unknown> = any>(
+export const useForm = <Values extends object = any>(
   formConfig?: useFormProps<Values>
 ) => {
   const defaultFormId = useId();
