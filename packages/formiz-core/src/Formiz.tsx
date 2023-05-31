@@ -3,6 +3,7 @@ import { StoreApi, UseBoundStore } from "zustand";
 import type { FormizProps, Store } from "@/types";
 import { createContext } from "@/utils/context";
 import { ERROR_FORMIZ_MISSING_CONNECT } from "@/errors";
+import { useEffect } from "react";
 
 export const [FormContextProvider, useFormStore] = createContext<{
   useStore: UseBoundStore<StoreApi<Store>>;
@@ -21,6 +22,13 @@ export const Formiz = ({ children, connect, autoForm }: FormizProps) => {
   const actions = useStore?.((state) => state.actions);
 
   const formId = useStore?.((state) => state.form.id);
+
+  useEffect(() => {
+    actions.updateConnected(true);
+    return () => {
+      actions.updateConnected(false);
+    };
+  }, [actions]);
 
   return (
     <FormContextProvider

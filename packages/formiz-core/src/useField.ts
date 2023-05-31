@@ -120,7 +120,9 @@ export const useField = <
     deepEqual
   );
 
-  const formReady = useStore(useCallback((state) => state.ready, []));
+  const formReady = useStore(
+    useCallback((state) => state.ready && state.connected, [])
+  );
 
   // Get field from state
   const { value, ...exposedField } = useStore(

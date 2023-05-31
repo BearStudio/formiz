@@ -23,23 +23,17 @@ export const useForm = <Values extends object = any>(
   const formConfigRef = useRef(formConfig ?? null);
   formConfigRef.current = formConfig ?? null;
 
-  const storeDefaultState = {
-    form: {
-      id: formConfigRef.current?.id ?? defaultFormId,
-      currentStepName: formConfigRef.current?.initialStepName ?? null,
-      initialStepName: formConfigRef.current?.initialStepName ?? null,
-    },
-    initialValues: cloneDeep(formConfigRef.current?.initialValues ?? {}),
-    formConfigRef: formConfigRef ?? null,
-  };
-  const storeDefaultStateRef = useRef(storeDefaultState);
-  storeDefaultStateRef.current = storeDefaultState;
-
   const useStoreRef = useRef<UseBoundStore<StoreApi<Store<Values>>>>();
   if (!useStoreRef.current) {
     useStoreRef.current = createStore({
       ready: formConfigRef.current?.ready === false ? false : true,
-      ...storeDefaultState,
+      form: {
+        id: formConfigRef.current?.id ?? defaultFormId,
+        currentStepName: formConfigRef.current?.initialStepName ?? null,
+        initialStepName: formConfigRef.current?.initialStepName ?? null,
+      },
+      initialValues: cloneDeep(formConfigRef.current?.initialValues ?? {}),
+      formConfigRef: formConfigRef ?? null,
     });
   }
   const useStore = useStoreRef.current;
@@ -57,12 +51,9 @@ export const useForm = <Values extends object = any>(
     isDeepEqual
   );
 
-  const isReadyRef = useRef(formState.isReady);
-  isReadyRef.current = formState.isReady;
-
   useEffect(() => {
-    if (!isReadyRef.current && formConfig?.ready) {
-      formActions.setReady(storeDefaultStateRef.current);
+    if (formConfig?.ready !== undefined) {
+      formActions.updateReady(formConfig?.ready);
     }
   }, [formActions, formConfig?.ready]);
 

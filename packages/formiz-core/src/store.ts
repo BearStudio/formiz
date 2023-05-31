@@ -30,6 +30,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
 ) =>
   create<Store<Values>>()((set, get) => ({
     ready: true,
+    connected: false,
     fields: new Map(),
     collections: new Map(),
     steps: [],
@@ -50,15 +51,23 @@ export const createStore = <Values extends object = DefaultFormValues>(
     },
     actions: {
       // FORM
-      setReady: (initialState) => {
-        set((state) => ({
-          ready: true,
-          ...initialState,
-          form: {
-            ...state.form,
-            ...initialState?.form,
-          },
+      updateReady: (ready) => {
+        const wasReady = get().ready;
+        set(() => ({
+          ready,
         }));
+        if (!wasReady && ready && get().connected) {
+          get().actions.reset();
+        }
+      },
+      updateConnected: (connected) => {
+        const wasConnected = get().connected;
+        set(() => ({
+          connected,
+        }));
+        if (!wasConnected && connected && get().ready) {
+          get().actions.reset();
+        }
       },
       submitForm: (formEvent) => {
         formEvent?.preventDefault();

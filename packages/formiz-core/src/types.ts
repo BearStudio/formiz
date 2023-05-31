@@ -306,6 +306,7 @@ export type StoreInitialState<Values extends object = DefaultFormValues> = {
 
 export interface Store<Values extends object = DefaultFormValues> {
   ready: boolean;
+  connected: boolean;
   fields: Fields;
   collections: Collections;
   steps: Step[];
@@ -321,7 +322,8 @@ export interface Store<Values extends object = DefaultFormValues> {
   initialValues: Partial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
-    setReady(initialState?: Omit<StoreInitialState<Values>, "ready">): void;
+    updateReady(ready: boolean): void;
+    updateConnected(connected: boolean): void;
     submitForm(e?: FormEvent): void;
     setValues(
       newValues: Partial<Values>,
