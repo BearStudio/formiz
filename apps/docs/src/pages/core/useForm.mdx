@@ -65,8 +65,8 @@ const form = useForm({ initialStepName: "step-2" });
 
 ### ready
 
-Allows you to delayed form setup, this can be usefull when you have async initialValues. By default ready is true.
-It can be initialised at false and be updated to true, but it can no longer be updated when it is true.
+Allows you to delayed form setup, this can be usefull when you have async initialValues. If it is not defined, ready is true.
+Everytime ready turn from false to true, the form will be reset to its initial state.
 
 ```tsx
 const [data, setData] = useState();
