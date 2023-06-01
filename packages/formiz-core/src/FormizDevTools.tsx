@@ -7,13 +7,14 @@ import { ExposedExternalFieldState, Store } from "@/types";
 import { getFormValues } from "@/utils/form";
 import Logo from "@/utils/Logo";
 import { deepEqual } from "fast-equals";
+import { get } from "lodash";
 import { CSSProperties, useRef, useState } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
 export const FormizDevTools = () => {
   const formizContext = useFormizContext();
 
-  const [isOpenDebugger, setIsOpenDebugger] = useState(true);
+  const [isOpenDebugger, setIsOpenDebugger] = useState(false);
 
   const storesRef = useRef(formizContext.stores);
   storesRef.current = formizContext.stores;
@@ -116,6 +117,17 @@ export const FormizDevToolsContent = ({
 
   const [search, setSearch] = useState("");
 
+  const fieldsBySteps = formState.steps
+    ?.map((step) => ({
+      step,
+      fields: allFieldsEntries.filter(
+        (fieldEntry) =>
+          (search ? fieldEntry[0].includes(search) : true) &&
+          fieldEntry[1].stepName === step.name
+      ),
+    }))
+    .filter((fieldsStep) => !!fieldsStep.fields?.length);
+
   return (
     <div
       style={{
@@ -184,31 +196,37 @@ export const FormizDevToolsContent = ({
                 display: "flex",
                 flexDirection: "column",
                 flex: 2,
-                gap: "0.5rem",
+                gap: "1rem",
                 maxHeight: "15vh",
                 overflowY: "scroll",
               }}
             >
-              {allFieldsEntries
-                .filter((field) => field[0].includes(search))
-                .map((field) => (
-                  <button
-                    onClick={() => setCurrentField(field)}
+              {!!fieldsBySteps?.length &&
+                fieldsBySteps.map((fieldsStep) => (
+                  <div
                     style={{
                       display: "flex",
-                      flex: 1,
-                      paddingBlock: "0.2rem",
-                      paddingInline: "0.5rem",
-                      background:
-                        currentField?.[0] === field[0] ? "#3761E2" : "#20293A",
-                      alignItems: "center",
-                      minHeight: "2rem",
-                      maxHeight: "2rem",
+                      flexDirection: "column",
+                      gap: "0.5rem",
                     }}
                   >
-                    <p>{field[0]}</p>
-                  </button>
+                    <p>{fieldsStep.step.name}</p>
+                    <FieldListing
+                      fields={fieldsStep.fields}
+                      onClick={(field) => setCurrentField(field)}
+                      isActive={(field) => currentField?.[0] === field[0]}
+                    />
+                  </div>
                 ))}
+              {!fieldsBySteps?.length && (
+                <FieldListing
+                  fields={allFieldsEntries.filter((field) =>
+                    field[0].includes(search)
+                  )}
+                  onClick={(field) => setCurrentField(field)}
+                  isActive={(field) => currentField?.[0] === field[0]}
+                />
+              )}
             </div>
           </div>
           {currentField ? (
@@ -344,6 +362,45 @@ export const FormizDevToolsContent = ({
           <FieldEntries fieldsEntries={allFieldsEntries} flex={2} />
         )} */}
       </div>
+    </div>
+  );
+};
+
+const FieldListing = ({
+  fields,
+  onClick,
+  isActive,
+}: {
+  fields: [string, ExposedExternalFieldState][];
+  onClick(field: [string, ExposedExternalFieldState]): void;
+  isActive(field: [string, ExposedExternalFieldState]): boolean;
+}) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flex: 2,
+        gap: "0.5rem",
+      }}
+    >
+      {fields.map((field) => (
+        <button
+          onClick={() => onClick(field)}
+          style={{
+            display: "flex",
+            flex: 1,
+            paddingBlock: "0.2rem",
+            paddingInline: "0.5rem",
+            background: isActive(field) ? "#3761E2" : "#20293A",
+            alignItems: "center",
+            minHeight: "2rem",
+            maxHeight: "2rem",
+          }}
+        >
+          <p>{field[0]}</p>
+        </button>
+      ))}
     </div>
   );
 };
