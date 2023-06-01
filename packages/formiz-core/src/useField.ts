@@ -308,13 +308,13 @@ export const useField = <
   const onValueChangeRef = useRef(onValueChange);
   onValueChangeRef.current = onValueChange;
 
-  const validationsDeps = JSON.stringify(
+  const validationsDeps = JSON.stringify([
     validations.map((validation) => ({
       deps: validation.deps,
       message: validation.message,
-    }))
-  );
-  const validationsDepsPrevRef = useRef(validationsDeps);
+    })),
+    required,
+  ]);
 
   useEffect(() => {
     if (deferredValue !== undefined && deferredValue !== valueRef.current) {
@@ -326,16 +326,20 @@ export const useField = <
     }
   }, [deferredValue, storeActions]);
 
+  const validationsDepsPrevRef = useRef(validationsDeps);
+
   useEffect(() => {
     if (validationsDepsPrevRef.current !== validationsDeps) {
       const currentField = useStore.getState().fields.get(fieldIdRef.current);
       const { requiredErrors, validationsErrors } = getFieldValidationsErrors(
         currentField?.value,
         currentField?.formattedValue,
-        currentField?.requiredRef?.current,
+        requiredRef?.current,
         currentField?.validationsRef?.current
       );
+      validationsDepsPrevRef.current = validationsDeps;
       storeActions.updateField(fieldIdRef.current, {
+        requiredRef,
         requiredErrors,
         validationsErrors,
       });
