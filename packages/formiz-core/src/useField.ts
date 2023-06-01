@@ -335,7 +335,6 @@ export const useField = <
   useEffect(() => {
     if (validationsDepsPrevRef.current !== validationsDeps) {
       const currentField = useStore.getState().fields.get(fieldIdRef.current);
-      const requiredRule = useStore.getState().providerConfig.required;
       const { requiredErrors, validationsErrors } = getFieldValidationsErrors(
         currentField?.value,
         currentField?.formattedValue,
