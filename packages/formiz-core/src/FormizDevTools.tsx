@@ -7,7 +7,6 @@ import { ExposedExternalFieldState, Store } from "@/types";
 import { getFormValues } from "@/utils/form";
 import Logo from "@/utils/Logo";
 import { deepEqual } from "fast-equals";
-import { get } from "lodash";
 import { CSSProperties, useRef, useState } from "react";
 import { StoreApi, UseBoundStore } from "zustand";
 
@@ -46,7 +45,7 @@ export const FormizDevTools = () => {
   return (
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         bottom: "1rem",
         left: "1rem",
         right: "1rem",
@@ -117,13 +116,15 @@ export const FormizDevToolsContent = ({
 
   const [search, setSearch] = useState("");
 
+  const isSearched = (fieldName: string) =>
+    search ? fieldName.toLowerCase().includes(search.toLowerCase()) : true;
+
   const fieldsBySteps = formState.steps
     ?.map((step) => ({
       step,
       fields: allFieldsEntries.filter(
         (fieldEntry) =>
-          (search ? fieldEntry[0].includes(search) : true) &&
-          fieldEntry[1].stepName === step.name
+          isSearched(fieldEntry[0]) && fieldEntry[1].stepName === step.name
       ),
     }))
     .filter((fieldsStep) => !!fieldsStep.fields?.length);
@@ -182,7 +183,7 @@ export const FormizDevToolsContent = ({
             style={{
               display: "flex",
               flexDirection: "column",
-              flex: 2,
+              flex: 1,
               gap: "1rem",
             }}
           >
@@ -197,7 +198,7 @@ export const FormizDevToolsContent = ({
                 flexDirection: "column",
                 flex: 2,
                 gap: "1rem",
-                maxHeight: "15vh",
+                maxHeight: "12vh",
                 overflowY: "scroll",
               }}
             >
@@ -221,7 +222,7 @@ export const FormizDevToolsContent = ({
               {!fieldsBySteps?.length && (
                 <FieldListing
                   fields={allFieldsEntries.filter((field) =>
-                    field[0].includes(search)
+                    isSearched(field[0])
                   )}
                   onClick={(field) => setCurrentField(field)}
                   isActive={(field) => currentField?.[0] === field[0]}
@@ -237,7 +238,7 @@ export const FormizDevToolsContent = ({
                 background: "#00000030",
                 borderRadius: "7px",
                 padding: "5px",
-                maxHeight: "18vh",
+                maxHeight: "16vh",
                 overflowY: "scroll",
               }}
             >
@@ -257,7 +258,7 @@ export const FormizDevToolsContent = ({
                   </button>
                   <p>{currentField[0]}</p>
                 </div>
-                {JSON.stringify(currentField[1], null, 2)}
+                <pre>{JSON.stringify(currentField[1], null, 2)}</pre>
               </div>
             </div>
           ) : (
@@ -270,12 +271,12 @@ export const FormizDevToolsContent = ({
                   background: "#00000030",
                   borderRadius: "7px",
                   padding: "5px",
-                  maxHeight: "18vh",
+                  maxHeight: "16vh",
                   overflowY: "scroll",
                 }}
               >
                 <p style={{ fontWeight: "bold" }}>Values</p>
-                <p>{JSON.stringify(formValues, null, 2)}</p>
+                <pre>{JSON.stringify(formValues, null, 2)}</pre>
               </div>
               <div
                 style={{
@@ -285,12 +286,12 @@ export const FormizDevToolsContent = ({
                   background: "#00000030",
                   borderRadius: "7px",
                   padding: "5px",
-                  maxHeight: "18vh",
+                  maxHeight: "16vh",
                   overflowY: "scroll",
                 }}
               >
                 <p style={{ fontWeight: "bold" }}>State</p>
-                <p>{JSON.stringify(formState, null, 2)}</p>
+                <pre>{JSON.stringify(formState, null, 2)}</pre>
                 {/* <p>
                   <strong>resetKey</strong>: {formState.resetKey}
                 </p>
@@ -372,7 +373,7 @@ const FieldListing = ({
   isActive,
 }: {
   fields: [string, ExposedExternalFieldState][];
-  onClick(field: [string, ExposedExternalFieldState]): void;
+  onClick(field?: [string, ExposedExternalFieldState]): void;
   isActive(field: [string, ExposedExternalFieldState]): boolean;
 }) => {
   return (
@@ -386,7 +387,8 @@ const FieldListing = ({
     >
       {fields.map((field) => (
         <button
-          onClick={() => onClick(field)}
+          key={field[0]}
+          onClick={() => onClick(isActive(field) ? undefined : field)}
           style={{
             display: "flex",
             flex: 1,
@@ -415,12 +417,12 @@ const displayField = (field: ExposedExternalFieldState<unknown>) => (
       gap: "5px",
     }}
   >
-    <p style={{ fontSize: "0.8rem" }}>
+    <pre style={{ fontSize: "0.8rem" }}>
       <strong>value</strong>: {JSON.stringify(field.value, null, 2)}
-    </p>
-    <p style={{ fontSize: "0.8rem" }}>
+    </pre>
+    <pre style={{ fontSize: "0.8rem" }}>
       <strong>rawValue</strong>: {JSON.stringify(field.rawValue, null, 2)}
-    </p>
+    </pre>
     <p style={{ fontSize: "0.8rem" }}>
       <strong>isReady</strong>: {displayBoolean(field.isReady)}
     </p>
