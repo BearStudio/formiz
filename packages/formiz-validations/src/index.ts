@@ -39,7 +39,7 @@ const emailRegex =
 export const isRequired =
   () =>
   (value: Value): boolean =>
-    !!value || value === 0;
+    (typeof value === "string" ? !!value.trim() : !!value) || value === 0;
 
 /**
  * Check if the value is a string and is not empty.

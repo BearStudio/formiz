@@ -7,7 +7,11 @@ export const getFieldValidationsErrors = <Value, FormattedValue>(
   validations: FieldProps<Value, FormattedValue>["validations"]
 ) => {
   const requiredErrors =
-    !!required && !formattedValue && formattedValue !== 0
+    !!required &&
+    (typeof formattedValue === "string"
+      ? !formattedValue.trim()
+      : !formattedValue) &&
+    formattedValue !== 0
       ? [required !== true ? required : undefined]
       : [];
 

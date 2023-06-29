@@ -22,7 +22,7 @@ describe("isRequired", () => {
   });
 
   it("Test if value is a string with only spaces", () => {
-    expect(isRequired()("   ")).toBe(true);
+    expect(isRequired()("   ")).toBe(false);
   });
 
   // Numbers
