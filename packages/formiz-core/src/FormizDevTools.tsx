@@ -52,6 +52,7 @@ export const FormizDevTools = () => {
         height: "25vh",
         borderRadius: "1rem",
         background: "#111729",
+        color: "white",
         boxShadow: "10px",
         overflow: "hidden",
         display: "flex",
