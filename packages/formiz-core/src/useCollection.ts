@@ -67,9 +67,10 @@ export const useCollection = <Data = unknown>({
 
     return {
       isReady: state.ready,
-      keys:
-        state.actions.getCollectionKeys(name) ??
-        initialValuesArray.map((_, index) => index.toString()),
+      keys: state.ready
+        ? state.actions.getCollectionKeys(name) ??
+          initialValuesArray.map((_, index) => index.toString())
+        : [],
     };
   });
 
@@ -88,6 +89,7 @@ export const useCollection = <Data = unknown>({
   );
 
   const keysRef = useRef(keys);
+  keysRef.current = keys;
 
   useEffect(() => {
     if (isReady) {
