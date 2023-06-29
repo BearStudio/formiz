@@ -487,12 +487,7 @@ export interface FormizProps {
   children?: React.ReactNode;
 }
 
-export interface FormizConfig {
-  required: (value: any, rawValue: any) => boolean;
-}
-
 export interface FormizProviderProps {
-  config?: FormizConfig;
   children: React.ReactNode;
 }
 

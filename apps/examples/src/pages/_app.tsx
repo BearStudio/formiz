@@ -10,16 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Formiz Examples</title>
       </Head>
       <ChakraProvider>
-        <FormizProvider
-          config={{
-            required: (formattedValue) => {
-              const defaultValidation = !formattedValue && formattedValue !== 0;
-              return typeof formattedValue === "string"
-                ? !formattedValue.trim()
-                : defaultValidation;
-            },
-          }}
-        >
+        <FormizProvider>
           <Component {...pageProps} />
           <FormizDevTools />
         </FormizProvider>
