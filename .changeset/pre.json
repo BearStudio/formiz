@@ -5,8 +5,8 @@
     "docs": "0.0.0",
     "examples": "0.0.0",
     "config": "0.0.0",
-    "@formiz/core": "2.0.0-beta.8",
-    "@formiz/validations": "2.0.0-beta.1",
+    "@formiz/core": "2.0.0-beta.9",
+    "@formiz/validations": "2.0.0-beta.2",
     "tsconfig": "0.0.0"
   },
   "changesets": ["shiny-vans-attend"]
