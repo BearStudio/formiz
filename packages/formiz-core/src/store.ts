@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
+import lodashMerge from "lodash/merge";
 import lodashOmit from "lodash/omit";
 import cloneDeep from "clone-deep";
 
@@ -36,6 +37,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
     steps: [],
     keepValues: {},
     externalValues: {},
+    resetDefaultValues: {},
+    defaultValues: {},
     initialValues: {},
     formConfigRef: {
       current: {},
@@ -138,7 +141,52 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           return {
             fields: state.fields,
-            externalValues,
+            externalValues: lodashMerge(
+              cloneDeep(state.externalValues),
+              externalValues
+            ),
+          };
+        });
+      },
+
+      setDefaultValues: (newDefaultValues) => {
+        set((state) => {
+          let defaultValues = cloneDeep(newDefaultValues);
+          state.fields.forEach((field) => {
+            const newValue = lodashGet(defaultValues, field.name);
+            if (newValue !== undefined) {
+              const { requiredErrors, validationsErrors } =
+                getFieldValidationsErrors(
+                  newValue,
+                  newValue,
+                  field.requiredRef?.current,
+                  field.validationsRef?.current
+                );
+              defaultValues = lodashOmit(
+                cloneDeep(defaultValues),
+                field.name
+              ) as Partial<Values>;
+              state.fields.set(field.id, {
+                ...field,
+                value: newValue,
+                formattedValue: newValue,
+                externalErrors: [],
+                requiredErrors,
+                validationsErrors,
+              });
+            }
+          });
+
+          return {
+            fields: state.fields,
+            defaultValues: lodashMerge(
+              cloneDeep(state.defaultValues),
+              defaultValues
+            ),
+            resetDefaultValues: lodashMerge(
+              cloneDeep(state.resetDefaultValues),
+              newDefaultValues
+            ),
           };
         });
       },
@@ -191,11 +239,17 @@ export const createStore = <Values extends object = DefaultFormValues>(
               field.name
             ) as Partial<Values>;
 
+            const storeResetDefaultValue = lodashGet(
+              state.resetDefaultValues,
+              field.name
+            );
+
             const formatValue = field.formatValue
               ? field.formatValue
               : (v: unknown) => v;
 
-            const resetValue = initialValue ?? field.defaultValue;
+            const resetValue =
+              initialValue ?? storeResetDefaultValue ?? field.defaultValue;
             const resetValueFormatted = formatValue(resetValue);
 
             // Validations
@@ -318,6 +372,15 @@ export const createStore = <Values extends object = DefaultFormValues>(
             newField.name
           ) as Partial<Values>;
 
+          const storeDefaultValue = lodashGet(
+            state.defaultValues,
+            newField.name
+          );
+          const storeDefaultValues = lodashOmit(
+            cloneDeep(state.defaultValues),
+            newField.name
+          ) as Partial<Values>;
+
           const initialValue = lodashGet(state.initialValues, newField.name);
           const initialValues = lodashOmit(
             cloneDeep(state.initialValues),
@@ -339,6 +402,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
             }
             if (initialValue !== undefined) {
               return initialValue;
+            }
+            if (storeDefaultValue !== undefined) {
+              return storeDefaultValue;
             }
             return defaultValue;
           };
@@ -375,6 +441,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             keepValues,
             externalValues,
             initialValues,
+            defaultValues: storeDefaultValues,
           };
         }),
 

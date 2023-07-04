@@ -320,6 +320,8 @@ export interface Store<Values extends object = DefaultFormValues> {
   keepValues: Partial<Values>;
   externalValues: Partial<Values>;
   initialValues: Partial<Values>;
+  resetDefaultValues: Partial<Values>;
+  defaultValues: Partial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
     updateReady(ready: boolean): void;
@@ -329,6 +331,7 @@ export interface Store<Values extends object = DefaultFormValues> {
       newValues: Partial<Values>,
       options?: { keepPristine?: boolean }
     ): void;
+    setDefaultValues(defaultValues: Partial<Values>): void;
     setErrors(
       errors: Partial<
         Record<keyof Values extends string ? keyof Values : never, string>
