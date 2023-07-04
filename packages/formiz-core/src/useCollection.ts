@@ -10,6 +10,7 @@ export interface UseCollectionOptions {
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
+  defaultValue?: Array<unknown>;
 }
 
 export type UseCollectionValues<Data = unknown> = {
@@ -33,6 +34,7 @@ export type UseCollectionValues<Data = unknown> = {
 export const useCollection = <Data = unknown>({
   name,
   connect,
+  defaultValue,
 }: UseCollectionOptions): UseCollectionValues<Data> => {
   const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
@@ -63,6 +65,8 @@ export const useCollection = <Data = unknown>({
 
     const initialValuesArray = Array.isArray(initialValues)
       ? initialValues
+      : Array.isArray(defaultValue)
+      ? defaultValue
       : [];
 
     return {
@@ -91,11 +95,17 @@ export const useCollection = <Data = unknown>({
   const keysRef = useRef(keys);
   keysRef.current = keys;
 
+  const defaultValueRef = useRef(defaultValue);
+  defaultValueRef.current = defaultValue;
+
   useEffect(() => {
     if (isReady) {
+      if (defaultValueRef.current) {
+        storeActions.setDefaultValues({ [name]: defaultValueRef.current });
+      }
       collectionActions.setKeys(keysRef.current);
     }
-  }, [isReady, collectionActions]);
+  }, [isReady, collectionActions, storeActions, name]);
 
   return {
     ...collectionActions,

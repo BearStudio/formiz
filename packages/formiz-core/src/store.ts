@@ -36,6 +36,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
     steps: [],
     keepValues: {},
     externalValues: {},
+    defaultValues: {},
     initialValues: {},
     formConfigRef: {
       current: {},
@@ -139,6 +140,41 @@ export const createStore = <Values extends object = DefaultFormValues>(
           return {
             fields: state.fields,
             externalValues,
+          };
+        });
+      },
+
+      setDefaultValues: (newDefaultValues) => {
+        set((state) => {
+          let defaultValues = cloneDeep(newDefaultValues);
+          state.fields.forEach((field) => {
+            const newValue = lodashGet(defaultValues, field.name);
+            if (newValue !== undefined) {
+              const { requiredErrors, validationsErrors } =
+                getFieldValidationsErrors(
+                  newValue,
+                  newValue,
+                  field.requiredRef?.current,
+                  field.validationsRef?.current
+                );
+              defaultValues = lodashOmit(
+                cloneDeep(defaultValues),
+                field.name
+              ) as Partial<Values>;
+              state.fields.set(field.id, {
+                ...field,
+                value: newValue,
+                formattedValue: newValue,
+                externalErrors: [],
+                requiredErrors,
+                validationsErrors,
+              });
+            }
+          });
+
+          return {
+            fields: state.fields,
+            defaultValues,
           };
         });
       },
@@ -318,6 +354,15 @@ export const createStore = <Values extends object = DefaultFormValues>(
             newField.name
           ) as Partial<Values>;
 
+          const storeDefaultValue = lodashGet(
+            state.defaultValues,
+            newField.name
+          );
+          const storeDefaultValues = lodashOmit(
+            cloneDeep(state.defaultValues),
+            newField.name
+          ) as Partial<Values>;
+
           const initialValue = lodashGet(state.initialValues, newField.name);
           const initialValues = lodashOmit(
             cloneDeep(state.initialValues),
@@ -340,6 +385,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
             if (initialValue !== undefined) {
               return initialValue;
             }
+            if (storeDefaultValue !== undefined) {
+              return storeDefaultValue;
+            }
             return defaultValue;
           };
 
@@ -359,7 +407,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             generateField(fieldId, {
               ...(oldFieldById ?? {}),
               ...newField,
-              defaultValue,
+              defaultValue: storeDefaultValue,
               value,
               formatValue: formatValue as FormatValue<unknown, unknown>,
               formattedValue,
@@ -375,6 +423,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             keepValues,
             externalValues,
             initialValues,
+            defaultValues: storeDefaultValues,
           };
         }),
 
