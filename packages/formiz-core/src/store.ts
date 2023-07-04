@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
+import lodashMerge from "lodash/merge";
 import lodashOmit from "lodash/omit";
 import cloneDeep from "clone-deep";
 
@@ -36,6 +37,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
     steps: [],
     keepValues: {},
     externalValues: {},
+    resetDefaultValues: {},
     defaultValues: {},
     initialValues: {},
     formConfigRef: {
@@ -139,7 +141,10 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           return {
             fields: state.fields,
-            externalValues,
+            externalValues: lodashMerge(
+              cloneDeep(state.externalValues),
+              externalValues
+            ),
           };
         });
       },
@@ -174,7 +179,14 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           return {
             fields: state.fields,
-            defaultValues,
+            defaultValues: lodashMerge(
+              cloneDeep(state.defaultValues),
+              defaultValues
+            ),
+            resetDefaultValues: lodashMerge(
+              cloneDeep(state.resetDefaultValues),
+              newDefaultValues
+            ),
           };
         });
       },
@@ -227,11 +239,17 @@ export const createStore = <Values extends object = DefaultFormValues>(
               field.name
             ) as Partial<Values>;
 
+            const storeResetDefaultValue = lodashGet(
+              state.resetDefaultValues,
+              field.name
+            );
+
             const formatValue = field.formatValue
               ? field.formatValue
               : (v: unknown) => v;
 
-            const resetValue = initialValue ?? field.defaultValue;
+            const resetValue =
+              initialValue ?? storeResetDefaultValue ?? field.defaultValue;
             const resetValueFormatted = formatValue(resetValue);
 
             // Validations
@@ -407,7 +425,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             generateField(fieldId, {
               ...(oldFieldById ?? {}),
               ...newField,
-              defaultValue: storeDefaultValue,
+              defaultValue,
               value,
               formatValue: formatValue as FormatValue<unknown, unknown>,
               formattedValue,

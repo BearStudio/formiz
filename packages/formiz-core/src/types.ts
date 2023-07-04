@@ -320,6 +320,7 @@ export interface Store<Values extends object = DefaultFormValues> {
   keepValues: Partial<Values>;
   externalValues: Partial<Values>;
   initialValues: Partial<Values>;
+  resetDefaultValues: Partial<Values>;
   defaultValues: Partial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
