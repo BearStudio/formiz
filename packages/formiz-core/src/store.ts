@@ -2,7 +2,6 @@ import { create } from "zustand";
 import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
 import lodashMerge from "lodash/merge";
-import lodashOmit from "lodash/omit";
 import cloneDeep from "clone-deep";
 
 import {
@@ -13,7 +12,9 @@ import {
   getFormValues,
   getStepIsProcessing,
   getStepIsValid,
+  getValueByFieldName,
   isResetAllowed,
+  omitValueByFieldName,
   parseValues,
 } from "@/utils/form";
 import type {
@@ -124,7 +125,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
                   field.requiredRef?.current,
                   field.validationsRef?.current
                 );
-              externalValues = lodashOmit(
+              externalValues = omitValueByFieldName(
                 cloneDeep(externalValues),
                 field.name
               ) as Partial<Values>;
@@ -154,7 +155,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           let defaultValues = cloneDeep(newDefaultValues);
           state.fields.forEach((field) => {
-            const newValue = lodashGet(parseValues(defaultValues), field.name);
+            const newValue = getValueByFieldName(defaultValues, field.name);
             if (newValue !== undefined) {
               const { requiredErrors, validationsErrors } =
                 getFieldValidationsErrors(
@@ -163,8 +164,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
                   field.requiredRef?.current,
                   field.validationsRef?.current
                 );
-              defaultValues = lodashOmit(
-                parseValues(cloneDeep(defaultValues)),
+              defaultValues = omitValueByFieldName(
+                defaultValues,
                 field.name
               ) as Partial<Values>;
               state.fields.set(field.id, {
@@ -219,8 +220,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           if (isResetAllowed("values", resetOptions)) {
             state.collections.forEach((values, collectionName) => {
-              const collectionFields = lodashGet(
-                parseValues(state.formConfigRef.current?.initialValues ?? {}),
+              const collectionFields = getValueByFieldName(
+                state.formConfigRef.current?.initialValues,
                 collectionName
               ) as Partial<Values>[];
 
@@ -234,17 +235,14 @@ export const createStore = <Values extends object = DefaultFormValues>(
           }
 
           state.fields.forEach((field) => {
-            const initialValue = lodashGet(
-              parseValues(initialValues ?? {}),
-              field.name
-            );
-            initialValues = lodashOmit(
+            const initialValue = getValueByFieldName(initialValues, field.name);
+            initialValues = omitValueByFieldName(
               initialValues,
               field.name
             ) as Partial<Values>;
 
-            const storeResetDefaultValue = lodashGet(
-              parseValues(state.resetDefaultValues),
+            const storeResetDefaultValue = getValueByFieldName(
+              state.resetDefaultValues,
               field.name
             );
 
@@ -337,7 +335,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           setTimeout(() => {
             state.fields.forEach((field) => {
-              initialValues = lodashOmit(
+              initialValues = omitValueByFieldName(
                 initialValues,
                 field.name
               ) as Partial<Values>;
@@ -364,39 +362,39 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           const oldFieldById = state.fields.get(fieldId);
 
-          const externalValue = lodashGet(
-            parseValues(state.externalValues),
+          const externalValue = getValueByFieldName(
+            state.externalValues,
             newField.name
           );
-          const externalValues = lodashOmit(
-            parseValues(cloneDeep(state.externalValues)),
+          const externalValues = omitValueByFieldName(
+            state.externalValues,
             newField.name
           ) as Partial<Values>;
 
-          const keepValue = lodashGet(
-            parseValues(state.keepValues),
+          const keepValue = getValueByFieldName(
+            state.keepValues,
             newField.name
           );
-          const keepValues = lodashOmit(
-            parseValues(cloneDeep(state.keepValues)),
+          const keepValues = omitValueByFieldName(
+            state.keepValues,
             newField.name
           ) as Partial<Values>;
 
-          const storeDefaultValue = lodashGet(
-            parseValues(state.defaultValues),
+          const storeDefaultValue = getValueByFieldName(
+            state.defaultValues,
             newField.name
           );
-          const storeDefaultValues = lodashOmit(
-            parseValues(cloneDeep(state.defaultValues)),
+          const storeDefaultValues = omitValueByFieldName(
+            state.defaultValues,
             newField.name
           ) as Partial<Values>;
 
-          const initialValue = lodashGet(
-            parseValues(state.initialValues),
+          const initialValue = getValueByFieldName(
+            state.initialValues,
             newField.name
           );
-          const initialValues = lodashOmit(
-            parseValues(cloneDeep(state.initialValues)),
+          const initialValues = omitValueByFieldName(
+            state.initialValues,
             newField.name
           ) as Partial<Values>;
 
