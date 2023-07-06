@@ -8,7 +8,7 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
-const parseValues = <Values extends object = DefaultFormValues>(
+export const parseValues = <Values extends object = DefaultFormValues>(
   values: Values
 ) =>
   Object.keys(values).reduce((acc, key) => parseValuesName(key, acc), values);
