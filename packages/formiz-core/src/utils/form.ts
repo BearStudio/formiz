@@ -8,7 +8,11 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
-const parseValues = <Values extends object = DefaultFormValues>(
+import cloneDeep from "lodash/cloneDeep";
+import lodashGet from "lodash/get";
+import lodashOmit from "lodash/omit";
+
+export const parseValues = <Values extends object = DefaultFormValues>(
   values: Values
 ) =>
   Object.keys(values).reduce((acc, key) => parseValuesName(key, acc), values);
@@ -55,6 +59,20 @@ const parseValuesName = (name: string, values: any): any => {
     ...nextValues,
     [current]: parseValues(group),
   };
+};
+
+export const getValueByFieldName = (values: any, fieldName: string) => {
+  if (!values) {
+    return undefined;
+  }
+  return lodashGet(parseValues(values), fieldName);
+};
+
+export const omitValueByFieldName = (values: any, fieldName: string) => {
+  if (!values) {
+    return undefined;
+  }
+  return lodashOmit(parseValues(cloneDeep(values)), fieldName);
 };
 
 export const getFormFlatValues = <Values extends object = DefaultFormValues>(
