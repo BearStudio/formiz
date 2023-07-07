@@ -22,9 +22,7 @@ Set the value of the field.
 ```tsx
 const MyField = (props) => {
   const { setValue } = useField(props);
-  return (
-    <input onChange={(e) => setValue(e.target.value)} />
-  );
+  return <input onChange={(e) => setValue(e.target.value)} />;
 };
 ```
 
@@ -74,18 +72,21 @@ Get the current value of the field, after it has been formated by `formatValue` 
 
 ```tsx
 const MyField = (props) => {
-  const { formatValue, value } = useField(props);
+  const { value, formattedValue, setValue } = useField(props);
 
   return (
-    <input value={value ?? ""} formatValue={(val) => (val || "").replace("a", "e")} />
+    <input value={value ?? ""} onChange={e => setValue(e.target.value)}>
   );
-  /* Differences between value and formattedValue
-  {
-    value: 'value',
-    formattedValue: 'velue',
-  }
-  */
-};
+}
+
+<MyField name="fieldWithFormatValue" formatValue={(value) => `__${value}__`} />
+
+/* Differences between value and formattedValue if value is "value"
+{
+  value: 'value',
+  formattedValue: '__value__',
+}
+*/
 ```
 
 ### id
@@ -207,9 +208,11 @@ Get the props passed to the component without the Formiz props.
 Allows you to keep composition by spreading this object in your component.
 
 ```jsx
-type MyFieldProps = FieldProps<unknown> & { styles: CSS.Properties }
+type MyFieldProps = FieldProps<unknown> & { styles: CSS.Properties };
 
-const MyField = <FormattedValue = unknown,>(props: MyFieldProps<FormattedValue>) => {
+const MyField = <FormattedValue = unknown>(
+  props: MyFieldProps<FormattedValue>
+) => {
   const { otherProps } = useField(props);
 
   // otherProps type is { styles: CSS.Properties }
