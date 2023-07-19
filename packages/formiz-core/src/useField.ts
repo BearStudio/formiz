@@ -104,16 +104,6 @@ export const useField = <
   const stepContext = useStepContext();
   const stepName = stepContext?.name;
 
-  const formatValueRef = useRef(formatValue);
-  formatValueRef.current = formatValue;
-
-  const fieldId = useId();
-  const fieldIdRef = useRef(fieldId);
-  fieldIdRef.current = fieldId;
-
-  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(null);
-  const deferredValue = useDeferredValue(internalValue);
-
   const storeActions = useStore(
     useCallback((state) => state.actions, []),
     deepEqual
@@ -122,6 +112,20 @@ export const useField = <
   const formReady = useStore(
     useCallback((state) => state.ready && state.connected, [])
   );
+
+  const formatValueRef = useRef(formatValue);
+  formatValueRef.current = formatValue;
+
+  const fieldId = useId();
+  const fieldIdRef = useRef(fieldId);
+  fieldIdRef.current = fieldId;
+
+  const requiredRef = useRef(required);
+  requiredRef.current = required;
+  const validationsRef = useRef(validations);
+  validationsRef.current = validations;
+  const keepValueRef = useRef(keepValue);
+  keepValueRef.current = keepValue;
 
   // Get field from state
   const { value, ...exposedField } = useStore(
@@ -168,12 +172,6 @@ export const useField = <
 
   const valueRef = useRef<FieldValue<Value>>(value ?? null);
   valueRef.current = value ?? null;
-  const requiredRef = useRef(required);
-  requiredRef.current = required;
-  const validationsRef = useRef(validations);
-  validationsRef.current = validations;
-  const keepValueRef = useRef(keepValue);
-  keepValueRef.current = keepValue;
 
   const unregisterTimeoutRef = useRef<NodeJS.Timeout>();
 
@@ -225,6 +223,9 @@ export const useField = <
       message: validation.message,
     }))
   );
+
+  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(value);
+  const deferredValue = useDeferredValue(internalValue);
 
   useEffect(() => {
     // Update internal form on external field value update
@@ -307,14 +308,6 @@ export const useField = <
   const onValueChangeRef = useRef(onValueChange);
   onValueChangeRef.current = onValueChange;
 
-  const validationsDeps = JSON.stringify([
-    validations.map((validation) => ({
-      deps: validation.deps,
-      message: validation.message,
-    })),
-    required,
-  ]);
-
   useEffect(() => {
     if (deferredValue !== undefined && deferredValue !== valueRef.current) {
       storeActions.getFieldSetValue<Value, FormattedValue>({
@@ -325,6 +318,13 @@ export const useField = <
     }
   }, [deferredValue, storeActions]);
 
+  const validationsDeps = JSON.stringify([
+    validations.map((validation) => ({
+      deps: validation.deps,
+      message: validation.message,
+    })),
+    required,
+  ]);
   const validationsDepsPrevRef = useRef(validationsDeps);
 
   useEffect(() => {
