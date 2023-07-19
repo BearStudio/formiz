@@ -3,7 +3,7 @@ import { StoreApi, UseBoundStore } from "zustand";
 import type { FormizProps, Store } from "@/types";
 import { createContext } from "@/utils/context";
 import { ERROR_FORMIZ_MISSING_CONNECT } from "@/errors";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const [FormContextProvider, useFormStore] = createContext<{
   useStore: UseBoundStore<StoreApi<Store>>;
@@ -23,10 +23,16 @@ export const Formiz = ({ children, connect, autoForm }: FormizProps) => {
 
   const formId = useStore?.((state) => state.form.id);
 
+  const unconnectedTimeoutRef = useRef<NodeJS.Timeout>();
+
   useEffect(() => {
     actions.updateConnected(true);
+    clearTimeout(unconnectedTimeoutRef.current);
+
     return () => {
-      actions.updateConnected(false);
+      unconnectedTimeoutRef.current = setTimeout(() => {
+        actions.updateConnected(false);
+      });
     };
   }, [actions]);
 
