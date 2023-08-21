@@ -51,7 +51,7 @@ export const useCollection = <Data = unknown>({
     deepEqual
   );
 
-  const { isReady, keys } = useStore((state) => {
+  const { isReady, keys, hasInitialValues } = useStore((state) => {
     const initialValues = lodashGet(state.initialValues, name);
 
     if (
@@ -75,6 +75,9 @@ export const useCollection = <Data = unknown>({
         ? state.actions.getCollectionKeys(name) ??
           initialValuesArray.map((_, index) => index.toString())
         : [],
+      hasInitialValues: Array.isArray(initialValues)
+        ? !!initialValues?.length
+        : false,
     };
   });
 
@@ -98,9 +101,12 @@ export const useCollection = <Data = unknown>({
   const defaultValueRef = useRef(defaultValue);
   defaultValueRef.current = defaultValue;
 
+  const hasInitialValuesRef = useRef(hasInitialValues);
+  hasInitialValuesRef.current = hasInitialValues;
+
   useEffect(() => {
     if (isReady) {
-      if (defaultValueRef.current) {
+      if (!hasInitialValuesRef.current && defaultValueRef.current) {
         storeActions.setDefaultValues({ [name]: defaultValueRef.current });
       }
       collectionActions.setKeys(keysRef.current);
