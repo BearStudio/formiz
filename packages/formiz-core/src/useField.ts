@@ -170,8 +170,8 @@ export const useField = <
     deepEqual
   );
 
-  const valueRef = useRef<FieldValue<Value>>(value ?? null);
-  valueRef.current = value ?? null;
+  const valueRef = useRef<FieldValue<Value> | undefined>(value);
+  valueRef.current = value;
 
   const unregisterTimeoutRef = useRef<NodeJS.Timeout>();
 
@@ -191,7 +191,7 @@ export const useField = <
         {
           name,
           stepName,
-          value: valueRef.current,
+          value: valueRef.current ?? null,
         },
         {
           defaultValue: defaultValueRef.current,
@@ -224,10 +224,15 @@ export const useField = <
     }))
   );
 
-  const [internalValue, setInternalValue] = useState<FieldValue<Value>>(value);
+  const [internalValue, setInternalValue] = useState<
+    FieldValue<Value> | undefined
+  >(value);
   const deferredValue = useDeferredValue(internalValue);
 
   useEffect(() => {
+    if (valueRef.current === undefined) {
+      return;
+    }
     // Update internal form on external field value update
     setInternalValue(valueRef.current);
 
