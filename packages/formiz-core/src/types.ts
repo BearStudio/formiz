@@ -144,7 +144,6 @@ export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
   extends Pick<
     Field<Value, FormattedValue>,
     | "id"
-    | "value"
     | "formattedValue"
     | "isPristine"
     | "isTouched"
@@ -152,6 +151,7 @@ export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
     | "isExternalProcessing"
     | "isDebouncing"
   > {
+  value: FieldValue<Value> | undefined;
   /**
    * True if the form has been submitted.
    */
@@ -196,11 +196,11 @@ export interface ExposedExternalFieldState<
   /**
    * Value of the field before formatting.
    */
-  rawValue: FieldValue<Value>;
+  rawValue: FieldValue<Value> | undefined;
   /**
    * Value of the field after formatting, as presents on form values.
    */
-  value: FieldValue<FormattedValue>;
+  value: FieldValue<FormattedValue> | undefined;
 }
 
 export interface ExposedField<Value, FormattedValue, Props>
@@ -217,7 +217,7 @@ export interface ExposedField<Value, FormattedValue, Props>
   setValue: (
     fieldValue:
       | FieldValue<Value>
-      | ((oldValue: FieldValue<Value>) => FieldValue<Value>)
+      | ((oldValue: FieldValue<Value> | undefined) => FieldValue<Value>)
   ) => void;
   /**
    * Function to update isTouched field state.

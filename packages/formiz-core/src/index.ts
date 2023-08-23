@@ -5,6 +5,7 @@ export { useFormContext } from "./useFormContext";
 export { useFormFields } from "./useFormFields";
 export { FormizStep } from "./FormizStep";
 export { useCollection } from "./useCollection";
+export type { UseCollectionValues, UseCollectionOptions } from "./useCollection";
 export type {
   FieldProps,
   FieldValidation,

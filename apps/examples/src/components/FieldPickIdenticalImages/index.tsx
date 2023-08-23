@@ -37,7 +37,7 @@ export const FieldPickIdenticalImages = <FormattedValue = string | null,>(
     setValue,
     value,
     isValid,
-    isReady,
+    isTouched,
     setIsTouched,
     shouldDisplayError,
     otherProps: { children, label, helper, options, ...rest },
@@ -159,7 +159,7 @@ export const FieldPickIdenticalImages = <FormattedValue = string | null,>(
           </AspectRatio>
         ))}
       </SimpleGrid>
-      {isReady && (
+      {isValid && isTouched && (
         <Alert status="success" variant="solid" borderRadius="md">
           <AlertIcon />
           Perfect, the two images are identical!
