@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { Button, Heading, Link, Box, Icon } from "@chakra-ui/react";
 import { FiExternalLink } from "react-icons/fi";
-import { useForm, useFormContext } from "@formiz/core";
+import { useFormContext } from "@formiz/core";
 
 export const PageHeader: FC<{
   children?: ReactNode;
