@@ -16,6 +16,8 @@ export type OnValueChange<Value = unknown, FormattedValue = Value> = (
 
 export type DefaultFormValues = any;
 
+export type NullablePartial<T> = { [P in keyof T]?: T[P] | null };
+
 export interface FieldValidation<Value = unknown, FormattedValue = Value> {
   /**
    * Function that determines if the value is valid.
@@ -317,21 +319,21 @@ export interface Store<Values extends object = DefaultFormValues> {
     initialStepName: string | null;
     isSubmitted: boolean;
   };
-  keepValues: Partial<Values>;
-  externalValues: Partial<Values>;
-  initialValues: Partial<Values>;
-  resetDefaultValues: Partial<Values>;
-  defaultValues: Partial<Values>;
+  keepValues: NullablePartial<Values>;
+  externalValues: NullablePartial<Values>;
+  initialValues: NullablePartial<Values>;
+  resetDefaultValues: NullablePartial<Values>;
+  defaultValues: NullablePartial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
     updateReady(ready: boolean): void;
     updateConnected(connected: boolean): void;
     submitForm(e?: FormEvent): void;
     setValues(
-      newValues: Partial<Values>,
+      newValues: NullablePartial<Values>,
       options?: { keepPristine?: boolean }
     ): void;
-    setDefaultValues(defaultValues: Partial<Values>): void;
+    setDefaultValues(defaultValues: NullablePartial<Values>): void;
     setErrors(
       errors: Partial<
         Record<keyof Values extends string ? keyof Values : never, string>
@@ -429,7 +431,7 @@ export interface useFormProps<Values extends object = DefaultFormValues> {
   /**
    * InitialValues of the form.
    */
-  initialValues?: Partial<Values>;
+  initialValues?: NullablePartial<Values>;
   /**
    * Name of the initial step to display.
    */

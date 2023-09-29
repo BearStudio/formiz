@@ -68,11 +68,17 @@ export const getValueByFieldName = (values: any, fieldName: string) => {
   return lodashGet(parseValues(values), fieldName);
 };
 
-export const omitValueByFieldName = (values: any, fieldName: string) => {
+export const omitValueByFieldName = <Values = any>(
+  values: Values,
+  fieldName: string
+): Partial<Values> | undefined => {
   if (!values) {
     return undefined;
   }
-  return lodashOmit(parseValues(cloneDeep(values)), fieldName);
+  return lodashOmit(
+    parseValues(cloneDeep(values)),
+    fieldName
+  ) as Partial<Values>;
 };
 
 export const getFormFlatValues = <Values extends object = DefaultFormValues>(
@@ -86,8 +92,8 @@ export const getFormFlatValues = <Values extends object = DefaultFormValues>(
     {} as Values
   );
 
-export const getFormValues = (fields: Fields) => {
-  const values = getFormFlatValues(fields);
+export const getFormValues = <Values extends object = any>(fields: Fields) => {
+  const values = getFormFlatValues<Values>(fields);
   return parseValues(values);
 };
 
