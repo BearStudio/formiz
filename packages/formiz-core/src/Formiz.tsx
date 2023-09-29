@@ -25,13 +25,14 @@ export const Formiz = ({ children, connect, autoForm }: FormizProps) => {
 
   const unconnectedTimeoutRef = useRef<NodeJS.Timeout>();
 
+  const connectRef = useRef(connect);
   useEffect(() => {
-    actions.updateConnected(true);
+    actions.updateConnected(true, connectRef);
     clearTimeout(unconnectedTimeoutRef.current);
 
     return () => {
       unconnectedTimeoutRef.current = setTimeout(() => {
-        actions.updateConnected(false);
+        actions.updateConnected(false, connectRef);
       });
     };
   }, [actions]);

@@ -326,8 +326,14 @@ export interface Store<Values extends object = DefaultFormValues> {
   defaultValues: NullablePartial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
-    updateReady(ready: boolean): void;
-    updateConnected(connected: boolean): void;
+    updateReady(
+      ready: boolean,
+      formConfigRef: RefObject<useFormProps<Values>>
+    ): void;
+    updateConnected(
+      connected: boolean,
+      connectRef?: RefObject<FormizProps["connect"]>
+    ): void;
     submitForm(e?: FormEvent): void;
     setValues(
       newValues: NullablePartial<Values>,

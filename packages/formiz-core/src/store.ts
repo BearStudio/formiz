@@ -57,19 +57,22 @@ export const createStore = <Values extends object = DefaultFormValues>(
     },
     actions: {
       // FORM
-      updateReady: (ready) => {
+      updateReady: (ready, formConfigRef) => {
         const wasReady = get().ready;
         set(() => ({
           ready,
+          formConfigRef,
         }));
         if (!wasReady && ready && get().connected) {
           get().actions.reset();
         }
       },
-      updateConnected: (connected) => {
+      updateConnected: (connected, connectRef) => {
         const wasConnected = get().connected;
         set(() => ({
           connected,
+          formConfigRef:
+            connectRef?.current?.__connect?.getState().formConfigRef,
         }));
         if (!wasConnected && connected && get().ready) {
           get().actions.reset();
@@ -301,7 +304,14 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 ? false
                 : state.form.isSubmitted,
               currentStepName: isResetAllowed("currentStep", resetOptions)
-                ? state.form.initialStepName ?? state.steps[0]?.name ?? null
+                ? state.formConfigRef.current?.initialStepName ??
+                  state.steps[0]?.name ??
+                  null
+                : state.form.currentStepName,
+              initialStepName: isResetAllowed("currentStep", resetOptions)
+                ? state.formConfigRef.current?.initialStepName ??
+                  state.steps[0]?.name ??
+                  null
                 : state.form.currentStepName,
             },
             fields: state.fields,

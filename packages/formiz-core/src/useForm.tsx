@@ -53,7 +53,7 @@ export const useForm = <Values extends object = any>(
 
   useEffect(() => {
     if (formConfig?.ready !== undefined) {
-      formActions.updateReady(formConfig?.ready);
+      formActions.updateReady(formConfig?.ready, formConfigRef);
     }
   }, [formActions, formConfig?.ready]);
 
