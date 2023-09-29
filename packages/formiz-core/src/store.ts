@@ -21,6 +21,7 @@ import type {
   DefaultFormValues,
   FormatValue,
   GetFieldSetValueOptions,
+  NullablePartial,
   Store,
   StoreInitialState,
 } from "@/types";
@@ -56,19 +57,22 @@ export const createStore = <Values extends object = DefaultFormValues>(
     },
     actions: {
       // FORM
-      updateReady: (ready) => {
+      updateReady: (ready, formConfigRef) => {
         const wasReady = get().ready;
         set(() => ({
           ready,
+          formConfigRef,
         }));
         if (!wasReady && ready && get().connected) {
           get().actions.reset();
         }
       },
-      updateConnected: (connected) => {
+      updateConnected: (connected, connectRef) => {
         const wasConnected = get().connected;
         set(() => ({
           connected,
+          formConfigRef:
+            connectRef?.current?.__connect?.getState().formConfigRef,
         }));
         if (!wasConnected && connected && get().ready) {
           get().actions.reset();
@@ -93,7 +97,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           return;
         }
 
-        const formValues = getFormValues(fields) as Values;
+        const formValues = getFormValues<Values>(fields);
 
         if (getFormIsValid(fields)) {
           formConfigRef.current?.onValidSubmit?.(
@@ -125,10 +129,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
                   field.requiredRef?.current,
                   field.validationsRef?.current
                 );
-              externalValues = omitValueByFieldName(
-                cloneDeep(externalValues),
-                field.name
-              ) as Partial<Values>;
+              externalValues =
+                omitValueByFieldName(cloneDeep(externalValues), field.name) ??
+                {};
               state.fields.set(field.id, {
                 ...field,
                 value: newValue,
@@ -164,10 +167,8 @@ export const createStore = <Values extends object = DefaultFormValues>(
                   field.requiredRef?.current,
                   field.validationsRef?.current
                 );
-              defaultValues = omitValueByFieldName(
-                defaultValues,
-                field.name
-              ) as Partial<Values>;
+              defaultValues =
+                omitValueByFieldName(defaultValues, field.name) ?? {};
               state.fields.set(field.id, {
                 ...field,
                 value: newValue,
@@ -216,19 +217,19 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           let initialValues = cloneDeep(
             state.formConfigRef.current?.initialValues
-          ) as Partial<Values> | undefined;
+          );
 
           if (isResetAllowed("values", resetOptions)) {
             state.collections.forEach((values, collectionName) => {
               const collectionFields = getValueByFieldName(
                 state.formConfigRef.current?.initialValues,
                 collectionName
-              ) as Partial<Values>[];
+              ) as NullablePartial<Values>[];
 
               state.collections.set(
                 collectionName,
                 collectionFields?.map(
-                  (_, index) => values[index] ?? index.toString()
+                  (_, index) => values?.[index] ?? index.toString()
                 )
               );
             });
@@ -236,10 +237,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           state.fields.forEach((field) => {
             const initialValue = getValueByFieldName(initialValues, field.name);
-            initialValues = omitValueByFieldName(
-              initialValues,
-              field.name
-            ) as Partial<Values>;
+            initialValues = omitValueByFieldName(initialValues, field.name);
 
             const storeResetDefaultValue = getValueByFieldName(
               state.resetDefaultValues,
@@ -306,7 +304,14 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 ? false
                 : state.form.isSubmitted,
               currentStepName: isResetAllowed("currentStep", resetOptions)
-                ? state.form.initialStepName ?? state.steps[0]?.name ?? null
+                ? state.formConfigRef.current?.initialStepName ??
+                  state.steps[0]?.name ??
+                  null
+                : state.form.currentStepName,
+              initialStepName: isResetAllowed("currentStep", resetOptions)
+                ? state.formConfigRef.current?.initialStepName ??
+                  state.steps[0]?.name ??
+                  null
                 : state.form.currentStepName,
             },
             fields: state.fields,
@@ -335,10 +340,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
           setTimeout(() => {
             state.fields.forEach((field) => {
-              initialValues = omitValueByFieldName(
-                initialValues,
-                field.name
-              ) as Partial<Values>;
+              initialValues = omitValueByFieldName(initialValues, field.name);
             });
           });
 
@@ -369,7 +371,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           const externalValues = omitValueByFieldName(
             state.externalValues,
             newField.name
-          ) as Partial<Values>;
+          );
 
           const keepValue = getValueByFieldName(
             state.keepValues,
@@ -378,7 +380,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           const keepValues = omitValueByFieldName(
             state.keepValues,
             newField.name
-          ) as Partial<Values>;
+          );
 
           const storeDefaultValue = getValueByFieldName(
             state.defaultValues,
@@ -387,7 +389,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           const storeDefaultValues = omitValueByFieldName(
             state.defaultValues,
             newField.name
-          ) as Partial<Values>;
+          );
 
           const initialValue = getValueByFieldName(
             state.initialValues,
@@ -396,7 +398,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           const initialValues = omitValueByFieldName(
             state.initialValues,
             newField.name
-          ) as Partial<Values>;
+          );
 
           const getValue = () => {
             if (externalValue !== undefined) {
