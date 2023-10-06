@@ -64,9 +64,7 @@ Allows to change the value of all the collection.
 
 ```tsx
 // Case with collection defined in a form context
-const collection = useCollection({
-  name: "members",
-});
+const collection = useCollection("members");
 
 {
   collection.keys.map((key, index) => (
@@ -78,8 +76,7 @@ const collection = useCollection({
 
 // Case with collection and form defined at same level
 const form = useForm();
-const collection = useCollection({
-  name: "members",
+const collection = useCollection("members", {
   connect: form,
 });
 

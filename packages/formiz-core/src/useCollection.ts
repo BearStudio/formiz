@@ -6,7 +6,6 @@ import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 
 export interface UseCollectionOptions {
-  name: string;
   connect?: {
     __connect: UseBoundStore<StoreApi<Store>>;
   };
@@ -31,11 +30,10 @@ export type UseCollectionValues<Data = unknown> = {
  * @param name fields collection name
  * @param connect form to which connect fields collection
  */
-export const useCollection = <Data = unknown>({
-  name,
-  connect,
-  defaultValue,
-}: UseCollectionOptions): UseCollectionValues<Data> => {
+export const useCollection = <Data = unknown>(
+  name: string,
+  { connect, defaultValue }: UseCollectionOptions = {}
+): UseCollectionValues<Data> => {
   const { useStore: useStoreFromContext } = useFormStore() ?? {};
 
   if (!useStoreFromContext && !connect?.__connect) {
