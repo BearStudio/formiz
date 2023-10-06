@@ -47,6 +47,7 @@ Requirements
 
 - [NodeJS](https://nodejs.org/)
 - [pnpm](https://pnpm.io/installation)
+- On React Native : add [os](https://github.com/DiegoRBaquero/node-os) in package.json
 
 ```sh
 pnpm install

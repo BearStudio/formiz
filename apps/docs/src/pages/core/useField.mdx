@@ -58,6 +58,8 @@ const MyField = (props) => {
 
 Get the current value of the field, before it has been modified by `formatValue`.
 
+Will be `undefined` while field is not register to a ready form.
+
 ```tsx
 const MyField = (props) => {
   const { value } = useField(props);
