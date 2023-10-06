@@ -72,7 +72,7 @@ Others props has to be past to useForm now.
 - Use a selector to get only the values (`useFormFields({ selector: (field) => field.value })`).
 - Get only some fields with the `fields` options (`useFormFields({ fields: ['myField'])`)
 
-```tsx filename="Formiz V1"
+```tsx filename="Formiz v1"
 const MyForm = () => {
   const form = useForm();
 
@@ -101,7 +101,7 @@ const MyChildren = () => {
 };
 ```
 
-```tsx filename="Formiz V2"
+```tsx filename="Formiz v2"
 const MyForm = () => {
   const form = useForm({ onSubmit: (values) => { // ✅ Form values passed in useForm
     console.log({ values })
@@ -163,7 +163,7 @@ const MyChildren = () => {
 - If you want to check falsy values (like Formiz v1), just pass the `checkFalsy` option to `true`.
 - Now validations are now executed against formatted value.
 
-```tsx filename="Formiz V1"
+```tsx filename="Formiz v1"
 <MyField
   name="myField"
   validations={[
@@ -185,7 +185,7 @@ const MyChildren = () => {
 />
 ```
 
-```tsx filename="Formiz V2"
+```tsx filename="Formiz v2"
 <MyField
   name="myField"
   validations={[

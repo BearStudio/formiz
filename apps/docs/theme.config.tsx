@@ -40,10 +40,12 @@ const config: DocsThemeConfig = {
   banner: {
     key: "v2",
     dismissible: false,
-    text: <a href="https://formiz-react.com" target="_blank">
-    🐜 This is Formiz v2 Beta documentation. See V1 documentation →
-  </a>
-  }
+    text: (
+      <a href="https://v1.formiz-react.com" target="_blank">
+        🐜 This is Formiz v2 Beta documentation. See v1 documentation →
+      </a>
+    ),
+  },
 };
 
 export default config;
