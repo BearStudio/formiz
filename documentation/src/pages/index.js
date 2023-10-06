@@ -175,10 +175,10 @@ function Home() {
               'button button--link button--lg text-white underline transition duration-700 ease-in-out hover:no-underline hover:text-green-100 whitespace-normal',
               styles.getStarted,
             )}
-            href="https://v2.formiz-react.com"
+            href="https://formiz-react.com"
             rel="noopener noreferrer"
           >
-            Formiz v2 beta is available!
+            Formiz v2 is available!
           </a>
         </div>
       </header>
