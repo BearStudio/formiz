@@ -39,9 +39,8 @@ const Collection = () => {
     },
   });
 
-  const collection = useCollection({
+  const collection = useCollection("members", {
     connect: form,
-    name: "members",
   });
 
   return (

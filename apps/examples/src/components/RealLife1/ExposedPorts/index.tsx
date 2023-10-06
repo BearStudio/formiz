@@ -10,9 +10,7 @@ export const ExposedPorts = () => {
     fields: ["ports"] as const,
     selector: (field) => field.value,
   });
-  const exposedPorts = useCollection({
-    name: "ports",
-  });
+  const exposedPorts = useCollection("ports");
 
   return (
     <FormizStep name="exposedPorts">
