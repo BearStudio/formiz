@@ -776,7 +776,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           get().actions.insertMultipleCollectionValues(fieldName)(
             0,
-            [value ?? {}],
+            [value ?? null],
             options
           );
           return { collections: state.collections };
@@ -787,7 +787,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           get().actions.insertMultipleCollectionValues(fieldName)(
             -1,
-            [value ?? {}],
+            [value ?? null],
             options
           );
           return { collections: state.collections };
