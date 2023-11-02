@@ -29,7 +29,7 @@ export const PageHeader: FC<{
         <Link
           isExternal
           fontSize="sm"
-          href={`https://github.com/ivan-dalmet/formiz/tree/master/examples/src/pages/${githubPath}`}
+          href={`https://github.com/ivan-dalmet/formiz/tree/master/apps/examples/src/pages/${githubPath}`}
         >
           View code on GitHub
           <Icon as={FiExternalLink} ml="1" />

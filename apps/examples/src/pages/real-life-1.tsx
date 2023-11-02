@@ -42,7 +42,7 @@ const RealLife1: NextPage = () => {
   return (
     <Formiz connect={form} autoForm="step">
       <MultiStepsLayout submitLabel="Create app">
-        <PageHeader githubPath="UseCase1/index.js">Real life #1</PageHeader>
+        <PageHeader githubPath="real-life-1.tsx">Real life #1</PageHeader>
 
         <Heading fontSize="lg" mb={6} mt={12}>
           <Icon as={FiPlus} mr={2} fontSize="sm" />

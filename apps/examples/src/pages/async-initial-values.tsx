@@ -42,7 +42,9 @@ const SimpleForm: NextPage = () => {
   return (
     <Formiz connect={form} autoForm>
       <PageLayout>
-        <PageHeader githubPath="index.tsx">Async Initial Values</PageHeader>
+        <PageHeader githubPath="async-initial-values.tsx">
+          Async Initial Values
+        </PageHeader>
         {!isFetched && <Spinner />}
         <Stack spacing={4}>
           <FieldInput

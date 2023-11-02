@@ -65,7 +65,7 @@ const Wizard: NextPage = () => {
       <PageLayout>
         <form noValidate onSubmit={handleSubmitStep}>
           <Stack spacing={4}>
-            <PageHeader githubPath="Wizard.tsx">Wizard</PageHeader>
+            <PageHeader githubPath="wizard.tsx">Wizard</PageHeader>
             <FormizStep name="step1">
               <FieldInput name="name" label="Name" required="Required" />
             </FormizStep>

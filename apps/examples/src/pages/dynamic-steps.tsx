@@ -33,7 +33,7 @@ const DynamicSteps = () => {
   return (
     <Formiz connect={form} autoForm="step">
       <MultiStepsLayout submitLabel="Submit">
-        <PageHeader githubPath="DynamicSteps.tsx">Dynamic Steps</PageHeader>
+        <PageHeader githubPath="dynamic-steps.tsx">Dynamic Steps</PageHeader>
         <FormizStep name="start" order={1000}>
           <FieldInput<number>
             name="count"
