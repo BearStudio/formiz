@@ -1,12 +1,10 @@
 {
-  "mode": "pre",
-  "tag": "beta",
   "initialVersions": {
     "docs": "0.0.0",
     "examples": "0.0.0",
     "config": "0.0.0",
-    "@formiz/core": "2.0.0-beta.14",
-    "@formiz/validations": "2.0.0-beta.2",
+    "@formiz/core": "2.0.0",
+    "@formiz/validations": "2.0.0",
     "tsconfig": "0.0.0"
   },
   "changesets": ["shiny-vans-attend"]
