@@ -1,9 +1,16 @@
 # Formiz
 
-<p align="center">
-  <a href="https://formiz-react.com">Get started</a> |
+<p>
+  <a href="https://formiz-react.com">Documentation</a> |
   <a href="https://examples.formiz-react.com">Examples</a>
 </p>
+
+```
+npm install @formiz/core
+```
+
+[👉 Getting Started](https://formiz-react.com/getting-started)
+
 
 ## Features
 
@@ -40,6 +47,10 @@ When you use a field built with Formiz, you can apply validations on it.
   ]}
 />
 ```
+
+---
+
+# Contributing
 
 ## Installation
 
