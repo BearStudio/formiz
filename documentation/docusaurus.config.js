@@ -1,11 +1,12 @@
 module.exports = {
-  title: 'Formiz',
-  tagline: 'React forms with ease! Composable, headless & with built-in multi steps',
-  url: 'https://formiz-react.com',
+  title: 'Formiz v1',
+  tagline:
+    'React forms with ease! Composable, headless & with built-in multi steps',
+  url: 'https://v1.formiz-react.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'ivan-dalmet', // Usually your GitHub org/user name.
-  projectName: 'formiz', // Usually your repo name.
+  projectName: 'formiz-v1', // Usually your repo name.
   themeConfig: {
     image: 'img/social.jpg',
     prism: {
@@ -29,7 +30,8 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      copyright: 'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
+      copyright:
+        'Coded with ❤️ in Normandy by Ivan Dalmet - Logotype by David Endico - Documentation powered by Docusaurus (v2)',
     },
     googleAnalytics: {
       trackingID: 'UA-137797247-2',
@@ -41,11 +43,10 @@ module.exports = {
     announcementBar: {
       id: 'formiz_v2',
       content:
-      'Formiz V2 beta is available! 🐜 <a rel="noopener noreferrer" href="https://v2.formiz-react.com">The documentation is here!</a>.',
+        'Formiz v2 is available! 🐜 <a rel="noopener noreferrer" href="https://formiz-react.com">The documentation is here!</a>.',
       backgroundColor: '#69B97E',
       textColor: '#000',
       isCloseable: false,
-      
     },
   },
   presets: [
