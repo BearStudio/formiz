@@ -326,6 +326,7 @@ export interface Store<Values extends object = DefaultFormValues> {
   defaultValues: NullablePartial<Values>;
   formConfigRef: RefObject<useFormProps<Values>>;
   actions: {
+    updateConfig(formConfigRef: RefObject<useFormProps<Values>>): void;
     updateReady(
       ready: boolean,
       formConfigRef: RefObject<useFormProps<Values>>

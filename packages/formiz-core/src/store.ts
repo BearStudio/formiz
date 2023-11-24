@@ -57,6 +57,13 @@ export const createStore = <Values extends object = DefaultFormValues>(
     },
     actions: {
       // FORM
+      updateConfig: (formConfigRef) => {
+        const wasReady = get().ready;
+        set(() => ({
+          formConfigRef,
+        }));
+        get().actions.reset({ exclude: ["resetKey"] });
+      },
       updateReady: (ready, formConfigRef) => {
         const wasReady = get().ready;
         set(() => ({
@@ -64,7 +71,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           formConfigRef,
         }));
         if (!wasReady && ready && get().connected) {
-          get().actions.reset();
+          get().actions.reset({ exclude: ["resetKey"] });
         }
       },
       updateConnected: (connected, connectRef) => {
@@ -75,7 +82,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             connectRef?.current?.__connect?.getState().formConfigRef,
         }));
         if (!wasConnected && connected && get().ready) {
-          get().actions.reset();
+          get().actions.reset({ exclude: ["resetKey"] });
         }
       },
       submitForm: (formEvent) => {

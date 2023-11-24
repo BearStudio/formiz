@@ -57,6 +57,10 @@ export const useForm = <Values extends object = any>(
     }
   }, [formActions, formConfig?.ready]);
 
+  useEffect(() => {
+    formActions.updateConfig(formConfigRef);
+  }, [formActions, formConfig?.id]);
+
   return formState;
 };
 
