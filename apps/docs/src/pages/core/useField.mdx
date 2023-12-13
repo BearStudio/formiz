@@ -52,6 +52,29 @@ const MyField = (props) => {
 };
 ```
 
+### externalProcessing.start() & externalProcessing.end()
+
+Allows to notify the field that some processing are done in the background (like retrieving some data).
+
+This will update the isValidating state at the field level and also at the form and step levels.
+
+Notify the start of async processing with externalProcessing.start(). Notify the end of async processing with externalProcessing.end().
+
+```tsx
+const MyField = (props) => {
+  const { isValidating, externalProcessing } = useField(props);
+
+  useEffect(() => {
+    externalProcessing.start();
+    getSomeAsyncData().then(() => {
+      externalProcessing.end();
+    });
+  }, [externalProcessing]);
+
+  /* ... */
+}
+```
+
 ## Hook values
 
 ### value
