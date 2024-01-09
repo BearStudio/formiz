@@ -121,6 +121,16 @@ const Collection = () => {
             <Button
               size="sm"
               onClick={() => {
+                collection.set([{ name: "Name (1)" }], { keepPristine: true });
+              }}
+            >
+              Set collection to 1 membre, with keepPristine
+            </Button>
+          </WrapItem>
+          <WrapItem>
+            <Button
+              size="sm"
+              onClick={() => {
                 collection.insert(4, { name: "Name (5)" });
               }}
             >

@@ -14,13 +14,30 @@ export interface UseCollectionOptions {
 
 export type UseCollectionValues<Data = unknown> = {
   keys: string[];
-  insertMultiple(index: number, data?: Partial<Data>[]): void;
-  insert(index: number, data?: Partial<Data>): void;
-  append(data?: Partial<Data>): void;
-  prepend(data?: Partial<Data>): void;
+  insertMultiple(
+    index: number,
+    data?: Partial<Data>[],
+    options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
+  insert(
+    index: number,
+    data?: Partial<Data>,
+    options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
+  append(
+    data?: Partial<Data>,
+    options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
+  prepend(
+    data?: Partial<Data>,
+    options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
   remove(index: number): void;
   removeMultiple(index: number[]): void;
-  set(values: unknown[]): void;
+  set(
+    values: unknown[],
+    options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
   length: number;
 };
 
