@@ -45,7 +45,7 @@ export const useForm = <Values extends object = any>(
 
   const formState = useStore(
     (state) => ({
-      ...formInterfaceSelector(state),
+      ...formInterfaceSelector(state, formConfig?.stateSubscription),
       __connect: useStore,
     }),
     isDeepEqual

@@ -299,7 +299,9 @@ export type ResetElement =
   | "visited"
   | "values";
 
-export type ResetOptions = { only?: ResetElement[]; exclude?: ResetElement[] };
+export type ResetOptions =
+  | { only: ResetElement[]; exclude?: never }
+  | { exclude: ResetElement[]; only?: never };
 
 export type StoreInitialState<Values extends object = DefaultFormValues> = {
   ready?: boolean;
@@ -430,6 +432,25 @@ export interface Store<Values extends object = DefaultFormValues> {
   };
 }
 
+export type FormStateElement = Extract<
+  keyof FormInterface,
+  | "id"
+  | "resetKey"
+  | "isReady"
+  | "isSubmitted"
+  | "isValid"
+  | "isValidating"
+  | "isPristine"
+  | "steps"
+  | "currentStep"
+  | "isStepPristine"
+  | "isStepValid"
+  | "isStepValidating"
+  | "isStepSubmitted"
+  | "isFirstStep"
+  | "isLastStep"
+>;
+
 export interface useFormProps<Values extends object = DefaultFormValues> {
   /**
    * Id of the form.
@@ -471,6 +492,12 @@ export interface useFormProps<Values extends object = DefaultFormValues> {
    * Function triggered when form becomes invalid.
    */
   onInvalid?(form: FormInterface<any>): void;
+  /**
+   * States to select or to exclude from form subscription
+   */
+  stateSubscription?:
+    | { only: Array<FormStateElement>; exclude?: never }
+    | { exclude: Array<FormStateElement>; only?: never };
 }
 
 export interface FormizProps {

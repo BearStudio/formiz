@@ -6,6 +6,7 @@ import type {
   Store,
   ResetOptions,
   DefaultFormValues,
+  useFormProps,
 } from "@/types";
 import {
   getFormIsValid,
@@ -20,12 +21,14 @@ import {
   getStepIsPristine,
   getStepIsValidating,
   getFieldIsExternalProcessing,
+  isFormStateSubscribed,
 } from "@/utils/form";
 
 export const formInterfaceSelector = <
   Values extends object = DefaultFormValues
 >(
-  state: Store<Values>
+  state: Store<Values>,
+  stateSubscription?: useFormProps<Values>["stateSubscription"]
 ): FormInterface<Values> => {
   const currentStep = state.steps.find(
     (step) => step.name === state.form.currentStepName
@@ -63,31 +66,75 @@ export const formInterfaceSelector = <
       remove: state.actions.removeCollectionValue(fieldName),
     }),
 
-    id: state.form.id,
-    resetKey: state.form.resetKey,
-    isReady: state.ready,
-    isSubmitted: state.form.isSubmitted,
-    isValid: getFormIsValid(state.fields),
-    isValidating: getFormIsValidating(state.fields),
-    isPristine: getFormIsPristine(state.fields),
-    steps: state.steps
-      .filter((step) => step.isEnabled)
-      .map(stepInterfaceSelector(state)),
-    currentStep: currentStep
-      ? stepInterfaceSelector(state)(currentStep)
-      : undefined,
-    isStepPristine: currentStep
-      ? getStepIsPristine(currentStep.name, state.fields)
-      : true,
-    isStepValid: currentStep
-      ? getStepIsValid(currentStep.name, state.fields)
-      : true,
-    isStepValidating: currentStep
-      ? getStepIsValidating(currentStep.name, state.fields)
-      : false,
-    isStepSubmitted: currentStep?.isSubmitted ?? false,
-    isFirstStep: state.steps[0]?.name === currentStep?.name,
-    isLastStep: state.steps[state.steps.length - 1]?.name === currentStep?.name,
+    ...isFormStateSubscribed("id", state.form.id, stateSubscription),
+    ...isFormStateSubscribed(
+      "resetKey",
+      state.form.resetKey,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed("isReady", state.ready, stateSubscription),
+    ...isFormStateSubscribed(
+      "isSubmitted",
+      state.form.isSubmitted,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isValid",
+      getFormIsValid(state.fields),
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isValidating",
+      getFormIsValidating(state.fields),
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isPristine",
+      getFormIsPristine(state.fields),
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "steps",
+      state.steps
+        .filter((step) => step.isEnabled)
+        .map(stepInterfaceSelector(state)),
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "currentStep",
+      currentStep ? stepInterfaceSelector(state)(currentStep) : undefined,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isStepPristine",
+      currentStep ? getStepIsPristine(currentStep.name, state.fields) : true,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isStepValid",
+      currentStep ? getStepIsValid(currentStep.name, state.fields) : true,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isStepValidating",
+      currentStep ? getStepIsValidating(currentStep.name, state.fields) : true,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isStepSubmitted",
+      currentStep?.isSubmitted ?? false,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isFirstStep",
+      state.steps[0]?.name === currentStep?.name,
+      stateSubscription
+    ),
+    ...isFormStateSubscribed(
+      "isLastStep",
+      state.steps[state.steps.length - 1]?.name === currentStep?.name,
+      stateSubscription
+    ),
   };
 };
 
@@ -117,21 +164,21 @@ export interface FormInterface<Values extends object = DefaultFormValues> {
     remove: ReturnType<Store<any>["actions"]["removeCollectionValue"]>;
   };
 
-  id: Store<Values>["form"]["id"];
-  resetKey: Store<Values>["form"]["resetKey"];
-  isReady: Store<Values>["ready"];
-  isSubmitted: Store<Values>["form"]["isSubmitted"];
-  isValid: boolean;
-  isValidating: boolean;
-  isPristine: boolean;
-  steps: StepInterface[];
-  currentStep: StepInterface | undefined;
-  isStepPristine: boolean;
-  isStepValid: boolean;
-  isStepValidating: boolean;
-  isStepSubmitted: boolean;
-  isFirstStep: boolean;
-  isLastStep: boolean;
+  id?: Store<Values>["form"]["id"];
+  resetKey?: Store<Values>["form"]["resetKey"];
+  isReady?: Store<Values>["ready"];
+  isSubmitted?: Store<Values>["form"]["isSubmitted"];
+  isValid?: boolean;
+  isValidating?: boolean;
+  isPristine?: boolean;
+  steps?: StepInterface[];
+  currentStep?: StepInterface | undefined;
+  isStepPristine?: boolean;
+  isStepValid?: boolean;
+  isStepValidating?: boolean;
+  isStepSubmitted?: boolean;
+  isFirstStep?: boolean;
+  isLastStep?: boolean;
 }
 
 export const stepInterfaceSelector =

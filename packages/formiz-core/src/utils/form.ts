@@ -2,9 +2,11 @@ import type {
   DefaultFormValues,
   Field,
   Fields,
+  FormStateElement,
   PartialField,
   ResetElement,
   ResetOptions,
+  useFormProps,
 } from "@/types";
 import { isObject } from "@/utils/global";
 
@@ -213,7 +215,19 @@ export const generateField = <Value>(
 
 export const isResetAllowed = (
   resetElement: ResetElement,
-  resetOptions: ResetOptions
+  resetOptions?: ResetOptions
 ) =>
-  (!resetOptions.only || resetOptions.only.includes(resetElement)) &&
-  (!resetOptions.exclude || !resetOptions.exclude.includes(resetElement));
+  !resetOptions ||
+  ((!resetOptions.only || resetOptions.only.includes(resetElement)) &&
+    (!resetOptions.exclude || !resetOptions.exclude.includes(resetElement)));
+
+export const isFormStateSubscribed = (
+  state: FormStateElement,
+  value: unknown,
+  stateSubscription: useFormProps["stateSubscription"]
+) =>
+  !stateSubscription ||
+  ((!stateSubscription.only || stateSubscription.only.includes(state)) &&
+    (!stateSubscription.exclude || !stateSubscription.exclude.includes(state)))
+    ? { [state]: value }
+    : {};
