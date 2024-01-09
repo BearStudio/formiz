@@ -220,7 +220,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      reset: (resetOptions = {}) => {
+      reset: (resetOptions) => {
         set((state) => {
           let initialValues = cloneDeep(
             state.formConfigRef.current?.initialValues
