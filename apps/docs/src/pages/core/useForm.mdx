@@ -84,6 +84,19 @@ useEffect(() => {
 const form = useForm({ ready: isFetched, initialValues: data });
 ```
 
+### stateSubscription
+
+An object to manage form returned state
+
+```tsx
+const form = useForm({ stateSubscription: [{ only: ["isValid"] }] });
+form.isValid; // exists
+form.isSubmitted; // doesn't exists
+const form = useForm({ stateSubscription: [{ exclude: ["isValid"] }] });
+form.isValid; // doesn't exists
+form.isSubmitted; // exists
+```
+
 ### onSubmit(values)
 
 <Type type="(values) => void" />
@@ -136,17 +149,6 @@ Triggered when the form is **invalid**.
 
 ```tsx
 const form = useForm({ onInvalid: () => console.log("form is invalid") });
-```
-
-### collection(fieldName)
-
-Return methods to manage a field collection, see [`useCollection()`](/core/useCollection).
-
-```tsx
-const form = useForm();
-const portsCollection = form.collection("ports");
-
-portsCollection.append({ number: "1234" }); // add an element to ports collection
 ```
 
 ## Form State
@@ -384,4 +386,15 @@ Navigate to a step.
 ```tsx
 const form = useForm();
 form.goToStep("step-2");
+```
+
+### collection(fieldName)
+
+Return methods to manage a field collection, see [`useCollection()`](/core/useCollection).
+
+```tsx
+const form = useForm();
+const portsCollection = form.collection("ports");
+
+portsCollection.append({ number: "1234" }); // add an element to ports collection
 ```
