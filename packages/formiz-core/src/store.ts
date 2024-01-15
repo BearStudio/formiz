@@ -703,17 +703,13 @@ export const createStore = <Values extends object = DefaultFormValues>(
           get().collections.set(
             fieldName.toString(),
             typeof keys === "function"
-              ? keys(get().actions.getCollectionKeys(fieldName) ?? [])
+              ? keys(get().collections.get(fieldName) ?? [])
               : keys
           );
           return {
             collections: state.collections,
           };
         });
-      },
-
-      getCollectionKeys: (fieldName) => {
-        return get().collections.get(fieldName.toString());
       },
 
       setCollectionValues: (fieldName) => (values, options) => {
