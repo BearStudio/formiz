@@ -392,7 +392,6 @@ export interface Store<Values extends object = DefaultFormValues> {
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
     ) => void;
-    getCollectionKeys(fieldName: string): CollectionKey[] | undefined;
     setCollectionValues(
       fieldName: string
     ): (

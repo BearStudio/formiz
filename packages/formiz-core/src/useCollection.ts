@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useMemo } from "react";
 import lodashGet from "lodash/get";
 import { StoreApi, UseBoundStore } from "zustand";
-import { Store } from "./types";
+import { CollectionKey, Store } from "./types";
 import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 
@@ -13,7 +13,7 @@ export interface UseCollectionOptions {
 }
 
 export type UseCollectionValues<Data = unknown> = {
-  keys: string[];
+  keys: CollectionKey[];
   insertMultiple(
     index: number,
     data?: Partial<Data>[],
@@ -37,6 +37,9 @@ export type UseCollectionValues<Data = unknown> = {
   set(
     values: unknown[],
     options?: Parameters<Store["actions"]["setValues"]>[1]
+  ): void;
+  setKeys(
+    keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
   ): void;
   length: number;
 };
@@ -87,14 +90,14 @@ export const useCollection = <Data = unknown>(
     return {
       isReady: state.ready,
       keys: state.ready
-        ? state.actions.getCollectionKeys(name) ??
+        ? state.collections.get(name) ??
           initialValuesArray.map((_, index) => index.toString())
         : [],
       hasInitialValues: Array.isArray(initialValues)
         ? !!initialValues?.length
         : false,
     };
-  });
+  }, deepEqual);
 
   const collectionActions = useMemo(
     () => ({
