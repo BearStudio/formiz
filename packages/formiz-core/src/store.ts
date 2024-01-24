@@ -3,6 +3,9 @@ import lodashSet from "lodash/set";
 import lodashGet from "lodash/get";
 import lodashMerge from "lodash/merge";
 import cloneDeep from "clone-deep";
+import ShortUniqueId from "short-unique-id";
+
+const uid = new ShortUniqueId({ length: 19 });
 
 import {
   generateField,
@@ -25,7 +28,6 @@ import type {
   Store,
   StoreInitialState,
 } from "@/types";
-import uniqid from "uniqid";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
 
@@ -719,7 +721,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             options
           );
           get().actions.setCollectionKeys(fieldName)((oldKeys) =>
-            values.map((_, index) => oldKeys?.[index] ?? uniqid())
+            values.map((_, index) => oldKeys?.[index] ?? uid.rnd())
           );
 
           return {
@@ -737,7 +739,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 index < 0 ? oldKeys.length + 1 + index : index;
               const keysToInsert = Array.from(
                 { length: values?.length ?? 0 },
-                () => uniqid()
+                () => uid.rnd()
               );
               const newKeys = [
                 ...(oldKeys || []).slice(0, computedIndex),
