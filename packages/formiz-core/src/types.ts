@@ -387,6 +387,8 @@ export interface Store<Values extends object = DefaultFormValues> {
     goToNextStep(): void;
     goToPreviousStep(): void;
 
+    unregisterCollection(collectionName: string): void;
+
     setCollectionKeys(
       fieldName: string
     ): (
