@@ -60,9 +60,12 @@ export const createStore = <Values extends object = DefaultFormValues>(
     actions: {
       // FORM
       updateConfig: (formConfigRef) => {
-        const wasReady = get().ready;
-        set(() => ({
+        set((state) => ({
           formConfigRef,
+          form: {
+            ...state.form,
+            id: formConfigRef.current?.id ?? state.form.id,
+          },
         }));
         get().actions.reset({ exclude: ["resetKey"] });
       },
