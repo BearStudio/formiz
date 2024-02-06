@@ -2,19 +2,22 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
   Icon,
   IconButton,
   Stack,
+  Text,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
 import { Formiz, useCollection, useForm } from "@formiz/core";
-import { FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiInfo, FiPlus, FiTrash2 } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
 import { PageHeader } from "@/layout/PageHeader";
 import { PageLayout } from "@/layout/PageLayout";
 import { useToastValues } from "@/hooks/useToastValues";
+import { useState } from "react";
 
 const DEFAULT_VALUES = {
   members: [{ name: "Default name (1)" }, { company: "Default company (2)" }],
@@ -42,6 +45,9 @@ const Collection = () => {
   const collection = useCollection("members", {
     connect: form,
   });
+
+  const [isConditionedCollectionDisplay, setIsConditionedCollectionDisplay] =
+    useState(false);
 
   return (
     <Formiz connect={form} autoForm>
@@ -209,6 +215,43 @@ const Collection = () => {
           </WrapItem>
         </Wrap>
 
+        <Stack mt={10}>
+          <Stack spacing={0}>
+            <Text fontWeight="medium">Conditioned collection</Text>
+            <Text fontSize="xs" color="gray.500">
+              This show that an unmount collection is unregister, then the
+              collection keys are reset on remount
+            </Text>
+          </Stack>
+          <HStack
+            spacing={6}
+            alignItems="start"
+            p={6}
+            borderRadius="md"
+            bg="gray.50"
+            _dark={{ bg: "gray.900" }}
+          >
+            <Stack spacing={0} flex={1}>
+              <Button
+                w="fit-content"
+                leftIcon={
+                  isConditionedCollectionDisplay ? <FiEyeOff /> : <FiEye />
+                }
+                onClick={() =>
+                  setIsConditionedCollectionDisplay(
+                    !isConditionedCollectionDisplay
+                  )
+                }
+              >
+                {isConditionedCollectionDisplay ? "Hide" : "Display"}
+              </Button>
+            </Stack>
+            <Flex flex={2}>
+              {isConditionedCollectionDisplay && <ConditionedCollection />}
+            </Flex>
+          </HStack>
+        </Stack>
+
         <Flex mt="4">
           <Button
             type="submit"
@@ -220,6 +263,30 @@ const Collection = () => {
         </Flex>
       </PageLayout>
     </Formiz>
+  );
+};
+
+const ConditionedCollection = () => {
+  const conditionedCollection = useCollection("conditioned");
+
+  return (
+    <Stack flex={1}>
+      {conditionedCollection.keys.map((key, index) => (
+        <HStack key={key} alignItems="end">
+          <FieldInput
+            name={`conditioned[${index}]`}
+            label={`Conditioned ${index}`}
+          />
+          <IconButton
+            aria-label="Delete"
+            icon={<Icon as={FiTrash2} />}
+            onClick={() => conditionedCollection.remove(index)}
+            variant="ghost"
+          />
+        </HStack>
+      ))}
+      <Button onClick={() => conditionedCollection.append()}>Add item</Button>
+    </Stack>
   );
 };
 

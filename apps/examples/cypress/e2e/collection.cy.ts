@@ -106,4 +106,17 @@ describe("Collection", () => {
     cy.field("members[1].name").hasValue("Initial Name (2)");
     cy.field("members[1].company").hasValue("Initial Company (2)");
   });
+
+  it("Unmounted collection", () => {
+    cy.get('[data-test="conditioned[0]"').should("not.exist");
+
+    cy.get("button").contains("Display").click();
+    cy.get("button").contains("Add item").click();
+
+    cy.field("conditioned[0]").should("exist");
+
+    cy.get("button").contains("Hide").click();
+
+    cy.get('[data-test="conditioned[0]"').should("not.exist");
+  });
 });
