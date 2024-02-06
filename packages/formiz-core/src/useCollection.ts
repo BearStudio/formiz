@@ -129,6 +129,14 @@ export const useCollection = <Data = unknown>(
       }
       collectionActions.setKeys(keysRef.current);
     }
+
+    if (!isReady) {
+      storeActions.unregisterCollection(name);
+    }
+
+    return () => {
+      storeActions.unregisterCollection(name);
+    };
   }, [isReady, collectionActions, storeActions, name]);
 
   return {

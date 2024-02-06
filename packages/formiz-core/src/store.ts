@@ -703,6 +703,14 @@ export const createStore = <Values extends object = DefaultFormValues>(
         get().actions.goToStep(steps[currentStepIndex - 1].name);
       },
 
+      unregisterCollection: (collectionName) => {
+        set((state) => {
+          state.collections.delete(collectionName);
+
+          return { collections: state.collections };
+        });
+      },
+
       setCollectionKeys: (fieldName) => (keys) => {
         set((state) => {
           get().collections.set(
