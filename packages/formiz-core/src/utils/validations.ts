@@ -1,4 +1,4 @@
-import { FieldProps } from "@/types";
+import { FieldProps, FormizConfig } from "@/types";
 
 export const getFieldValidationsErrors = <Value, FormattedValue>(
   value: Value,

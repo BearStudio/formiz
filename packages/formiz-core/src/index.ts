@@ -21,3 +21,5 @@ export type {
   FormContext,
 } from "./types";
 export type { StepInterface as Step } from "@/selectors";
+export { FormizProvider } from "./FormizProvider";
+export { FormizDevTools } from "./FormizDevTools";
