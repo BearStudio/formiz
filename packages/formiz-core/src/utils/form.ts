@@ -1,7 +1,9 @@
 import type {
+  Collections,
   DefaultFormValues,
   Field,
   Fields,
+  FormizCollection,
   FormStateElement,
   PartialField,
   ResetElement,
@@ -9,6 +11,7 @@ import type {
   useFormProps,
 } from "@/types";
 import { isObject } from "@/utils/global";
+import { Collection } from "lodash";
 
 import cloneDeep from "lodash/cloneDeep";
 import lodashGet from "lodash/get";
@@ -143,6 +146,9 @@ export const getFieldIsProcessing = <Value, FormattedValue>(
   getFieldIsValidating(field) ||
   getFieldIsExternalProcessing(field);
 
+export const getCollectionIsPristine = (collection: FormizCollection) =>
+  collection.isPristine;
+
 export const getFormIsValid = (fields: Fields) =>
   Array.from(fields).every(([, field]) => getFieldIsValid(field));
 
@@ -156,8 +162,11 @@ export const getFormIsProcessing = (fields: Fields, formIsReady: boolean) =>
   !formIsReady ||
   Array.from(fields).some(([, field]) => getFieldIsProcessing(field));
 
-export const getFormIsPristine = (fields: Fields) =>
-  Array.from(fields).every(([, field]) => getFieldIsPristine(field));
+export const getFormIsPristine = (fields: Fields, collections: Collections) =>
+  Array.from(fields).every(([, field]) => getFieldIsPristine(field)) &&
+  Array.from(collections).every(([_, collection]) =>
+    getCollectionIsPristine(collection)
+  );
 
 export const getStepIsValid = (stepName: string, fields: Fields) =>
   Array.from(fields)

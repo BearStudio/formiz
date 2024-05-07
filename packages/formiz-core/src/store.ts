@@ -238,12 +238,12 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 collectionName
               ) as NullablePartial<Values>[];
 
-              state.collections.set(
-                collectionName,
-                collectionFields?.map(
-                  (_, index) => values?.[index] ?? index.toString()
-                )
-              );
+              state.collections.set(collectionName, {
+                isPristine: true,
+                keys: collectionFields?.map(
+                  (_, index) => values.keys?.[index] ?? index.toString()
+                ),
+              });
             });
           }
 
@@ -711,14 +711,17 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      setCollectionKeys: (fieldName) => (keys) => {
+      setCollectionKeys: (fieldName) => (keys, options) => {
         set((state) => {
-          get().collections.set(
-            fieldName.toString(),
-            typeof keys === "function"
-              ? keys(get().collections.get(fieldName) ?? [])
-              : keys
-          );
+          get().collections.set(fieldName.toString(), {
+            isPristine: options?.keepPristine
+              ? get().collections.get(fieldName)?.isPristine ?? true
+              : false,
+            keys:
+              typeof keys === "function"
+                ? keys(get().collections.get(fieldName)?.keys ?? [])
+                : keys,
+          });
           return {
             collections: state.collections,
           };
@@ -731,8 +734,10 @@ export const createStore = <Values extends object = DefaultFormValues>(
             { [fieldName]: values } as Partial<Values>,
             options
           );
-          get().actions.setCollectionKeys(fieldName)((oldKeys) =>
-            values.map((_, index) => oldKeys?.[index] ?? uid.rnd())
+          get().actions.setCollectionKeys(fieldName)(
+            (oldKeys) =>
+              values.map((_, index) => oldKeys?.[index] ?? uid.rnd()),
+            options
           );
 
           return {
@@ -742,8 +747,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
       },
 
       insertMultipleCollectionValues:
-        (fieldName) =>
-        (index, values, options = { keepPristine: true }) => {
+        (fieldName) => (index, values, options) => {
           set((state) => {
             get().actions.setCollectionKeys(fieldName)((oldKeys) => {
               const computedIndex =
@@ -767,12 +771,12 @@ export const createStore = <Values extends object = DefaultFormValues>(
               setTimeout(() => {
                 get().actions.setValues(
                   { [fieldName]: newValues } as Partial<Values>,
-                  options
+                  { keepPristine: true }
                 );
               });
 
               return newKeys;
-            });
+            }, options);
             return { collections: state.collections };
           });
         },
@@ -810,7 +814,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      removeMultipleCollectionValues: (fieldName) => (indexes) => {
+      removeMultipleCollectionValues: (fieldName) => (indexes, options) => {
         set((state) => {
           get().actions.setCollectionKeys(fieldName)((oldKeys) => {
             const computedIndexes = indexes.map((index) =>
@@ -819,14 +823,17 @@ export const createStore = <Values extends object = DefaultFormValues>(
             return oldKeys.filter(
               (_, index) => !computedIndexes.includes(index)
             );
-          });
+          }, options);
           return { collections: state.collections };
         });
       },
 
-      removeCollectionValue: (fieldName) => (index) => {
+      removeCollectionValue: (fieldName) => (index, options) => {
         set((state) => {
-          get().actions.removeMultipleCollectionValues(fieldName)([index]);
+          get().actions.removeMultipleCollectionValues(fieldName)(
+            [index],
+            options
+          );
           return { collections: state.collections };
         });
       },

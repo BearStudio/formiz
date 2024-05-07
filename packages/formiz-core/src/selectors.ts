@@ -90,7 +90,7 @@ export const formInterfaceSelector = <
     ),
     ...isFormStateSubscribed(
       "isPristine",
-      getFormIsPristine(state.fields),
+      getFormIsPristine(state.fields, state.collections),
       stateSubscription
     ),
     ...isFormStateSubscribed(
