@@ -239,7 +239,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
               ) as NullablePartial<Values>[];
 
               state.collections.set(collectionName, {
-                isPristine: true,
+                isPristine: isResetAllowed("pristine", resetOptions)
+                  ? true
+                  : state.collections.get(collectionName)?.isPristine ?? true,
                 keys: collectionFields?.map(
                   (_, index) => values.keys?.[index] ?? index.toString()
                 ),
