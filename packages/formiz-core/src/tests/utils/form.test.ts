@@ -190,13 +190,15 @@ describe("getFormIsValid", () => {
 describe("getFormIsPristine", () => {
   it("Should BE pristine if all fields are pristine", () => {
     const fields = new Map();
+    const collections = new Map();
     fields.set("A", generateField("A", { name: "fieldA", value: undefined }));
     fields.set("B", generateField("B", { name: "fieldB", value: undefined }));
-    expect(getFormIsPristine(fields)).toBeTruthy();
+    expect(getFormIsPristine(fields, collections)).toBeTruthy();
   });
 
   it("Should NOT BE pristine if on field is NOT pristine", () => {
     const fields = new Map();
+    const collections = new Map();
     fields.set("A", generateField("A", { name: "fieldA", value: undefined }));
     fields.set(
       "B",
@@ -206,11 +208,12 @@ describe("getFormIsPristine", () => {
         isPristine: false,
       })
     );
-    expect(getFormIsPristine(fields)).toBeFalsy();
+    expect(getFormIsPristine(fields, collections)).toBeFalsy();
   });
 
   it("Should NOT BE pristine if all fields are NOT pristine", () => {
     const fields = new Map();
+    const collections = new Map();
     fields.set(
       "A",
       generateField("A", {
@@ -227,11 +230,12 @@ describe("getFormIsPristine", () => {
         isPristine: false,
       })
     );
-    expect(getFormIsPristine(fields)).toBeFalsy();
+    expect(getFormIsPristine(fields, collections)).toBeFalsy();
   });
 
   it("Should BE pristine with no fields", () => {
     const fields = new Map();
-    expect(getFormIsPristine(fields)).toBeTruthy();
+    const collections = new Map();
+    expect(getFormIsPristine(fields, collections)).toBeTruthy();
   });
 });

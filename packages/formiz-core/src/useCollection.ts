@@ -90,7 +90,7 @@ export const useCollection = <Data = unknown>(
     return {
       isReady: state.ready,
       keys: state.ready
-        ? state.collections.get(name) ??
+        ? state.collections.get(name)?.keys ??
           initialValuesArray.map((_, index) => index.toString())
         : [],
       hasInitialValues: Array.isArray(initialValues)
@@ -127,7 +127,7 @@ export const useCollection = <Data = unknown>(
       if (!hasInitialValuesRef.current && defaultValueRef.current) {
         storeActions.setDefaultValues({ [name]: defaultValueRef.current });
       }
-      collectionActions.setKeys(keysRef.current);
+      collectionActions.setKeys(keysRef.current, { keepPristine: true });
     }
 
     if (!isReady) {

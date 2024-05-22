@@ -251,7 +251,9 @@ export type Fields = Map<string, Field<unknown>>;
 
 export type CollectionKey = string;
 
-export type Collections = Map<string, CollectionKey[]>;
+export type FormizCollection = { isPristine: boolean; keys: CollectionKey[] };
+
+export type Collections = Map<string, FormizCollection>;
 
 export interface Step {
   /**
@@ -392,7 +394,8 @@ export interface Store<Values extends object = DefaultFormValues> {
     setCollectionKeys(
       fieldName: string
     ): (
-      keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
+      keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[]),
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
     ) => void;
     setCollectionValues(
       fieldName: string
@@ -428,8 +431,16 @@ export interface Store<Values extends object = DefaultFormValues> {
     ) => void;
     removeMultipleCollectionValues(
       fieldName: string
-    ): (indexes: number[]) => void;
-    removeCollectionValue(fieldName: string): (index: number) => void;
+    ): (
+      indexes: number[],
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
+    ) => void;
+    removeCollectionValue(
+      fieldName: string
+    ): (
+      index: number,
+      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
+    ) => void;
   };
 }
 
