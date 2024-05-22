@@ -5,6 +5,13 @@ import { Callout } from "nextra-theme-docs";
 
 Provides functionality for managing and manipulating repeatable form fields within a form context.
 
+<Callout type="info">
+  Since version 2.3.0, a collection manages its own pristine state. This means
+  that when you trigger an action on a collection (without using the
+  keepPristine option), the collection's pristine state is updated to false, and
+  the form's pristine state also becomes false.
+</Callout>
+
 ## Collection Props
 
 ### name
@@ -58,23 +65,17 @@ Allows to add an item at the begin of the collection.
 
 `options` are the same as for [form.setValues options](/core/useForm#setvaluesvalues-options)
 
-### remove(index)
+### remove(index, options)
 
 Allows to remove an item at specified index.
 
-<Callout type="warning">
-  There is no keepPristine option on this function, because currently there is
-  an issue caused by the fact removed item doesn't have pristine state
-</Callout>
+`options` are the same as for [form.setValues options](/core/useForm#setvaluesvalues-options)
 
-### removeMultiple(indexes)
+### removeMultiple(indexes, options)
 
 Allows to remove multiple items at specified indexes.
 
-<Callout type="warning">
-  There is no keepPristine option on this function, because currently there is
-  an issue caused by the fact removed item doesn't have pristine state
-</Callout>
+`options` are the same as for [form.setValues options](/core/useForm#setvaluesvalues-options)
 
 ### set(collection, options)
 
@@ -82,9 +83,11 @@ Allows to change the value of all the collection.
 
 `options` are the same as for [form.setValues options](/core/useForm#setvaluesvalues-options)
 
-### setKeys(keys)
+### setKeys(keys, options)
 
 Allows to update collection keys values.
+
+`options` are the same as for [form.setValues options](/core/useForm#setvaluesvalues-options)
 
 ```tsx
 // Case with collection defined in a form context
