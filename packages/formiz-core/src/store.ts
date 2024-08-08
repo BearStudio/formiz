@@ -231,7 +231,10 @@ export const createStore = <Values extends object = DefaultFormValues>(
             state.formConfigRef.current?.initialValues
           );
 
-          if (isResetAllowed("values", resetOptions)) {
+          if (
+            isResetAllowed("values", resetOptions) ||
+            isResetAllowed("pristine", resetOptions)
+          ) {
             state.collections.forEach((values, collectionName) => {
               const collectionFields = getValueByFieldName(
                 state.formConfigRef.current?.initialValues,
@@ -242,9 +245,11 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 isPristine: isResetAllowed("pristine", resetOptions)
                   ? true
                   : state.collections.get(collectionName)?.isPristine ?? true,
-                keys: collectionFields?.map(
-                  (_, index) => values.keys?.[index] ?? index.toString()
-                ),
+                keys: isResetAllowed("values", resetOptions)
+                  ? collectionFields?.map(
+                      (_, index) => values.keys?.[index] ?? index.toString()
+                    )
+                  : state.collections.get(collectionName)?.keys ?? [],
               });
             });
           }
