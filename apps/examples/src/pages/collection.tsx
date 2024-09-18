@@ -252,6 +252,17 @@ const Collection = () => {
           </HStack>
         </Stack>
 
+        <Stack mt={10}>
+          <Stack spacing={0}>
+            <Text fontWeight="medium">Nested collections</Text>
+            <Text fontSize="xs" color="gray.500">
+              This show that an unmount collection is unregister, then the
+              collection keys are reset on remount
+            </Text>
+          </Stack>
+          <NestedCollections />
+        </Stack>
+
         <Flex mt="4">
           <Button
             type="submit"
@@ -285,7 +296,74 @@ const ConditionedCollection = () => {
           />
         </HStack>
       ))}
-      <Button onClick={() => conditionedCollection.append()}>Add item</Button>
+      <AddPlaceholder
+        onClick={() => conditionedCollection.append()}
+        label="Add item"
+        my={2}
+      />
+    </Stack>
+  );
+};
+
+const NestedCollections = () => {
+  const parentCollection = useCollection("parent");
+
+  return (
+    <Stack flex={1}>
+      {parentCollection.keys.map((key, index) => (
+        <HStack key={key} alignItems="start" p={4}>
+          <Stack flex={1}>
+            <FieldInput
+              name={`parent[${index}].name`}
+              label={`Parent ${index}`}
+            />
+            <Stack pl={20}>
+              <Text fontWeight="bold" fontSize="sm">
+                Children
+              </Text>
+              <NestedCollectionsChild name={`parent[${index}].children`} />
+            </Stack>
+          </Stack>
+          <IconButton
+            aria-label="Delete"
+            icon={<Icon as={FiTrash2} />}
+            onClick={() => parentCollection.remove(index)}
+          />
+        </HStack>
+      ))}
+      <AddPlaceholder
+        onClick={() => parentCollection.append()}
+        label="Add parent"
+        my={2}
+      />
+    </Stack>
+  );
+};
+
+const NestedCollectionsChild = (props: { name: string }) => {
+  const childCollection = useCollection(props.name);
+
+  return (
+    <Stack flex={1}>
+      {childCollection.keys.map((key, index) => (
+        <HStack key={key} alignItems="end">
+          <FieldInput
+            name={`${props.name}[${index}]`}
+            label={`Child ${index}`}
+          />
+          <IconButton
+            aria-label="Delete"
+            icon={<Icon as={FiTrash2} />}
+            onClick={() => childCollection.remove(index)}
+            variant="outline"
+          />
+        </HStack>
+      ))}
+      <AddPlaceholder
+        onClick={() => childCollection.append()}
+        label="Add child"
+        my={0}
+      />
     </Stack>
   );
 };

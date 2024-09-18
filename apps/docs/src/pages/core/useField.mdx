@@ -72,7 +72,7 @@ const MyField = (props) => {
   }, [externalProcessing]);
 
   /* ... */
-}
+};
 ```
 
 ## Hook values
@@ -81,7 +81,7 @@ const MyField = (props) => {
 
 Get the current value of the field, before it has been modified by `formatValue`.
 
-Will be `undefined` while field is not register to a ready form.
+Will be `undefined` while the form isn't ready, so the field neither.
 
 ```tsx
 const MyField = (props) => {
@@ -93,7 +93,9 @@ const MyField = (props) => {
 
 ### formattedValue
 
-Get the current value of the field, after it has been formated by `formatValue` (if you used it).
+Get the current value of the field, after it has been formated by `formatValue` (if you used it, will be equal to value instead).
+
+Will be `undefined` while the form isn't ready, so the field neither.
 
 ```tsx
 const MyField = (props) => {
@@ -159,6 +161,16 @@ Return `true` if the field is running async validations.
 
 ```jsx
 const { isValidating } = useField(props);
+```
+
+### isDebouncing
+
+<Type type="boolean" />
+
+Return `true` if the field is debouncing async validations.
+
+```jsx
+const { isDebouncing } = useField(props);
 ```
 
 ### isPristine

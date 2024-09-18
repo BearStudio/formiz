@@ -34,15 +34,15 @@ const ExoticFields: NextPage = () => {
             label="Same images field"
             helper="Select two identical images"
             options={[
-              "https://source.unsplash.com/WLUHO9A_xik/200x200",
-              "https://source.unsplash.com/mEZ3PoFGs_k/200x200",
-              "https://source.unsplash.com/2Mr4lBxHpcg/200x200",
-              "https://source.unsplash.com/AjvgNTbyuG8/200x200",
-              "https://source.unsplash.com/hyGX23RpLTU/200x200",
-              "https://source.unsplash.com/4nulm-JUYFo/200x200",
-              "https://source.unsplash.com/MQ4eKnHtOUg/200x200",
-              "https://source.unsplash.com/pzMP-RGJ7mY/200x200",
-              "https://source.unsplash.com/httxBNGKapo/200x200",
+              "https://picsum.photos/seed/usefield/200",
+              "https://picsum.photos/seed/useform/200",
+              "https://picsum.photos/seed/useformfields/200",
+              "https://picsum.photos/seed/formiz/200",
+              "https://picsum.photos/seed/usecollection/200",
+              "https://picsum.photos/seed/ant/200",
+              "https://picsum.photos/seed/field/200",
+              "https://picsum.photos/seed/useformcontext/200",
+              "https://picsum.photos/seed/formiziscool/200",
             ]}
           />
 
