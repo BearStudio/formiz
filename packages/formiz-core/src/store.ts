@@ -235,21 +235,22 @@ export const createStore = <Values extends object = DefaultFormValues>(
             isResetAllowed("values", resetOptions) ||
             isResetAllowed("pristine", resetOptions)
           ) {
-            state.collections.forEach((values, collectionName) => {
+            state.collections.forEach((collection, collectionId) => {
               const collectionFields = getValueByFieldName(
                 state.formConfigRef.current?.initialValues,
-                collectionName
+                collection.name
               ) as NullablePartial<Values>[];
 
-              state.collections.set(collectionName, {
+              state.collections.set(collectionId, {
+                name: collection.name,
                 isPristine: isResetAllowed("pristine", resetOptions)
                   ? true
-                  : state.collections.get(collectionName)?.isPristine ?? true,
+                  : state.collections.get(collectionId)?.isPristine ?? true,
                 keys: isResetAllowed("values", resetOptions)
                   ? collectionFields?.map(
-                      (_, index) => values.keys?.[index] ?? index.toString()
-                    )
-                  : state.collections.get(collectionName)?.keys ?? [],
+                      (_, index) => collection.keys?.[index] ?? index.toString()
+                    ) ?? []
+                  : state.collections.get(collectionId)?.keys ?? [],
               });
             });
           }
@@ -710,38 +711,99 @@ export const createStore = <Values extends object = DefaultFormValues>(
         get().actions.goToStep(steps[currentStepIndex - 1].name);
       },
 
-      unregisterCollection: (collectionName) => {
+      registerCollection: (collectionId, newCollection) => {
         set((state) => {
-          state.collections.delete(collectionName);
+          const oldCollectionById = state.collections.get(collectionId);
+
+          const initialValues = lodashGet(
+            state.initialValues,
+            newCollection.name
+          );
+          const hasInitialValues = Array.isArray(initialValues)
+            ? !!initialValues?.length
+            : false;
+
+          const collectionDefaultValues = newCollection.defaultValues;
+
+          if (!hasInitialValues) {
+            state.actions.setDefaultValues({
+              [newCollection.name]: collectionDefaultValues ?? [],
+            } as NullablePartial<Values>);
+          }
+
+          const getKeys = () => {
+            if (oldCollectionById?.keys !== undefined) {
+              return oldCollectionById.keys;
+            }
+            if (Array.isArray(initialValues) && initialValues !== undefined) {
+              return initialValues?.map((_, index) => index.toString());
+            }
+            if (collectionDefaultValues !== undefined) {
+              return collectionDefaultValues?.map((_, index) =>
+                index.toString()
+              );
+            }
+            return [];
+          };
+
+          state.collections.set(collectionId, {
+            ...newCollection,
+            keys: getKeys(),
+            isPristine: oldCollectionById?.isPristine ?? true,
+          });
 
           return { collections: state.collections };
         });
       },
 
-      setCollectionKeys: (fieldName) => (keys, options) => {
+      unregisterCollection: (collectionId) => {
         set((state) => {
-          get().collections.set(fieldName.toString(), {
+          state.collections.delete(collectionId);
+
+          return { collections: state.collections };
+        });
+      },
+
+      setCollectionKeys: (collectionId) => (keys, options) => {
+        set((state) => {
+          const currentCollection = state.collections.get(collectionId);
+
+          if (!currentCollection) {
+            throw new Error(
+              `Collection ${collectionId} not found • setCollectionKeys`
+            );
+          }
+
+          state.collections.set(collectionId, {
+            ...currentCollection,
             isPristine: options?.keepPristine
-              ? get().collections.get(fieldName)?.isPristine ?? true
+              ? currentCollection.isPristine
               : false,
             keys:
-              typeof keys === "function"
-                ? keys(get().collections.get(fieldName)?.keys ?? [])
-                : keys,
+              typeof keys === "function" ? keys(currentCollection.keys) : keys,
           });
+
           return {
             collections: state.collections,
           };
         });
       },
 
-      setCollectionValues: (fieldName) => (values, options) => {
+      setCollectionValues: (collectionId) => (values, options) => {
         set((state) => {
+          const currentCollection = state.collections.get(collectionId);
+
+          if (!currentCollection) {
+            throw new Error(
+              `Collection ${collectionId} not found • setCollectionValues`
+            );
+          }
+
           get().actions.setValues(
-            { [fieldName]: values } as Partial<Values>,
+            { [currentCollection.name]: values } as Partial<Values>,
             options
           );
-          get().actions.setCollectionKeys(fieldName)(
+          get().actions.setCollectionKeys(collectionId)(
             (oldKeys) =>
               values.map((_, index) => oldKeys?.[index] ?? uid.rnd()),
             options
@@ -754,9 +816,17 @@ export const createStore = <Values extends object = DefaultFormValues>(
       },
 
       insertMultipleCollectionValues:
-        (fieldName) => (index, values, options) => {
+        (collectionId) => (index, values, options) => {
           set((state) => {
-            get().actions.setCollectionKeys(fieldName)((oldKeys) => {
+            const currentCollection = state.collections.get(collectionId);
+
+            if (!currentCollection) {
+              throw new Error(
+                `Collection ${collectionId} not found • insertMultipleCollectionValues`
+              );
+            }
+
+            state.actions.setCollectionKeys(collectionId)((oldKeys) => {
               const computedIndex =
                 index < 0 ? oldKeys.length + 1 + index : index;
               const keysToInsert = Array.from(
@@ -777,20 +847,21 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
               setTimeout(() => {
                 get().actions.setValues(
-                  { [fieldName]: newValues } as Partial<Values>,
+                  { [currentCollection.name]: newValues } as Partial<Values>,
                   { keepPristine: true }
                 );
               });
 
               return newKeys;
             }, options);
+
             return { collections: state.collections };
           });
         },
 
-      insertCollectionValue: (fieldName) => (index, value, options) => {
+      insertCollectionValue: (collectionId) => (index, value, options) => {
         set((state) => {
-          get().actions.insertMultipleCollectionValues(fieldName)(
+          state.actions.insertMultipleCollectionValues(collectionId)(
             index,
             [value],
             options
@@ -799,9 +870,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      prependCollectionValue: (fieldName) => (value, options) => {
+      prependCollectionValue: (collectionId) => (value, options) => {
         set((state) => {
-          get().actions.insertMultipleCollectionValues(fieldName)(
+          state.actions.insertMultipleCollectionValues(collectionId)(
             0,
             [value ?? null],
             options
@@ -810,20 +881,21 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      appendCollectionValue: (fieldName) => (value, options) => {
+      appendCollectionValue: (collectionId) => (value, options) => {
         set((state) => {
-          get().actions.insertMultipleCollectionValues(fieldName)(
+          state.actions.insertMultipleCollectionValues(collectionId)(
             -1,
             [value ?? null],
             options
           );
+
           return { collections: state.collections };
         });
       },
 
-      removeMultipleCollectionValues: (fieldName) => (indexes, options) => {
+      removeMultipleCollectionValues: (collectionId) => (indexes, options) => {
         set((state) => {
-          get().actions.setCollectionKeys(fieldName)((oldKeys) => {
+          state.actions.setCollectionKeys(collectionId)((oldKeys) => {
             const computedIndexes = indexes.map((index) =>
               index < 0 ? oldKeys.length + index : index
             );
@@ -831,16 +903,18 @@ export const createStore = <Values extends object = DefaultFormValues>(
               (_, index) => !computedIndexes.includes(index)
             );
           }, options);
+
           return { collections: state.collections };
         });
       },
 
-      removeCollectionValue: (fieldName) => (index, options) => {
+      removeCollectionValue: (collectionId) => (index, options) => {
         set((state) => {
-          get().actions.removeMultipleCollectionValues(fieldName)(
+          state.actions.removeMultipleCollectionValues(collectionId)(
             [index],
             options
           );
+
           return { collections: state.collections };
         });
       },

@@ -251,7 +251,11 @@ export type Fields = Map<string, Field<unknown>>;
 
 export type CollectionKey = string;
 
-export type FormizCollection = { isPristine: boolean; keys: CollectionKey[] };
+export type FormizCollection = {
+  isPristine: boolean;
+  keys: CollectionKey[];
+  name: string;
+};
 
 export type Collections = Map<string, FormizCollection>;
 
@@ -310,6 +314,8 @@ export type StoreInitialState<Values extends object = DefaultFormValues> = {
   form?: Partial<Store<Values>["form"]>;
 } & Partial<Pick<Store<Values>, "initialValues" | "formConfigRef">>;
 
+export type SetValuesOptions = { keepPristine?: boolean };
+
 export interface Store<Values extends object = DefaultFormValues> {
   ready: boolean;
   connected: boolean;
@@ -342,7 +348,7 @@ export interface Store<Values extends object = DefaultFormValues> {
     submitForm(e?: FormEvent): void;
     setValues(
       newValues: NullablePartial<Values>,
-      options?: { keepPristine?: boolean }
+      options?: SetValuesOptions
     ): void;
     setDefaultValues(defaultValues: NullablePartial<Values>): void;
     setErrors(
@@ -389,58 +395,39 @@ export interface Store<Values extends object = DefaultFormValues> {
     goToNextStep(): void;
     goToPreviousStep(): void;
 
-    unregisterCollection(collectionName: string): void;
+    registerCollection(
+      collectionId: string,
+      newCollection: { name: string; defaultValues?: unknown[] }
+    ): void;
+    unregisterCollection(collectionId: string): void;
 
     setCollectionKeys(
-      fieldName: string
+      collectionId: string
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[]),
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
+      options?: SetValuesOptions
     ) => void;
     setCollectionValues(
-      fieldName: string
-    ): (
-      values: unknown[],
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (values: unknown[], options?: SetValuesOptions) => void;
     insertMultipleCollectionValues(
-      fieldName: string
-    ): (
-      index: number,
-      values?: unknown[],
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (index: number, values?: unknown[], options?: SetValuesOptions) => void;
     insertCollectionValue(
-      fieldName: string
-    ): (
-      index: number,
-      value?: unknown,
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (index: number, value?: unknown, options?: SetValuesOptions) => void;
     prependCollectionValue(
-      fieldName: string
-    ): (
-      value: unknown,
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (value: unknown, options?: SetValuesOptions) => void;
     appendCollectionValue(
-      fieldName: string
-    ): (
-      value: unknown,
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (value: unknown, options?: SetValuesOptions) => void;
     removeMultipleCollectionValues(
-      fieldName: string
-    ): (
-      indexes: number[],
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (indexes: number[], options?: SetValuesOptions) => void;
     removeCollectionValue(
-      fieldName: string
-    ): (
-      index: number,
-      options?: Parameters<Store<Values>["actions"]["setValues"]>[1]
-    ) => void;
+      collectionId: string
+    ): (index: number, options?: SetValuesOptions) => void;
   };
 }
 
