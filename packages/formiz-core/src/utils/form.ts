@@ -11,7 +11,6 @@ import type {
   useFormProps,
 } from "@/types";
 import { isObject } from "@/utils/global";
-import { Collection } from "lodash";
 
 import cloneDeep from "lodash/cloneDeep";
 import lodashGet from "lodash/get";

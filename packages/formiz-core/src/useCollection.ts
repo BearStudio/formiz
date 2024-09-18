@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useMemo } from "react";
+import { useCallback, useEffect, useRef, useMemo, useId } from "react";
 import lodashGet from "lodash/get";
 import { StoreApi, UseBoundStore } from "zustand";
-import { CollectionKey, Store } from "./types";
+import { CollectionKey, SetValuesOptions, Store } from "./types";
 import { useFormStore } from "./Formiz";
 import { deepEqual } from "fast-equals";
 
@@ -17,27 +17,14 @@ export type UseCollectionValues<Data = unknown> = {
   insertMultiple(
     index: number,
     data?: Partial<Data>[],
-    options?: Parameters<Store["actions"]["setValues"]>[1]
+    options?: SetValuesOptions
   ): void;
-  insert(
-    index: number,
-    data?: Partial<Data>,
-    options?: Parameters<Store["actions"]["setValues"]>[1]
-  ): void;
-  append(
-    data?: Partial<Data>,
-    options?: Parameters<Store["actions"]["setValues"]>[1]
-  ): void;
-  prepend(
-    data?: Partial<Data>,
-    options?: Parameters<Store["actions"]["setValues"]>[1]
-  ): void;
-  remove(index: number): void;
-  removeMultiple(index: number[]): void;
-  set(
-    values: unknown[],
-    options?: Parameters<Store["actions"]["setValues"]>[1]
-  ): void;
+  insert(index: number, data?: Partial<Data>, options?: SetValuesOptions): void;
+  append(data?: Partial<Data>, options?: SetValuesOptions): void;
+  prepend(data?: Partial<Data>, options?: SetValuesOptions): void;
+  remove(index: number, options?: SetValuesOptions): void;
+  removeMultiple(index: number[], options?: SetValuesOptions): void;
+  set(values: unknown[], options?: SetValuesOptions): void;
   setKeys(
     keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[])
   ): void;
@@ -69,7 +56,11 @@ export const useCollection = <Data = unknown>(
     deepEqual
   );
 
-  const { isReady, keys, hasInitialValues } = useStore((state) => {
+  const collectionId = useId();
+  const collectionIdRef = useRef(collectionId);
+  collectionIdRef.current = collectionId;
+
+  const { isFormReady, keys, hasInitialValues } = useStore((state) => {
     const initialValues = lodashGet(state.initialValues, name);
 
     if (
@@ -88,9 +79,9 @@ export const useCollection = <Data = unknown>(
       : [];
 
     return {
-      isReady: state.ready,
+      isFormReady: state.ready,
       keys: state.ready
-        ? state.collections.get(name)?.keys ??
+        ? state.collections.get(collectionId)?.keys ??
           initialValuesArray.map((_, index) => index.toString())
         : [],
       hasInitialValues: Array.isArray(initialValues)
@@ -101,16 +92,16 @@ export const useCollection = <Data = unknown>(
 
   const collectionActions = useMemo(
     () => ({
-      setKeys: storeActions.setCollectionKeys(name),
-      set: storeActions.setCollectionValues(name),
-      insertMultiple: storeActions.insertMultipleCollectionValues(name),
-      insert: storeActions.insertCollectionValue(name),
-      prepend: storeActions.prependCollectionValue(name),
-      append: storeActions.appendCollectionValue(name),
-      removeMultiple: storeActions.removeMultipleCollectionValues(name),
-      remove: storeActions.removeCollectionValue(name),
+      setKeys: storeActions.setCollectionKeys(collectionId),
+      set: storeActions.setCollectionValues(collectionId),
+      insertMultiple: storeActions.insertMultipleCollectionValues(collectionId),
+      insert: storeActions.insertCollectionValue(collectionId),
+      prepend: storeActions.prependCollectionValue(collectionId),
+      append: storeActions.appendCollectionValue(collectionId),
+      removeMultiple: storeActions.removeMultipleCollectionValues(collectionId),
+      remove: storeActions.removeCollectionValue(collectionId),
     }),
-    [storeActions, name]
+    [storeActions, collectionId]
   );
 
   const keysRef = useRef(keys);
@@ -122,22 +113,30 @@ export const useCollection = <Data = unknown>(
   const hasInitialValuesRef = useRef(hasInitialValues);
   hasInitialValuesRef.current = hasInitialValues;
 
-  useEffect(() => {
-    if (isReady) {
-      if (!hasInitialValuesRef.current && defaultValueRef.current) {
-        storeActions.setDefaultValues({ [name]: defaultValueRef.current });
+  const unregisterTimeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(
+    function registerCollection() {
+      if (!isFormReady) {
+        return () => {};
       }
-      collectionActions.setKeys(keysRef.current, { keepPristine: true });
-    }
+      clearTimeout(unregisterTimeoutRef.current);
 
-    if (!isReady) {
-      storeActions.unregisterCollection(name);
-    }
+      if (isFormReady) {
+        storeActions.registerCollection(collectionIdRef.current, {
+          name,
+          defaultValues: defaultValueRef.current,
+        });
+      }
 
-    return () => {
-      storeActions.unregisterCollection(name);
-    };
-  }, [isReady, collectionActions, storeActions, name]);
+      return () => {
+        unregisterTimeoutRef.current = setTimeout(() => {
+          storeActions.unregisterCollection(collectionIdRef.current);
+        });
+      };
+    },
+    [isFormReady, collectionActions, storeActions, name]
+  );
 
   return {
     ...collectionActions,
