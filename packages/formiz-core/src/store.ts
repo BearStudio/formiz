@@ -10,6 +10,7 @@ const uid = new ShortUniqueId({ length: 19 });
 import {
   generateField,
   getField,
+  getFieldFirstValue,
   getFormIsProcessing,
   getFormIsValid,
   getFormValues,
@@ -384,35 +385,23 @@ export const createStore = <Values extends object = DefaultFormValues>(
         set((state) => {
           const oldFieldById = state.fields.get(fieldId);
 
-          const externalValue = getValueByFieldName(
-            state.externalValues,
-            newField.name
-          );
+          const value = getFieldFirstValue({
+            fieldId,
+            newField,
+            state,
+            defaultValue,
+          });
+
           const externalValues = omitValueByFieldName(
             state.externalValues,
-            newField.name
-          );
-
-          const keepValue = getValueByFieldName(
-            state.keepValues,
             newField.name
           );
           const keepValues = omitValueByFieldName(
             state.keepValues,
             newField.name
           );
-
-          const storeDefaultValue = getValueByFieldName(
-            state.defaultValues,
-            newField.name
-          );
           const storeDefaultValues = omitValueByFieldName(
             state.defaultValues,
-            newField.name
-          );
-
-          const initialValue = getValueByFieldName(
-            state.initialValues,
             newField.name
           );
           const initialValues = omitValueByFieldName(
@@ -420,30 +409,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             newField.name
           );
 
-          const getValue = () => {
-            if (externalValue !== undefined) {
-              return externalValue;
-            }
-            if (newField.value !== null) {
-              return newField.value;
-            }
-            if (oldFieldById?.value !== undefined) {
-              return oldFieldById.value;
-            }
-            if (keepValue !== undefined) {
-              return keepValue;
-            }
-            if (initialValue !== undefined) {
-              return initialValue;
-            }
-            if (storeDefaultValue !== undefined) {
-              return storeDefaultValue;
-            }
-            return defaultValue;
-          };
-
-          const value = getValue() ?? null;
-          const formattedValue = formatValue(value as any);
+          const formattedValue = formatValue(value);
 
           const { requiredErrors, validationsErrors } =
             getFieldValidationsErrors<unknown, unknown>(

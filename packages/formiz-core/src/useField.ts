@@ -9,7 +9,7 @@ import {
 
 import { deepEqual } from "fast-equals";
 
-import { getField } from "@/utils/form";
+import { getField, getFieldFirstValue } from "@/utils/form";
 import { useStepContext } from "@/FormizStep";
 
 import type {
@@ -126,6 +126,8 @@ export const useField = <
   validationsRef.current = validations;
   const keepValueRef = useRef(keepValue);
   keepValueRef.current = keepValue;
+  const validationsAsyncRef = useRef(validationsAsync);
+  validationsAsyncRef.current = validationsAsync;
 
   // Get field from state
   const { value, ...exposedField } = useStore(
@@ -133,25 +135,68 @@ export const useField = <
       (state) => {
         const field = getField<Value, FormattedValue>(state.fields, fieldId);
 
+        const firstValue = getFieldFirstValue({
+          fieldId,
+          newField: { name },
+          state,
+          defaultValue: defaultValueRef.current,
+        });
+        const firstFormattedValue = formatValueRef.current(firstValue);
+
+        const { requiredErrors, validationsErrors } = getFieldValidationsErrors(
+          firstValue,
+          firstFormattedValue,
+          requiredRef?.current,
+          validationsRef?.current
+        );
+
+        const defaultField = !state.ready
+          ? {
+              name,
+              value: undefined,
+              formattedValue: undefined,
+              defaultValue: undefined,
+              formatValue: (v: Value) => v,
+              id: fieldId,
+              isTouched: false,
+              requiredErrors: [],
+              validationsErrors: [],
+              validationsAsyncErrors: [],
+              externalErrors: [],
+              isPristine: true,
+              isValidating: false,
+              isExternalProcessing: false,
+              isDebouncing: false,
+            }
+          : {
+              name,
+              value: firstValue,
+              formattedValue: firstFormattedValue,
+              defaultValue: defaultValueRef.current,
+              formatValue: formatValueRef.current,
+              id: fieldId,
+              isTouched: false,
+              requiredErrors,
+              validationsErrors,
+              validationsAsyncErrors: [],
+              externalErrors: [],
+              isPristine: true,
+              isValidating:
+                !requiredErrors.length &&
+                !validationsErrors.length &&
+                !debounceValidationsAsyncRef.current &&
+                !!validationsAsyncRef.current.length,
+              isExternalProcessing: false,
+              isDebouncing:
+                !requiredErrors.length &&
+                !validationsErrors.length &&
+                !!debounceValidationsAsyncRef.current &&
+                !!validationsAsyncRef.current.length,
+            };
+
         let draft = fieldInterfaceSelector<Value, FormattedValue>(state)({
           // Field
-          ...(field ?? {
-            name,
-            value: undefined,
-            formattedValue: undefined,
-            defaultValue: undefined,
-            formatValue: (v) => v,
-            id: fieldId,
-            isTouched: false,
-            requiredErrors: [],
-            validationsErrors: [],
-            validationsAsyncErrors: [],
-            externalErrors: [],
-            isPristine: true,
-            isValidating: false,
-            isExternalProcessing: false,
-            isDebouncing: false,
-          }),
+          ...(field ?? defaultField),
         });
 
         if (!configRef.current.unstable_notifyOnChangePropsExclusions)
@@ -191,7 +236,7 @@ export const useField = <
         {
           name,
           stepName,
-          value: valueRef.current ?? null,
+          value: valueRef.current,
         },
         {
           defaultValue: defaultValueRef.current,
@@ -213,9 +258,6 @@ export const useField = <
     [name, stepName, storeActions, formReady]
   );
 
-  const validationsAsyncRef = useRef(validationsAsync);
-  validationsAsyncRef.current = validationsAsync;
-
   const valueSerialized = JSON.stringify(value);
   const validationsAsyncDeps = JSON.stringify(
     validationsAsync.map((validation) => ({
@@ -228,6 +270,19 @@ export const useField = <
     FieldValue<Value> | undefined
   >(value);
   const deferredValue = useDeferredValue(internalValue);
+
+  const currentField = useStore.getState().fields.get(fieldIdRef.current) ?? {
+    value,
+    ...exposedField,
+    ...getFieldValidationsErrors(
+      value,
+      exposedField.formattedValue,
+      requiredRef?.current,
+      validationsRef?.current
+    ),
+  };
+  const currentFieldRef = useRef(currentField);
+  currentFieldRef.current = currentField;
 
   useEffect(() => {
     if (valueRef.current === undefined) {
@@ -253,11 +308,11 @@ export const useField = <
           return {
             isValid:
               (!validation.checkFalsy &&
-                !currentField?.formattedValue &&
-                currentField?.formattedValue !== 0) ||
+                !currentFieldRef.current?.formattedValue &&
+                currentFieldRef.current?.formattedValue !== 0) ||
               (await validation.handler(
-                currentField?.formattedValue,
-                currentField?.value
+                currentFieldRef.current?.formattedValue,
+                currentFieldRef.current?.value
               )),
             validation,
           };
@@ -278,11 +333,9 @@ export const useField = <
       });
     };
 
-    const currentField = useStore.getState().fields.get(fieldIdRef.current);
-
     const shouldRunAsyncValidations =
-      !currentField?.requiredErrors.length &&
-      !currentField?.validationsErrors.length;
+      !currentFieldRef.current?.requiredErrors.length &&
+      !currentFieldRef.current?.validationsErrors.length;
 
     if (!shouldRunAsyncValidations) {
       return;

@@ -8,6 +8,7 @@ import type {
   PartialField,
   ResetElement,
   ResetOptions,
+  Store,
   useFormProps,
 } from "@/types";
 import { isObject } from "@/utils/global";
@@ -111,6 +112,51 @@ export const getField = <Value = unknown, FormattedValue = Value>(
   fields: Fields,
   fieldId: string
 ) => fields.get(fieldId) as Field<Value, FormattedValue>;
+
+export const getFieldFirstValue = ({
+  fieldId,
+  newField,
+  state,
+  defaultValue = null,
+}: {
+  fieldId: string;
+  newField: Pick<Field, "name"> & { value?: Field["value"] };
+  state: Store;
+  defaultValue: unknown;
+}) => {
+  const oldFieldById = state.fields.get(fieldId);
+
+  const externalValue = getValueByFieldName(
+    state.externalValues,
+    newField.name
+  );
+  const keepValue = getValueByFieldName(state.keepValues, newField.name);
+  const storeDefaultValue = getValueByFieldName(
+    state.defaultValues,
+    newField.name
+  );
+  const initialValue = getValueByFieldName(state.initialValues, newField.name);
+
+  if (externalValue !== undefined) {
+    return externalValue;
+  }
+  if (newField.value !== undefined) {
+    return newField.value;
+  }
+  if (oldFieldById?.value !== undefined) {
+    return oldFieldById.value;
+  }
+  if (keepValue !== undefined) {
+    return keepValue;
+  }
+  if (initialValue !== undefined) {
+    return initialValue;
+  }
+  if (storeDefaultValue !== undefined) {
+    return storeDefaultValue;
+  }
+  return defaultValue;
+};
 
 export const getFieldIsValid = <Value, FormattedValue>(
   field: Field<Value, FormattedValue>
