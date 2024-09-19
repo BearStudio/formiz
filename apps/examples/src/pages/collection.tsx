@@ -11,7 +11,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import { Formiz, useCollection, useForm } from "@formiz/core";
-import { FiEye, FiEyeOff, FiInfo, FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiPlus, FiTrash2 } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
 import { PageHeader } from "@/layout/PageHeader";
