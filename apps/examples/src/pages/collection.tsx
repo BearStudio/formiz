@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ButtonGroup,
   Flex,
   HStack,
   Icon,
@@ -10,7 +11,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { Formiz, useCollection, useForm } from "@formiz/core";
+import { Formiz, useCollection, useForm, useFormContext } from "@formiz/core";
 import { FiEye, FiEyeOff, FiPlus, FiTrash2 } from "react-icons/fi";
 import { AddPlaceholder } from "@/components/AddPlaceholder";
 import { FieldInput } from "@/components/FieldInput";
@@ -263,6 +264,17 @@ const Collection = () => {
           <NestedCollections />
         </Stack>
 
+        <Stack mt={10}>
+          <Stack spacing={0}>
+            <Text fontWeight="medium">Managed from form</Text>
+            <Text fontSize="xs" color="gray.500">
+              This show that we can update collection even if we don&apos;t have
+              direct access to the collection definition
+            </Text>
+          </Stack>
+          <ManagedFromForm />
+        </Stack>
+
         <Flex mt="4">
           <Button
             type="submit"
@@ -307,6 +319,7 @@ const ConditionedCollection = () => {
 
 const NestedCollections = () => {
   const parentCollection = useCollection("parent");
+  const form = useFormContext();
 
   return (
     <Stack flex={1}>
@@ -316,6 +329,12 @@ const NestedCollections = () => {
             <FieldInput
               name={`parent[${index}].name`}
               label={`Parent ${index}`}
+            />
+            <AddPlaceholder
+              onClick={() =>
+                form.collection(`parent[${index}].children`)?.append("child")
+              }
+              label="Add child from form.collection"
             />
             <Stack pl={20}>
               <Text fontWeight="bold" fontSize="sm">
@@ -364,6 +383,38 @@ const NestedCollectionsChild = (props: { name: string }) => {
         label="Add child"
         my={0}
       />
+    </Stack>
+  );
+};
+
+const ManagedFromForm = () => {
+  const form = useFormContext();
+  const collection = form.collection("items");
+  return (
+    <Stack>
+      <ButtonGroup size="sm">
+        <Button onClick={() => collection?.prepend("new first value")}>
+          Prepend
+        </Button>
+        <Button onClick={() => collection?.append("new last value")}>
+          Append
+        </Button>
+        <Button onClick={() => collection?.remove(0)}>Remove first item</Button>
+        <Button onClick={() => collection?.set(["one", "two", "three"])}>
+          Set 3 items
+        </Button>
+      </ButtonGroup>
+      <Stack
+        flex={1}
+        p={4}
+        border="dashed 1px"
+        borderColor="gray.200"
+        _dark={{ borderColor: "gray.600" }}
+        borderRadius="md"
+      >
+        <Text>Collection is defined here</Text>
+        <NestedCollectionsChild name="items" />
+      </Stack>
     </Stack>
   );
 };
