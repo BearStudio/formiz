@@ -55,16 +55,27 @@ export const formInterfaceSelector = <
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
-    collection: (fieldName) => ({
-      setKeys: state.actions.setCollectionKeys(fieldName),
-      set: state.actions.setCollectionValues(fieldName),
-      insertMultiple: state.actions.insertMultipleCollectionValues(fieldName),
-      insert: state.actions.insertCollectionValue(fieldName),
-      append: state.actions.appendCollectionValue(fieldName),
-      prepend: state.actions.prependCollectionValue(fieldName),
-      removeMultiple: state.actions.removeMultipleCollectionValues(fieldName),
-      remove: state.actions.removeCollectionValue(fieldName),
-    }),
+    collection: (fieldName) => {
+      const currentCollection = Array.from(state.collections).find(
+        ([_, collection]) => collection.name === fieldName
+      );
+      if (!currentCollection) {
+        return undefined;
+      }
+      const collectionId = currentCollection?.[0];
+      return {
+        setKeys: state.actions.setCollectionKeys(collectionId),
+        set: state.actions.setCollectionValues(collectionId),
+        insertMultiple:
+          state.actions.insertMultipleCollectionValues(collectionId),
+        insert: state.actions.insertCollectionValue(collectionId),
+        append: state.actions.appendCollectionValue(collectionId),
+        prepend: state.actions.prependCollectionValue(collectionId),
+        removeMultiple:
+          state.actions.removeMultipleCollectionValues(collectionId),
+        remove: state.actions.removeCollectionValue(collectionId),
+      };
+    },
 
     ...isFormStateSubscribed("id", state.form.id, stateSubscription),
     ...isFormStateSubscribed(
@@ -149,20 +160,22 @@ export interface FormInterface<Values extends object = DefaultFormValues> {
   goToNextStep: Store<any>["actions"]["goToNextStep"];
   goToPreviousStep: Store<any>["actions"]["goToPreviousStep"];
 
-  collection: (fieldName: string) => {
-    setKeys: ReturnType<Store<any>["actions"]["setCollectionKeys"]>;
-    set: ReturnType<Store<any>["actions"]["setCollectionValues"]>;
-    insertMultiple: ReturnType<
-      Store<any>["actions"]["insertMultipleCollectionValues"]
-    >;
-    insert: ReturnType<Store<any>["actions"]["insertCollectionValue"]>;
-    append: ReturnType<Store<any>["actions"]["appendCollectionValue"]>;
-    prepend: ReturnType<Store<any>["actions"]["prependCollectionValue"]>;
-    removeMultiple: ReturnType<
-      Store<any>["actions"]["removeMultipleCollectionValues"]
-    >;
-    remove: ReturnType<Store<any>["actions"]["removeCollectionValue"]>;
-  };
+  collection: (fieldName: string) =>
+    | {
+        setKeys: ReturnType<Store<any>["actions"]["setCollectionKeys"]>;
+        set: ReturnType<Store<any>["actions"]["setCollectionValues"]>;
+        insertMultiple: ReturnType<
+          Store<any>["actions"]["insertMultipleCollectionValues"]
+        >;
+        insert: ReturnType<Store<any>["actions"]["insertCollectionValue"]>;
+        append: ReturnType<Store<any>["actions"]["appendCollectionValue"]>;
+        prepend: ReturnType<Store<any>["actions"]["prependCollectionValue"]>;
+        removeMultiple: ReturnType<
+          Store<any>["actions"]["removeMultipleCollectionValues"]
+        >;
+        remove: ReturnType<Store<any>["actions"]["removeCollectionValue"]>;
+      }
+    | undefined;
 
   id?: Store<Values>["form"]["id"];
   resetKey?: Store<Values>["form"]["resetKey"];
