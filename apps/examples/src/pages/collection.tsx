@@ -319,7 +319,6 @@ const ConditionedCollection = () => {
 
 const NestedCollections = () => {
   const parentCollection = useCollection("parent");
-  const form = useFormContext();
 
   return (
     <Stack flex={1}>
@@ -329,12 +328,6 @@ const NestedCollections = () => {
             <FieldInput
               name={`parent[${index}].name`}
               label={`Parent ${index}`}
-            />
-            <AddPlaceholder
-              onClick={() =>
-                form.collection(`parent[${index}].children`)?.append("child")
-              }
-              label="Add child from form.collection"
             />
             <Stack pl={20}>
               <Text fontWeight="bold" fontSize="sm">
@@ -390,6 +383,7 @@ const NestedCollectionsChild = (props: { name: string }) => {
 const ManagedFromForm = () => {
   const form = useFormContext();
   const collection = form.collection("items");
+
   return (
     <Stack>
       <ButtonGroup size="sm">
