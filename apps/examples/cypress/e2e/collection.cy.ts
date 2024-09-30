@@ -119,4 +119,25 @@ describe("Collection", () => {
 
     cy.get('[data-test="conditioned[0]"').should("not.exist");
   });
+
+  it("Managed from form collection", () => {
+    cy.field("items[0]").should("not.exist");
+
+    cy.get("button").contains("Prepend").click();
+    cy.get("button").contains("Append").click();
+
+    cy.field("items[0]").should("exist");
+    cy.field("items[1]").should("exist");
+
+    cy.get("button").contains("Remove first item").click();
+
+    cy.field("items[1]").should("not.exist");
+
+    cy.get("button").contains("Set 3 items").click();
+
+    cy.field("items[0]").should("exist");
+    cy.field("items[1]").should("exist");
+    cy.field("items[2]").should("exist");
+    cy.field("items[3]").should("not.exist");
+  });
 });

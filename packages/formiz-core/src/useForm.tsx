@@ -68,19 +68,17 @@ export const useForm = <Values extends object = any>(
 export const useOnCollectionsChange = (
   useStore?: UseBoundStore<StoreApi<Store>>
 ) => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
   const prevCollectionsCountRef = useRef(-1);
+
   useStore?.((state) => {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      const collectionsCount = state.collections.size;
-      if (
-        prevCollectionsCountRef.current !== -1 &&
-        collectionsCount === prevCollectionsCountRef.current
-      )
-        return;
-      prevCollectionsCountRef.current = collectionsCount;
-    });
+    const collectionsCount = state.collections.size;
+    if (
+      prevCollectionsCountRef.current !== -1 &&
+      collectionsCount === prevCollectionsCountRef.current
+    ) {
+      return prevCollectionsCountRef.current;
+    }
+    prevCollectionsCountRef.current = collectionsCount;
     return prevCollectionsCountRef.current;
   });
 };
