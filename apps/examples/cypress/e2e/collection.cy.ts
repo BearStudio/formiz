@@ -92,6 +92,20 @@ describe("Collection", () => {
     cy.field("members[1].company").hasValue("Initial Company (2)");
   });
 
+  it("Default values", () => {
+    cy.get("button").contains("Display").click();
+
+    cy.field("conditioned[0]").hasValue("default value");
+    cy.field("conditioned[1]").should("not.exist");
+
+    cy.get("button").contains("Add item").click();
+
+    cy.field("conditioned[1]").should("exist");
+
+    cy.get("button").contains("Reset form").click();
+    cy.field("conditioned[1]").should("not.exist");
+  });
+
   it("Reset with new members", () => {
     cy.field("members[0].name").hasValue("Default name (1)");
     cy.field("members[0].company").hasValue("Initial Company (1)");

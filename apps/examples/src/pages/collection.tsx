@@ -23,7 +23,6 @@ import { useState } from "react";
 const DEFAULT_VALUES = {
   members: [{ name: "Default name (1)" }, { company: "Default company (2)" }],
 };
-
 const INITIAL_VALUES = {
   members: [
     { company: "Initial Company (1)" },
@@ -290,7 +289,9 @@ const Collection = () => {
 };
 
 const ConditionedCollection = () => {
-  const conditionedCollection = useCollection("conditioned");
+  const conditionedCollection = useCollection("conditioned", {
+    defaultValue: ["default value"],
+  });
 
   return (
     <Stack flex={1}>
