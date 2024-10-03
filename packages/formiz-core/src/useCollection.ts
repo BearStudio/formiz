@@ -72,6 +72,12 @@ export const useCollection = <Data = unknown>(
       );
     }
 
+    if (!initialValues && !!defaultValue && !Array.isArray(defaultValue)) {
+      console.error(
+        `Default value for the collection "${name}" is not an array! Fallback to an empty array.`
+      );
+    }
+
     const initialValuesArray = Array.isArray(initialValues)
       ? initialValues
       : Array.isArray(defaultValue)

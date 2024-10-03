@@ -58,8 +58,12 @@ export const useForm = <Values extends object = any>(
     }
   }, [formActions, formConfig?.ready]);
 
+  const formStateRef = useRef(formState);
+  formStateRef.current = formState;
   useEffect(() => {
-    formActions.updateConfig(formConfigRef);
+    if (formConfig?.id && formConfig.id !== formStateRef.current.id) {
+      formActions.updateConfig(formConfigRef);
+    }
   }, [formActions, formConfig?.id]);
 
   return formState;

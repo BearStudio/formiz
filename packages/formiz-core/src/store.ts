@@ -242,15 +242,23 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 collection.name
               ) as NullablePartial<Values>[];
 
+              const storeResetDefaultValue = getValueByFieldName(
+                state.resetDefaultValues,
+                collection.name
+              );
+
+              const resetKeys =
+                (collectionFields ?? storeResetDefaultValue)?.map(
+                  (_, index) => collection.keys?.[index] ?? index.toString()
+                ) ?? [];
+
               state.collections.set(collectionId, {
                 name: collection.name,
                 isPristine: isResetAllowed("pristine", resetOptions)
                   ? true
                   : state.collections.get(collectionId)?.isPristine ?? true,
                 keys: isResetAllowed("values", resetOptions)
-                  ? collectionFields?.map(
-                      (_, index) => collection.keys?.[index] ?? index.toString()
-                    ) ?? []
+                  ? resetKeys
                   : state.collections.get(collectionId)?.keys ?? [],
               });
             });
@@ -713,7 +721,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
           };
 
           state.collections.set(collectionId, {
-            ...newCollection,
+            name: newCollection.name,
             keys: getKeys(),
             isPristine: oldCollectionById?.isPristine ?? true,
           });
