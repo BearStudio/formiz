@@ -55,25 +55,42 @@ export const formInterfaceSelector = <
     goToNextStep: state.actions.goToNextStep,
     goToPreviousStep: state.actions.goToPreviousStep,
 
-    collection: (fieldName) => {
+    collection: (collectionName) => {
       const currentCollection = Array.from(state.collections).find(
-        ([_, collection]) => collection.name === fieldName
+        ([_, collection]) => collection.name === collectionName
       );
       if (!currentCollection) {
-        return undefined;
+        return {
+          setKeys: state.actions.setCollectionKeys({
+            collectionName,
+          }),
+          set: state.actions.setCollectionValues({ collectionName }),
+          insertMultiple: state.actions.insertMultipleCollectionValues({
+            collectionName,
+          }),
+          insert: state.actions.insertCollectionValue({ collectionName }),
+          append: state.actions.appendCollectionValue({ collectionName }),
+          prepend: state.actions.prependCollectionValue({ collectionName }),
+          removeMultiple: state.actions.removeMultipleCollectionValues({
+            collectionName,
+          }),
+          remove: state.actions.removeCollectionValue({ collectionName }),
+        };
       }
-      const collectionId = currentCollection?.[0];
+      const collectionId = currentCollection[0];
       return {
-        setKeys: state.actions.setCollectionKeys(collectionId),
-        set: state.actions.setCollectionValues(collectionId),
-        insertMultiple:
-          state.actions.insertMultipleCollectionValues(collectionId),
-        insert: state.actions.insertCollectionValue(collectionId),
-        append: state.actions.appendCollectionValue(collectionId),
-        prepend: state.actions.prependCollectionValue(collectionId),
-        removeMultiple:
-          state.actions.removeMultipleCollectionValues(collectionId),
-        remove: state.actions.removeCollectionValue(collectionId),
+        setKeys: state.actions.setCollectionKeys({ collectionId }),
+        set: state.actions.setCollectionValues({ collectionId }),
+        insertMultiple: state.actions.insertMultipleCollectionValues({
+          collectionId,
+        }),
+        insert: state.actions.insertCollectionValue({ collectionId }),
+        append: state.actions.appendCollectionValue({ collectionId }),
+        prepend: state.actions.prependCollectionValue({ collectionId }),
+        removeMultiple: state.actions.removeMultipleCollectionValues({
+          collectionId,
+        }),
+        remove: state.actions.removeCollectionValue({ collectionId }),
       };
     },
 

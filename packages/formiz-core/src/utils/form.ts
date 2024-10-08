@@ -13,9 +13,13 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
+import lodashIsEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import lodashGet from "lodash/get";
 import lodashOmit from "lodash/omit";
+
+export const isArrayEmpty = (array: Array<unknown>) =>
+  array.every((item) => lodashIsEmpty(item));
 
 export const parseValues = <Values extends object = DefaultFormValues>(
   values: Values
@@ -40,7 +44,7 @@ const parseValuesName = (name: string, values: any): any => {
       const group = {
         ...(values[currentName] && isObject(values[currentName][currentIndex])
           ? values[currentName][currentIndex]
-          : {}),
+          : undefined),
         [otherNames.join(".")]: value,
       };
 
@@ -56,7 +60,7 @@ const parseValuesName = (name: string, values: any): any => {
   }
 
   const group = {
-    ...(isObject(values[current]) ? values[current] : {}),
+    ...(isObject(values[current]) ? values[current] : undefined),
     [otherNames.join(".")]: value,
   };
 
@@ -77,7 +81,7 @@ export const omitValueByFieldName = <Values = any>(
   values: Values,
   fieldName: string
 ): Partial<Values> | undefined => {
-  if (!values) {
+  if (!values || lodashIsEmpty(values)) {
     return undefined;
   }
   return lodashOmit(
@@ -140,10 +144,10 @@ export const getFieldFirstValue = ({
   if (externalValue !== undefined) {
     return externalValue;
   }
-  if (newField.value !== undefined) {
+  if (!!newField.value) {
     return newField.value;
   }
-  if (oldFieldById?.value !== undefined) {
+  if (!!oldFieldById?.value) {
     return oldFieldById.value;
   }
   if (keepValue !== undefined) {

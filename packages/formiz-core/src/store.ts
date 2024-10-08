@@ -17,11 +17,13 @@ import {
   getStepIsProcessing,
   getStepIsValid,
   getValueByFieldName,
+  isArrayEmpty,
   isResetAllowed,
   omitValueByFieldName,
   parseValues,
 } from "@/utils/form";
 import type {
+  CollectionActionProps,
   DefaultFormValues,
   FormatValue,
   GetFieldSetValueOptions,
@@ -31,6 +33,7 @@ import type {
 } from "@/types";
 import { formInterfaceSelector } from "@/selectors";
 import { getFieldValidationsErrors } from "@/utils/validations";
+import { insertItemsAtIndex, removeItemsAtIndexes } from "@/utils/collection";
 
 export const createStore = <Values extends object = DefaultFormValues>(
   defaultState?: StoreInitialState<Values>
@@ -693,26 +696,27 @@ export const createStore = <Values extends object = DefaultFormValues>(
             state.initialValues,
             newCollection.name
           );
-          const hasInitialValues = Array.isArray(initialValues)
-            ? !!initialValues?.length
-            : false;
+          const externalValues = lodashGet(
+            state.externalValues,
+            newCollection.name
+          );
 
           const collectionDefaultValues = newCollection.defaultValues;
-
-          if (!hasInitialValues) {
-            state.actions.setDefaultValues({
-              [newCollection.name]: collectionDefaultValues ?? [],
-            } as NullablePartial<Values>);
-          }
 
           const getKeys = () => {
             if (oldCollectionById?.keys !== undefined) {
               return oldCollectionById.keys;
             }
+            if (Array.isArray(externalValues) && externalValues !== undefined) {
+              return externalValues?.map((_, index) => index.toString());
+            }
             if (Array.isArray(initialValues) && initialValues !== undefined) {
               return initialValues?.map((_, index) => index.toString());
             }
             if (collectionDefaultValues !== undefined) {
+              state.actions.setDefaultValues({
+                [newCollection.name]: collectionDefaultValues ?? [],
+              } as NullablePartial<Values>);
               return collectionDefaultValues?.map((_, index) =>
                 index.toString()
               );
@@ -726,98 +730,153 @@ export const createStore = <Values extends object = DefaultFormValues>(
             isPristine: oldCollectionById?.isPristine ?? true,
           });
 
-          return { collections: state.collections };
+          let newInitialValues = state.initialValues;
+          let newExternalValues = state.externalValues;
+
+          if (Array.isArray(initialValues) && isArrayEmpty(initialValues)) {
+            newInitialValues =
+              omitValueByFieldName(newInitialValues, newCollection.name) ?? {};
+          }
+          if (Array.isArray(externalValues) && isArrayEmpty(externalValues)) {
+            newExternalValues =
+              omitValueByFieldName(newExternalValues, newCollection.name) ?? {};
+          }
+
+          return {
+            collections: state.collections,
+            externalValues: newExternalValues,
+            initialValues: newInitialValues,
+          };
         });
       },
 
       unregisterCollection: (collectionId) => {
         set((state) => {
+          const collection = state.collections.get(collectionId);
+          let externalValues = cloneDeep(state.externalValues);
+          if (collection) {
+            externalValues =
+              omitValueByFieldName(externalValues, collection?.name) ?? {};
+          }
           state.collections.delete(collectionId);
 
-          return { collections: state.collections };
+          return { collections: state.collections, externalValues };
         });
       },
 
-      setCollectionKeys: (collectionId) => (keys, options) => {
-        set((state) => {
-          const currentCollection = state.collections.get(collectionId);
-
-          if (!currentCollection) {
-            throw new Error(
-              `Collection ${collectionId} not found • setCollectionKeys`
-            );
-          }
-
-          state.collections.set(collectionId, {
-            ...currentCollection,
-            isPristine: options?.keepPristine
-              ? currentCollection.isPristine
-              : false,
-            keys:
-              typeof keys === "function" ? keys(currentCollection.keys) : keys,
-          });
-
-          return {
-            collections: state.collections,
-          };
-        });
-      },
-
-      setCollectionValues: (collectionId) => (values, options) => {
-        set((state) => {
-          const currentCollection = state.collections.get(collectionId);
-
-          if (!currentCollection) {
-            throw new Error(
-              `Collection ${collectionId} not found • setCollectionValues`
-            );
-          }
-
-          get().actions.setValues(
-            { [currentCollection.name]: values } as Partial<Values>,
-            options
-          );
-          get().actions.setCollectionKeys(collectionId)(
-            (oldKeys) =>
-              values.map((_, index) => oldKeys?.[index] ?? uid.rnd()),
-            options
-          );
-
-          return {
-            collections: state.collections,
-          };
-        });
-      },
-
-      insertMultipleCollectionValues:
-        (collectionId) => (index, values, options) => {
+      setCollectionKeys:
+        ({ collectionId, collectionName }) =>
+        (keys, options) => {
           set((state) => {
+            if (collectionName && typeof keys === "object") {
+              return {
+                externalValues: lodashMerge(cloneDeep(state.externalValues), {
+                  [collectionName]: keys.map(() => null),
+                }),
+              };
+            }
+
+            if (!collectionId) {
+              throw new Error(`collectionId not provided • setCollectionKeys`);
+            }
+
             const currentCollection = state.collections.get(collectionId);
 
+            if (!currentCollection) {
+              throw new Error(
+                `Collection ${collectionId} not found • setCollectionKeys`
+              );
+            }
+
+            state.collections.set(collectionId, {
+              ...currentCollection,
+              isPristine: options?.keepPristine
+                ? currentCollection.isPristine
+                : false,
+              keys:
+                typeof keys === "function"
+                  ? keys(currentCollection.keys)
+                  : keys,
+            });
+
+            return {
+              collections: state.collections,
+            };
+          });
+        },
+
+      setCollectionValues:
+        ({ collectionId, collectionName }) =>
+        (values, options) => {
+          set((state) => {
+            get().actions.setValues(
+              {
+                [collectionId
+                  ? (state.collections.get(collectionId)?.name as string)
+                  : (collectionName as string)]: values,
+              } as Partial<Values>,
+              options
+            );
+
+            if (!!collectionId) {
+              get().actions.setCollectionKeys({
+                collectionId,
+                collectionName,
+              })(
+                (oldKeys) =>
+                  values.map((_, index) => oldKeys?.[index] ?? uid.rnd()),
+                options
+              );
+            }
+
+            return {
+              collections: state.collections,
+            };
+          });
+        },
+
+      insertMultipleCollectionValues:
+        ({ collectionId, collectionName }) =>
+        (index, values, options) => {
+          set((state) => {
+            if (collectionName && Array.isArray(values)) {
+              const currentExternalValues = lodashGet(
+                state.externalValues,
+                collectionName
+              );
+              const { newValues } = insertItemsAtIndex({
+                source: values,
+                target: currentExternalValues,
+                index,
+                hasToOverrideOldValues: true,
+              });
+              return {
+                externalValues: lodashMerge(cloneDeep(state.externalValues), {
+                  [collectionName]: newValues,
+                }),
+              };
+            }
+
+            if (!collectionId) {
+              throw new Error(`collectionId not provided • setCollectionKeys`);
+            }
+
+            const currentCollection = state.collections.get(collectionId);
             if (!currentCollection) {
               throw new Error(
                 `Collection ${collectionId} not found • insertMultipleCollectionValues`
               );
             }
 
-            state.actions.setCollectionKeys(collectionId)((oldKeys) => {
-              const computedIndex =
-                index < 0 ? oldKeys.length + 1 + index : index;
-              const keysToInsert = Array.from(
-                { length: values?.length ?? 0 },
-                () => uid.rnd()
-              );
-              const newKeys = [
-                ...(oldKeys || []).slice(0, computedIndex),
-                ...keysToInsert,
-                ...(oldKeys || []).slice(computedIndex),
-              ];
-
-              const newValues = [
-                ...(oldKeys || []).slice(0, computedIndex).map(() => undefined),
-                ...(values ?? []),
-                ...(oldKeys || []).slice(computedIndex).map(() => undefined),
-              ];
+            state.actions.setCollectionKeys({
+              collectionId,
+              collectionName,
+            })((oldKeys) => {
+              const { newKeys, newValues } = insertItemsAtIndex({
+                source: values,
+                target: oldKeys,
+                index,
+              });
 
               setTimeout(() => {
                 get().actions.setValues(
@@ -833,64 +892,109 @@ export const createStore = <Values extends object = DefaultFormValues>(
           });
         },
 
-      insertCollectionValue: (collectionId) => (index, value, options) => {
-        set((state) => {
-          state.actions.insertMultipleCollectionValues(collectionId)(
-            index,
-            [value],
-            options
-          );
-          return { collections: state.collections };
-        });
-      },
+      insertCollectionValue:
+        ({ collectionId, collectionName }) =>
+        (index, value, options) => {
+          set((state) => {
+            state.actions.insertMultipleCollectionValues({
+              collectionId,
+              collectionName,
+            } as CollectionActionProps)(index, [value], options);
+            return { collections: state.collections };
+          });
+        },
 
-      prependCollectionValue: (collectionId) => (value, options) => {
-        set((state) => {
-          state.actions.insertMultipleCollectionValues(collectionId)(
-            0,
-            [value ?? null],
-            options
-          );
-          return { collections: state.collections };
-        });
-      },
+      prependCollectionValue:
+        ({ collectionId, collectionName }) =>
+        (value, options) => {
+          set((state) => {
+            state.actions.insertMultipleCollectionValues({
+              collectionId,
+              collectionName,
+            } as CollectionActionProps)(0, [value ?? null], options);
+            return { collections: state.collections };
+          });
+        },
 
-      appendCollectionValue: (collectionId) => (value, options) => {
-        set((state) => {
-          state.actions.insertMultipleCollectionValues(collectionId)(
-            -1,
-            [value ?? null],
-            options
-          );
+      appendCollectionValue:
+        ({ collectionId, collectionName }) =>
+        (value, options) => {
+          set((state) => {
+            if (collectionName) {
+              const currentExternalValues = lodashGet(
+                state.externalValues,
+                collectionName
+              );
+              const { newValues } = insertItemsAtIndex({
+                source: [value ?? null],
+                target: currentExternalValues,
+                index: -1,
+              });
+              return {
+                externalValues: lodashMerge(cloneDeep(state.externalValues), {
+                  [collectionName]: newValues,
+                }),
+              };
+            }
 
-          return { collections: state.collections };
-        });
-      },
+            if (!collectionId) {
+              throw new Error(`collectionId not provided • setCollectionKeys`);
+            }
+            state.actions.insertMultipleCollectionValues({
+              collectionId,
+              collectionName,
+            })(-1, [value ?? null], options);
 
-      removeMultipleCollectionValues: (collectionId) => (indexes, options) => {
-        set((state) => {
-          state.actions.setCollectionKeys(collectionId)((oldKeys) => {
-            const computedIndexes = indexes.map((index) =>
-              index < 0 ? oldKeys.length + index : index
-            );
-            return oldKeys.filter(
-              (_, index) => !computedIndexes.includes(index)
-            );
-          }, options);
+            return { collections: state.collections };
+          });
+        },
 
-          return { collections: state.collections };
-        });
-      },
+      removeMultipleCollectionValues:
+        ({ collectionId, collectionName }) =>
+        (indexes, options) => {
+          set((state) => {
+            if (collectionName) {
+              const currentExternalValues = lodashGet(
+                state.externalValues,
+                collectionName
+              );
+              const newValues = removeItemsAtIndexes({
+                source: currentExternalValues,
+                indexes,
+              });
+              return {
+                externalValues: lodashMerge(cloneDeep(state.externalValues), {
+                  [collectionName]: newValues,
+                }),
+              };
+            }
 
-      removeCollectionValue: (collectionId) => (index, options) => {
-        set((state) => {
-          state.actions.removeMultipleCollectionValues(collectionId)(
-            [index],
-            options
-          );
+            if (!collectionId) {
+              throw new Error(`collectionId not provided • setCollectionKeys`);
+            }
 
-          return { collections: state.collections };
-        });
-      },
+            state.actions.setCollectionKeys({
+              collectionId,
+              collectionName,
+            })((oldKeys) => {
+              return removeItemsAtIndexes({ indexes, source: oldKeys });
+            }, options);
+
+            return { collections: state.collections };
+          });
+        },
+
+      removeCollectionValue:
+        ({ collectionId, collectionName }) =>
+        (index, options) => {
+          set((state) => {
+            state.actions.removeMultipleCollectionValues({
+              collectionId,
+              collectionName,
+            } as CollectionActionProps)([index], options);
+
+            return { collections: state.collections };
+          });
+        },
     },
   }));
