@@ -13,9 +13,14 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
+import lodashSet from "lodash/set";
+import lodashIsEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import lodashGet from "lodash/get";
 import lodashOmit from "lodash/omit";
+
+export const isArrayEmpty = (array: Array<unknown>) =>
+  array.every((item) => lodashIsEmpty(item));
 
 export const parseValues = <Values extends object = DefaultFormValues>(
   values: Values
@@ -40,7 +45,7 @@ const parseValuesName = (name: string, values: any): any => {
       const group = {
         ...(values[currentName] && isObject(values[currentName][currentIndex])
           ? values[currentName][currentIndex]
-          : {}),
+          : undefined),
         [otherNames.join(".")]: value,
       };
 
@@ -56,7 +61,7 @@ const parseValuesName = (name: string, values: any): any => {
   }
 
   const group = {
-    ...(isObject(values[current]) ? values[current] : {}),
+    ...(isObject(values[current]) ? values[current] : undefined),
     [otherNames.join(".")]: value,
   };
 
@@ -77,9 +82,21 @@ export const omitValueByFieldName = <Values = any>(
   values: Values,
   fieldName: string
 ): Partial<Values> | undefined => {
-  if (!values) {
+  if (!values || lodashIsEmpty(values)) {
     return undefined;
   }
+
+  const isArraySyntax = fieldName.match(/\[([0-9]*)\]$/g);
+  if (isArraySyntax) {
+    // To manage case of collection where typeof collection[index] === "string" and the case of omit remove an item of the array
+    const currentValue = parseValues(cloneDeep(values));
+
+    // If there is a value, we replace it by undefined instead of remove item
+    return lodashGet(currentValue, fieldName)
+      ? lodashSet(currentValue, fieldName, undefined)
+      : currentValue;
+  }
+
   return lodashOmit(
     parseValues(cloneDeep(values)),
     fieldName
@@ -140,10 +157,10 @@ export const getFieldFirstValue = ({
   if (externalValue !== undefined) {
     return externalValue;
   }
-  if (newField.value !== undefined) {
+  if (!!newField.value) {
     return newField.value;
   }
-  if (oldFieldById?.value !== undefined) {
+  if (!!oldFieldById?.value) {
     return oldFieldById.value;
   }
   if (keepValue !== undefined) {

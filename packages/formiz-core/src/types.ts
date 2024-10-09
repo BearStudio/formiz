@@ -316,6 +316,10 @@ export type StoreInitialState<Values extends object = DefaultFormValues> = {
 
 export type SetValuesOptions = { keepPristine?: boolean };
 
+export type CollectionActionProps =
+  | { collectionId: string; collectionName?: never }
+  | { collectionId?: never; collectionName: string };
+
 export interface Store<Values extends object = DefaultFormValues> {
   ready: boolean;
   connected: boolean;
@@ -402,31 +406,31 @@ export interface Store<Values extends object = DefaultFormValues> {
     unregisterCollection(collectionId: string): void;
 
     setCollectionKeys(
-      collectionId: string
+      props: CollectionActionProps
     ): (
       keys: CollectionKey[] | ((oldKeys: CollectionKey[]) => CollectionKey[]),
       options?: SetValuesOptions
     ) => void;
     setCollectionValues(
-      collectionId: string
+      props: CollectionActionProps
     ): (values: unknown[], options?: SetValuesOptions) => void;
     insertMultipleCollectionValues(
-      collectionId: string
+      props: CollectionActionProps
     ): (index: number, values?: unknown[], options?: SetValuesOptions) => void;
     insertCollectionValue(
-      collectionId: string
+      props: CollectionActionProps
     ): (index: number, value?: unknown, options?: SetValuesOptions) => void;
     prependCollectionValue(
-      collectionId: string
+      props: CollectionActionProps
     ): (value: unknown, options?: SetValuesOptions) => void;
     appendCollectionValue(
-      collectionId: string
+      props: CollectionActionProps
     ): (value: unknown, options?: SetValuesOptions) => void;
     removeMultipleCollectionValues(
-      collectionId: string
+      props: CollectionActionProps
     ): (indexes: number[], options?: SetValuesOptions) => void;
     removeCollectionValue(
-      collectionId: string
+      props: CollectionActionProps
     ): (index: number, options?: SetValuesOptions) => void;
   };
 }

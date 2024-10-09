@@ -28,6 +28,7 @@ const INITIAL_VALUES = {
     { company: "Initial Company (1)" },
     { name: "Initial Name (2)", company: "Initial Company (2)" },
   ],
+  conditioned: ["Initial value (1)", "Initial value (2)"],
 };
 
 type FormValues = any;
@@ -290,7 +291,7 @@ const Collection = () => {
 
 const ConditionedCollection = () => {
   const conditionedCollection = useCollection("conditioned", {
-    defaultValue: ["default value"],
+    defaultValue: ["Default value"],
   });
 
   return (

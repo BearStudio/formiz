@@ -68,7 +68,8 @@ export const useCollection = <Data = unknown>(
       !Array.isArray(initialValues)
     ) {
       console.error(
-        `Formiz initial values for the field "${name}" is not an array! Fallback to an empty array.`
+        `Formiz initial values for the field "${name}" is not an array! Fallback to an empty array.`,
+        { initialValues }
       );
     }
 
@@ -98,14 +99,18 @@ export const useCollection = <Data = unknown>(
 
   const collectionActions = useMemo(
     () => ({
-      setKeys: storeActions.setCollectionKeys(collectionId),
-      set: storeActions.setCollectionValues(collectionId),
-      insertMultiple: storeActions.insertMultipleCollectionValues(collectionId),
-      insert: storeActions.insertCollectionValue(collectionId),
-      prepend: storeActions.prependCollectionValue(collectionId),
-      append: storeActions.appendCollectionValue(collectionId),
-      removeMultiple: storeActions.removeMultipleCollectionValues(collectionId),
-      remove: storeActions.removeCollectionValue(collectionId),
+      setKeys: storeActions.setCollectionKeys({ collectionId }),
+      set: storeActions.setCollectionValues({ collectionId }),
+      insertMultiple: storeActions.insertMultipleCollectionValues({
+        collectionId,
+      }),
+      insert: storeActions.insertCollectionValue({ collectionId }),
+      prepend: storeActions.prependCollectionValue({ collectionId }),
+      append: storeActions.appendCollectionValue({ collectionId }),
+      removeMultiple: storeActions.removeMultipleCollectionValues({
+        collectionId,
+      }),
+      remove: storeActions.removeCollectionValue({ collectionId }),
     }),
     [storeActions, collectionId]
   );
