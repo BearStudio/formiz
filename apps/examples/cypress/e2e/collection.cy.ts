@@ -92,17 +92,24 @@ describe("Collection", () => {
     cy.field("members[1].company").hasValue("Initial Company (2)");
   });
 
-  it("Default values", () => {
+  it("Mounted/Unmounted collection", () => {
     cy.get("button").contains("Display").click();
 
-    cy.field("conditioned[0]").hasValue("default value");
-    cy.field("conditioned[1]").should("not.exist");
+    cy.field("conditioned[0]").hasValue("Initial value (1)");
+    cy.field("conditioned[1]").hasValue("Initial value (2)");
+    cy.field("conditioned[2]").should("not.exist");
 
     cy.get("button").contains("Add item").click();
 
-    cy.field("conditioned[1]").should("exist");
+    cy.field("conditioned[2]").should("exist");
 
-    cy.get("button").contains("Reset form").click();
+    cy.get("button").contains("Hide").click();
+
+    cy.field("conditioned[0]").should("not.exist");
+
+    cy.get("button").contains("Display").click();
+
+    cy.field("conditioned[0]").hasValue("Default value");
     cy.field("conditioned[1]").should("not.exist");
   });
 
@@ -119,19 +126,6 @@ describe("Collection", () => {
     cy.field("members[0].company").hasValue("Initial Company (1)");
     cy.field("members[1].name").hasValue("Initial Name (2)");
     cy.field("members[1].company").hasValue("Initial Company (2)");
-  });
-
-  it("Unmounted collection", () => {
-    cy.get('[data-test="conditioned[0]"').should("not.exist");
-
-    cy.get("button").contains("Display").click();
-    cy.get("button").contains("Add item").click();
-
-    cy.field("conditioned[0]").should("exist");
-
-    cy.get("button").contains("Hide").click();
-
-    cy.get('[data-test="conditioned[0]"').should("not.exist");
   });
 
   it("Managed from form collection", () => {
