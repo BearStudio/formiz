@@ -8,6 +8,7 @@ import type {
   DefaultFormValues,
   useFormProps,
 } from "@/types";
+import { useCollection, UseCollectionValues } from "@/useCollection";
 import {
   getFormIsValid,
   getFormIsPristine,
@@ -179,18 +180,14 @@ export interface FormInterface<Values extends object = DefaultFormValues> {
 
   collection: (fieldName: string) =>
     | {
-        setKeys: ReturnType<Store<any>["actions"]["setCollectionKeys"]>;
-        set: ReturnType<Store<any>["actions"]["setCollectionValues"]>;
-        insertMultiple: ReturnType<
-          Store<any>["actions"]["insertMultipleCollectionValues"]
-        >;
-        insert: ReturnType<Store<any>["actions"]["insertCollectionValue"]>;
-        append: ReturnType<Store<any>["actions"]["appendCollectionValue"]>;
-        prepend: ReturnType<Store<any>["actions"]["prependCollectionValue"]>;
-        removeMultiple: ReturnType<
-          Store<any>["actions"]["removeMultipleCollectionValues"]
-        >;
-        remove: ReturnType<Store<any>["actions"]["removeCollectionValue"]>;
+        setKeys: UseCollectionValues["setKeys"];
+        set: UseCollectionValues["set"];
+        insertMultiple: UseCollectionValues["insertMultiple"];
+        insert: UseCollectionValues["insert"];
+        append: UseCollectionValues["append"];
+        prepend: UseCollectionValues["prepend"];
+        removeMultiple: UseCollectionValues["removeMultiple"];
+        remove: UseCollectionValues["remove"];
       }
     | undefined;
 
