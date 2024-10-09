@@ -44,7 +44,7 @@ export const useField = <
     required: false,
     validations: [],
     validationsAsync: [],
-    formatValue: (v) => v as FormattedValue, // TODO: replace as
+    formatValue: (v) => v as FormattedValue,
     ...config,
   };
   const configRef = useRef(_config);

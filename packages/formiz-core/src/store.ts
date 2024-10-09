@@ -730,16 +730,15 @@ export const createStore = <Values extends object = DefaultFormValues>(
             isPristine: oldCollectionById?.isPristine ?? true,
           });
 
-          let newInitialValues = state.initialValues;
           let newExternalValues = state.externalValues;
-
-          if (Array.isArray(initialValues) && isArrayEmpty(initialValues)) {
-            newInitialValues =
-              omitValueByFieldName(newInitialValues, newCollection.name) ?? {};
-          }
           if (Array.isArray(externalValues) && isArrayEmpty(externalValues)) {
             newExternalValues =
               omitValueByFieldName(newExternalValues, newCollection.name) ?? {};
+          }
+          let newInitialValues = state.initialValues;
+          if (Array.isArray(initialValues) && isArrayEmpty(initialValues)) {
+            newInitialValues =
+              omitValueByFieldName(newInitialValues, newCollection.name) ?? {};
           }
 
           return {

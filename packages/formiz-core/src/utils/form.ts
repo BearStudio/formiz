@@ -13,6 +13,7 @@ import type {
 } from "@/types";
 import { isObject } from "@/utils/global";
 
+import lodashSet from "lodash/set";
 import lodashIsEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import lodashGet from "lodash/get";
@@ -84,6 +85,18 @@ export const omitValueByFieldName = <Values = any>(
   if (!values || lodashIsEmpty(values)) {
     return undefined;
   }
+
+  const isArraySyntax = fieldName.match(/\[([0-9]*)\]$/g);
+  if (isArraySyntax) {
+    // To manage case of collection where typeof collection[index] === "string" and the case of omit remove an item of the array
+    const currentValue = parseValues(cloneDeep(values));
+
+    // If there is a value, we replace it by undefined instead of remove item
+    return lodashGet(currentValue, fieldName)
+      ? lodashSet(currentValue, fieldName, undefined)
+      : currentValue;
+  }
+
   return lodashOmit(
     parseValues(cloneDeep(values)),
     fieldName
