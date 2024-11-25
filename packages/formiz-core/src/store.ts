@@ -25,6 +25,7 @@ import {
 import type {
   CollectionActionProps,
   DefaultFormValues,
+  Field,
   FormatValue,
   GetFieldSetValueOptions,
   NullablePartial,
