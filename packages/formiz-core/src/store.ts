@@ -770,7 +770,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             if (collectionName && typeof keys === "object") {
               return {
                 externalValues: lodashMerge(cloneDeep(state.externalValues), {
-                  [collectionName]: keys.map(() => null),
+                  [collectionName]: keys.map(() => undefined),
                 }),
               };
             }
@@ -910,7 +910,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             state.actions.insertMultipleCollectionValues({
               collectionId,
               collectionName,
-            } as CollectionActionProps)(0, [value ?? null], options);
+            } as CollectionActionProps)(0, [value ?? undefined], options);
             return { collections: state.collections };
           });
         },
@@ -925,7 +925,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 collectionName
               );
               const { newValues } = insertItemsAtIndex({
-                source: [value ?? null],
+                source: [value ?? undefined],
                 target: currentExternalValues,
                 index: -1,
               });
@@ -942,7 +942,7 @@ export const createStore = <Values extends object = DefaultFormValues>(
             state.actions.insertMultipleCollectionValues({
               collectionId,
               collectionName,
-            })(-1, [value ?? null], options);
+            })(-1, [value ?? undefined], options);
 
             return { collections: state.collections };
           });
