@@ -45,10 +45,10 @@ describe("Collection", () => {
   });
 
   it("Remove all items", () => {
-    cy.get('[data-test="collection-item[1]"] [aria-label="Delete"]').click();
+    cy.get('[aria-label="Delete member 1"]').click();
     cy.get('[data-test="collection-item[1]').should("not.exist");
 
-    cy.get('[data-test="collection-item[0]"] [aria-label="Delete"]').click();
+    cy.get('[aria-label="Delete member 0"]').click();
     cy.get('[data-test="collection-item[0]').should("not.exist");
 
     cy.formSubmit();
@@ -60,7 +60,7 @@ describe("Collection", () => {
     cy.field("members[1].name").fill("John");
     cy.field("members[2].name").fill("Doe");
 
-    cy.get('[data-test="collection-item[2]"] [aria-label="Delete"]').click();
+    cy.get('[aria-label="Delete member 2"]').click();
     cy.field("members[1].name").hasValue("John");
   });
 
@@ -69,7 +69,7 @@ describe("Collection", () => {
     cy.field("members[1].name").fill("John");
     cy.field("members[2].name").fill("Doe");
 
-    cy.get('[data-test="collection-item[1]"] [aria-label="Delete"]').click();
+    cy.get('[aria-label="Delete member 1"]').click();
     cy.field("members[1].name").hasValue("Doe");
   });
 
@@ -90,6 +90,13 @@ describe("Collection", () => {
     cy.field("members[0].company").hasValue("Initial Company (1)");
     cy.field("members[1].name").hasValue("Initial Name (2)");
     cy.field("members[1].company").hasValue("Initial Company (2)");
+
+    // Check that new item don't recover already consumed initial values
+    cy.get('[data-test="collection-item[0]"] [aria-label="Add"]').click();
+    cy.field("members[2].name").hasValue("Initial Name (2)");
+    cy.field("members[2].company").hasValue("Initial Company (2)");
+    cy.field("members[1].name").hasValue("");
+    cy.field("members[1].company").hasValue("Default company (2)");
   });
 
   it("Mounted/Unmounted collection", () => {
@@ -147,5 +154,22 @@ describe("Collection", () => {
     cy.field("items[1]").should("exist");
     cy.field("items[2]").should("exist");
     cy.field("items[3]").should("not.exist");
+  });
+
+  it("Remove primary data collection item", () => {
+    cy.get("button").contains("Display").click();
+
+    cy.field("conditioned[0]").hasValue("Initial value (1)");
+    cy.field("conditioned[1]").hasValue("Initial value (2)");
+    cy.field("conditioned[2]").should("not.exist");
+
+    cy.get("button").contains("Add item").click();
+    cy.get("button").contains("Add item").click();
+
+    cy.field("conditioned[3]").should("exist").type("new value");
+
+    cy.get('[aria-label="Delete conditioned 2"]').click();
+
+    cy.field("conditioned[2]").hasValue("new value");
   });
 });

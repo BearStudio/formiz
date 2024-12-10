@@ -49,7 +49,6 @@ export const formInterfaceSelector = <
     },
     reset: (options?: ResetOptions) => {
       state.actions.reset(options);
-      state.actions.resetInitialValues();
     },
     submitStep: state.actions.submitStep,
     goToStep: state.actions.goToStep,

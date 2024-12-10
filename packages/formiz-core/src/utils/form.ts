@@ -160,7 +160,7 @@ export const getFieldFirstValue = ({
   if (!!newField.value) {
     return newField.value;
   }
-  if (!!oldFieldById?.value) {
+  if (oldFieldById?.value !== undefined) {
     return oldFieldById.value;
   }
   if (keepValue !== undefined) {
