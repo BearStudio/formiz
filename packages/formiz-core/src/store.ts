@@ -364,24 +364,6 @@ export const createStore = <Values extends object = DefaultFormValues>(
         });
       },
 
-      resetInitialValues: () => {
-        set((state) => {
-          let initialValues = cloneDeep(
-            state.formConfigRef.current?.initialValues
-          );
-
-          setTimeout(() => {
-            state.fields.forEach((field) => {
-              initialValues = omitValueByFieldName(initialValues, field.name);
-            });
-          });
-
-          return {
-            initialValues,
-          };
-        });
-      },
-
       // FIELDS
       registerField: (
         fieldId,

@@ -361,7 +361,6 @@ export interface Store<Values extends object = DefaultFormValues> {
       >
     ): void;
     reset(options?: ResetOptions): void;
-    resetInitialValues(): void;
 
     registerField<Value = unknown, FormattedValue = Value>(
       fieldId: string,

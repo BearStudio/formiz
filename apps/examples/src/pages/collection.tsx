@@ -97,7 +97,7 @@ const Collection = () => {
               </Box>
               <Box pt="8">
                 <IconButton
-                  aria-label="Delete"
+                  aria-label={`Delete member ${index}`}
                   icon={<Icon as={FiTrash2} />}
                   onClick={() => collection.remove(index)}
                   variant="ghost"
@@ -303,7 +303,7 @@ const ConditionedCollection = () => {
             label={`Conditioned ${index}`}
           />
           <IconButton
-            aria-label="Delete"
+            aria-label={`Delete conditioned ${index}`}
             icon={<Icon as={FiTrash2} />}
             onClick={() => conditionedCollection.remove(index)}
             variant="ghost"
