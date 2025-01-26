@@ -152,6 +152,7 @@ export interface ExposedFieldState<Value = unknown, FormattedValue = Value>
     | "isValidating"
     | "isExternalProcessing"
     | "isDebouncing"
+    | "stepName"
   > {
   value: FieldValue<Value> | undefined;
   /**

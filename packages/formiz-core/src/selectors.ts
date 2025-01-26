@@ -275,6 +275,7 @@ export const fieldInterfaceSelector =
       isProcessing,
       isReady: state.ready,
       resetKey: state.form.resetKey,
+      stepName: fieldStep?.name,
     };
   };
 

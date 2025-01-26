@@ -14,6 +14,7 @@ import {
   getFormValues,
 } from "@/utils/form";
 import { deepEqual } from "fast-equals";
+import { useFormizContext } from "@/FormizProvider";
 
 export const useForm = <Values extends object = any>(
   formConfig?: useFormProps<Values>
@@ -37,6 +38,26 @@ export const useForm = <Values extends object = any>(
     });
   }
   const useStore = useStoreRef.current;
+
+  const formizContext = useFormizContext();
+  const registerStoreRef = useRef(formizContext.registerStore);
+  registerStoreRef.current = formizContext.registerStore;
+  const unregisterStoreRef = useRef(formizContext.unregisterStore);
+  unregisterStoreRef.current = formizContext.unregisterStore;
+
+  useEffect(() => {
+    console.log("cc");
+    if (!useStoreRef.current) {
+      return;
+    }
+    registerStoreRef.current(useStoreRef.current);
+    return () => {
+      if (!useStoreRef.current) {
+        return;
+      }
+      unregisterStoreRef.current(useStoreRef.current);
+    };
+  }, []);
 
   useOnValuesChange(useStore);
   useIsValidChange(useStore);
