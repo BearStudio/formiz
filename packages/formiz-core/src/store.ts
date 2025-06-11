@@ -231,10 +231,6 @@ export const createStore = <Values extends object = DefaultFormValues>(
 
       reset: (resetOptions) => {
         set((state) => {
-          let initialValues = cloneDeep(
-            state.formConfigRef.current?.initialValues
-          );
-
           if (
             isResetAllowed("values", resetOptions) ||
             isResetAllowed("pristine", resetOptions)
@@ -266,6 +262,10 @@ export const createStore = <Values extends object = DefaultFormValues>(
               });
             });
           }
+
+          let initialValues = cloneDeep(
+            state.formConfigRef.current?.initialValues
+          );
 
           state.fields.forEach((field) => {
             const initialValue = getValueByFieldName(initialValues, field.name);
@@ -357,7 +357,9 @@ export const createStore = <Values extends object = DefaultFormValues>(
                 ? false
                 : step.isVisited,
             })),
-            initialValues,
+            initialValues: isResetAllowed("values", resetOptions)
+              ? initialValues
+              : state.initialValues,
             externalValues: {},
             keepValues: {},
           };
